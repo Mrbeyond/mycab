@@ -15,22 +15,22 @@ const data = [{
   },
   {
     id: "admins",
-    icon: "simple-icon-pie-chart",
+    icon: "simple-icon-user",
     label: "menu.admins",
     to: `${adminRoot}/dashboards/admins`,
     // roles: [UserRole.Admin],
     subs: [{
-      icon: "simple-icon-bus",
+      icon: "simple-icon-speedometer",
       label: "menu.vehicle-tags",
       to: `${adminRoot}/dashboards/admins/vehicle-tags`
     },
     {
-      icon: "simple-icon-arrow-right",
+      icon: "simple-icon-notebook",
       label: "menu.terminals",
       to: `${adminRoot}/dashboards/admins/terminals`
     },
     {
-      icon: "simple-icon-arrow-right",
+      icon: "simple-icon-people",
       label: "menu.agents-list",
       to: `${adminRoot}/dashboards/admins/agents`
     },
@@ -40,7 +40,7 @@ const data = [{
       to: `${adminRoot}/dashboards/admins/admins`
     },
     {
-      icon: "simple-icon-page",
+      icon: "simple-icon-frame",
       label: "menu.account-cards",
       to: `${adminRoot}/dashboards/admins/cards`
     }
@@ -54,17 +54,17 @@ const data = [{
     to: `${adminRoot}/dashboards/agents`,
     // roles: [UserRole.Admin],
     subs: [{
-      icon: "simple-icon-bus",
+      icon: "simple-icon-people",
       label: "menu.agent-payers",
       to: `${adminRoot}/dashboards/agents/payers`
     },
     {
-      icon: "simple-icon-arrow-right",
+      icon: "simple-icon-speedometer",
       label: "menu.agent-vehicles",
       to: `${adminRoot}/dashboards/agents/vehicles`
     },
     {
-      icon: "simple-icon-arrow-right",
+      icon: "simple-icon-wallet",
       label: "menu.agent-wallet",
       to: `${adminRoot}/dashboards/agents/wallet`
     }
@@ -73,11 +73,11 @@ const data = [{
   {
     id: "payers",
     icon: "simple-icon-pie-chart",
-    label: "menu.agents",
-    to: `${adminRoot}/dashboards/agents`,
+    label: "menu.payers",
+    to: `${adminRoot}/dashboards/payers`,
     // roles: [UserRole.Admin],
     subs: [{
-      icon: "simple-icon-bus",
+      icon: "simple-icon-wallet",
       label: "menu.payer-wallet",
       to: `${adminRoot}/dashboards/payers/wallet`
     },
@@ -90,18 +90,6 @@ const data = [{
     label: "menu.analytics",
     to: `${adminRoot}/dashboards/analytics`,
     // roles: [UserRole.Admin],
-    subs: [{
-      icon: "simple-icon-briefcase",
-      label: "menuhjhjh",
-      to: `${adminRoot}/dashboards/nbhb`
-    },
-    {
-      icon: "simple-icon-arrow-right",
-      label: "menu.terminals",
-      to: `${adminRoot}/dashboards/ngfgfgbhb`
-    }
-
-    ]
   },
   {
     icon: "simple-icon-basket-loaded",
