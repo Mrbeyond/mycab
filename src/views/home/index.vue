@@ -60,11 +60,12 @@
                     <a @click="scrollTo('#themes')" href="javascript:;">THEMES</a>
                   </li>
                   <li class="nav-item pl-4">
-                    <a
-                      class="btn btn-outline-semi-light btn-sm pr-4 pl-4"
-                      target="_blank"
-                      :href="buyUrl"
-                    >BUY</a>
+                    <i class="fas fa-user-plus"></i>
+                    <router-link to="/user/register">Register</router-link>
+                  </li>
+                  <li class="nav-item pl-4">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <router-link to="/user/login">login</router-link>
                   </li>
                 </ul>
                 <span
@@ -107,7 +108,7 @@
                       <br />
                       <br />Hope you enjoy it!
                     </p>
-                    <a class="btn btn-light btn-xl mr-2 mb-2" :href="adminRoot" target="_blank">
+                    <a class="btn btn-light btn-xl mr-2 mb-2" :href="adminRoot" >
                       VIEW NOW
                       <i class="simple-icon-arrow-right"></i>
                     </a>
