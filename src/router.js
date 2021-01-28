@@ -49,6 +49,18 @@ const routes = [
             // meta: { roles: [UserRole.Editor] },
           },
           {
+            path: "vehicles",
+            component: () =>
+              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Vehicles"),
+            // meta: { roles: [UserRole.Editor] },
+          },
+          {
+            path: "agents",
+            component: () =>
+              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents"),
+            // meta: { roles: [UserRole.Editor] },
+          },
+          {
             path: "content",
             component: () =>
               import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Content"),
