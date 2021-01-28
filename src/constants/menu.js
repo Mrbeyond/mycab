@@ -30,6 +30,42 @@ const data = [{
     label: "menu.content",
     to: `${adminRoot}/dashboards/content`,
     // roles: [UserRole.Editor],
+  },
+  {
+    icon: "simple-icon-doc",
+    label: "Payers",
+    to: `${adminRoot}/dashboards/payers`,
+    // roles: [UserRole.Editor],
+  },
+  {
+    icon: "simple-icon-doc",
+    label: "Wallets",
+    to: `${adminRoot}/dashboards/wallets`,
+    // roles: [UserRole.Editor],
+  },
+  {
+    icon: "simple-icon-doc",
+    label: "Agents",
+    to: `${adminRoot}/dashboards/agents`,
+    // roles: [UserRole.Editor],
+  },
+  {
+    icon: "simple-icon-doc",
+    label: "Vehicles",
+    to: `${adminRoot}/dashboards/vehicles`,
+    // roles: [UserRole.Editor],
+  },
+  {
+    icon: "simple-icon-doc",
+    label: "Payments",
+    to: `${adminRoot}/dashboards/payments`,
+    // roles: [UserRole.Editor],
+  },
+  {
+    icon: "simple-icon-doc",
+    label: "Activities",
+    to: `${adminRoot}/dashboards/activities`,
+    // roles: [UserRole.Editor],
   }
   ]
 },
