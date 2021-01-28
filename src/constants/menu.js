@@ -16,28 +16,7 @@ const data = [{
   {icon: "simple-icon-briefcase",
     label: "menu.payers",
     to: `${adminRoot}/dashboards/payers`,
-    // roles: [UserRole.Admin],
-    // sub:[
-    //   {
-    //     icon: "simple-icon-briefcase",
-    //     label: "menu.payers",
-    //     to: `${adminRoot}/dashboards/payers`,
-    //     // roles: [UserRole.Admin],
-    //   },
-    //   {
-    //     icon: "simple-icon-briefcase",
-    //     label: "menu.payers",
-    //     to: `${adminRoot}/dashboards/payers`,
-    //     // roles: [UserRole.Admin],
-    //   },
-    //   {
-    //     icon: "simple-icon-briefcase",
-    //     label: "menu.payers",
-    //     to: `${adminRoot}/dashboards/payers`,
-    //     // roles: [UserRole.Admin],
-    //   },
-
-    // ]
+    // roles: [UserRole.Editor],
   },
   {
     icon: "simple-icon-pie-chart",

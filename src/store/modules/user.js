@@ -76,12 +76,25 @@ export default {
             }, 3000)
           }
         );
+
         Axios.post(`urr`, payload)
-        .then(data=>{
+        .then(res=>{
+            if(!res.data.error){
+              // const {authorization} = ;
+              localStorage.authToken = res.data.data.authorization
+              delete res.data.data.authorization;
+              const authUser = res.data.data;
+            }else{
+              setCurrentUser(null);
+              commit('setError', "Something went wrong");
+            }
 
         })
         .catch(err=>{
-
+            if(err && err.response && err.response.status === 401){
+              setCurrentUser(null);
+              commit('setError', err.message)
+            }
         })
 
     },
