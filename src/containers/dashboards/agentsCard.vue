@@ -11,6 +11,7 @@
       <p>date: {{test.date}}</p>
       <p>payement: {{test.payement}}</p>
       <p>tag: {{test.tag}}</p>
+      <h4 class="bg-primary" ><a href="#" class="float-right text-primary">Profile</a> </h4>
     </b-card-footer>
   </b-card>
       </div>
