@@ -8,10 +8,10 @@
         class="mb-3"
         v-for="(item,index) in items"
         :key="index"
-        :id="item.index"
+        :id="item.id"
       >
-        <image-list-item
-          :key="item.index"
+        <terminal-list-item-image
+          :key="item.id"
           :data="item"
           :selected-items="selectedItems"
           @toggle-item="toggleItem"
@@ -21,7 +21,7 @@
     </b-row>
     <b-row v-else-if="displayMode==='thumb'" key="thumb">
       <b-colxx xxs="12" class="mb-3" v-for="(item,index) in items" :key="index" :id="item.id">
-        <thumb-list-item
+        <terminal-list-item
           :key="item.id"
           :data="item"
           :selected-items="selectedItems"
@@ -32,7 +32,7 @@
     </b-row>
     <b-row v-else-if="displayMode==='list'" key="list">
       <b-colxx xxs="12" class="mb-3" v-for="(item,index) in items" :key="index" :id="item.id">
-        <data-list-item
+        <tag-list-item
           :key="item.id"
           :data="item"
           :selected-items="selectedItems"
@@ -84,14 +84,14 @@
   </div>
 </template>
 <script>
-import ImageListItem from "../../components/Listing/ImageListItem";
-import ThumbListItem from "../../components/Listing/ThumbListItem";
-import DataListItem from "../../components/Listing/DataListItem";
+import TerminalImageList from "../../components/Listing/Terminal/TerminalImageList";
+import TerminalThumb from "../../components/Listing/Terminal/TerminalThumb";
+import TerminalList from "../../components/Listing/Terminal/TerminalList";
 export default {
   components: {
-    "image-list-item": ImageListItem,
-    "thumb-list-item": ThumbListItem,
-    "data-list-item": DataListItem
+    "terminal-list-item-image": TerminalImageList,
+    "terminal-thumb-list-item": TerminalThumb,
+    "terminal-list-item": TagsListItem
   },
   props: [
     "displayMode",
