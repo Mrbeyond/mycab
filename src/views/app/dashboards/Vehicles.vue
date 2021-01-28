@@ -1,15 +1,17 @@
 <template>
 <div>
+ <b-row>
+      <b-colxx xxs="12">
+        <piaf-breadcrumb :heading="$t('menu.vehicles')" />
+        <div class="separator mb-5"></div>
+      </b-colxx>
+    </b-row>
   <b-tabs content-class="mt-3" justified>
-
     <b-tab title="All" active>
         <b-row >
-        <b-colxx sm="12" md="6" class="mb-4" v-for="(test,index) in vehicles" :key="index">
+        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
             <vehicles-Card v-bind:test="test"></vehicles-Card>
         </b-colxx>
-        <!-- <b-colxx sm="12" md="6" class="mb-4">
-            <converconversion-rates-chart-card></converconversion-rates-chart-card>
-        </b-colxx> -->
         </b-row>
     </b-tab>
 
@@ -81,14 +83,23 @@ export default {
           owner: 'Stephen',
           date: '2021/01/24',
           payement:"paid",
-          tag:"taged",
+          tag:"1",
           image:"/assets/img/uploads/car.jfif"
         },
-         {
+            //     {
+            // "id": 1,
+            // "state_id": null,
+            // "tag_no": "1",
+            // "status": 1,
+            // "createdAt": "2021-01-28T07:14:50.000Z",
+            // "updatedAt": "2021-01-28T07:14:50.000Z",
+            // "vehicles": []
+            // },
+                {
           owner: 'Bola',
           date: '2021/01/21',
           payement:"paid",
-          tag:"taged",
+          tag:"2",
           image:"/assets/img/uploads/vehicle.jfif"
 
         },
@@ -96,7 +107,7 @@ export default {
           owner: 'Victor',
           date: '2020/12/15',
           payement:"paid",
-          tag:"taged",
+          tag:"3",
           image:"/assets/img/uploads/truck.jfif"
 
         },

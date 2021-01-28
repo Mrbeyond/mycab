@@ -12,8 +12,8 @@
                 <b-form-checkbox :checked="selectedItems.includes(data.id)" class="itemCheck mb-0" />
             </b-colxx>
             <b-colxx xxs="10" class="mb-3">
-                <h6 class="mb-4 card-subtitle">{{data.title}}</h6>
-                <p class="text-muted text-small mb-0 font-weight-light card-text">{{data.date}}</p>
+                <p class="mb-0 text-muted text-small w-15 w-sm-100">{{data.terminal_no}}</p>
+               <p class="mb-0 text-muted text-small w-15 w-sm-100">{{data.agents}}</p>
             </b-colxx>
         </b-row>
     </b-card-body>
