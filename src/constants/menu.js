@@ -13,6 +13,32 @@ const data = [{
     to: `${adminRoot}/dashboards/default`,
     // roles: [UserRole.Admin],
   },
+  {icon: "simple-icon-briefcase",
+    label: "menu.payers",
+    to: `${adminRoot}/dashboards/payers`,
+    // roles: [UserRole.Admin],
+    // sub:[
+    //   {
+    //     icon: "simple-icon-briefcase",
+    //     label: "menu.payers",
+    //     to: `${adminRoot}/dashboards/payers`,
+    //     // roles: [UserRole.Admin],
+    //   },
+    //   {
+    //     icon: "simple-icon-briefcase",
+    //     label: "menu.payers",
+    //     to: `${adminRoot}/dashboards/payers`,
+    //     // roles: [UserRole.Admin],
+    //   },
+    //   {
+    //     icon: "simple-icon-briefcase",
+    //     label: "menu.payers",
+    //     to: `${adminRoot}/dashboards/payers`,
+    //     // roles: [UserRole.Admin],
+    //   },
+
+    // ]
+  },
   {
     icon: "simple-icon-pie-chart",
     label: "menu.analytics",
@@ -29,36 +55,6 @@ const data = [{
     icon: "simple-icon-doc",
     label: "menu.content",
     to: `${adminRoot}/dashboards/content`,
-    // roles: [UserRole.Editor],
-  },
-  {
-    icon: "simple-icon-doc",
-    label: "Payers",
-    to: `${adminRoot}/dashboards/payers`,
-    // roles: [UserRole.Editor],
-  },
-  {
-    icon: "simple-icon-doc",
-    label: "Wallets",
-    to: `${adminRoot}/dashboards/wallets`,
-    // roles: [UserRole.Editor],
-  },
-  {
-    icon: "simple-icon-doc",
-    label: "Agents",
-    to: `${adminRoot}/dashboards/agents`,
-    // roles: [UserRole.Editor],
-  },
-  {
-    icon: "simple-icon-doc",
-    label: "Vehicles",
-    to: `${adminRoot}/dashboards/vehicles`,
-    // roles: [UserRole.Editor],
-  },
-  {
-    icon: "simple-icon-doc",
-    label: "Payments",
-    to: `${adminRoot}/dashboards/payments`,
     // roles: [UserRole.Editor],
   },
   {

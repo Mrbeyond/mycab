@@ -26,10 +26,27 @@
     "app": "Home",
     "dashboards": "Dashboards",
     "default": "Default",
+
+    "payers": "Payers",
+    "payers-wallets": "Payers Wallets",
+    "payers-vehicles": "Payers Vehicles",
+    "payers-collections": "Payers Collections",
+
+    "agents": "Agents",
+    "all-agents": "All gents",
+    "port-agents": "Port Agents",
+    "garage-agents": "Garage Agents",
+    "agents-wallets": "Agents Wallets",
+    "agents-registrations": "Agents Registrations",
+    "agents-payments": "Agents Payments",
+    "agents-activities": "Agents Activities",
+
+    "admins": "Admins",
+
     "analytics": "Analytics",
     "vehicles": "Vehicles",
     "ecommerce": "Ecommerce",
-    "content": "Content",
+    "content": "Content",    
     "pages": "Pages",
     "data-list": "Data List",
     "thumb-list": "Thumb List",
@@ -121,6 +138,8 @@
     "start": "Start",
     "single": "Single"
   },
+
+
   "dashboards": {
     "pending-orders": "Pending Orders",
     "completed-orders": "Completed Orders",
@@ -174,6 +193,8 @@
     "search": "Search",
     "top-rated-items": "Top Rated Items"
   },
+
+
   "pages": {
     "add-new": "ADD NEW",
     "add-new-modal-title": "Add New Item",
