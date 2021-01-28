@@ -4,7 +4,8 @@
   </app-layout>
 </template>
 
-<script>
+<script>// @ts-nocheck
+
 import AppLayout from "../../layouts/AppLayout";
 
 export default {

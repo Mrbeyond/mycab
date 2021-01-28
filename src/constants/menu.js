@@ -14,6 +14,26 @@ const data = [{
     // roles: [UserRole.Admin],
   },
   {
+    icon: "simple-icon-doc",
+    label: "menu.payers",
+    to: `${adminRoot}/dashboards/payers`,
+    // roles: [UserRole.Editor],
+    sub: [
+      {
+        icon: "simple-icon-doc",
+        label: "Payers",
+        to: `${adminRoot}/dashboards/payers`,
+        // roles: [UserRole.Editor],
+      },
+      {
+        icon: "simple-icon-doc",
+        label: "Payers",
+        to: `${adminRoot}/dashboards/payers`,
+        // roles: [UserRole.Editor],
+      },
+    ]
+  },
+  {
     icon: "simple-icon-pie-chart",
     label: "menu.analytics",
     to: `${adminRoot}/dashboards/analytics`,
@@ -31,12 +51,7 @@ const data = [{
     to: `${adminRoot}/dashboards/content`,
     // roles: [UserRole.Editor],
   },
-  {
-    icon: "simple-icon-doc",
-    label: "Payers",
-    to: `${adminRoot}/dashboards/payers`,
-    // roles: [UserRole.Editor],
-  },
+
   {
     icon: "simple-icon-doc",
     label: "Wallets",
