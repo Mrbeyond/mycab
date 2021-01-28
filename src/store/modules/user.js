@@ -1,7 +1,8 @@
+import Axios from 'axios';
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import { currentUser, isAuthGuardActive } from '../../constants/config'
-import { setCurrentUser, getCurrentUser } from '../../utils'
+import { currentUser, isAuthGuardActive, PROXY } from '../../constants/config'
+import { setCurrentUser, getCurrentUser } from '../../utils';
 
 export default {
   state: {
@@ -74,7 +75,31 @@ export default {
               commit('clearError')
             }, 3000)
           }
-        )
+        );
+
+
+        Axios.post(`${PROXY}payer/login`, payload)
+        .then(res=>{
+            if(!res.data.error){
+              // const {authorization} = ;
+              localStorage.authToken = res.data.data.authorization
+              delete res.data.data.authorization;
+              const authUser = res.data.data;
+              setCurrentUser(authUser);
+              commit('setUser', authUser);
+            }else{
+              setCurrentUser(null);
+              commit('setError', "Something went wrong");
+            }
+
+        })
+        .catch(err=>{
+            if(err && err.response && err.response.status === 401){
+              setCurrentUser(null);
+              commit('setError', err.message)
+            }
+        })
+
     },
     forgotPassword({ commit }, payload) {
       commit('clearError')

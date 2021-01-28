@@ -14,6 +14,11 @@
     "password": "Password",
     "password-again": "Password Again",
     "forgot-password-question": "Forget password?",
+    "firstname": "First Name",
+    "lastname": "Last Name",
+    "business-name": "Business Name",
+    "palyer-id": "Full Name",
+    "phone": "Phone",
     "fullname": "Full Name",
     "login-button": "LOGIN",
     "register-button": "REGISTER",
@@ -27,9 +32,24 @@
     "dashboards": "Dashboards",
     "default": "Default",
     "payers": "Payers",
+    "payer-wallet": "Wallet",
+    "payers-vehicles": "Payers Vehicles",
+    "payers-collections": "Payers Collections",
+    "agents": "Agents",
+    "agent-payers": "Payers",
+    "agent-vehicles": "Vehicles",
+    "agent-wallet": "Wallet",
+    "admins": "Admins",
+    "vehicle-tags": "Vehicle Tags",
+    "account-tags": "Account Tags",
+    "terminals": "Terminals",
+    "account-cards": "Cards",
+    "agents-list": "Agents",
+    "admins-list": "Admins",
     "analytics": "Analytics",
+    "vehicles": "Vehicles",
     "ecommerce": "Ecommerce",
-    "content": "Content",
+    "content": "Content",    
     "pages": "Pages",
     "data-list": "Data List",
     "thumb-list": "Thumb List",
@@ -121,6 +141,8 @@
     "start": "Start",
     "single": "Single"
   },
+
+
   "dashboards": {
     "pending-orders": "Pending Orders",
     "completed-orders": "Completed Orders",
@@ -174,6 +196,8 @@
     "search": "Search",
     "top-rated-items": "Top Rated Items"
   },
+
+
   "pages": {
     "add-new": "ADD NEW",
     "add-new-modal-title": "Add New Item",
