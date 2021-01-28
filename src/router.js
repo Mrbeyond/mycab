@@ -49,25 +49,25 @@ const routes = [
             // meta: { roles: [UserRole.Editor] },
           },
           {
-            path: "vehicles",
+            path: "agents/vehicles",
             component: () =>
               import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Vehicles"),
             // meta: { roles: [UserRole.Editor] },
           },
           {
-            path: "tags",
+            path: "admins/Vehicle-tags",
             component: () =>
               import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Tags"),
             // meta: { roles: [UserRole.Editor] },
           },
           {
-            path: "terminal",
+            path: "admins/terminals",
             component: () =>
               import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Terminal"),
             // meta: { roles: [UserRole.Editor] },
           },
           {
-            path: "agents",
+            path: "admins/agents",
             component: () =>
               import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents"),
             // meta: { roles: [UserRole.Editor] },

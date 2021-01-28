@@ -7,15 +7,15 @@
         <b-badge pill :variant="data.statusColor" class="position-absolute badge-top-left">{{ data.status }}</b-badge>
     </div>
     <b-card-body>
-        <b-row>
-            <b-colxx xxs="2">
+            <b-row>
                 <b-form-checkbox :checked="selectedItems.includes(data.id)" class="itemCheck mb-0" />
-            </b-colxx>
-            <b-colxx xxs="10" class="mb-3">
-                <p class="mb-0 text-muted text-small w-15 w-sm-100">{{data.tag_no}}</p>
-               <p class="mb-0 text-muted text-small w-15 w-sm-100">{{data.vehicles}}</p>
-            </b-colxx>
-        </b-row>
+            </b-row>
+            <b-row  >
+                <span class="float-right">{{data.tag_no}}</span>
+             </b-row>
+             <b-row  >
+                 <span class="float-right">{{data.vehicles}}</span>
+             </b-row>
     </b-card-body>
 </b-card>
 </template>

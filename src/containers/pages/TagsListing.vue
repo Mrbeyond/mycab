@@ -21,7 +21,7 @@
     </b-row>
     <b-row v-else-if="displayMode==='thumb'" key="thumb">
       <b-colxx xxs="12" class="mb-3" v-for="(item,index) in items" :key="index" :id="item.id">
-        <thumb-list-item
+        <tags-thumb-list-item
           :key="item.id"
           :data="item"
           :selected-items="selectedItems"
@@ -85,12 +85,12 @@
 </template>
 <script>
 import TagsImage from "../../components/Listing/Tags/TagsImage";
-import ThumbListItem from "../../components/Listing/ThumbListItem";
+import TagsThumb from "../../components/Listing/Tags/TagsThumb";
 import TagsListItem from "../../components/Listing/Tags/TagsListItem";
 export default {
   components: {
     "tags-list-item": TagsImage,
-    "thumb-list-item": ThumbListItem,
+    "tags-thumb-list-item": TagsThumb,
     "tag-list-item": TagsListItem
   },
   props: [
