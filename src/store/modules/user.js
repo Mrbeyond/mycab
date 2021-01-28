@@ -1,7 +1,8 @@
+import Axios from 'axios';
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { currentUser, isAuthGuardActive } from '../../constants/config'
-import { setCurrentUser, getCurrentUser } from '../../utils'
+import { setCurrentUser, getCurrentUser } from '../../utils';
 
 export default {
   state: {
@@ -74,7 +75,15 @@ export default {
               commit('clearError')
             }, 3000)
           }
-        )
+        );
+        Axios.post(`urr`, payload)
+        .then(data=>{
+
+        })
+        .catch(err=>{
+
+        })
+
     },
     forgotPassword({ commit }, payload) {
       commit('clearError')
