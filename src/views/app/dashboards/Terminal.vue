@@ -55,9 +55,9 @@ export default {
          agents: [
          {
             "id": 1,
-            "state_id": null,
+            "state_id": "Oyo",
             "terminal_no": "1",
-            "status": null,
+            "status": "active",
             "createdAt": "2021-01-28T07:19:09.000Z",
             "updatedAt": "2021-01-28T07:19:09.000Z",
              "img":"/assets/img/uploads/vehicle.jfif",
@@ -65,7 +65,7 @@ export default {
         },
         {
              "id": 11,
-            "state_id": 1,
+            "state_id": "Oyo",
             "terminal_no": "2",
             "status": 1,
             "createdAt": "2021-01-28T07:40:36.000Z",

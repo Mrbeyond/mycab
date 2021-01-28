@@ -117,9 +117,9 @@ export default {
          agents: [
          {
             "id": 1,
-            "state_id": null,
+            "state_id": "Oyo",
             "tag_no": "1",
-            "status": null,
+            "status": 1,
             "createdAt": "2021-01-28T07:19:09.000Z",
             "updatedAt": "2021-01-28T07:19:09.000Z",
             "img":"/assets/img/uploads/vehicle.jfif",
