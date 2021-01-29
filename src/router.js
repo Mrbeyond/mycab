@@ -23,21 +23,21 @@ const routes = [
     */
     children: [
       {
-        path: "all-agents",
+        path: "agents",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents/Agents.vue"),
         // meta: { roles: [UserRole.Editor] },
       },
       {
-        path: "garage-agents",
+        path: "agents/:name",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents/Agents.vue"),
         // meta: { roles: [UserRole.Editor] },
       },
       {
-        path: "port-agents",
+        path: "cards",
         component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents/Agents.vue"),
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Cards/Cards.vue"),
         // meta: { roles: [UserRole.Editor] },
       },
       {
@@ -311,7 +311,7 @@ const routes = [
                   import(/* webpackChunkName: "components" */ "./views/app/ui/components/Buttons")
               },
               {
-                path: "cards",
+                path: "cardsTemp",
                 component: () =>
                   import(/* webpackChunkName: "components" */ "./views/app/ui/components/Cards")
               },

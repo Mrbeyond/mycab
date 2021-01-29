@@ -44,13 +44,13 @@ const data = [
     {
       icon: "simple-icon-people",
       label: "menu.port-agents",
-      to: `${adminRoot}/port-agents`,
+      to: `${adminRoot}/agents/ports`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
       icon: "simple-icon-people",
       label: "menu.garrage-agents",
-      to: `${adminRoot}/garrage-agents`,
+      to: `${adminRoot}/agents/garrages`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
@@ -125,7 +125,7 @@ const data = [
     {
     icon: "simple-icon-list",
     label: "menu.all-cards",
-    to: `${adminRoot}/all-cards`,
+    to: `${adminRoot}/cards`,
     // roles: [UserRole.Admin, UserRole.Editor],
     },
     {

@@ -2,7 +2,7 @@
   <b-row>
     <b-colxx class="disable-text-selection">
       <list-page-heading
-        :title="$t('menu.agents')"
+        :title="$t('menu.cards')"
         :selectAll="selectAll"
         :isSelectedAll="isSelectedAll"
         :isAnyItemSelected="isAnyItemSelected"
@@ -20,7 +20,7 @@
         :sortOptions="sortOptions"
       ></list-page-heading>
       <template v-if="isLoad">
-        <agent-page-listing
+        <cards-page-listing
           :displayMode="displayMode"
           :items="items"
           :selectedItems="selectedItems"
@@ -31,159 +31,71 @@
           :changePage="changePage"
           :handleContextMenu="handleContextMenu"
           :onContextMenuAction="onContextMenuAction"
-        ></agent-page-listing>
+        ></cards-page-listing>
       </template>
       <template v-else>
         <div class="loading"></div>
       </template>
     </b-colxx>
   </b-row>
-  <!-- <div>
-  <b-tabs content-class="mt-3" justified>
-
-    <b-tab :title="$t('menu.all-agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.port-agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.garage-agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.agents-registrations')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-  </b-tabs>
-</div> -->
 </template>
 
 <script>
 import axios from "axios";
-import { PROXY } from "./../../../../constants/config";
+import { apiUrl } from "../../../../constants/config";
 import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
-import AgentListing from "./AgentListing";
-// import ConversionRatesChartCard from "../../../containers/dashboards/ConversionRatesChartCard";
-// import OrderStockRadarChart from "../../../containers/dashboards/OrderStockRadarChart";
-// import ProductCategoriesDoughnut from "../../../containers/dashboards/ProductCategoriesDoughnut";
-// import ProductCategoriesPolarArea from "../../../containers/dashboards/ProductCategoriesPolarArea";
-// import ProfileStatuses from "../../../containers/dashboards/ProfileStatuses";
-// import SalesChartCard from "../../../containers/dashboards/SalesChartCard";
-// import SmallLineCharts from "../../../containers/dashboards/SmallLineCharts";
-// import SortableStaticticsRow from "../../../containers/dashboards/SortableStaticticsRow";
-// import AgentsCard from "../../../containers/dashboards/AgentsCard";
+import CardListing from "./CardListing.vue";
 
 export default {
 
   components: {
     "list-page-heading": ListPageHeading,
-    "agent-page-listing": AgentListing
+    "cards-page-listing": CardListing
   },
-//    components: {
-//     "converconversion-rates-chart-card": ConversionRatesChartCard,
-//     "order-stock-radar-chart": OrderStockRadarChart,
-//     "product-categories-doughnut": ProductCategoriesDoughnut,
-//     "product-categories-polar-area": ProductCategoriesPolarArea,
-//     "profile-statuses": ProfileStatuses,
-//     "sales-chart-card": SalesChartCard,
-//     "small-line-charts": SmallLineCharts,
-//     "sortable-statictics-row": SortableStaticticsRow,
-//     "agent-Card": AgentsCard
-//   }
-// };
   data() {
     return {
-        sortOptions: [
+       sortOptions: [
         {
-          column: "firstname",
-          label: "firstname"
+          column: "tag_no",
+          label: "Tag Number"
         },
          {
-          column: "lasname",
-          label: "Lastname"
+          column: "state_id",
+          label: "State"
         },
-          {
-          column: "id",
-          label: "id"
+      ],
+
+         agents: [
+         {
+            "id": 1,
+            "state_id": null,
+            "card_no": "1",
+            "system_identifier": "54555644517a45324d5445344d5467794d7a41334e6a673d",
+            "status": 1,
+            "createdAt": "2021-01-28T07:17:11.000Z",
+            "updatedAt": "2021-01-28T07:17:11.000Z",
+            "img":"/assets/img/uploads/vehicle.jfif",
+            "accounts": []
         },
+ 
         {
-          column: "agent_type",
-          label: "Agent_type"
-        },
-        {
-          column: "phone",
-          label: "Phone"
+            "id": 11,
+             "state_id": null,
+            "card_no": "1",
+            "system_identifier": "54555644517a45324d5445344d5467794d7a41334e6a673d",
+            "status": 1,
+            "createdAt": "2021-01-28T07:17:11.000Z",
+            "updatedAt": "2021-01-28T07:17:11.000Z",
+            "img":"/assets/img/uploads/vehicle.jfif",
+            "accounts": []
         }
       ],
-
-       sort: {
-        column: "firstname",
-        label: "Name"
-      },
-         agents: [
-        {
-          firstname: 'Stephanie',
-          lastname: 'Sunday',
-          agent_type: 'commercial',
-          garage:"Sabo Ogbomoso",
-          phone:"0908924664567",
-          img:"/assets/img/agents/agent1.jfif"
-        },
-         {
-          firstname: 'Bola',
-          lastname: 'Sunday',
-          agent_type: 'commercial',
-          garage:"Sabo Ogbomoso",
-          phone:"0908924664567",
-          img:"/assets/img/agents/agent2.jfif"
-
-        },
-         {
-           firstname: 'Victor',
-          lastname: 'Ogunniran',
-          agent_type: 'commercial',
-          garage:"Taki Ogbomoso",
-          phone:"080892656764567",
-          img:"/assets/img/agents/agent3.jfif"
-
-        },
-         {
-          firstname: 'Sola',
-          lastname: 'Jonson',
-          agent_type: 'commercial',
-          garage:"Hojo Ibadan",
-          phone:"0908924789889",
-          img:"/assets/img/agents/agent4.jfif"
-        },
-      ],
       isLoad: false,
-      apiBase: PROXY + "",
+      apiBase: apiUrl + "/cakes/fordatatable",
       displayMode: "list",
-      sort: {
-        column: "firstname",
-        label: "firstname"
+     sort: {
+        column: "tag_no",
+        label: "Tag Number"
       },
       page: 1,
       perPage: 4,
@@ -193,7 +105,6 @@ export default {
       total: 0,
       lastPage: 0,
       items: [],
-      paramName:"",
       selectedItems: []
     };
   },
@@ -202,7 +113,7 @@ export default {
       this.isLoad = false;
 
       axios
-        .get(this.PROXY)
+        .get(this.apiUrl)
         .then(response => {
           return response.data;
         })
@@ -218,6 +129,13 @@ export default {
         //       img: x.img.replace("/img/", "/img/products/")
         //     };
         //   });
+        var resp = this.sort
+        // console.log(resp)
+         this.items =  this.agents.sort(function(a, b){
+            if(a.resp > b.resp) return 1;
+            if(a.resp < b.resp) return -1;
+            return 0;
+            });
           console.log(this.items)
           this.perPage = res.per_page;
           this.selectedItems = [];
@@ -328,17 +246,9 @@ export default {
       this.loadItems();
     }
   },
-   mounted: function(){
-      this.paramName =this.$router.currentRoute.params.name
-      console.log(this.paramName)
-        this.loadItems();
-  },
- watch: {
-    $route(to, from) {
-      this.paramName = to.params.name
-      console.log(this.paramName)
+  mounted() {
+    this.loadItems();
 
-    }
   }
 };
 </script>

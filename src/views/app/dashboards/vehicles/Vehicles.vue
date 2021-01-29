@@ -14,10 +14,11 @@
         </b-colxx>
         </b-row>
     </b-tab >
-     <b-tab title="Imports" :active="pname=='import'" @click="$router.push('import')">
+     <b-tab title="Imports" :active="pname=='import'" @click="pname===undefined ? $router.push('vehicles/import') : $router.push('import')">
        Import
     </b-tab>
-    <b-tab title="Commercials" :active="pname=='commercial'" @click="$router.push('commercial')"><p>Commercials</p></b-tab>
+    <b-tab title="Commercials" :active="pname=='commercial'" @click="pname===undefined ? $router.push('vehicles/commercial') : $router.push('commercial')">
+      <p>Commercials</p></b-tab>
   </b-tabs>
 </div>
 </template>
@@ -70,10 +71,13 @@ export default {
   },
   mounted: function(){
       this.pname =this.$router.currentRoute.params.name
+      console.log(this.pname)
   },
  watch: {
     $route(to, from) {
       this.pname = to.params.name
+      console.log(this.pname)
+
     }
   }
 };
