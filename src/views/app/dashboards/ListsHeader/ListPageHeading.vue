@@ -145,6 +145,7 @@ export default {
     "to",
     "total",
     "perPage",
+    "sortOptions",
     "formKey"
   ],
   data() {
@@ -173,20 +174,7 @@ export default {
           value: "PROCESSED"
         }
       ],
-      sortOptions: [
-        {
-          column: "title",
-          label: "Product Name"
-        },
-        {
-          column: "category",
-          label: "Category"
-        },
-        {
-          column: "status",
-          label: "Status"
-        }
-      ],
+    
       pageSizes: [4, 8, 12]
     };
   },

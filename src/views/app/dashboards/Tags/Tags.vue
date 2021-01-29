@@ -17,6 +17,7 @@
         :to="to"
         :total="total"
         :perPage="perPage"
+        :sortOptions="sortOptions"
       ></list-page-heading>
       <template v-if="isLoad">
         <tags-page-listing
@@ -114,6 +115,17 @@ export default {
 // };
   data() {
     return {
+       sortOptions: [
+        {
+          column: "tag_no",
+          label: "Tag Number"
+        },
+         {
+          column: "state_id",
+          label: "State"
+        },
+      ],
+
          agents: [
          {
             "id": 1,
@@ -127,7 +139,7 @@ export default {
         },
         {
             "id": 11,
-            "state_id": 1,
+            "state_id": "Ibadan",
             "tag_no": "2",
             "status": 1,
             "createdAt": "2021-01-28T07:40:36.000Z",
@@ -139,9 +151,9 @@ export default {
       isLoad: false,
       apiBase: apiUrl + "/cakes/fordatatable",
       displayMode: "list",
-      sort: {
-        column: "title",
-        label: "Product Name"
+     sort: {
+        column: "tag_no",
+        label: "Tag Number"
       },
       page: 1,
       perPage: 4,
@@ -175,6 +187,13 @@ export default {
         //       img: x.img.replace("/img/", "/img/products/")
         //     };
         //   });
+        var resp = this.sort
+        // console.log(resp)
+         this.items =  this.agents.sort(function(a, b){
+            if(a.resp > b.resp) return 1;
+            if(a.resp < b.resp) return -1;
+            return 0;
+            });
           console.log(this.items)
           this.perPage = res.per_page;
           this.selectedItems = [];

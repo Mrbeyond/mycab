@@ -1,9 +1,8 @@
-
 <template>
   <b-row>
     <b-colxx class="disable-text-selection">
       <list-page-heading
-        :title="$t('forms.tags')"
+        :title="$t('menu.cards')"
         :selectAll="selectAll"
         :isSelectedAll="isSelectedAll"
         :isAnyItemSelected="isAnyItemSelected"
@@ -18,6 +17,7 @@
         :to="to"
         :total="total"
         :perPage="perPage"
+        :sortOptions="sortOptions"
       ></list-page-heading>
       <template v-if="isLoad">
         <cards-page-listing
@@ -43,8 +43,9 @@
 <script>
 import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
-import ListPageHeading from "./../ListsHeader/ListPageHeading";
+import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
 import CardListing from "./CardListing.vue";
+
 export default {
 
   components: {
@@ -53,34 +54,48 @@ export default {
   },
   data() {
     return {
+       sortOptions: [
+        {
+          column: "tag_no",
+          label: "Tag Number"
+        },
+         {
+          column: "state_id",
+          label: "State"
+        },
+      ],
+
          agents: [
          {
             "id": 1,
-            "state_id": "Oyo",
-            "tag_no": "1",
+            "state_id": null,
+            "card_no": "1",
+            "system_identifier": "54555644517a45324d5445344d5467794d7a41334e6a673d",
             "status": 1,
-            "createdAt": "2021-01-28T07:19:09.000Z",
-            "updatedAt": "2021-01-28T07:19:09.000Z",
+            "createdAt": "2021-01-28T07:17:11.000Z",
+            "updatedAt": "2021-01-28T07:17:11.000Z",
             "img":"/assets/img/uploads/vehicle.jfif",
-            "vehicles": []
+            "accounts": []
         },
+ 
         {
             "id": 11,
-            "state_id": 1,
-            "tag_no": "2",
+             "state_id": null,
+            "card_no": "1",
+            "system_identifier": "54555644517a45324d5445344d5467794d7a41334e6a673d",
             "status": 1,
-            "createdAt": "2021-01-28T07:40:36.000Z",
-            "updatedAt": "2021-01-28T07:40:36.000Z",
-            "img":"/assets/img/uploads/car.jfif",
-            "vehicles": []
+            "createdAt": "2021-01-28T07:17:11.000Z",
+            "updatedAt": "2021-01-28T07:17:11.000Z",
+            "img":"/assets/img/uploads/vehicle.jfif",
+            "accounts": []
         }
       ],
       isLoad: false,
       apiBase: apiUrl + "/cakes/fordatatable",
       displayMode: "list",
-      sort: {
-        column: "title",
-        label: "Product Name"
+     sort: {
+        column: "tag_no",
+        label: "Tag Number"
       },
       page: 1,
       perPage: 4,
@@ -114,6 +129,13 @@ export default {
         //       img: x.img.replace("/img/", "/img/products/")
         //     };
         //   });
+        var resp = this.sort
+        // console.log(resp)
+         this.items =  this.agents.sort(function(a, b){
+            if(a.resp > b.resp) return 1;
+            if(a.resp < b.resp) return -1;
+            return 0;
+            });
           console.log(this.items)
           this.perPage = res.per_page;
           this.selectedItems = [];

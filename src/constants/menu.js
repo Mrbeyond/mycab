@@ -44,13 +44,13 @@ const data = [
     {
       icon: "simple-icon-people",
       label: "menu.port-agents",
-      to: `${adminRoot}/agents/port`,
+      to: `${adminRoot}/agents/ports`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
       icon: "simple-icon-people",
       label: "menu.garrage-agents",
-      to: `${adminRoot}/agents/garrage`,
+      to: `${adminRoot}/agents/garrages`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
     {

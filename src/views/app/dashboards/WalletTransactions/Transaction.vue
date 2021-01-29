@@ -2,7 +2,7 @@
   <b-row>
     <b-colxx class="disable-text-selection">
       <list-page-heading
-        :title="$t('menu.transaction')"
+        :title="$t('menu.cards')"
         :selectAll="selectAll"
         :isSelectedAll="isSelectedAll"
         :isAnyItemSelected="isAnyItemSelected"
@@ -20,7 +20,7 @@
         :sortOptions="sortOptions"
       ></list-page-heading>
       <template v-if="isLoad">
-        <transaction-page-listing
+        <cards-page-listing
           :displayMode="displayMode"
           :items="items"
           :selectedItems="selectedItems"
@@ -31,7 +31,7 @@
           :changePage="changePage"
           :handleContextMenu="handleContextMenu"
           :onContextMenuAction="onContextMenuAction"
-        ></transaction-page-listing>
+        ></cards-page-listing>
       </template>
       <template v-else>
         <div class="loading"></div>
@@ -44,13 +44,13 @@
 import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
 import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
-import TransactionListing from "./TransactionListing.vue";
+import CardListing from "./CardListing.vue";
 
 export default {
 
   components: {
     "list-page-heading": ListPageHeading,
-    "transaction-page-listing": TransactionListing
+    "cards-page-listing": CardListing
   },
   data() {
     return {
@@ -66,26 +66,28 @@ export default {
       ],
 
          agents: [
-          {
-            "reference": null,
-            "description": null,
-            "amount": 2000,
-            "type": 1,
+         {
+            "id": 1,
+            "state_id": null,
+            "card_no": "1",
+            "system_identifier": "54555644517a45324d5445344d5467794d7a41334e6a673d",
             "status": 1,
-            "createdAt": "2021-01-28T14:26:11.000Z",
-            "payment_channel": {
-                "name": "Paystack"
-            }
+            "createdAt": "2021-01-28T07:17:11.000Z",
+            "updatedAt": "2021-01-28T07:17:11.000Z",
+            "img":"/assets/img/uploads/vehicle.jfif",
+            "accounts": []
         },
  
-           {
-            "reference": null,
-            "description": null,
-            "amount": 200000,
-            "type": 1,
+        {
+            "id": 11,
+             "state_id": null,
+            "card_no": "1",
+            "system_identifier": "54555644517a45324d5445344d5467794d7a41334e6a673d",
             "status": 1,
-            "createdAt": "2021-01-28T13:50:33.000Z",
-            "payment_channel": null
+            "createdAt": "2021-01-28T07:17:11.000Z",
+            "updatedAt": "2021-01-28T07:17:11.000Z",
+            "img":"/assets/img/uploads/vehicle.jfif",
+            "accounts": []
         }
       ],
       isLoad: false,
