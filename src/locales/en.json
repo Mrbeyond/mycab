@@ -31,23 +31,54 @@
     "app": "Home",
     "dashboards": "Dashboards",
     "default": "Default",
+
     "payers": "Payers",
-    "payer-wallet": "Wallet",
-    "payers-vehicles": "Payers Vehicles",
-    "payers-collections": "Payers Collections",
+    "add-payer": "Add payers",
+    "payers-cards": "Cards",
+    "all-payers": "All Payers",
+
     "agents": "Agents",
-    "agent-payers": "Payers",
-    "agent-vehicles": "Vehicles",
-    "agent-wallet": "Wallet",
+    "all-agents": "All agents",
+    "add-agent": "Add agent",
+    "port-agents": "Port agents",
+    "garrage-agents": "Garrage agents",
+
     "admins": "Admins",
-    "vehicle-tags": "Vehicle Tags",
+    "all-admins": "All admins",
+    "add-admin": "Add admin",
+
     "account-tags": "Account Tags",
-    "terminals": "Terminals",
-    "account-cards": "Cards",
-    "agents-list": "Agents",
-    "admins-list": "Admins",
     "analytics": "Analytics",
+
     "vehicles": "Vehicles",
+    "all-vehicles": "All vehicles",
+    "commercial-vehicles": "Commercial vehicles",
+    "import-vehicles": "Import vehicles",
+    "vehicle-tags": "Vehicle tags",
+    "vehicle-payments": "Vehicle payments",
+
+    "vehicle-cards": "Cards",
+    "add-card": "Add card",
+    "all-cards": "All cards",
+
+    "all-vehicle-tags": "Vehicle tags",
+    "add-vehicle-tag": "Add tag",
+    "all-tags": "All tags",
+
+    "finance": "Finance",
+    "all-vehicle-payments": "All vehicle payments",
+    "commercial-vehicle-payments": "Commercial vehicle payments",
+    "import-vehicle-payments": "Import vehicle payments",
+
+    "locations": "Locations",
+    "local-government": "LG",
+    "garrages": "Garrages",
+
+    "reports": "Reports",
+
+    "settings": "Settings",
+
+
     "ecommerce": "Ecommerce",
     "content": "Content",    
     "pages": "Pages",

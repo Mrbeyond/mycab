@@ -36,6 +36,12 @@ const routes = [
             // meta: { roles: [UserRole.Admin] },
           },
           {
+            path: "prices",
+            component: () =>
+              import(/* webpackChunkName: "dashboards" */ "./views/app/pages/miscellaneous/Prices.vue"),
+            // meta: { roles: [UserRole.Admin] },
+          },
+          {
             path: "analytics",
 
             component: () =>
