@@ -39,6 +39,7 @@
       <add-new-modal
         :categories="categories"
         :statuses="statuses"
+        :formKey="formKey"
       >
       </add-new-modal>
       <piaf-breadcrumb />
@@ -144,7 +145,8 @@ export default {
     "to",
     "total",
     "perPage",
-    "sortOptions"
+    "sortOptions",
+    "formKey"
   ],
   data() {
     return {
@@ -175,6 +177,6 @@ export default {
     
       pageSizes: [4, 8, 12]
     };
-  }
+  },
 };
 </script>
