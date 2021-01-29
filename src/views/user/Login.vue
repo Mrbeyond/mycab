@@ -41,8 +41,8 @@
                         <b-form-invalid-feedback v-if="!$v.form.password.required">
                           Please enter your password
                         </b-form-invalid-feedback>
-                        <b-form-invalid-feedback v-else-if="!$v.form.password.minLength || !$v.form.password.maxLength">
-                          Your password must be between 8 and 16 characters
+                        <b-form-invalid-feedback v-else-if="!$v.form.password.minLength">
+                          Your password must be minimum of 8 characters
                         </b-form-invalid-feedback>
                     </b-form-group>
                     <div class="d-flex justify-content-between align-items-center">
@@ -83,7 +83,6 @@ import {
 import { adminRoot } from '../../constants/config';
 const {
     required,
-    maxLength,
     minLength,
     email
 } = require("vuelidate/lib/validators");
@@ -92,10 +91,8 @@ export default {
   data() {
       return {
           form: {
-              // email: "test@coloredstrategies.com",
-              // password: "xxxxxx"
-            email: "",
-            password: ""
+            email: "asoluwaseun@yahoo.com",
+            password: "12345678"
           },
       };
   },
@@ -104,7 +101,6 @@ export default {
     form: {
       password: {
           required,
-          maxLength: maxLength(16),
           minLength: minLength(8)
       },
       email: {
@@ -134,10 +130,9 @@ export default {
     },
   watch: {
     currentUser(val) {
-      if (val && val.uid && val.uid.length > 0) {
-        setTimeout(() => {
+      if (val){
+        console.log(val);
           this.$router.push(adminRoot);
-        }, 200);
       }
     },
 
@@ -149,6 +144,9 @@ export default {
         });
       }
     }
-  }
+  },
+  mounted() {
+    console.log(this.$store.getters.currentUser);
+  },
 };
 </script>

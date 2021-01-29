@@ -28,7 +28,7 @@ export const firebaseConfig = {
 };
 
 
-export const PROXY = "http://127.0.0.1:8000/";
+export const PROXY = "http://mecp.herokuapp.com/";
 
 
 
@@ -43,5 +43,6 @@ export const currentUser = {
 export const isAuthGuardActive = false
 export const themeRadiusStorageKey = 'theme_radius'
 export const themeSelectedColorStorageKey = 'theme_selected_color'
-export const defaultColor = 'light.blueolympic'
+// export const defaultColor = 'light.blueolympic'
+export const defaultColor = "light.orangecarrot";
 export const colors = ['bluenavy', 'blueyale', 'blueolympic', 'greenmoss', 'greenlime', 'purplemonster', 'orangecarrot', 'redruby', 'yellowgranola', 'greysteel']

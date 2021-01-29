@@ -11,6 +11,12 @@ const routes = [
   {
     path: "/",
     component: () => import(/* webpackChunkName: "home" */ "./views/home"),
+    redirect: '/login',
+  },
+  {
+    path: "/login",
+    component: () =>
+      import(/* webpackChunkName: "user" */ "./views/user/Login")
   },
   {
     path: adminRoot,
@@ -23,6 +29,25 @@ const routes = [
     */
     children: [
       {
+        path: "agents",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents/Agents.vue"),
+        // meta: { roles: [UserRole.Editor] },
+      },
+      {
+        path: "agents/:name",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents/Agents.vue"),
+        // meta: { roles: [UserRole.Editor] },
+      },
+      {
+        path: "cards",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Cards/Cards.vue"),
+        // meta: { roles: [UserRole.Editor] },
+      },
+      {
+        
         path: "payers",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Payer/PayersList/Payers.vue"),
@@ -34,40 +59,42 @@ const routes = [
             component: () =>
               import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Default"),
             // meta: { roles: [UserRole.Admin] },
-          },
-          {
-            path: "analytics",
-
-            component: () =>
-              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Analytics"),
-            // meta: { roles: [UserRole.Admin] },
-          },
-          {
-            path: "vehicles",
-            component: () =>
-              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/vehicles/Vehicles.vue"),
-            // meta: { roles: [UserRole.Editor] },
-          },
-          {
-            path: "admins/Vehicle-tags",
-            component: () =>
-              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Tags/Tags.vue"),
-            // meta: { roles: [UserRole.Editor] },
-          },
-          {
-            path: "admins/terminals",
-            component: () =>
-              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Terminal/Terminal.vue"),
-            // meta: { roles: [UserRole.Editor] },
-          },
-          {
-            path: "admins/agents",
-            component: () =>
-              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents/Agents.vue"),
-            // meta: { roles: [UserRole.Editor] },
-          },
+          },         
         ]
       },
+      {
+        path: "analytics",
+
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Analytics"),
+        // meta: { roles: [UserRole.Admin] },
+      },
+      {
+        path: "vehicles",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/vehicles/Vehicles.vue"),
+        // meta: { roles: [UserRole.Editor] },
+      },
+      {
+        path: "vehicles/:name",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/vehicles/Vehicles.vue"),
+        // meta: { roles: [UserRole.Editor] },
+        
+      },
+      {
+        path: "all-tags",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Tags/Tags.vue"),
+        // meta: { roles: [UserRole.Editor] },
+      },
+      {
+        path: "admins/terminals",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Terminal/Terminal.vue"),
+        // meta: { roles: [UserRole.Editor] },
+      },
+     
       {
         path: "pages",
         component: () =>
@@ -80,11 +107,11 @@ const routes = [
               import(/* webpackChunkName : "product" */ "./views/app/pages/product"),
             redirect: `${adminRoot}/pages/product/data-list`,
             children: [
-              // {
-              //   path: "data-list",
-              //   component: () =>
-              //     import(/* webpackChunkName: "product" */ "./views/app/pages/product/DataList")
-              // },
+              {
+                path: "data-list",
+                component: () =>
+                  import(/* webpackChunkName: "product" */ "./views/app/pages/product/DataList")
+              },
               {
                 path: "thumb-list",
                 component: () =>
@@ -290,7 +317,7 @@ const routes = [
                   import(/* webpackChunkName: "components" */ "./views/app/ui/components/Buttons")
               },
               {
-                path: "cards",
+                path: "cardsTemp",
                 component: () =>
                   import(/* webpackChunkName: "components" */ "./views/app/ui/components/Cards")
               },

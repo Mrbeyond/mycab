@@ -38,19 +38,19 @@ const data = [
     {
     icon: "simple-icon-list",
     label: "menu.all-agents",
-    to: `${adminRoot}/all-agents`,
+    to: `${adminRoot}/agents`,
     // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
       icon: "simple-icon-people",
       label: "menu.port-agents",
-      to: `${adminRoot}/port-agents`,
+      to: `${adminRoot}/agents/ports`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
       icon: "simple-icon-people",
       label: "menu.garrage-agents",
-      to: `${adminRoot}/garrage-agents`,
+      to: `${adminRoot}/agents/garrages`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
@@ -69,7 +69,7 @@ const data = [
     {
     icon: "simple-icon-list",
     label: "menu.all-admins",
-    to: `${adminRoot}/all-admins`,
+    to: `${adminRoot}/admins`,
     // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
@@ -88,19 +88,19 @@ const data = [
     {
     icon: "simple-icon-list",
     label: "menu.all-vehicles",
-    to: `${adminRoot}/all-vehicles`,
+    to: `${adminRoot}/vehicles`,
     // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
       icon: "simple-icon-list",
       label: "menu.commercial-vehicles",
-      to: `${adminRoot}/commercial-vehicles`,
+      to: `${adminRoot}/vehicles/commercial`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
       icon: "simple-icon-list",
       label: "menu.import-vehicles",
-      to: `${adminRoot}/import-vehicles`,
+      to: `${adminRoot}/vehicles/import`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
@@ -125,7 +125,7 @@ const data = [
     {
     icon: "simple-icon-list",
     label: "menu.all-cards",
-    to: `${adminRoot}/all-cards`,
+    to: `${adminRoot}/cards`,
     // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
@@ -136,7 +136,7 @@ const data = [
     },
   ]},
   {id:"vehicle-tags",
-  icon:"simple-icon-credit-card",
+  icon:"simple-icon-pin",
   label: "menu.vehicle-tags",
   to: `${adminRoot}/vehicle-tags`,
   // roles: [UserRole.Admin, UserRole.Editor],,
@@ -144,7 +144,7 @@ const data = [
     {
     icon: "simple-icon-badge",
     label: "menu.all-tags",
-    to: `${adminRoot}/all-tags`,
+    to: `${adminRoot}/tags`,
     // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
@@ -155,7 +155,7 @@ const data = [
     },
   ]},
   {id:"finance",
-  icon:"simple-icon-credit-card",
+  icon:"simple-icon-organization",
   label: "menu.finance",
   to: `${adminRoot}/finance`,
   // roles: [UserRole.Admin, UserRole.Editor],,
@@ -180,7 +180,7 @@ const data = [
     },
   ]},
   {id:"locations",
-  icon:"simple-icon-credit-card",
+  icon:"simple-icon-map",
   label: "menu.locations",
   to: `${adminRoot}/locations`,
   // roles: [UserRole.Admin, UserRole.Editor],,

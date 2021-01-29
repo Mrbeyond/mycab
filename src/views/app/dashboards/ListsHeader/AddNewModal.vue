@@ -2,43 +2,50 @@
   <b-modal
     id="modalright"
     ref="modalright"
-    :title="$t('pages.add-new-modal-title')"
+    :title="modalTitle"
     modal-class="modal-right"
   >
-    <b-form>
-      <b-form-group :label="$t('pages.product-name')">
-        <b-form-input v-model="newItem.title" />
-      </b-form-group>
-      <b-form-group :label="$t('pages.category')">
-        <v-select :options="categories" v-model="newItem.category" />
-      </b-form-group>
-      <b-form-group :label="$t('pages.description')">
-        <b-textarea v-model="newItem.description" :rows="2" :max-rows="2" />
-      </b-form-group>
-      <b-form-group :label="$t('pages.status')">
-        <b-form-radio-group stacked class="pt-2" :options="statuses" v-model="newItem.status" />
-      </b-form-group>
-    </b-form>
+      <add-admin v-if="formKey == ADD_ADMIN" />
+      <add-agent  v-if="formKey == ADD_AGENT"/>
+      <add-card  v-if="formKey == ADD_CARD"/>
+      <add-payer v-if="formKey == ADD_PAYER" />
+      <add-tag  v-if="formKey == ADD_TAG"/>
 
     <template slot="modal-footer">
       <b-button
         variant="outline-secondary"
         @click="hideModal('modalright')"
       >{{ $t('pages.cancel') }}</b-button>
-      <b-button variant="primary" @click="addNewItem()" class="mr-1">{{ $t('pages.submit') }}</b-button>
     </template>
   </b-modal>
 </template>
 <script>
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
+import AddAdmin from '@/views/app/dashboards/AdderForms/AddAdmin';
+import AddAgent from '../AdderForms/AddAgent.vue';
+import AddCard from '../AdderForms/AddCard.vue';
+import AddPayer from '../AdderForms/AddPayer.vue';
+import AddTag from '../AdderForms/AddTag.vue';
+import {ADD_ADMIN, ADD_CARD, ADD_TAG, ADD_CV, ADD_IV, ADD_AGENT,
+  ADD_PAYER
+} from './../../../../constants/formKey';
+
 export default {
   components: {
-    "v-select": vSelect
+    "v-select": vSelect,    AddAdmin,
+    AddAgent, AddCard, AddPayer, AddTag
   },
-  props: ["categories", "statuses"],
+  props: ["categories", "statuses", "formKey"],
   data() {
     return {
+      ADD_ADMIN,
+      ADD_CARD,
+      ADD_TAG,
+      ADD_CV,
+      ADD_IV,
+      ADD_AGENT,
+      ADD_PAYER,
       newItem: {
         title: "",
         category: "",
@@ -54,7 +61,30 @@ export default {
     hideModal(refname) {
       this.$refs[refname].hide();
     }
+  },
+
+  computed: {
+    modalTitle(){
+      if(this.formKey === ADD_PAYER){
+        return "Register Payer"
+      }
+      if(this.formKey === ADD_AGENT){
+        return "Register Agent"
+      }
+      if(this.formKey === ADD_ADMIN){
+        return "Register Admin"
+      }
+      if(this.formKey === ADD_TAG){
+        return "Add Tag"
+      }
+      if(this.formKey === ADD_CARD){
+        return "Add Card"
+      }
+
+      return "FORM";
+    }
   }
+
 };
 </script>
 
