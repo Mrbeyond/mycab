@@ -2,7 +2,7 @@
   <b-row>
     <b-colxx class="disable-text-selection">
       <list-page-heading
-        :title="$t('menu.agents')"
+        :title="$t('forms.tags')"
         :selectAll="selectAll"
         :isSelectedAll="isSelectedAll"
         :isAnyItemSelected="isAnyItemSelected"
@@ -19,7 +19,7 @@
         :perPage="perPage"
       ></list-page-heading>
       <template v-if="isLoad">
-        <agent-page-listing
+        <tags-page-listing
           :displayMode="displayMode"
           :items="items"
           :selectedItems="selectedItems"
@@ -30,7 +30,7 @@
           :changePage="changePage"
           :handleContextMenu="handleContextMenu"
           :onContextMenuAction="onContextMenuAction"
-        ></agent-page-listing>
+        ></tags-page-listing>
       </template>
       <template v-else>
         <div class="loading"></div>
@@ -42,52 +42,37 @@
 <script>
 import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
-import ListPageHeading from "../../../../containers/pages/Admin/ListPageHeading";
-import AgentListing from "../../../../containers/pages/Admin/AgentListing";
-
+import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
+import TerminalListing from "./TerminalListing.vue";
 export default {
 
   components: {
     "list-page-heading": ListPageHeading,
-    "agent-page-listing": AgentListing
+    "tags-page-listing": TagsListing
   },
   data() {
     return {
          agents: [
+         {
+            "id": 1,
+            "state_id": "Oyo",
+            "terminal_no": "1",
+            "status": "active",
+            "createdAt": "2021-01-28T07:19:09.000Z",
+            "updatedAt": "2021-01-28T07:19:09.000Z",
+             "img":"/assets/img/uploads/vehicle.jfif",
+            "agents": []
+        },
         {
-          firstname: 'Stephanie',
-          lastname: 'Sunday',
-          agent_type: 'commercial',
-          garage:"Sabo Ogbomoso",
-          phone:"0908924664567",
-          img:"/assets/img/agents/agent1.jfif"
-        },
-         {
-          firstname: 'Bola',
-          lastname: 'Sunday',
-          agent_type: 'commercial',
-          garage:"Sabo Ogbomoso",
-          phone:"0908924664567",
-          img:"/assets/img/agents/agent2.jfif"
-
-        },
-         {
-           firstname: 'Victor',
-          lastname: 'Ogunniran',
-          agent_type: 'commercial',
-          garage:"Taki Ogbomoso",
-          phone:"080892656764567",
-          img:"/assets/img/agents/agent3.jfif"
-
-        },
-         {
-          firstname: 'Sola',
-          lastname: 'Jonson',
-          agent_type: 'commercial',
-          garage:"Hojo Ibadan",
-          phone:"0908924789889",
-          img:"/assets/img/agents/agent4.jfif"
-        },
+             "id": 11,
+            "state_id": "Oyo",
+            "terminal_no": "2",
+            "status": 1,
+            "createdAt": "2021-01-28T07:40:36.000Z",
+            "updatedAt": "2021-01-28T07:40:36.000Z",
+            "img":"/assets/img/uploads/car.jfif",
+            "agents": []
+        }
       ],
       isLoad: false,
       apiBase: apiUrl + "/cakes/fordatatable",
@@ -121,7 +106,7 @@ export default {
           this.from = res.from;
           this.to = res.to;
               this.items = this.agents
-              
+
         //   this.items = res.data.map(x => {
         //     return {
         //       ...x,
@@ -228,7 +213,7 @@ export default {
     apiUrl() {
       return `${this.apiBase}?sort=${this.sort.column}&page=${this.page}&per_page=${this.perPage}&search=${this.search}`;
     }
-    
+
   },
   watch: {
     search() {
@@ -240,7 +225,7 @@ export default {
   },
   mounted() {
     this.loadItems();
-    
+
   }
 };
 </script>

@@ -84,9 +84,9 @@
   </div>
 </template>
 <script>
-import TagsImage from "../../../components/Listing/Tags/TagsImage";
-import TagsThumb from "../../../components/Listing/Tags/TagsThumb";
-import TagsListItem from "../../../components/Listing/Tags/TagsListItem";
+import TagsImage from "./TagsImage.vue";
+import TagsThumb from "./TagsThumb.vue";
+import TagsListItem from "./TagsListItem.vue";
 export default {
   components: {
     "tags-list-item": TagsImage,
