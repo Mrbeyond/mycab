@@ -17,6 +17,7 @@
         :to="to"
         :total="total"
         :perPage="perPage"
+        :sortOptions="sortOptions"
         :formKey="ADD_PAYER"
       ></list-page-heading>
       <template v-if="isLoad">
@@ -55,9 +56,32 @@ export default {
   },
   data() {
     return {
+        sortOptions: [
+        {
+          column: "firstname",
+          label: "firstname"
+        },
+         {
+          column: "lasname",
+          label: "Lastname"
+        },
+          {
+          column: "id",
+          label: "id"
+        },
+        {
+          column: "agent_type",
+          label: "Agent_type"
+        },
+        {
+          column: "phone",
+          label: "Phone"
+        }
+      ],
         ADD_PAYER,
          agents: [
         {
+          id:5,
           firstname: 'Stephanie',
           lastname: 'Sunday',
           agent_type: 'commercial',
@@ -66,6 +90,7 @@ export default {
           img:"/assets/img/agents/agent1.jfif"
         },
          {
+           id:2,
           firstname: 'Bola',
           lastname: 'Sunday',
           agent_type: 'commercial',
@@ -75,6 +100,7 @@ export default {
 
         },
          {
+           id:3,
            firstname: 'Victor',
           lastname: 'Ogunniran',
           agent_type: 'commercial',
@@ -84,6 +110,7 @@ export default {
 
         },
          {
+           id:4,
           firstname: 'Sola',
           lastname: 'Jonson',
           agent_type: 'commercial',
@@ -95,9 +122,10 @@ export default {
       isLoad: true,
       apiBase: apiUrl + "/cakes/fordatatable",
       displayMode: "list",
+
       sort: {
-        column: "title",
-        label: "Product Name"
+        column: "firstname",
+        label: "Name"
       },
       page: 1,
       perPage: 4,
