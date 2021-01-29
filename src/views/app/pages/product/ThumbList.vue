@@ -43,8 +43,8 @@
 <script>
 import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
-import ListPageHeading from "../../../../containers/pages/Admin/ListPageHeading";
-import ListPageListing from "../../../../containers/pages/Admin/ListPageListing";
+import ListPageHeading from "../../../../containers/pages/ListPageHeading.vue";
+import ListPageListing from "../../../../containers/pages/ListPageListing.vue";
 
 export default {
   components: {

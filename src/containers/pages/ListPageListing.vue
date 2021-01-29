@@ -84,9 +84,9 @@
   </div>
 </template>
 <script>
-import ImageListItem from "../../../components/Listing/ImageListItem";
-import ThumbListItem from "../../../components/Listing/ThumbListItem";
-import DataListItem from "../../../components/Listing/DataListItem";
+import ImageListItem from "../../components/Listing/ImageListItem";
+import ThumbListItem from "../../components/Listing/ThumbListItem";
+import DataListItem from "../../components/Listing/DataListItem";
 export default {
   components: {
     "image-list-item": ImageListItem,
