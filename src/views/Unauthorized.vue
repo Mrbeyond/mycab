@@ -15,7 +15,9 @@
                     <span class="logo-single" />
                   </router-link>
                   <h6 class="mb-4">{{ $t("unauthorized.title") }}</h6>
-                  <p class="mb-0 text-muted text-small mb-0">{{ $t("unauthorized.detail") }}</p>
+                  <p class="mb-0 text-muted text-small mb-0">
+                    {{ $t("unauthorized.detail") }}
+                  </p>
                   <p class="display-1 font-weight-bold mb-5">503</p>
                   <b-button
                     type="submit"

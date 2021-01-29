@@ -11,6 +11,12 @@ const routes = [
   {
     path: "/",
     component: () => import(/* webpackChunkName: "home" */ "./views/home"),
+    redirect: '/login',
+  },
+  {
+    path: "/login",
+    component: () =>
+      import(/* webpackChunkName: "user" */ "./views/user/Login")
   },
   {
     path: adminRoot,

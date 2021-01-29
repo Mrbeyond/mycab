@@ -22,7 +22,7 @@
       <template v-if="isLoad">
         <payer-page-listing
           :displayMode="displayMode"
-          :items="items"
+          :items="agents"
           :selectedItems="selectedItems"
           :toggleItem="toggleItem"
           :lastPage="lastPage"
@@ -41,11 +41,11 @@
 </template>
 
 <script>
-import axios from "axios";
-import { apiUrl } from "./../../../../../constants/config";
+import { apiUrl, PROXY } from "./../../../../../constants/config";
 import ListPageHeading from "./../../ListsHeader/ListPageHeading.vue";
 import PayersListing from "./PayersListing";
-import {ADD_PAYER} from "./../../../../../constants/formKey";
+import {ADD_PAYER, hToken} from "./../../../../../constants/formKey";
+import Axios from 'axios';
 
 export default {
 
@@ -92,7 +92,7 @@ export default {
           img:"/assets/img/agents/agent4.jfif"
         },
       ],
-      isLoad: false,
+      isLoad: true,
       apiBase: apiUrl + "/cakes/fordatatable",
       displayMode: "list",
       sort: {
@@ -112,30 +112,31 @@ export default {
   },
   methods: {
     loadItems() {
-      this.isLoad = false;
+      // this.isLoad = false;
 
-      axios
-        .get(this.apiUrl)
-        .then(response => {
-          return response.data;
-        })
+
+      Axios.get(`${PROXY}agent/payers`, {headers: hToken()})
         .then(res => {
-          this.total = res.total;
-          this.from = res.from;
-          this.to = res.to;
-              this.items = this.agents
+          console.log(res.data);
+        //   this.total = res.total;
+        //   this.from = res.from;
+        //   this.to = res.to;
+        //       this.items = this.agents
 
-        //   this.items = res.data.map(x => {
-        //     return {
-        //       ...x,
-        //       img: x.img.replace("/img/", "/img/products/")
-        //     };
-        //   });
-          console.log(this.items)
-          this.perPage = res.per_page;
-          this.selectedItems = [];
-          this.lastPage = res.last_page;
+        // //   this.items = res.data.map(x => {
+        // //     return {
+        // //       ...x,
+        // //       img: x.img.replace("/img/", "/img/products/")
+        // //     };
+        // //   });
+        //   console.log(this.items)
+        //   this.perPage = res.per_page;
+        //   this.selectedItems = [];
+        //   this.lastPage = res.last_page;
           this.isLoad = true;
+        })
+        .then(err=>{
+          console.log(err);
         });
     },
 
@@ -238,7 +239,7 @@ export default {
       this.page = 1;
     },
     apiUrl() {
-      this.loadItems();
+      // this.loadItems();
     }
   },
   mounted() {

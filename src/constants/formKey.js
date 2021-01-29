@@ -8,8 +8,8 @@ export const ADD_IV = "add_imported";
 
 export const hToken=()=>{
   try {
-     let ls = localStorage.token? localStorage.token : "1234567889123456789123456789";
-     return { authorization: `Beaer ${ls}`}
+     let ls = localStorage.authToken? localStorage.authToken: "";
+     return { authorization: `Bearer ${ls}`}
   } catch (e) {
 
   }

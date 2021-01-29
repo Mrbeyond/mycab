@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="text-center">
-                  <b-button type="submit" variant="primary" class="mt-4">{{ $t('forms.submit') }}</b-button>
+                  <b-button type="submit" variant="primary" class="mt-1">{{ $t('forms.submit') }}</b-button>
                 </div>
 
                 <b-toast variant="danger" id="example-toast" title="Something went wrong" >
@@ -76,7 +76,6 @@ const {
     alpha,
     email,
     numeric,
-    minValue,
     helpers
 } = require("vuelidate/lib/validators");
 
@@ -124,13 +123,14 @@ export default {
     phone: {
         required,
         numeric,
-        minLength: minValue(11)
+        minLength: minLength(11)
     },
 
     },
   methods: {
     onValitadeFormSubmit() {
       this.$v.$touch();
+      if(this.$v.$invalid) return;
       if(this.submitting) return;
       let formData = {
         phone:this.phone,
@@ -155,7 +155,6 @@ export default {
           // setCurrentUser(authUser)
           // this.$store.commit("setUser", authUser);
         }else{
-          this.$store.commit("setUser", null);
           this.$bvToast.show("example-toast");
           // commit('setError', "Something went wrong");
         }
