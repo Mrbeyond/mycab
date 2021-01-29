@@ -81,9 +81,9 @@
 
 <script>
 import axios from "axios";
-import { apiUrl } from "../../../constants/config";
-import ListPageHeading from "../../../containers/pages/ListPageHeading";
-import AgentListing from "../../../containers/pages/AgentListing";
+import { apiUrl } from "./../../../../constants/config";
+import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
+import AgentListing from "./AgentListing";
 // import ConversionRatesChartCard from "../../../containers/dashboards/ConversionRatesChartCard";
 // import OrderStockRadarChart from "../../../containers/dashboards/OrderStockRadarChart";
 // import ProductCategoriesDoughnut from "../../../containers/dashboards/ProductCategoriesDoughnut";
@@ -182,7 +182,7 @@ export default {
           this.from = res.from;
           this.to = res.to;
               this.items = this.agents
-              
+
         //   this.items = res.data.map(x => {
         //     return {
         //       ...x,
@@ -289,7 +289,7 @@ export default {
     apiUrl() {
       return `${this.apiBase}?sort=${this.sort.column}&page=${this.page}&per_page=${this.perPage}&search=${this.search}`;
     }
-    
+
   },
   watch: {
     search() {
@@ -301,7 +301,7 @@ export default {
   },
   mounted() {
     this.loadItems();
-    
+
   }
 };
 </script>

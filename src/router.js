@@ -15,7 +15,7 @@ const routes = [
   {
     path: adminRoot,
     component: () => import(/* webpackChunkName: "app" */ "./views/app"),
-    redirect: `${adminRoot}/dashboards`,
+    redirect: `${adminRoot}/payers`,
     meta: { loginRequired: true },
     /*
     define with Authorization :
@@ -23,22 +23,16 @@ const routes = [
     */
     children: [
       {
-        path: "dashboards",
+        path: "payers",
         component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards"),
-        redirect: `${adminRoot}/dashboards/default`,
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Payer/PayersList/Payers.vue"),
+          // redirect: `${adminRoot}/dashboard/payers`,
         // meta: { roles: [UserRole.Admin, UserRole.Editor] },
         children: [
           {
             path: "default",
             component: () =>
               import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Default"),
-            // meta: { roles: [UserRole.Admin] },
-          },
-          {
-            path: "prices",
-            component: () =>
-              import(/* webpackChunkName: "dashboards" */ "./views/app/pages/miscellaneous/Prices.vue"),
             // meta: { roles: [UserRole.Admin] },
           },
           {
@@ -49,41 +43,29 @@ const routes = [
             // meta: { roles: [UserRole.Admin] },
           },
           {
-            path: "ecommerce",
+            path: "vehicles",
             component: () =>
-              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Ecommerce"),
-            // meta: { roles: [UserRole.Editor] },
-          },
-          {
-            path: "agents/vehicles",
-            component: () =>
-              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Vehicles"),
+              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/vehicles/Vehicles.vue"),
             // meta: { roles: [UserRole.Editor] },
           },
           {
             path: "admins/Vehicle-tags",
             component: () =>
-              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Tags"),
+              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Tags/Tags.vue"),
             // meta: { roles: [UserRole.Editor] },
           },
           {
             path: "admins/terminals",
             component: () =>
-              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Terminal"),
+              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Terminal/Terminal.vue"),
             // meta: { roles: [UserRole.Editor] },
           },
           {
             path: "admins/agents",
             component: () =>
-              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents"),
+              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents/Agents.vue"),
             // meta: { roles: [UserRole.Editor] },
           },
-          {
-            path: "content",
-            component: () =>
-              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Content"),
-            // meta: { roles: [UserRole.Editor] },
-          }
         ]
       },
       {

@@ -41,9 +41,9 @@
 
 <script>
 import axios from "axios";
-import { apiUrl } from "../../../constants/config";
-import ListPageHeading from "../../../containers/pages/ListPageHeading";
-import TagsListing from "../../../containers/pages/TagsListing";
+import { apiUrl } from "../../../../constants/config";
+import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
+import TerminalListing from "./TerminalListing.vue";
 export default {
 
   components: {
@@ -106,7 +106,7 @@ export default {
           this.from = res.from;
           this.to = res.to;
               this.items = this.agents
-              
+
         //   this.items = res.data.map(x => {
         //     return {
         //       ...x,
@@ -213,7 +213,7 @@ export default {
     apiUrl() {
       return `${this.apiBase}?sort=${this.sort.column}&page=${this.page}&per_page=${this.perPage}&search=${this.search}`;
     }
-    
+
   },
   watch: {
     search() {
@@ -225,7 +225,7 @@ export default {
   },
   mounted() {
     this.loadItems();
-    
+
   }
 };
 </script>

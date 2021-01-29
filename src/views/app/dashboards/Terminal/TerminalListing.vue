@@ -84,9 +84,9 @@
   </div>
 </template>
 <script>
-import TerminalImageList from "../../components/Listing/Terminal/TerminalImageList";
-import TerminalThumb from "../../components/Listing/Terminal/TerminalThumb";
-import TerminalList from "../../components/Listing/Terminal/TerminalList";
+import TerminalImageList from "./TerminalImageList.vue";
+import TerminalThumb from "./TerminalThumb.vue";
+import TerminalList from "./TerminalList.vue";
 export default {
   components: {
     "terminal-list-item-image": TerminalImageList,

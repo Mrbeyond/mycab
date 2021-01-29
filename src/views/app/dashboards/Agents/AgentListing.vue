@@ -10,7 +10,7 @@
         :key="index"
         :id="item.id"
       >
-        <tags-list-item
+        <agent-list-image
           :key="item.id"
           :data="item"
           :selected-items="selectedItems"
@@ -21,7 +21,7 @@
     </b-row>
     <b-row v-else-if="displayMode==='thumb'" key="thumb">
       <b-colxx xxs="12" class="mb-3" v-for="(item,index) in items" :key="index" :id="item.id">
-        <tags-thumb-list-item
+        <agent-list-thumb
           :key="item.id"
           :data="item"
           :selected-items="selectedItems"
@@ -32,7 +32,7 @@
     </b-row>
     <b-row v-else-if="displayMode==='list'" key="list">
       <b-colxx xxs="12" class="mb-3" v-for="(item,index) in items" :key="index" :id="item.id">
-        <tag-list-item
+        <agent-list-item
           :key="item.id"
           :data="item"
           :selected-items="selectedItems"
@@ -84,14 +84,14 @@
   </div>
 </template>
 <script>
-import TagsImage from "../../components/Listing/Tags/TagsImage";
-import TagsThumb from "../../components/Listing/Tags/TagsThumb";
-import TagsListItem from "../../components/Listing/Tags/TagsListItem";
+import AgentsImage from "./AgentsImage.vue";
+import AgentThumb from "./AgentThumb.vue";
+import AgentsList from "./AgentsList.vue";
 export default {
   components: {
-    "tags-list-item": TagsImage,
-    "tags-thumb-list-item": TagsThumb,
-    "tag-list-item": TagsListItem
+    "agent-list-image": AgentsImage,
+    "agent-list-thumb": AgentThumb,
+    "agent-list-item": AgentsList
   },
   props: [
     "displayMode",
