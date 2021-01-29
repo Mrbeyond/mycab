@@ -35,6 +35,8 @@ const routes = [
               import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Default"),
             // meta: { roles: [UserRole.Admin] },
           },
+        ]
+      },
           {
             path: "analytics",
 
@@ -55,19 +57,18 @@ const routes = [
             // meta: { roles: [UserRole.Editor] },
           },
           {
-            path: "admins/terminals",
+            path: "terminals",
             component: () =>
               import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Terminal/Terminal.vue"),
             // meta: { roles: [UserRole.Editor] },
           },
           {
-            path: "admins/agents",
+            path: "agents",
             component: () =>
               import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents/Agents.vue"),
             // meta: { roles: [UserRole.Editor] },
           },
-        ]
-      },
+       
       {
         path: "pages",
         component: () =>
