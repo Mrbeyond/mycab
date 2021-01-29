@@ -10,7 +10,7 @@
         :key="index"
         :id="item.id"
       >
-        <agent-list-image
+        <payers-list-image
           :key="item.id"
           :data="item"
           :selected-items="selectedItems"
@@ -21,7 +21,7 @@
     </b-row>
     <b-row v-else-if="displayMode==='thumb'" key="thumb">
       <b-colxx xxs="12" class="mb-3" v-for="(item,index) in items" :key="index" :id="item.id">
-        <agent-list-thumb
+        <payers-list-thumb
           :key="item.id"
           :data="item"
           :selected-items="selectedItems"
@@ -32,7 +32,7 @@
     </b-row>
     <b-row v-else-if="displayMode==='list'" key="list">
       <b-colxx xxs="12" class="mb-3" v-for="(item,index) in items" :key="index" :id="item.id">
-        <agent-list-item
+        <payers-list-item
           :key="item.id"
           :data="item"
           :selected-items="selectedItems"
@@ -84,14 +84,14 @@
   </div>
 </template>
 <script>
-import AgentsImage from "../../components/Listing/Agents/AgentsImage";
-import AgentThumb from "../../components/Listing/Agents/AgentThumb";
-import AgentsList from "../../components/Listing/Agents/AgentsList";
+import PayersImage from "./PayersImage.vue";
+import PayersThumb from "./PayersThumb.vue";
+import PayersList from "./PayersList.vue";
 export default {
   components: {
-    "agent-list-image": AgentsImage,
-    "agent-list-thumb": AgentThumb,
-    "agent-list-item": AgentsList
+    "payers-list-image": PayersImage,
+    "payers-list-thumb": PayersThumb,
+    "payers-list-item": PayersList
   },
   props: [
     "displayMode",

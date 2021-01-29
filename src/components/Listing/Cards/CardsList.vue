@@ -16,6 +16,15 @@
              <b-row  >
                  <span class="float-right">{{data.vehicles}}</span>
              </b-row>
+             <b-row>
+             <p>{{data.createdAt}}</p>
+             </b-row>
+             <b-row>
+            <p>{{data.updatedAt}}</p>
+             </b-row>
+             <b-row>
+            <p>{{data.status}}</p>
+             </b-row>
     </b-card-body>
 </b-card>
 </template>

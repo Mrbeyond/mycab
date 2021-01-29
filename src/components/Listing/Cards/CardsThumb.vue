@@ -2,11 +2,14 @@
 <b-card @click.prevent="toggleItem($event,data.id)" :class="{'d-flex flex-row':true,'active' : selectedItems.includes(data.id)}" no-body>
     <div class="pl-2 d-flex flex-grow-1 min-width-zero">
         <div class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-            <router-link :to="`?p=${data.id}`" class="w-40 w-sm-100">
+            <router-link :to="`?p=${data.id}`" class="w-5 w-sm-100">
                 <p class="list-item-heading mb-0 truncate">{{data.state_id}}</p>
             </router-link>
-            <p class="mb-0 text-muted text-small w-15 w-sm-100">{{data.tag_no}}</p>
-            <p class="mb-0 text-muted text-small w-15 w-sm-100">{{data.vehicles}}</p>
+           <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.card_no}}</p>
+            <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.system_identifier}}</p>
+            <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.createdAt}}</p>
+            <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.updatedAt}}</p>
+            <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.accounts}}</p>
             <div class="w-15 w-sm-100">
                 <b-badge pill :variant="data.statusColor">{{ data.status }}</b-badge>
             </div>
@@ -16,6 +19,7 @@
         </div>
     </div>
 </b-card>
+
 </template>
 
 <script>
