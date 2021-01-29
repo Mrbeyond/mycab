@@ -77,7 +77,7 @@ const routes = [
         
       },
       {
-        path: "all-tags",
+        path: "tags",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Tags/Tags.vue"),
         // meta: { roles: [UserRole.Editor] },
