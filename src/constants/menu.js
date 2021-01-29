@@ -14,10 +14,94 @@ const data = [{
     // roles: [UserRole.Admin],
   },
   {
+    id: "admins",
+    icon: "simple-icon-pie-chart",
+    label: "menu.admins",
+    to: `${adminRoot}/dashboards/admins`,
+    // roles: [UserRole.Admin],
+    subs: [{
+      icon: "simple-icon-bus",
+      label: "menu.vehicle-tags",
+      to: `${adminRoot}/dashboards/admins/vehicle-tags`
+    },
+    {
+      icon: "simple-icon-arrow-right",
+      label: "menu.terminals",
+      to: `${adminRoot}/dashboards/admins/terminals`
+    },
+    {
+      icon: "simple-icon-arrow-right",
+      label: "menu.agents-list",
+      to: `${adminRoot}/dashboards/admins/agents`
+    },
+    {
+      icon: "simple-icon-user",
+      label: "menu.admins-list",
+      to: `${adminRoot}/dashboards/admins/admins`
+    },
+    {
+      icon: "simple-icon-page",
+      label: "menu.account-cards",
+      to: `${adminRoot}/dashboards/admins/cards`
+    }
+
+    ]
+  },
+  {
+    id: "agents",
+    icon: "simple-icon-pie-chart",
+    label: "menu.agents",
+    to: `${adminRoot}/dashboards/agents`,
+    // roles: [UserRole.Admin],
+    subs: [{
+      icon: "simple-icon-bus",
+      label: "menu.agent-payers",
+      to: `${adminRoot}/dashboards/agents/payers`
+    },
+    {
+      icon: "simple-icon-arrow-right",
+      label: "menu.agent-vehicles",
+      to: `${adminRoot}/dashboards/agents/vehicles`
+    },
+    {
+      icon: "simple-icon-arrow-right",
+      label: "menu.agent-wallet",
+      to: `${adminRoot}/dashboards/agents/wallet`
+    }
+    ]
+  },
+  {
+    id: "payers",
+    icon: "simple-icon-pie-chart",
+    label: "menu.agents",
+    to: `${adminRoot}/dashboards/agents`,
+    // roles: [UserRole.Admin],
+    subs: [{
+      icon: "simple-icon-bus",
+      label: "menu.payer-wallet",
+      to: `${adminRoot}/dashboards/payers/wallet`
+    },
+    ]
+  },
+
+  {
+    id: "analytics",
     icon: "simple-icon-pie-chart",
     label: "menu.analytics",
     to: `${adminRoot}/dashboards/analytics`,
     // roles: [UserRole.Admin],
+    subs: [{
+      icon: "simple-icon-briefcase",
+      label: "menuhjhjh",
+      to: `${adminRoot}/dashboards/nbhb`
+    },
+    {
+      icon: "simple-icon-arrow-right",
+      label: "menu.terminals",
+      to: `${adminRoot}/dashboards/ngfgfgbhb`
+    }
+
+    ]
   },
   {
     icon: "simple-icon-basket-loaded",
@@ -25,40 +109,10 @@ const data = [{
     to: `${adminRoot}/dashboards/ecommerce`,
     // roles: [UserRole.Editor],
   },
-  {
+  { id:"contents",
     icon: "simple-icon-doc",
     label: "menu.content",
     to: `${adminRoot}/dashboards/content`,
-    // roles: [UserRole.Editor],
-  },
-  {
-    icon: "simple-icon-doc",
-    label: "Payers",
-    to: `${adminRoot}/dashboards/payers`,
-    // roles: [UserRole.Editor],
-  },
-  {
-    icon: "simple-icon-doc",
-    label: "Wallets",
-    to: `${adminRoot}/dashboards/wallets`,
-    // roles: [UserRole.Editor],
-  },
-  {
-    icon: "simple-icon-doc",
-    label: "Agents",
-    to: `${adminRoot}/dashboards/agents`,
-    // roles: [UserRole.Editor],
-  },
-  {
-    icon: "simple-icon-doc",
-    label: "Vehicles",
-    to: `${adminRoot}/dashboards/vehicles`,
-    // roles: [UserRole.Editor],
-  },
-  {
-    icon: "simple-icon-doc",
-    label: "Payments",
-    to: `${adminRoot}/dashboards/payments`,
     // roles: [UserRole.Editor],
   },
   {

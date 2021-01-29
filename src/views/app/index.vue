@@ -4,8 +4,9 @@
   </app-layout>
 </template>
 
-<script>
-import AppLayout from "../../layouts/AppLayout";
+<script>// @ts-nocheck
+
+import AppLayout from "../../layouts/AppLayout.vue";
 
 export default {
   components: {

@@ -49,6 +49,30 @@ const routes = [
             // meta: { roles: [UserRole.Editor] },
           },
           {
+            path: "agents/vehicles",
+            component: () =>
+              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Vehicles"),
+            // meta: { roles: [UserRole.Editor] },
+          },
+          {
+            path: "admins/Vehicle-tags",
+            component: () =>
+              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Tags"),
+            // meta: { roles: [UserRole.Editor] },
+          },
+          {
+            path: "admins/terminals",
+            component: () =>
+              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Terminal"),
+            // meta: { roles: [UserRole.Editor] },
+          },
+          {
+            path: "admins/agents",
+            component: () =>
+              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents"),
+            // meta: { roles: [UserRole.Editor] },
+          },
+          {
             path: "content",
             component: () =>
               import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Content"),

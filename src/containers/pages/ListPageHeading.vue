@@ -8,7 +8,9 @@
           variant="primary"
           size="lg"
           class="top-right-button"
-        >{{ $t('pages.add-new') }}</b-button>
+        >
+        {{ $t('pages.add-new') }}
+        </b-button>
         <b-button-group>
           <b-dropdown split right @click="selectAll(true)" class="check-button" variant="primary">
             <label
