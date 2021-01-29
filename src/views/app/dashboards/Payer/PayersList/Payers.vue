@@ -17,6 +17,7 @@
         :to="to"
         :total="total"
         :perPage="perPage"
+        :formKey="ADD_PAYER"
       ></list-page-heading>
       <template v-if="isLoad">
         <payer-page-listing
@@ -44,6 +45,7 @@ import axios from "axios";
 import { apiUrl } from "./../../../../../constants/config";
 import ListPageHeading from "./../../ListsHeader/ListPageHeading.vue";
 import PayersListing from "./PayersListing";
+import {ADD_PAYER} from "./../../../../../constants/formKey";
 
 export default {
 
@@ -53,6 +55,7 @@ export default {
   },
   data() {
     return {
+        ADD_PAYER,
          agents: [
         {
           firstname: 'Stephanie',

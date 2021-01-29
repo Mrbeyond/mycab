@@ -125,7 +125,7 @@
 
 
               <b-toast variant="danger" id="example-toast" title="Something went wrong" >
-                Please try again, there was error processing your regristration
+                Please try again, there was an error while processing your regristration
               </b-toast>
           </b-form>
         </div>
@@ -302,7 +302,7 @@ export default {
 
       console.log(formData);
       this.submitting = true;
-      axios.post(`${PROXY}payer/register'`, formData)
+      axios.post(`${PROXY}payer/register`, formData)
       .then(res=>{
         if(!res.data.error){
           localStorage.authToken = res.data.data.authorization
