@@ -65,15 +65,15 @@
 </template>
 
 <script>
-import ConversionRatesChartCard from "../../../containers/dashboards/ConversionRatesChartCard";
-import OrderStockRadarChart from "../../../containers/dashboards/OrderStockRadarChart";
-import ProductCategoriesDoughnut from "../../../containers/dashboards/ProductCategoriesDoughnut";
-import ProductCategoriesPolarArea from "../../../containers/dashboards/ProductCategoriesPolarArea";
-import ProfileStatuses from "../../../containers/dashboards/ProfileStatuses";
-import SalesChartCard from "../../../containers/dashboards/SalesChartCard";
-import SmallLineCharts from "../../../containers/dashboards/SmallLineCharts";
-import SortableStaticticsRow from "../../../containers/dashboards/SortableStaticticsRow";
-import vehiclesCard from "../../../containers/dashboards/vehiclesCard";
+import ConversionRatesChartCard from "../../../../containers/dashboards/ConversionRatesChartCard";
+import OrderStockRadarChart from "../../../../containers/dashboards/OrderStockRadarChart";
+import ProductCategoriesDoughnut from "../../../../containers/dashboards/ProductCategoriesDoughnut";
+import ProductCategoriesPolarArea from "../../../../containers/dashboards/ProductCategoriesPolarArea";
+import ProfileStatuses from "../../../../containers/dashboards/ProfileStatuses";
+import SalesChartCard from "../../../../containers/dashboards/SalesChartCard";
+import SmallLineCharts from "../../../../containers/dashboards/SmallLineCharts";
+import SortableStaticticsRow from "../../../../containers/dashboards/SortableStaticticsRow";
+import vehiclesCard from "../../../../containers/dashboards/vehiclesCard";
 
 export default {
   data () {

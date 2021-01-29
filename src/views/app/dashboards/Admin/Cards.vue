@@ -1,9 +1,8 @@
-
 <template>
   <b-row>
     <b-colxx class="disable-text-selection">
       <list-page-heading
-        :title="$t('menu.thumb-list')"
+        :title="$t('forms.tags')"
         :selectAll="selectAll"
         :isSelectedAll="isSelectedAll"
         :isAnyItemSelected="isAnyItemSelected"
@@ -20,7 +19,7 @@
         :perPage="perPage"
       ></list-page-heading>
       <template v-if="isLoad">
-        <list-page-listing
+        <cards-page-listing
           :displayMode="displayMode"
           :items="items"
           :selectedItems="selectedItems"
@@ -31,7 +30,7 @@
           :changePage="changePage"
           :handleContextMenu="handleContextMenu"
           :onContextMenuAction="onContextMenuAction"
-        ></list-page-listing>
+        ></cards-page-listing>
       </template>
       <template v-else>
         <div class="loading"></div>
@@ -44,18 +43,42 @@
 import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
 import ListPageHeading from "../../../../containers/pages/Admin/ListPageHeading";
-import ListPageListing from "../../../../containers/pages/Admin/ListPageListing";
-
+import CardListing from "../../../../containers/pages/Admin/CardsListing";
 export default {
+
   components: {
     "list-page-heading": ListPageHeading,
-    "list-page-listing": ListPageListing
+    "cards-page-listing": CardListing
   },
   data() {
     return {
+         agents: [
+         {
+            "id": 1,
+            "state_id": null,
+            "card_no": "1",
+            "system_identifier": "54555644517a45324d5445344d5467794d7a41334e6a673d",
+            "status": 1,
+            "createdAt": "2021-01-28T07:17:11.000Z",
+            "updatedAt": "2021-01-28T07:17:11.000Z",
+             "img":"/assets/img/uploads/vehicle.jfif",
+            "accounts": []
+        },
+        {
+             "id": 2,
+            "state_id": null,
+            "card_no": "1",
+            "system_identifier": "54555644517a453se24d5445344d5467794d7a41334e6a673d",
+            "status": 1,
+            "createdAt": "2021-01-28T07:17:11.000Z",
+            "updatedAt": "2021-01-28T07:17:11.000Z",
+             "img":"/assets/img/uploads/vehicle.jfif",
+            "accounts": []
+        }
+      ],
       isLoad: false,
       apiBase: apiUrl + "/cakes/fordatatable",
-      displayMode: "thumb",
+      displayMode: "list",
       sort: {
         column: "title",
         label: "Product Name"
@@ -84,12 +107,15 @@ export default {
           this.total = res.total;
           this.from = res.from;
           this.to = res.to;
-          this.items = res.data.map(x => {
-            return {
-              ...x,
-              img: x.img.replace("/img/", "/img/products/")
-            };
-          });
+              this.items = this.agents
+              
+        //   this.items = res.data.map(x => {
+        //     return {
+        //       ...x,
+        //       img: x.img.replace("/img/", "/img/products/")
+        //     };
+        //   });
+          console.log(this.items)
           this.perPage = res.per_page;
           this.selectedItems = [];
           this.lastPage = res.last_page;
@@ -189,6 +215,7 @@ export default {
     apiUrl() {
       return `${this.apiBase}?sort=${this.sort.column}&page=${this.page}&per_page=${this.perPage}&search=${this.search}`;
     }
+    
   },
   watch: {
     search() {
@@ -200,6 +227,7 @@ export default {
   },
   mounted() {
     this.loadItems();
+    
   }
 };
 </script>

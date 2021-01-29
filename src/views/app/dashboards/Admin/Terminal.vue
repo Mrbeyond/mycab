@@ -2,7 +2,7 @@
   <b-row>
     <b-colxx class="disable-text-selection">
       <list-page-heading
-        :title="$t('menu.agents')"
+        :title="$t('forms.tags')"
         :selectAll="selectAll"
         :isSelectedAll="isSelectedAll"
         :isAnyItemSelected="isAnyItemSelected"
@@ -19,7 +19,7 @@
         :perPage="perPage"
       ></list-page-heading>
       <template v-if="isLoad">
-        <agent-page-listing
+        <tags-page-listing
           :displayMode="displayMode"
           :items="items"
           :selectedItems="selectedItems"
@@ -30,125 +30,49 @@
           :changePage="changePage"
           :handleContextMenu="handleContextMenu"
           :onContextMenuAction="onContextMenuAction"
-        ></agent-page-listing>
+        ></tags-page-listing>
       </template>
       <template v-else>
         <div class="loading"></div>
       </template>
     </b-colxx>
   </b-row>
-  <!-- <div>
-  <b-tabs content-class="mt-3" justified>
-
-    <b-tab :title="$t('menu.all-agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.port-agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.garage-agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.agents-registrations')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-  </b-tabs>
-</div> -->
 </template>
 
 <script>
 import axios from "axios";
-import { apiUrl } from "../../../constants/config";
-import ListPageHeading from "../../../containers/pages/ListPageHeading";
-import AgentListing from "../../../containers/pages/AgentListing";
-// import ConversionRatesChartCard from "../../../containers/dashboards/ConversionRatesChartCard";
-// import OrderStockRadarChart from "../../../containers/dashboards/OrderStockRadarChart";
-// import ProductCategoriesDoughnut from "../../../containers/dashboards/ProductCategoriesDoughnut";
-// import ProductCategoriesPolarArea from "../../../containers/dashboards/ProductCategoriesPolarArea";
-// import ProfileStatuses from "../../../containers/dashboards/ProfileStatuses";
-// import SalesChartCard from "../../../containers/dashboards/SalesChartCard";
-// import SmallLineCharts from "../../../containers/dashboards/SmallLineCharts";
-// import SortableStaticticsRow from "../../../containers/dashboards/SortableStaticticsRow";
-// import AgentsCard from "../../../containers/dashboards/AgentsCard";
-
+import { apiUrl } from "../../../../constants/config";
+import ListPageHeading from "../../../../containers/pages/Admin/ListPageHeading";
+import TagsListing from "../../../../containers/pages/Admin/TagsListing";
 export default {
 
   components: {
     "list-page-heading": ListPageHeading,
-    "agent-page-listing": AgentListing
+    "tags-page-listing": TagsListing
   },
-//    components: {
-//     "converconversion-rates-chart-card": ConversionRatesChartCard,
-//     "order-stock-radar-chart": OrderStockRadarChart,
-//     "product-categories-doughnut": ProductCategoriesDoughnut,
-//     "product-categories-polar-area": ProductCategoriesPolarArea,
-//     "profile-statuses": ProfileStatuses,
-//     "sales-chart-card": SalesChartCard,
-//     "small-line-charts": SmallLineCharts,
-//     "sortable-statictics-row": SortableStaticticsRow,
-//     "agent-Card": AgentsCard
-//   }
-// };
   data() {
     return {
          agents: [
+         {
+            "id": 1,
+            "state_id": "Oyo",
+            "terminal_no": "1",
+            "status": "active",
+            "createdAt": "2021-01-28T07:19:09.000Z",
+            "updatedAt": "2021-01-28T07:19:09.000Z",
+             "img":"/assets/img/uploads/vehicle.jfif",
+            "agents": []
+        },
         {
-          firstname: 'Stephanie',
-          lastname: 'Sunday',
-          agent_type: 'commercial',
-          garage:"Sabo Ogbomoso",
-          phone:"0908924664567",
-          img:"/assets/img/agents/agent1.jfif"
-        },
-         {
-          firstname: 'Bola',
-          lastname: 'Sunday',
-          agent_type: 'commercial',
-          garage:"Sabo Ogbomoso",
-          phone:"0908924664567",
-          img:"/assets/img/agents/agent2.jfif"
-
-        },
-         {
-           firstname: 'Victor',
-          lastname: 'Ogunniran',
-          agent_type: 'commercial',
-          garage:"Taki Ogbomoso",
-          phone:"080892656764567",
-          img:"/assets/img/agents/agent3.jfif"
-
-        },
-         {
-          firstname: 'Sola',
-          lastname: 'Jonson',
-          agent_type: 'commercial',
-          garage:"Hojo Ibadan",
-          phone:"0908924789889",
-          img:"/assets/img/agents/agent4.jfif"
-        },
+             "id": 11,
+            "state_id": "Oyo",
+            "terminal_no": "2",
+            "status": 1,
+            "createdAt": "2021-01-28T07:40:36.000Z",
+            "updatedAt": "2021-01-28T07:40:36.000Z",
+            "img":"/assets/img/uploads/car.jfif",
+            "agents": []
+        }
       ],
       isLoad: false,
       apiBase: apiUrl + "/cakes/fordatatable",
