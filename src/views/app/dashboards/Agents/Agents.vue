@@ -17,6 +17,7 @@
         :to="to"
         :total="total"
         :perPage="perPage"
+        :sortOptions="sortOptions"
       ></list-page-heading>
       <template v-if="isLoad">
         <agent-page-listing
@@ -114,6 +115,33 @@ export default {
 // };
   data() {
     return {
+        sortOptions: [
+        {
+          column: "firstname",
+          label: "firstname"
+        },
+         {
+          column: "lasname",
+          label: "Lastname"
+        },
+          {
+          column: "id",
+          label: "id"
+        },
+        {
+          column: "agent_type",
+          label: "Agent_type"
+        },
+        {
+          column: "phone",
+          label: "Phone"
+        }
+      ],
+
+       sort: {
+        column: "firstname",
+        label: "Name"
+      },
          agents: [
         {
           firstname: 'Stephanie',
@@ -154,8 +182,8 @@ export default {
       apiBase: apiUrl + "/cakes/fordatatable",
       displayMode: "list",
       sort: {
-        column: "title",
-        label: "Product Name"
+        column: "firstname",
+        label: "firstname"
       },
       page: 1,
       perPage: 4,

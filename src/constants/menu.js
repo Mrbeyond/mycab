@@ -38,7 +38,7 @@ const data = [
     {
     icon: "simple-icon-list",
     label: "menu.all-agents",
-    to: `${adminRoot}/all-agents`,
+    to: `${adminRoot}/agents`,
     // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
@@ -69,7 +69,7 @@ const data = [
     {
     icon: "simple-icon-list",
     label: "menu.all-admins",
-    to: `${adminRoot}/all-admins`,
+    to: `${adminRoot}/admins`,
     // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
@@ -88,19 +88,19 @@ const data = [
     {
     icon: "simple-icon-list",
     label: "menu.all-vehicles",
-    to: `${adminRoot}/all-vehicles`,
+    to: `${adminRoot}/vehicles`,
     // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
       icon: "simple-icon-list",
       label: "menu.commercial-vehicles",
-      to: `${adminRoot}/commercial-vehicles`,
+      to: `${adminRoot}/vehicles/commercial`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
       icon: "simple-icon-list",
       label: "menu.import-vehicles",
-      to: `${adminRoot}/import-vehicles`,
+      to: `${adminRoot}/vehicles/import`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
