@@ -11,17 +11,17 @@
             <b-row >
                 <b-form-checkbox :checked="selectedItems.includes(data.id)" class="itemCheck mb-0 float-right" />
             </b-row>
-            <b-row>
-              <span> Name:</span> <span right  class="float-right">{{data.firstname}} {{data.lastname}}</span>
+            <b-row >
+              <span> Name:</span> <span  class="ml-3">{{data.firstname}} {{data.lastname}}</span>
             </b-row>
              <b-row  >
-                <span class="float-right">{{data.agent_type}}</span>
+                <span>Agent Type:</span> <span class="ml-3">{{data.agent_type}}</span>
              </b-row>
              <b-row  >
-                 <span class="float-right">{{data.garage}}</span>
+                <span> Garage/Port:</span> <span class="ml-3">{{data.garage}}</span>
              </b-row>
              <b-row >
-                <span class="float-right">{{data.phone}}</span>
+                <span> Phone:</span><span class="ml-3">{{data.phone}}</span>
              </b-row>
     </b-card-body>
 </b-card>
