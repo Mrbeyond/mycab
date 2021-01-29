@@ -24,12 +24,13 @@
           <li class="nav-item">
             <div class="separator"></div>
           </li>
-          <li class="nav-item text-center">
-            <a
-              class="btn btn-outline-primary btn-sm mobile-menu-cta"
-              target="_blank"
-              :href="buyUrl"
-            >BUY</a>
+          <li class="nav-item pl-4">
+            <i class="fas fa-user-plus"></i>
+            <router-link to="/user/register">Register</router-link>
+          </li>
+          <li class="nav-item pl-4">
+            <i class="fas fa-sign-in-alt"></i>
+            <router-link to="/user/login">login</router-link>
           </li>
         </ul>
       </div>
