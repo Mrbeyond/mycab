@@ -28,7 +28,7 @@ export const firebaseConfig = {
 };
 
 
-export const PROXY = "http://127.0.0.1:8000/";
+export const PROXY = "http://mecp.herokuapp.com/";
 
 
 

@@ -1,0 +1,57 @@
+<template>
+<b-row>
+    <b-colxx xxs="12">
+        <b-card class="mb-4" title="Add Tag">
+          <b-form @submit.prevent="onValitadeFormSubmit" class="av-tooltip tooltip-label-right">
+              <b-form-group label="Tag number">
+                <b-form-input type="text" v-model="$v.tag_no.$model" :state="!$v.tag_no.$error" />
+                <b-form-invalid-feedback v-if="!$v.tag_no.required">Please enter a type</b-form-invalid-feedback>
+                <b-form-invalid-feedback v-else-if="!$v.tag_no.numeric">Value must be a number</b-form-invalid-feedback>
+            </b-form-group>
+            <div class="text-center">
+              <b-button type="submit" variant="primary" class="mt-4">{{ $t('forms.submit') }}</b-button>
+            </div>
+          </b-form>
+        </b-card>
+    </b-colxx>
+</b-row>
+</template>
+
+<script>
+import {
+    validationMixin
+} from "vuelidate";
+const {
+    required,
+    numeric,
+    helpers
+} = require("vuelidate/lib/validators");
+
+const upperCase = helpers.regex('upperCase', /^[A-Z]*$/)
+
+export default {
+  data() {
+    return {
+      tag_no: "",
+    };
+  },
+  mixins: [validationMixin],
+  validations: {
+    tag_no: {
+        required,
+        numeric
+    }
+
+    },
+  methods: {
+    onValitadeFormSubmit() {
+      this.$v.$touch();
+      console.log(
+      JSON.stringify({
+        tag_no: this.tag_no,
+      })
+    );
+  }
+}
+};
+</script>
