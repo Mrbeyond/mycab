@@ -17,6 +17,7 @@
         :to="to"
         :total="total"
         :perPage="perPage"
+        :sortOptions="sortOptions"
       ></list-page-heading>
       <template v-if="isLoad">
         <payer-page-listing
@@ -114,8 +115,31 @@ export default {
 // };
   data() {
     return {
+        sortOptions: [
+        {
+          column: "firstname",
+          label: "firstname"
+        },
+         {
+          column: "lasname",
+          label: "Lastname"
+        },
+          {
+          column: "id",
+          label: "id"
+        },
+        {
+          column: "agent_type",
+          label: "Agent_type"
+        },
+        {
+          column: "phone",
+          label: "Phone"
+        }
+      ],
          agents: [
         {
+          id:5,
           firstname: 'Stephanie',
           lastname: 'Sunday',
           agent_type: 'commercial',
@@ -124,6 +148,7 @@ export default {
           img:"/assets/img/agents/agent1.jfif"
         },
          {
+           id:2,
           firstname: 'Bola',
           lastname: 'Sunday',
           agent_type: 'commercial',
@@ -133,6 +158,7 @@ export default {
 
         },
          {
+           id:3,
            firstname: 'Victor',
           lastname: 'Ogunniran',
           agent_type: 'commercial',
@@ -142,6 +168,7 @@ export default {
 
         },
          {
+           id:4,
           firstname: 'Sola',
           lastname: 'Jonson',
           agent_type: 'commercial',
@@ -153,9 +180,10 @@ export default {
       isLoad: false,
       apiBase: apiUrl + "/cakes/fordatatable",
       displayMode: "list",
+
       sort: {
-        column: "title",
-        label: "Product Name"
+        column: "firstname",
+        label: "Name"
       },
       page: 1,
       perPage: 4,
@@ -171,7 +199,6 @@ export default {
   methods: {
     loadItems() {
       this.isLoad = false;
-
       axios
         .get(this.apiUrl)
         .then(response => {
@@ -181,7 +208,6 @@ export default {
           this.total = res.total;
           this.from = res.from;
           this.to = res.to;
-              this.items = this.agents
 
         //   this.items = res.data.map(x => {
         //     return {
@@ -189,6 +215,14 @@ export default {
         //       img: x.img.replace("/img/", "/img/products/")
         //     };
         //   });
+        let resp =  this.sort.column.substring("")
+        console.log(resp)
+             this.items =  this.agents.sort(function(a, b){
+            if(a.resp > b.resp) return 1;
+            if(a.resp < b.resp) return -1;
+            return 0;
+            });
+        //  let st =  this.items.sort(function(a, b){return a.resp - b.resp});
           console.log(this.items)
           this.perPage = res.per_page;
           this.selectedItems = [];
