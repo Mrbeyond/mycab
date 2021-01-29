@@ -17,6 +17,7 @@
         :to="to"
         :total="total"
         :perPage="perPage"
+        :sortOptions="sortOptions"
       ></list-page-heading>
       <template v-if="isLoad">
         <agent-page-listing
@@ -81,7 +82,7 @@
 
 <script>
 import axios from "axios";
-import { apiUrl } from "./../../../../constants/config";
+import { PROXY } from "./../../../../constants/config";
 import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
 import AgentListing from "./AgentListing";
 // import ConversionRatesChartCard from "../../../containers/dashboards/ConversionRatesChartCard";
@@ -114,6 +115,33 @@ export default {
 // };
   data() {
     return {
+        sortOptions: [
+        {
+          column: "firstname",
+          label: "firstname"
+        },
+         {
+          column: "lasname",
+          label: "Lastname"
+        },
+          {
+          column: "id",
+          label: "id"
+        },
+        {
+          column: "agent_type",
+          label: "Agent_type"
+        },
+        {
+          column: "phone",
+          label: "Phone"
+        }
+      ],
+
+       sort: {
+        column: "firstname",
+        label: "Name"
+      },
          agents: [
         {
           firstname: 'Stephanie',
@@ -151,11 +179,11 @@ export default {
         },
       ],
       isLoad: false,
-      apiBase: apiUrl + "/cakes/fordatatable",
+      apiBase: PROXY + "",
       displayMode: "list",
       sort: {
-        column: "title",
-        label: "Product Name"
+        column: "firstname",
+        label: "firstname"
       },
       page: 1,
       perPage: 4,
@@ -165,6 +193,7 @@ export default {
       total: 0,
       lastPage: 0,
       items: [],
+      paramName:"",
       selectedItems: []
     };
   },
@@ -173,7 +202,7 @@ export default {
       this.isLoad = false;
 
       axios
-        .get(this.apiUrl)
+        .get(this.PROXY)
         .then(response => {
           return response.data;
         })
@@ -299,9 +328,17 @@ export default {
       this.loadItems();
     }
   },
-  mounted() {
-    this.loadItems();
+   mounted: function(){
+      this.paramName =this.$router.currentRoute.params.name
+      console.log(this.paramName)
+        this.loadItems();
+  },
+ watch: {
+    $route(to, from) {
+      this.paramName = to.params.name
+      console.log(this.paramName)
 
+    }
   }
 };
 </script>

@@ -3,8 +3,7 @@
     <div class="main-menu">
       <vue-perfect-scrollbar
         class="scroll"
-        :settings="{ suppressScrollX: true, wheelPropagation: false }"
-      >
+        :settings="{ suppressScrollX: true, wheelPropagation: false }">
         <ul class="list-unstyled">
           <li
             v-for="(item,index) in filteredMenuItems(menuItems)"
