@@ -1,23 +1,56 @@
 <template>
   <div>
     <b-row v-if="displayMode==='image'" key="image">
-      <b-colxx sm="6" lg="4" xl="3" class="mb-3" v-for="(item,index) in items" :key="index" :id="item.id">
-        <cards-list-item :key="item.id" :data="item" :selected-items="selectedItems" @toggle-item="toggleItem" v-contextmenu:contextmenu/>
+      <b-colxx
+        sm="6"
+        lg="4"
+        xl="3"
+        class="mb-3"
+        v-for="(item,index) in items"
+        :key="index"
+        :id="item.id"
+      >
+        <agent-list-image
+          :key="item.id"
+          :data="item"
+          :selected-items="selectedItems"
+          @toggle-item="toggleItem"
+          v-contextmenu:contextmenu
+        />
       </b-colxx>
     </b-row>
     <b-row v-else-if="displayMode==='thumb'" key="thumb">
       <b-colxx xxs="12" class="mb-3" v-for="(item,index) in items" :key="index" :id="item.id">
-        <cards-list-item-image :key="item.id" :data="item" :selected-items="selectedItems" @toggle-item="toggleItem" v-contextmenu:contextmenu/>
+        <agent-list-thumb
+          :key="item.id"
+          :data="item"
+          :selected-items="selectedItems"
+          @toggle-item="toggleItem"
+          v-contextmenu:contextmenu
+        />
       </b-colxx>
     </b-row>
     <b-row v-else-if="displayMode==='list'" key="list">
       <b-colxx xxs="12" class="mb-3" v-for="(item,index) in items" :key="index" :id="item.id">
-        <cards-thumb-list-item :key="item.id" :data="item" :selected-items="selectedItems" @toggle-item="toggleItem" v-contextmenu:contextmenu />
+        <agent-list-item
+          :key="item.id"
+          :data="item"
+          :selected-items="selectedItems"
+          @toggle-item="toggleItem"
+          v-contextmenu:contextmenu
+        />
       </b-colxx>
     </b-row>
     <b-row v-if="lastPage>1">
       <b-colxx xxs="12">
-        <b-pagination-nav :number-of-pages="lastPage" :link-gen="linkGen" :value="page" @change="(a)=>changePage(a)" :per-page="perPage" align="center">
+        <b-pagination-nav
+          :number-of-pages="lastPage"
+          :link-gen="linkGen"
+          :value="page"
+          @change="(a)=>changePage(a)"
+          :per-page="perPage"
+          align="center"
+        >
           <template v-slot:next-text>
             <i class="simple-icon-arrow-right" />
           </template>
@@ -51,14 +84,14 @@
   </div>
 </template>
 <script>
-import  CardsList from "../../../components/Listing/Cards/CardsList";
-import CardsThumb from "../../../components/Listing/Cards/CardsThumb";
-import CardsImageList from "../../../components/Listing/Cards/CardsImageList";
+import AgentsImage from "./AgentsImage.vue";
+import AgentThumb from "./AgentThumb.vue";
+import AgentsList from "./AgentsList.vue";
 export default {
   components: {
-    "cards-list-item-image": CardsImageList,
-    "cards-thumb-list-item": CardsThumb,
-    "cards-list-item": CardsList
+    "agent-list-image": AgentsImage,
+    "agent-list-thumb": AgentThumb,
+    "agent-list-item": AgentsList
   },
   props: [
     "displayMode",

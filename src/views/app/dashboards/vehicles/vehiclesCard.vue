@@ -16,18 +16,11 @@
       </div>
 </template>
 <script>
-import AreaChart from "../../components/Charts/Area";
-import { areaChartData } from "../../data/charts";
 
 export default {
     props: ["test"],
-
-  components: {
-    "area-chart": AreaChart
-  },
   data() {
     return {
-      areaChartData
     };
   }
 };

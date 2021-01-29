@@ -19,7 +19,7 @@
         :perPage="perPage"
       ></list-page-heading>
       <template v-if="isLoad">
-        <cards-page-listing
+        <tags-page-listing
           :displayMode="displayMode"
           :items="items"
           :selectedItems="selectedItems"
@@ -30,50 +30,110 @@
           :changePage="changePage"
           :handleContextMenu="handleContextMenu"
           :onContextMenuAction="onContextMenuAction"
-        ></cards-page-listing>
+        ></tags-page-listing>
       </template>
       <template v-else>
         <div class="loading"></div>
       </template>
     </b-colxx>
   </b-row>
+  <!-- <div>
+  <b-tabs content-class="mt-3" justified>
+
+    <b-tab :title="$t('menu.all-agents')" active>
+        <b-row >
+        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
+            <agent-Card v-bind:test="test"></agent-Card>
+        </b-colxx>
+        </b-row>
+    </b-tab>
+    <b-tab :title="$t('menu.agents')" active>
+        <b-row >
+        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
+            <agent-Card v-bind:test="test"></agent-Card>
+        </b-colxx>
+        </b-row>
+    </b-tab>
+    <b-tab :title="$t('menu.port-agents')" active>
+        <b-row >
+        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
+            <agent-Card v-bind:test="test"></agent-Card>
+        </b-colxx>
+        </b-row>
+    </b-tab>
+    <b-tab :title="$t('menu.garage-agents')" active>
+        <b-row >
+        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
+            <agent-Card v-bind:test="test"></agent-Card>
+        </b-colxx>
+        </b-row>
+    </b-tab>
+    <b-tab :title="$t('menu.agents-registrations')" active>
+        <b-row >
+        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
+            <agent-Card v-bind:test="test"></agent-Card>
+        </b-colxx>
+        </b-row>
+    </b-tab>
+  </b-tabs>
+</div> -->
 </template>
 
 <script>
 import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
-import ListPageHeading from "../../../../containers/pages/Admin/ListPageHeading";
-import CardListing from "../../../../containers/pages/Admin/CardsListing";
+import ListPageHeading from "./../ListsHeader/ListPageHeading";
+import TagsListing from "./TagsListing.vue";
+// import ConversionRatesChartCard from "../../../containers/dashboards/ConversionRatesChartCard";
+// import OrderStockRadarChart from "../../../containers/dashboards/OrderStockRadarChart";
+// import ProductCategoriesDoughnut from "../../../containers/dashboards/ProductCategoriesDoughnut";
+// import ProductCategoriesPolarArea from "../../../containers/dashboards/ProductCategoriesPolarArea";
+// import ProfileStatuses from "../../../containers/dashboards/ProfileStatuses";
+// import SalesChartCard from "../../../containers/dashboards/SalesChartCard";
+// import SmallLineCharts from "../../../containers/dashboards/SmallLineCharts";
+// import SortableStaticticsRow from "../../../containers/dashboards/SortableStaticticsRow";
+// import AgentsCard from "../../../containers/dashboards/AgentsCard";
+
 export default {
 
   components: {
     "list-page-heading": ListPageHeading,
-    "cards-page-listing": CardListing
+    "tags-page-listing": TagsListing
   },
+//    components: {
+//     "converconversion-rates-chart-card": ConversionRatesChartCard,
+//     "order-stock-radar-chart": OrderStockRadarChart,
+//     "product-categories-doughnut": ProductCategoriesDoughnut,
+//     "product-categories-polar-area": ProductCategoriesPolarArea,
+//     "profile-statuses": ProfileStatuses,
+//     "sales-chart-card": SalesChartCard,
+//     "small-line-charts": SmallLineCharts,
+//     "sortable-statictics-row": SortableStaticticsRow,
+//     "agent-Card": AgentsCard
+//   }
+// };
   data() {
     return {
          agents: [
          {
             "id": 1,
-            "state_id": null,
-            "card_no": "1",
-            "system_identifier": "54555644517a45324d5445344d5467794d7a41334e6a673d",
+            "state_id": "Oyo",
+            "tag_no": "1",
             "status": 1,
-            "createdAt": "2021-01-28T07:17:11.000Z",
-            "updatedAt": "2021-01-28T07:17:11.000Z",
-             "img":"/assets/img/uploads/vehicle.jfif",
-            "accounts": []
+            "createdAt": "2021-01-28T07:19:09.000Z",
+            "updatedAt": "2021-01-28T07:19:09.000Z",
+            "img":"/assets/img/uploads/vehicle.jfif",
+            "vehicles": []
         },
         {
-             "id": 2,
-            "state_id": null,
-            "card_no": "1",
-            "system_identifier": "54555644517a453se24d5445344d5467794d7a41334e6a673d",
+            "id": 11,
+            "state_id": 1,
+            "tag_no": "2",
             "status": 1,
-            "createdAt": "2021-01-28T07:17:11.000Z",
-            "updatedAt": "2021-01-28T07:17:11.000Z",
-             "img":"/assets/img/uploads/vehicle.jfif",
-            "accounts": []
+            "createdAt": "2021-01-28T07:40:36.000Z",
+            "updatedAt": "2021-01-28T07:40:36.000Z",
+            "img":"/assets/img/uploads/car.jfif",
+            "vehicles": []
         }
       ],
       isLoad: false,
@@ -108,7 +168,7 @@ export default {
           this.from = res.from;
           this.to = res.to;
               this.items = this.agents
-              
+
         //   this.items = res.data.map(x => {
         //     return {
         //       ...x,
@@ -215,7 +275,7 @@ export default {
     apiUrl() {
       return `${this.apiBase}?sort=${this.sort.column}&page=${this.page}&per_page=${this.perPage}&search=${this.search}`;
     }
-    
+
   },
   watch: {
     search() {
@@ -227,7 +287,7 @@ export default {
   },
   mounted() {
     this.loadItems();
-    
+
   }
 };
 </script>

@@ -10,7 +10,7 @@
         :key="index"
         :id="item.id"
       >
-        <terminal-list-item-image
+        <payers-list-image
           :key="item.id"
           :data="item"
           :selected-items="selectedItems"
@@ -21,7 +21,7 @@
     </b-row>
     <b-row v-else-if="displayMode==='thumb'" key="thumb">
       <b-colxx xxs="12" class="mb-3" v-for="(item,index) in items" :key="index" :id="item.id">
-        <terminal-list-item
+        <payers-list-thumb
           :key="item.id"
           :data="item"
           :selected-items="selectedItems"
@@ -32,7 +32,7 @@
     </b-row>
     <b-row v-else-if="displayMode==='list'" key="list">
       <b-colxx xxs="12" class="mb-3" v-for="(item,index) in items" :key="index" :id="item.id">
-        <tag-list-item
+        <payers-list-item
           :key="item.id"
           :data="item"
           :selected-items="selectedItems"
@@ -84,14 +84,14 @@
   </div>
 </template>
 <script>
-import TerminalImageList from "../../../components/Listing/Terminal/TerminalImageList";
-import TerminalThumb from "../../../components/Listing/Terminal/TerminalThumb";
-import TerminalList from "../../../components/Listing/Terminal/TerminalList";
+import PayersImage from "./PayersImage.vue";
+import PayersThumb from "./PayersThumb.vue";
+import PayersList from "./PayersList.vue";
 export default {
   components: {
-    "terminal-list-item-image": TerminalImageList,
-    "terminal-thumb-list-item": TerminalThumb,
-    "terminal-list-item": TagsListItem
+    "payers-list-image": PayersImage,
+    "payers-list-thumb": PayersThumb,
+    "payers-list-item": PayersList
   },
   props: [
     "displayMode",
