@@ -36,11 +36,7 @@
           </b-dropdown>
         </b-button-group>
       </div>
-      <add-new-modal
-        :categories="categories"
-        :statuses="statuses"
-      >
-      </add-new-modal>
+      <add-new-modal :categories="categories" :statuses="statuses"></add-new-modal>
       <piaf-breadcrumb />
       <div class="mb-2 mt-2">
         <b-button
@@ -119,14 +115,15 @@ import {
   DataListIcon,
   ThumbListIcon,
   ImageListIcon
-} from "./../../../../components/Svg";
+} from "../../components/Svg";
 import AddNewModal from "./AddNewModal";
+
 export default {
   components: {
     "data-list-icon": DataListIcon,
     "thumb-list-icon": ThumbListIcon,
     "image-list-icon": ImageListIcon,
-    "add-new-modal": AddNewModal,
+    "add-new-modal": AddNewModal
   },
   props: [
     "title",

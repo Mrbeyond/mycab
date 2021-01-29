@@ -80,11 +80,11 @@ const routes = [
               import(/* webpackChunkName : "product" */ "./views/app/pages/product"),
             redirect: `${adminRoot}/pages/product/data-list`,
             children: [
-              {
-                path: "data-list",
-                component: () =>
-                  import(/* webpackChunkName: "product" */ "./views/app/pages/product/DataList")
-              },
+              // {
+              //   path: "data-list",
+              //   component: () =>
+              //     import(/* webpackChunkName: "product" */ "./views/app/pages/product/DataList")
+              // },
               {
                 path: "thumb-list",
                 component: () =>
