@@ -23,7 +23,7 @@
       <template v-if="isLoad">
         <tags-page-listing
           :displayMode="displayMode"
-          :items="items"
+          :items="tags"
           :selectedItems="selectedItems"
           :toggleItem="toggleItem"
           :lastPage="lastPage"
@@ -46,7 +46,7 @@ import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
 import ListPageHeading from "./../ListsHeader/ListPageHeading";
 import TagsListing from "./TagsListing.vue";
-import { ADD_TAG } from '../../../../constants/formKey';
+import { ADD_TAG, TAGS } from '../../../../constants/formKey';
 
 export default {
 
@@ -69,28 +69,28 @@ export default {
         },
       ],
 
-         agents: [
-         {
-            "id": 1,
-            "state_id": 1,
-            "tag_no": "1",
-            "status": 1,
-            "createdAt": "2021-01-28T07:19:09.000Z",
-            "updatedAt": "2021-01-28T07:19:09.000Z",
-            "img":"/assets/img/uploads/vehicle.jfif",
-            "vehicles": []
-        },
-        {
-            "id": 11,
-            "state_id": 2,
-            "tag_no": "2",
-            "status": 1,
-            "createdAt": "2021-01-28T07:40:36.000Z",
-            "updatedAt": "2021-01-28T07:40:36.000Z",
-            "img":"/assets/img/uploads/car.jfif",
-            "vehicles": []
-        }
-      ],
+      //    agents: [
+      //    {
+      //       "id": 1,
+      //       "state_id": 1,
+      //       "tag_no": "1",
+      //       "status": 1,
+      //       "createdAt": "2021-01-28T07:19:09.000Z",
+      //       "updatedAt": "2021-01-28T07:19:09.000Z",
+      //       "img":"/assets/img/uploads/vehicle.jfif",
+      //       "vehicles": []
+      //   },
+      //   {
+      //       "id": 11,
+      //       "state_id": 2,
+      //       "tag_no": "2",
+      //       "status": 1,
+      //       "createdAt": "2021-01-28T07:40:36.000Z",
+      //       "updatedAt": "2021-01-28T07:40:36.000Z",
+      //       "img":"/assets/img/uploads/car.jfif",
+      //       "vehicles": []
+      //   }
+      // ],
       isLoad: false,
       apiBase: apiUrl + "/cakes/fordatatable",
       displayMode: "list",
@@ -110,6 +110,9 @@ export default {
     };
   },
   methods: {
+    getTags(){
+      this.$store.dispatch(TAGS);
+    },
     loadItems() {
       this.isLoad = false;
       let resp = this.sort.column
@@ -242,6 +245,10 @@ export default {
     },
     apiUrl() {
       return `${this.apiBase}?sort=${this.sort.column}&page=${this.page}&per_page=${this.perPage}&search=${this.search}`;
+    },
+
+    tags(){
+      return this.$store.getters.tags;
     }
 
   },
@@ -250,11 +257,15 @@ export default {
       this.page = 1;
     },
     apiUrl() {
-      this.loadItems();
+      // this.loadItems();
+    },
+    tags(){
+      if(this.tags) this.isLoad = true;
     }
   },
-  mounted() {
-    this.loadItems();
+  created() {
+    // this.loadItems();
+    this.getTags();
 
   }
 };
