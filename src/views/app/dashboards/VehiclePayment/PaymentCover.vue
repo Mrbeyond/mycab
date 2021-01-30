@@ -1,13 +1,17 @@
 <template>
-  <b-row>
-    <b-colxx xxs="12">
-      <h5 class="mb-4 card-title">VEHICLE PAYMENTS</h5>
-      <b-row>
-        <b-colxx xxs="12" xs="6" lg="6" class="mb-3">
-          <div v-if="isFetched ">
-            <b-card v-for="(payment, index) in payments" v-bind:key="index" class="mb-4" no-body>
+
+  <div>
+
+    <h5 class="mb-4 card-title">VEHICLE PAYMENTS</h5>
+      <div v-if="isFetched" class="row">
+          <div
+            v-for="(payment, index) in payments" v-bind:key="index"
+            class="col-12 col-md-6"
+          >
+            <b-card class="mb-4" no-body >
+            <div style=" height: 300px; max-height: 300px; overflow-y: auto">
               <b-tabs  card no-fade>
-                <b-tab title="Acount" active title-item-class="w-50 text-center">
+                <b-tab title="Acount" active title-item-class="w-30 text-center">
                     <ul>
                     <li>Agent : {{ payment.agent_id }}</li>
                     <li>Garage ID: {{ payment.garage_id }}</li>
@@ -18,7 +22,7 @@
                     <li></li>
                     </ul>
                 </b-tab>
-                <b-tab title="Account Vehicle" title-item-class="w-50 text-center">
+                <b-tab title="Account Vehicle" title-item-class="w-30">
                 <div class="text-center ">
                   <ul>
                     <li>ID: {{payment.account_vehicle.id}}</li>
@@ -39,13 +43,26 @@
                 </div>
 
                 </b-tab>
+                <b-tab title="Account Wallet" title-item-class="w-30">
+                <div class="text-center ">
+                  <ul>
+                    <li>ID: {{ payment.account_wallet_transaction.account_wallet_id}}</li>
+                    <li>Amount: {{ payment.account_wallet_transaction.amount}}</li>
+                    <li> Type: {{ payment.account_wallet_transaction.type}}</li>
+                    <li> Status: {{ payment.account_wallet_transaction.status}}</li>
+                    <li>Created On: {{ Timest(payment.account_wallet_transaction.createdAt)}}</li>
+                  </ul>
+                </div>
+                </b-tab>
               </b-tabs>
+              </div>
+              <div class="text-center">
+                <strong>{{ payment.garage? ` Garage: ${ payment.garage}`: '' }}</strong>
+              </div>
             </b-card>
           </div>
-        </b-colxx>
-      </b-row>
-    </b-colxx>
-  </b-row>
+      </div>
+  </div>
 </template>
 <script>
 import Axios from 'axios';
