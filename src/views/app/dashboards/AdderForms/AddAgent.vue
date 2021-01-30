@@ -1,7 +1,7 @@
 <template>
 <b-row>
     <b-colxx xxs="12">
-        <b-card class="mb-4" title="Register Agent">
+        <b-card class="mb-4">
             <b-form ref="form" @submit.prevent="onValitadeFormSubmit" class="av-tooltip tooltip-label-right">
                 <b-form-group label="First name">
                     <b-form-input type="text" v-model="$v.first_name.$model" :state="!$v.first_name.$error" />
@@ -73,11 +73,9 @@ const {
     alpha,
     email,
     numeric,
-    minValue,
-    helpers
+    minValue
 } = require("vuelidate/lib/validators");
 
-const upperCase = helpers.regex('upperCase', /^[A-Z]*$/)
 
 export default {
   data() {
@@ -127,7 +125,7 @@ export default {
   methods: {
     onValitadeFormSubmit() {
       this.$v.$touch();
-      if(this.$v.$invalid) return alert();
+      if(this.$v.$invalid) return;
 
       if(this.submitting) return;
       let formData = {

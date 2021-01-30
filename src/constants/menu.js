@@ -112,6 +112,12 @@ const data = [
       //   },
     ]
   },
+  {
+    id:"terminals",
+    icon:"iconsminds-shop-4",
+    label: "menu.terminals",
+    to: `${adminRoot}/terminals`,
+  },
   {id:"vehicles",
   icon:"simple-icon-speedometer",
   label: "menu.vehicles",

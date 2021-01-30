@@ -10,6 +10,7 @@
       <add-card  v-if="formKey == ADD_CARD"/>
       <add-payer v-if="formKey == ADD_PAYER" />
       <add-tag  v-if="formKey == ADD_TAG"/>
+      <add-terminal v-if="formKey == ADD_TERMINAL" />
 
     <template slot="modal-footer">
       <b-button
@@ -27,14 +28,17 @@ import AddAgent from '../AdderForms/AddAgent.vue';
 import AddCard from '../AdderForms/AddCard.vue';
 import AddPayer from '../AdderForms/AddPayer.vue';
 import AddTag from '../AdderForms/AddTag.vue';
+import AddTerminal from '../AdderForms/AddTerminal'
 import {ADD_ADMIN, ADD_CARD, ADD_TAG, ADD_CV, ADD_IV, ADD_AGENT,
-  ADD_PAYER
+  ADD_PAYER,
+  ADD_TERMINAL
 } from './../../../../constants/formKey';
 
 export default {
   components: {
-    "v-select": vSelect,    AddAdmin,
-    AddAgent, AddCard, AddPayer, AddTag
+    "v-select": vSelect, AddAdmin,
+    AddAgent, AddCard, AddPayer, AddTag,
+    AddTerminal,
   },
   props: ["categories", "statuses", "formKey"],
   data() {
@@ -46,6 +50,7 @@ export default {
       ADD_IV,
       ADD_AGENT,
       ADD_PAYER,
+      ADD_TERMINAL,
       newItem: {
         title: "",
         category: "",
@@ -75,10 +80,13 @@ export default {
         return "Register Admin"
       }
       if(this.formKey === ADD_TAG){
-        return "Add Tag"
+        return "Add New Tag"
       }
       if(this.formKey === ADD_CARD){
-        return "Add Card"
+        return "Add New Card"
+      }
+      if(this.formKey === ADD_TERMINAL){
+        return "Add New Terminal"
       }
 
       return "FORM";
