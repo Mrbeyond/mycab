@@ -56,12 +56,12 @@ export default {
     return {
        sortOptions: [
         {
-          column: "tag_no",
-          label: "Tag Number"
+          column: "balance",
+          label: "Balance"
         },
          {
-          column: "state_id",
-          label: "State"
+          column: "post_paid_balance",
+          label: "Post paid  balance"
         },
       ],
 
@@ -142,37 +142,38 @@ export default {
   methods: {
     loadItems() {
       this.isLoad = false;
-
-      axios
-        .get(this.apiUrl)
-        .then(response => {
-          return response.data;
-        })
-        .then(res => {
-          this.total = res.total;
-          this.from = res.from;
-          this.to = res.to;
-              this.items = this.agents
-
-        //   this.items = res.data.map(x => {
-        //     return {
-        //       ...x,
-        //       img: x.img.replace("/img/", "/img/products/")
-        //     };
-        //   });
-        var resp = this.sort
-        // console.log(resp)
-         this.items =  this.agents.sort(function(a, b){
-            if(a.resp > b.resp) return 1;
-            if(a.resp < b.resp) return -1;
-            return 0;
+       let resp = this.sort.column
+        this.items =  this.agents
+        .sort(function(a, b){
+          var x = a[resp]; var y = b[resp]
+          return ((x > y) ? 1 : ((x < y) ? -1 : 0))
             });
-          console.log(this.items)
-          this.perPage = res.per_page;
-          this.selectedItems = [];
-          this.lastPage = res.last_page;
           this.isLoad = true;
-        });
+          console.log(this.items)
+
+      // axios
+      //   .get(this.apiUrl)
+      //   .then(response => {
+      //     return response.data;
+      //   })
+      //   .then(res => {
+      //     this.total = res.total;
+      //     this.from = res.from;
+      //     this.to = res.to;
+      //         this.items = this.agents
+
+      //   //   this.items = res.data.map(x => {
+      //   //     return {
+      //   //       ...x,
+      //   //       img: x.img.replace("/img/", "/img/products/")
+      //   //     };
+      //   //   });
+      //     console.log(this.items)
+      //     this.perPage = res.per_page;
+      //     this.selectedItems = [];
+      //     this.lastPage = res.last_page;
+      //     this.isLoad = true;
+      //   });
     },
 
     changeDisplayMode(displayType) {
@@ -184,6 +185,7 @@ export default {
     },
     changeOrderBy(sort) {
       this.sort = sort;
+      this.loadItems()
     },
     searchChange(val) {
       this.search = val;

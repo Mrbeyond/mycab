@@ -81,10 +81,11 @@
 </template>
 
 <script>
-import axios from "axios";
 import { PROXY } from "./../../../../constants/config";
+import {hToken} from './../../../../constants/formKey'
 import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
 import AgentListing from "./AgentListing";
+import Axios from 'axios';
 // import ConversionRatesChartCard from "../../../containers/dashboards/ConversionRatesChartCard";
 // import OrderStockRadarChart from "../../../containers/dashboards/OrderStockRadarChart";
 // import ProductCategoriesDoughnut from "../../../containers/dashboards/ProductCategoriesDoughnut";
@@ -121,7 +122,7 @@ export default {
           label: "firstname"
         },
          {
-          column: "lasname",
+          column: "lastname",
           label: "Lastname"
         },
           {
@@ -200,30 +201,36 @@ export default {
   methods: {
     loadItems() {
       this.isLoad = false;
-
-      axios
-        .get(this.PROXY)
-        .then(response => {
-          return response.data;
-        })
-        .then(res => {
-          this.total = res.total;
-          this.from = res.from;
-          this.to = res.to;
-              this.items = this.agents
-
-        //   this.items = res.data.map(x => {
-        //     return {
-        //       ...x,
-        //       img: x.img.replace("/img/", "/img/products/")
-        //     };
-        //   });
-          console.log(this.items)
-          this.perPage = res.per_page;
-          this.selectedItems = [];
-          this.lastPage = res.last_page;
+           let resp = this.sort.column
+        this.items =  this.agents
+        .sort(function(a, b){
+          var x = a[resp]; var y = b[resp]
+          return ((x > y) ? 1 : ((x < y) ? -1 : 0))
+            });
           this.isLoad = true;
-        });
+          console.log(this.items)
+      // Axios
+      //   .get(`${this.PROXY}`,{headers:hToken()})
+      //   .then(response => {
+      //     return response.data;
+      //   })
+      //   .then(res => {
+      //     console.log(res)
+      //     this.total = res.total;
+      //     this.from = res.from;
+      //     this.to = res.to;
+
+      //   //   this.items = res.data.map(x => {
+      //   //     return {
+      //   //       ...x,
+      //   //       img: x.img.replace("/img/", "/img/products/")
+      //   //     };
+      //   //   });
+      //     this.perPage = res.per_page;
+      //     this.selectedItems = [];
+      //     this.lastPage = res.last_page;
+      //     this.isLoad = true;
+      //   });
     },
 
     changeDisplayMode(displayType) {
@@ -235,6 +242,7 @@ export default {
     },
     changeOrderBy(sort) {
       this.sort = sort;
+      this.loadItems()
     },
     searchChange(val) {
       this.search = val;

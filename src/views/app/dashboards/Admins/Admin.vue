@@ -20,7 +20,7 @@
         :sortOptions="sortOptions"
       ></list-page-heading>
       <template v-if="isLoad">
-        <cards-page-listing
+        <admin-page-listing
           :displayMode="displayMode"
           :items="items"
           :selectedItems="selectedItems"
@@ -31,7 +31,7 @@
           :changePage="changePage"
           :handleContextMenu="handleContextMenu"
           :onContextMenuAction="onContextMenuAction"
-        ></cards-page-listing>
+        ></admin-page-listing>
       </template>
       <template v-else>
         <div class="loading"></div>
@@ -44,58 +44,65 @@
 import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
 import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
-import CardListing from "./CardListing.vue";
+import AdminListing from "./AdminListing.vue";
 
 export default {
 
   components: {
     "list-page-heading": ListPageHeading,
-    "cards-page-listing": CardListing
+    "admin-page-listing": AdminListing
   },
   data() {
     return {
        sortOptions: [
         {
-          column: "tag_no",
-          label: "Tag Number"
+          column: "first_name",
+          label: "Firstname"
         },
          {
-          column: "state_id",
-          label: "State"
+          column: "last_name",
+          label: "Lastname"
+        },
+         {
+          column: "email",
+          label: "Email"
+        },
+        {
+          column: "phone",
+          label: "Phone"
         },
       ],
 
          agents: [
-         {
-            "id": 1,
-            "state_id": null,
-            "card_no": "1",
-            "system_identifier": "54555644517a45324d5445344d5467794d7a41334e6a673d",
-            "status": 1,
-            "createdAt": "2021-01-28T07:17:11.000Z",
-            "updatedAt": "2021-01-28T07:17:11.000Z",
-            "img":"/assets/img/uploads/vehicle.jfif",
-            "accounts": []
+           {
+          "id": 21,
+          "first_name": "Samuel",
+          "last_name": "Adesina",
+          "email": "asoluwaseun@yahoo.com",
+          "phone": "08130027102",
+          "admin_type_id": "1",
+          "status": 1,
+          "updatedAt": "2021-01-27T14:13:59.643Z",
+          "createdAt": "2021-01-27T14:13:59.643Z"
         },
- 
-        {
-            "id": 11,
-             "state_id": null,
-            "card_no": "1",
-            "system_identifier": "54555644517a45324d5445344d5467794d7a41334e6a673d",
-            "status": 1,
-            "createdAt": "2021-01-28T07:17:11.000Z",
-            "updatedAt": "2021-01-28T07:17:11.000Z",
-            "img":"/assets/img/uploads/vehicle.jfif",
-            "accounts": []
+         {
+          "id": 25,
+          "first_name": "Samson",
+          "last_name": "Aa",
+          "email": "adeola@gmail.com",
+          "phone": "08135456776",
+          "admin_type_id": "1",
+          "status": 1,
+          "updatedAt": "2021-01-27T14:13:59.643Z",
+          "createdAt": "2021-01-27T14:13:59.643Z"
         }
       ],
       isLoad: false,
       apiBase: apiUrl + "/cakes/fordatatable",
       displayMode: "list",
      sort: {
-        column: "tag_no",
-        label: "Tag Number"
+        column: "first_name",
+        label: "Firstname"
       },
       page: 1,
       perPage: 4,
@@ -111,36 +118,44 @@ export default {
   methods: {
     loadItems() {
       this.isLoad = false;
-        let resp = this.sort.column
-        this.items =  this.agents
-        .sort(function(a, b){
-            var x = a[resp]; var y = b[resp]
-            return ((x > y) ? 1 : ((x < y) ? -1 : 0))
-                    });
-            this.isLoad = true;
-    //   axios
-    //     .get(this.apiUrl)
-    //     .then(response => {
-    //       return response.data;
-    //     })
-    //     .then(res => {
-    //       this.total = res.total;
-    //       this.from = res.from;
-    //       this.to = res.to;
-    //           this.items = this.agents
+      // this.items = this.agents
+      let resp = this.sort.column
+  this.items =  this.agents
+  .sort(function(a, b){
+    var x = a[resp]; var y = b[resp]
+    return ((x > y) ? 1 : ((x < y) ? -1 : 0))
+            });
+    this.isLoad = true;
+      // axios
+      //   .get(this.apiUrl)
+      //   .then(response => {
+      //     return response.data;
+      //   })
+      //   .then(res => {
+      //     this.total = res.total;
+      //     this.from = res.from;
+      //     this.to = res.to;
+      //         this.items = this.agents
 
-    //     //   this.items = res.data.map(x => {
-    //     //     return {
-    //     //       ...x,
-    //     //       img: x.img.replace("/img/", "/img/products/")
-    //     //     };
-    //     //   });
-    //       console.log(this.items)
-    //       this.perPage = res.per_page;
-    //       this.selectedItems = [];
-    //       this.lastPage = res.last_page;
-    //       this.isLoad = true;
-    //     });
+      //   //   this.items = res.data.map(x => {
+      //   //     return {
+      //   //       ...x,
+      //   //       img: x.img.replace("/img/", "/img/products/")
+      //   //     };
+      //   //   });
+      //   var resp = this.sort
+      //   // console.log(resp)
+      //    this.items =  this.agents.sort(function(a, b){
+      //       if(a.resp > b.resp) return 1;
+      //       if(a.resp < b.resp) return -1;
+      //       return 0;
+      //       });
+      //     console.log(this.items)
+      //     this.perPage = res.per_page;
+      //     this.selectedItems = [];
+      //     this.lastPage = res.last_page;
+      //     this.isLoad = true;
+      //   });
     },
 
     changeDisplayMode(displayType) {
@@ -152,6 +167,7 @@ export default {
     },
     changeOrderBy(sort) {
       this.sort = sort;
+      this.loadItems()
     },
     searchChange(val) {
       this.search = val;
