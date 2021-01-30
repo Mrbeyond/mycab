@@ -17,8 +17,6 @@ export default {
   }),
   methods:{
     fetchAnalytics(){
-      if(this.isLoading) return;
-      this.isLoading = true;
       Axios.get(`${PROXY}admin/analytics`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
@@ -40,7 +38,7 @@ export default {
   },
 
   beforeMount(){
-
+    this.fetchAnalytics();
   }
 
 }
