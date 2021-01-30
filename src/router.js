@@ -52,13 +52,12 @@ const routes = [
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Cards/Cards.vue"),
         // meta: { roles: [UserRole.Editor] },
       },
-      // {
-      //   path: "analytics",
-
-      //   component: () =>
-      //     import(/* webpackChunkName: "dashboards" */ "/views/app/dashboards/Analytics/Analytics"),
-      //   // meta: { roles: [UserRole.Admin] },
-      // },
+      {
+        path: "analytics",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Analytics"),
+        // meta: { roles: [UserRole.Admin] },
+      },
       {
         path: "payers",
         component: () =>

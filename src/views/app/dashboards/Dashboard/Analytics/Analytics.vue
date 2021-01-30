@@ -1,6 +1,6 @@
 <template>
 <div>
- <b-row>
+ <!-- <b-row>
       <b-colxx xxs="12">
         <piaf-breadcrumb :heading="$t('menu.dashboard')" />
         <div class="separator mb-5"></div>
@@ -86,15 +86,15 @@
     </b-card-body>
     <b-card-footer>
         <h2>Total garages: {{analytic.total_garages}}</h2>
-
     </b-card-footer>
   </b-card>
-        </b-row>
+        </b-row> -->
+        <analytics :analytic="analytic"/>
 </div>
 </template>
-
 <script>
 import vehiclesCard from "./AnalyticsCarde.vue";
+import Analyticsmodel from './Analyticsmodel.vue'
 import router from 'vue-router'
 
 export default {
@@ -102,43 +102,12 @@ export default {
   data () {
     return {
       pname:"",
-      vehicles: [
-        {
-          owner: 'Stephen',
-          date: '2021/01/24',
-          payement:"paid",
-          tag:"1",
-          image:""
-        },
-                {
-          owner: 'Bola',
-          date: '2021/01/21',
-          payement:"paid",
-          tag:"2",
-          image:"/assets/img/uploads/vehicle.jfif"
-
-        },
-         {
-          owner: 'Victor',
-          date: '2020/12/15',
-          payement:"paid",
-          tag:"3",
-          image:""
-
-        },
-         {
-          owner: 'Sola',
-          date: '2021/01/28',
-          payement:"yet to pay",
-          tag:"yet to tag",
-          image:""
-
-        },
-      ]
+     
     }
   },
   components: {
-    "vehicles-Card": vehiclesCard
+    "vehicles-Card": vehiclesCard,
+    'analytics':Analyticsmodel
   },
   mounted: function(){
       // this.pname =this.$router.currentRoute.params.name
