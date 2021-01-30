@@ -18,6 +18,7 @@
         :total="total"
         :perPage="perPage"
         :sortOptions="sortOptions"
+        :formKey="ADD_ADMIN"
       ></list-page-heading>
       <template v-if="isLoad">
         <admin-page-listing
@@ -45,6 +46,7 @@ import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
 import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
 import AdminListing from "./AdminListing.vue";
+import { ADD_ADMIN } from '../../../../constants/formKey';
 
 export default {
 
@@ -54,6 +56,7 @@ export default {
   },
   data() {
     return {
+      ADD_ADMIN,
        sortOptions: [
         {
           column: "first_name",

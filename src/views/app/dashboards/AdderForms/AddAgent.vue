@@ -49,7 +49,9 @@
                   <b-button type="submit" variant="primary" class="mt-4">{{ $t('forms.submit') }}</b-button>
                 </div>
 
-                <b-toast :variant="variant" id="example-toast" title="Something went wrong" >
+                <b-toast :variant="variant" id="example-toast"
+                title="Response" auto-hide-delay="8000"
+                >
                   {{resMessage }}
                 </b-toast>
             </b-form>
@@ -147,11 +149,6 @@ export default {
           this.variant = "success";
           this.resMessage = res.data.message;
           this.$refs.form.reset();
-          // localStorage.authToken = res.data.data.authorization
-          // delete res.data.data.authorization;
-          // const authUser = res.data.data;
-          // setCurrentUser(authUser)
-          // this.$store.commit("setUser", authUser);
         }else{
           this.variant = "danger";
           this.resMessage = "Something went wrong, please retry"
