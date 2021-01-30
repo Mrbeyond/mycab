@@ -60,18 +60,12 @@ export default {
     [RES_KEY](state, payload){
       state.resErrorKey = payload;
     },
-
-
-
-
-
-
   },
 
+
+
   actions: {
-
     [TAGS]({commit}){
-
       Axios.get(`${PROXY}admin/vehicle_tags`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
