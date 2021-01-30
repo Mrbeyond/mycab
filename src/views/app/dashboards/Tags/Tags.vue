@@ -72,7 +72,7 @@ export default {
          agents: [
          {
             "id": 1,
-            "state_id": "Oyo",
+            "state_id": 1,
             "tag_no": "1",
             "status": 1,
             "createdAt": "2021-01-28T07:19:09.000Z",
@@ -82,7 +82,7 @@ export default {
         },
         {
             "id": 11,
-            "state_id": "Ibadan",
+            "state_id": 2,
             "tag_no": "2",
             "status": 1,
             "createdAt": "2021-01-28T07:40:36.000Z",

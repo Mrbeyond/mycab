@@ -85,6 +85,27 @@ const data = [
       // roles: [UserRole.Admin, UserRole.Editor],
     },
   ]},
+  {
+    id:"wallets",
+    icon:"iconsminds-envelope-2",
+    label: "menu.wallets",
+    to: `${adminRoot}/wallets`,
+    // roles: [UserRole.Admin, UserRole.Editor],,
+    subs:[
+      {
+      icon: "simple-icon-plus",
+      label: "menu.wallets",
+      to: `${adminRoot}/wallets`,
+      // roles: [UserRole.Admin, UserRole.Editor],
+      },
+      // {
+      //   icon: "simple-icon-plus",
+      //   label: "menu.add-payer",
+      //   to: `${adminRoot}/wallets/transaction`,
+      //   // roles: [UserRole.Admin, UserRole.Editor],
+      //   },
+    ]
+  },
   {id:"vehicles",
   icon:"simple-icon-speedometer",
   label: "menu.vehicles",
@@ -222,5 +243,6 @@ const data = [
   to: `${adminRoot}/settings`,
   // roles: [UserRole.Admin, UserRole.Editor],
   }
+ 
 ];
 export default data;
