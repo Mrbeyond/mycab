@@ -31,6 +31,8 @@ import Axios from 'axios';
 import {
     validationMixin
 } from "vuelidate";
+import { PROXY } from '../../../../constants/config';
+import { hToken } from '../../../../constants/formKey';
 const {
     required,
     numeric,

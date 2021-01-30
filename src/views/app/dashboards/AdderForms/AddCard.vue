@@ -5,7 +5,7 @@
           <b-form @submit.prevent="onValitadeFormSubmit" class="av-tooltip tooltip-label-right">
               <b-form-group label="Card number">
                 <b-form-input type="text" v-model="$v.card_no.$model" :state="!$v.card_no.$error" />
-                <b-form-invalid-feedback v-if="!$v.card_no.required">Please enter a type</b-form-invalid-feedback>
+                <b-form-invalid-feedback v-if="!$v.card_no.required">Please enter a value</b-form-invalid-feedback>
                 <b-form-invalid-feedback v-else-if="!$v.card_no.numeric">Value must be a number</b-form-invalid-feedback>
             </b-form-group>
             <div class="text-center">
@@ -16,8 +16,8 @@
               <b-button type="submit" variant="primary" class="mt-4">{{ $t('forms.submit') }}</b-button>
             </div>
 
-            <b-toast variant="danger" id="example-toast" title="Something went wrong" >
-              Please try again, there was an whlie error processing your regristration
+            <b-toast :variant="variant" id="example-toast" title="Something went wrong" >
+              {{resMessage     }}
           </b-toast>
           </b-form>
         </b-card>
@@ -26,9 +26,12 @@
 </template>
 
 <script>
+import Axios from 'axios';
 import {
     validationMixin
 } from "vuelidate";
+import { PROXY } from '../../../../constants/config';
+import { hToken } from '../../../../constants/formKey';
 const {
     required,
     numeric,
@@ -42,6 +45,8 @@ export default {
     return {
       card_no: "",
       submitting: false,
+      variant: "success",
+      resMessage: " ",
     };
   },
   mixins: [validationMixin],
@@ -68,23 +73,31 @@ export default {
       Axios.post(`${PROXY}admin/register/card`, formData, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
-          alert("succcess")
-
+          this.variant = "success";
+          this.resMessage = res.data.message;
           // localStorage.authToken = res.data.data.authorization
           // delete res.data.data.authorization;
           // const authUser = res.data.data;
           // setCurrentUser(authUser)
           // this.$store.commit("setUser", authUser);
         }else{
-          this.$bvToast.show("example-toast");
+          this.variant = "danger";
+          this.resMessage = "Something went wrong, please retry"
           // commit('setError', "Something went wrong");
         }
+        this.$bvToast.show("example-toast");
         this.submitting = false;
       })
       .catch(err=>{
         console.log(err);
+        this.variant = "danger";
         if(err && err.response){
-          alert(err.response.status)
+          alert()
+         if(err.response.data && err.response.data.message){
+           this.resMessage = err.response.data.message
+         }else{
+          this.resMessage = "Something went wrong, please retry"
+         }
         }
 
         this.$bvToast.show("example-toast");

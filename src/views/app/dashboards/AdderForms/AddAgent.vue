@@ -18,7 +18,7 @@
                 </b-form-group>
 
                 <b-form-group label="Email">
-                    <b-form-input type="text" v-model="$v.last_name.$model" :state="!$v.email.$error" />
+                    <b-form-input type="text" v-model="$v.email.$model" :state="!$v.email.$error" />
                     <b-form-invalid-feedback v-if="!$v.email.required">Please enter your email address</b-form-invalid-feedback>
                     <b-form-invalid-feedback v-else-if="!$v.email.email">Please enter a valid email address</b-form-invalid-feedback>
                 </b-form-group>
@@ -35,7 +35,7 @@
                     <b-form-invalid-feedback v-if="!$v.agent_type.required">Please enter a type</b-form-invalid-feedback>
                     <b-form-invalid-feedback v-else-if="!$v.agent_type.numeric">Value must be a number</b-form-invalid-feedback>
                 </b-form-group>
-                <b-form-group label="garage_id">
+                <b-form-group label="Garage id">
                     <b-form-input type="text" v-model="$v.garage_id.$model" :state="!$v.garage_id.$error" />
                     <b-form-invalid-feedback v-if="!$v.garage_id.required">Please enter a value</b-form-invalid-feedback>
                     <b-form-invalid-feedback v-else-if="!$v.garage_id.numeric">Value must be a number</b-form-invalid-feedback>
@@ -59,9 +59,12 @@
 </template>
 
 <script>
+import Axios from 'axios';
 import {
     validationMixin
 } from "vuelidate";
+import { PROXY } from '../../../../constants/config';
+import { hToken } from '../../../../constants/formKey';
 const {
     required,
     minLength,
@@ -113,14 +116,14 @@ export default {
     phone: {
         required,
         numeric,
-        minLength: minValue(11)
+        minLength: minLength(11)
     },
 
     },
   methods: {
     onValitadeFormSubmit() {
       this.$v.$touch();
-      if(this.$v.$invalid) return;
+      if(this.$v.$invalid) return alert();
 
       if(this.submitting) return;
       let formData = {
@@ -129,7 +132,7 @@ export default {
         last_name:this.last_name,
         email:this.email,
         agent_type: this.agent_type,
-        garage_id: garage_id
+        garage_id: this.garage_id
       }
 
       console.log(formData);

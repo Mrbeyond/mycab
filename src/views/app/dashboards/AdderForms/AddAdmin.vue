@@ -18,7 +18,7 @@
                 </b-form-group>
 
                 <b-form-group label="Email">
-                    <b-form-input type="text" v-model="$v.last_name.$model" :state="!$v.email.$error" />
+                    <b-form-input type="text" v-model="$v.email.$model" :state="!$v.email.$error" />
                     <b-form-invalid-feedback v-if="!$v.email.required">Please enter your email address</b-form-invalid-feedback>
                     <b-form-invalid-feedback v-else-if="!$v.email.email">Please enter a valid email address</b-form-invalid-feedback>
                 </b-form-group>
@@ -58,6 +58,8 @@ import Axios from 'axios';
 import {
     validationMixin
 } from "vuelidate";
+import { PROXY } from '../../../../constants/config';
+import { hToken } from '../../../../constants/formKey';
 const {
     required,
     minLength,

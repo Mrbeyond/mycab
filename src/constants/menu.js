@@ -16,6 +16,12 @@ const data = [
     // roles: [UserRole.Admin, UserRole.Editor],,
     subs:[
       {
+        icon: "simple-icon-people",
+        label: "menu.all-payers",
+        to: `${adminRoot}/payers`,
+        // roles: [UserRole.Admin, UserRole.Editor],
+        },
+      {
       icon: "simple-icon-plus",
       label: "menu.add-payer",
       to: `${adminRoot}/add-payer`,
