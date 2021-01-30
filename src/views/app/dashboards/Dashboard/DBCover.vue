@@ -23,6 +23,7 @@ export default {
       .then(res=>{
         if(!res.data.error){
           this.analytic = res.data.data;
+          console.log(this.analytic)
           this.isFetched = true;
           return;
         }else{

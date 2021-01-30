@@ -21,13 +21,19 @@ const routes = [
   {
     path: adminRoot,
     component: () => import(/* webpackChunkName: "app" */ "./views/app"),
-    redirect: `${adminRoot}/payers`,
+    redirect: `${adminRoot}`,
     meta: { loginRequired: true },
     /*
     define with Authorization :
     meta: { loginRequired: true, roles: [UserRole.Admin, UserRole.Editor] },
     */
     children: [
+      {
+        path: "",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Dashboard/DBCover.vue"),
+        // meta: { roles: [UserRole.Editor] },
+      },
       {
         path: "agents",
         component: () =>
@@ -68,13 +74,13 @@ const routes = [
           },         
         ]
       },
-      {
-        path: "analytics",
+      // {
+      //   path: "analytics",
 
-        component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards//Dashboard/Analytics/Analytics"),
-        // meta: { roles: [UserRole.Admin] },
-      },
+      //   component: () =>
+      //     import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Dashboard/Analytics/Analytics"),
+      //   // meta: { roles: [UserRole.Admin] },
+      // },
       {
         path: "admins",
         component: () =>
