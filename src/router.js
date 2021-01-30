@@ -20,19 +20,14 @@ const routes = [
   },
   {
     path: adminRoot,
-    component: () => import(/* webpackChunkName: "app" */ "./views/app/"),
-    // redirect: `${adminRoot}`,
-    meta: { loginRequired: true },    /*
+    component: () => import(/* webpackChunkName: "app" */ "./views/app"),
+    redirect: `${adminRoot}/payers`,
+    meta: { loginRequired: true },
+    /*
     define with Authorization :
     meta: { loginRequired: true, roles: [UserRole.Admin, UserRole.Editor] },
     */
     children: [
-      {
-        path: "",
-        component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Dashboard/DBCover.vue"),
-        // meta: { roles: [UserRole.Editor] },
-      },
       {
         path: "agents",
         component: () =>
@@ -51,6 +46,13 @@ const routes = [
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Cards/Cards.vue"),
         // meta: { roles: [UserRole.Editor] },
       },
+      // {
+      //   path: "analytics",
+
+      //   component: () =>
+      //     import(/* webpackChunkName: "dashboards" */ "/views/app/dashboards/Analytics/Analytics"),
+      //   // meta: { roles: [UserRole.Admin] },
+      // },
       {
         path: "payers",
         component: () =>
@@ -63,14 +65,14 @@ const routes = [
             component: () =>
               import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Default"),
             // meta: { roles: [UserRole.Admin] },
-          },
+          },         
         ]
       },
       {
         path: "analytics",
 
         component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Analytics"),
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards//Dashboard/Analytics/Analytics"),
         // meta: { roles: [UserRole.Admin] },
       },
       {
@@ -86,18 +88,11 @@ const routes = [
         // meta: { roles: [UserRole.Editor] },
       },
       {
-        path: "vehicles/tags",
-        component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Tags/Tags.vue"),
-        // meta: { roles: [UserRole.Editor] },
-
-      },
-      {
         path: "vehicles/:name",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/vehicles/Vehicles.vue"),
         // meta: { roles: [UserRole.Editor] },
-
+        
       },
       {
         path: "tags",
@@ -123,7 +118,7 @@ const routes = [
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Wallets/TansactionDetails.vue"),
         // meta: { roles: [UserRole.Editor] },
       },
-
+     
       {
         path: "pages",
         component: () =>
