@@ -16,6 +16,12 @@ const data = [
     // roles: [UserRole.Admin, UserRole.Editor],,
     subs:[
       {
+        icon: "simple-icon-people",
+        label: "menu.all-payers",
+        to: `${adminRoot}/payers`,
+        // roles: [UserRole.Admin, UserRole.Editor],
+        },
+      {
       icon: "simple-icon-plus",
       label: "menu.add-payer",
       to: `${adminRoot}/add-payer`,
@@ -81,7 +87,7 @@ const data = [
   ]},
   {
     id:"wallets",
-    icon:"iconsminds-envelope-2",
+    icon:"simple-icon-wallet",
     label: "menu.wallets",
     to: `${adminRoot}/wallets`,
     // roles: [UserRole.Admin, UserRole.Editor],,
@@ -237,6 +243,6 @@ const data = [
   to: `${adminRoot}/settings`,
   // roles: [UserRole.Admin, UserRole.Editor],
   }
- 
+
 ];
 export default data;

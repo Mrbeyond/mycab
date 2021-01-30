@@ -18,6 +18,7 @@
         :total="total"
         :perPage="perPage"
         :sortOptions="sortOptions"
+        :formKey="ADD_CARD"
       ></list-page-heading>
       <template v-if="isLoad">
         <cards-page-listing
@@ -45,6 +46,7 @@ import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
 import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
 import CardListing from "./CardListing.vue";
+import { ADD_CARD } from '../../../../constants/formKey';
 
 export default {
 
@@ -54,6 +56,7 @@ export default {
   },
   data() {
     return {
+      ADD_CARD,
        sortOptions: [
         {
           column: "tag_no",
@@ -77,7 +80,7 @@ export default {
             "img":"/assets/img/uploads/vehicle.jfif",
             "accounts": []
         },
- 
+
         {
             "id": 11,
              "state_id": null,

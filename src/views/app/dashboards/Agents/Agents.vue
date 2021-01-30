@@ -18,11 +18,12 @@
         :total="total"
         :perPage="perPage"
         :sortOptions="sortOptions"
+        :formKey="ADD_AGENT"
       ></list-page-heading>
       <template v-if="isLoad">
         <agent-page-listing
           :displayMode="displayMode"
-          :items="items"
+          :items="agents"
           :selectedItems="selectedItems"
           :toggleItem="toggleItem"
           :lastPage="lastPage"
@@ -38,46 +39,6 @@
       </template>
     </b-colxx>
   </b-row>
-  <!-- <div>
-  <b-tabs content-class="mt-3" justified>
-
-    <b-tab :title="$t('menu.all-agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.port-agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.garage-agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.agents-registrations')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-  </b-tabs>
-</div> -->
 </template>
 
 <script>
@@ -95,6 +56,8 @@ import Axios from 'axios';
 // import SmallLineCharts from "../../../containers/dashboards/SmallLineCharts";
 // import SortableStaticticsRow from "../../../containers/dashboards/SortableStaticticsRow";
 // import AgentsCard from "../../../containers/dashboards/AgentsCard";
+import {ADD_AGENT} from './../../../../constants/formKey';
+
 
 export default {
 
@@ -102,20 +65,9 @@ export default {
     "list-page-heading": ListPageHeading,
     "agent-page-listing": AgentListing
   },
-//    components: {
-//     "converconversion-rates-chart-card": ConversionRatesChartCard,
-//     "order-stock-radar-chart": OrderStockRadarChart,
-//     "product-categories-doughnut": ProductCategoriesDoughnut,
-//     "product-categories-polar-area": ProductCategoriesPolarArea,
-//     "profile-statuses": ProfileStatuses,
-//     "sales-chart-card": SalesChartCard,
-//     "small-line-charts": SmallLineCharts,
-//     "sortable-statictics-row": SortableStaticticsRow,
-//     "agent-Card": AgentsCard
-//   }
-// };
   data() {
     return {
+      ADD_AGENT,
         sortOptions: [
         {
           column: "firstname",
@@ -179,7 +131,7 @@ export default {
           img:"/assets/img/agents/agent4.jfif"
         },
       ],
-      isLoad: false,
+      isLoad: true,
       apiBase: PROXY + "",
       displayMode: "list",
       sort: {
