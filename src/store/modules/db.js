@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { PROXY } from '../../constants/config';
-import { ADMINS, RES_KEY, hToken, TAGS, TERMINALS } from '../../constants/formKey';
+import { ADMINS, RES_KEY,CARDS, hToken, TAGS, TERMINALS, AGENTS } from '../../constants/formKey';
 // import { TEST, AUTHMODAL, STUDENT, CHANGE_LOGIN_STATUS, INTENDED_PAGE,
 //   AUTH_CONFIRM_ERROR
 
