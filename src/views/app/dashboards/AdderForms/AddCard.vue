@@ -18,7 +18,7 @@
 
             <b-toast :variant="variant" id="example-toast" title="Something went wrong" >
               {{resMessage }}
-          </b-toast>
+            </b-toast>
           </b-form>
         </b-card>
     </b-colxx>
