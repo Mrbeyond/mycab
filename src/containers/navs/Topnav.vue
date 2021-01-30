@@ -15,50 +15,9 @@
       >
         <mobile-menu-icon />
       </a>
-      <div
-        :class="{'search':true, 'mobile-view':isMobileSearch}"
-        ref="searchContainer"
-        @mouseenter="isSearchOver=true"
-        @mouseleave="isSearchOver=false"
-      >
-        <b-input
-          :placeholder="$t('menu.search')"
-          @keypress.native.enter="search"
-          v-model="searchKeyword"
-        />
-        <span class="search-icon" @click="searchClick">
-          <i class="simple-icon-magnifier"></i>
-        </span>
-      </div>
-      <div class="d-inline-block">
-        <b-dropdown
-          id="langddm"
-          class="ml-2"
-          variant="light"
-          size="sm"
-          toggle-class="language-button"
-        >
-          <template slot="button-content">
-            <span class="name">{{$i18n.locale.toUpperCase()}}</span>
-          </template>
-          <b-dropdown-item
-            v-for="(l,index) in localeOptions"
-            :key="index"
-            @click="changeLocale(l.id, l.direction)"
-          >{{l.name}}</b-dropdown-item>
-        </b-dropdown>
-      </div>
-      <div class="position-relative d-none d-none d-lg-inline-block">
-        <a
-          class="btn btn-outline-primary btn-sm ml-2"
-          target="_top"
-          :href="buyUrl"
-        >{{$t('user.buy')}}</a>
-      </div>
     </div>
     <router-link class="navbar-logo" tag="a" :to="adminRoot">
-      <span class="logo d-none d-xs-block"></span>
-      <span class="logo-mobile d-block d-xs-none"></span>
+      <span class="text-center logo-size logo-bold">MECP</span>
     </router-link>
 
     <div class="navbar-right">
