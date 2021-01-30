@@ -32,11 +32,12 @@
       </b-colxx>
     </b-row> -->
 
-    <!-- <b-row>
+    <b-row>
       <b-colxx xxs="12" class="mb-4">
         <sales-chart-card></sales-chart-card>
       </b-colxx>
-    </b-row> -->
+    </b-row>
+
     <!-- <b-row>
 
       <b-colxx sm="12" md="6" class="mb-4">
