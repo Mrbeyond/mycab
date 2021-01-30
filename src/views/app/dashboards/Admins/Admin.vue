@@ -2,7 +2,7 @@
   <b-row>
     <b-colxx class="disable-text-selection">
       <list-page-heading
-        :title="$t('menu.cards')"
+        :title="$t('menu.admins')"
         :selectAll="selectAll"
         :isSelectedAll="isSelectedAll"
         :isAnyItemSelected="isAnyItemSelected"
@@ -41,7 +41,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import {hToken} from './../../../../constants/formKey'
+import Axios from 'axios';
 import { apiUrl } from "../../../../constants/config";
 import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
 import AdminListing from "./AdminListing.vue";
@@ -126,36 +127,31 @@ export default {
     return ((x > y) ? 1 : ((x < y) ? -1 : 0))
             });
     this.isLoad = true;
-      // axios
-      //   .get(this.apiUrl)
-      //   .then(response => {
-      //     return response.data;
-      //   })
-      //   .then(res => {
-      //     this.total = res.total;
-      //     this.from = res.from;
-      //     this.to = res.to;
-      //         this.items = this.agents
 
-      //   //   this.items = res.data.map(x => {
-      //   //     return {
-      //   //       ...x,
-      //   //       img: x.img.replace("/img/", "/img/products/")
-      //   //     };
-      //   //   });
-      //   var resp = this.sort
-      //   // console.log(resp)
-      //    this.items =  this.agents.sort(function(a, b){
-      //       if(a.resp > b.resp) return 1;
-      //       if(a.resp < b.resp) return -1;
-      //       return 0;
-      //       });
-      //     console.log(this.items)
-      //     this.perPage = res.per_page;
-      //     this.selectedItems = [];
-      //     this.lastPage = res.last_page;
-      //     this.isLoad = true;
-      //   });
+      Axios
+        .get(this.apiUrl)
+        .then(response => {
+          return response.data;
+        })
+        .then(res => {
+          console.log(res)
+          this.total = res.total;
+          this.from = res.from;
+          this.to = res.to;
+              this.items = this.agents
+
+        //   this.items = res.data.map(x => {
+        //     return {
+        //       ...x,
+        //       img: x.img.replace("/img/", "/img/products/")
+        //     };
+        //   });
+          console.log(this.items)
+          this.perPage = res.per_page;
+          this.selectedItems = [];
+          this.lastPage = res.last_page;
+          this.isLoad = true;
+        });
     },
 
     changeDisplayMode(displayType) {
