@@ -87,7 +87,7 @@ const data = [
   ]},
   {
     id:"wallets",
-    icon:"iconsminds-envelope-2",
+    icon:"simple-icon-wallet",
     label: "menu.wallets",
     to: `${adminRoot}/wallets`,
     // roles: [UserRole.Admin, UserRole.Editor],,
@@ -243,6 +243,6 @@ const data = [
   to: `${adminRoot}/settings`,
   // roles: [UserRole.Admin, UserRole.Editor],
   }
- 
+
 ];
 export default data;

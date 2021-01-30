@@ -17,7 +17,7 @@
             </div>
 
             <b-toast :variant="variant" id="example-toast" title="Something went wrong" >
-              {{resMessage     }}
+              {{resMessage }}
           </b-toast>
           </b-form>
         </b-card>
@@ -75,6 +75,7 @@ export default {
         if(!res.data.error){
           this.variant = "success";
           this.resMessage = res.data.message;
+          this.card_no= "";
           // localStorage.authToken = res.data.data.authorization
           // delete res.data.data.authorization;
           // const authUser = res.data.data;
