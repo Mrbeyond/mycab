@@ -21,7 +21,7 @@
     </b-row>
     <b-row v-else-if="displayMode==='thumb'" key="thumb">
       <b-colxx xxs="12" class="mb-3" v-for="(item,index) in items" :key="index" :id="item.id">
-        <terminal-list-item
+        <terminal-thumb-list-item
           :key="item.id"
           :data="item"
           :selected-items="selectedItems"
@@ -32,7 +32,7 @@
     </b-row>
     <b-row v-else-if="displayMode==='list'" key="list">
       <b-colxx xxs="12" class="mb-3" v-for="(item,index) in items" :key="index" :id="item.id">
-        <tag-list-item
+        <terminal-list-item
           :key="item.id"
           :data="item"
           :selected-items="selectedItems"
