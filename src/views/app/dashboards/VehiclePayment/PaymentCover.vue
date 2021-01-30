@@ -8,10 +8,10 @@
             v-for="(payment, index) in payments" v-bind:key="index"
             class="col-12 col-md-6"
           >
-            <b-card class="mb-4" no-body >
+            <b-card class="mb-4 py-2" no-body >
             <div style=" height: 300px; max-height: 300px; overflow-y: auto">
               <b-tabs  card no-fade>
-                <b-tab title="Acount" active title-item-class="w-30 text-center">
+                <b-tab title="Acount" active title-item-class="w-30">
                     <ul>
                     <li>Agent : {{ payment.agent_id }}</li>
                     <li>Garage ID: {{ payment.garage_id }}</li>
@@ -38,7 +38,7 @@
                     <li>Year: {{payment.account_vehicle.vehicle_year}}</li>
                     <li>Model: {{payment.account_vehicle.vehicle_model}}</li>
                     <li>Status: {{payment.account_vehicle.status}}</li>
-                    <li>created On: {{payment.account_vehicle.createdAt}}</li>
+                    <li>created On: {{Timest(payment.account_vehicle.createdAt)}}</li>
                   </ul>
                 </div>
 
