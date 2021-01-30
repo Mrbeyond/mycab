@@ -2,7 +2,7 @@
   <b-row>
     <b-colxx class="disable-text-selection">
       <list-page-heading
-        :title="$t('forms.tags')"
+        :title="$t('menu.cards')"
         :selectAll="selectAll"
         :isSelectedAll="isSelectedAll"
         :isAnyItemSelected="isAnyItemSelected"
@@ -18,10 +18,9 @@
         :total="total"
         :perPage="perPage"
         :sortOptions="sortOptions"
-        :formKey="ADD_TAG"
       ></list-page-heading>
       <template v-if="isLoad">
-        <tags-page-listing
+        <admin-page-listing
           :displayMode="displayMode"
           :items="items"
           :selectedItems="selectedItems"
@@ -32,7 +31,7 @@
           :changePage="changePage"
           :handleContextMenu="handleContextMenu"
           :onContextMenuAction="onContextMenuAction"
-        ></tags-page-listing>
+        ></admin-page-listing>
       </template>
       <template v-else>
         <div class="loading"></div>
@@ -44,59 +43,66 @@
 <script>
 import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
-import ListPageHeading from "./../ListsHeader/ListPageHeading";
-import TagsListing from "./TagsListing.vue";
-import { ADD_TAG } from '../../../../constants/formKey';
+import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
+import AdminListing from "./AdminListing.vue";
 
 export default {
 
   components: {
     "list-page-heading": ListPageHeading,
-    "tags-page-listing": TagsListing
+    "admin-page-listing": AdminListing
   },
-
   data() {
     return {
-      ADD_TAG,
        sortOptions: [
         {
-          column: "tag_no",
-          label: "Tag Number"
+          column: "first_name",
+          label: "Firstname"
         },
          {
-          column: "state_id",
-          label: "State"
+          column: "last_name",
+          label: "Lastname"
+        },
+         {
+          column: "email",
+          label: "Email"
+        },
+        {
+          column: "phone",
+          label: "Phone"
         },
       ],
 
          agents: [
-         {
-            "id": 1,
-            "state_id": 1,
-            "tag_no": "1",
-            "status": 1,
-            "createdAt": "2021-01-28T07:19:09.000Z",
-            "updatedAt": "2021-01-28T07:19:09.000Z",
-            "img":"/assets/img/uploads/vehicle.jfif",
-            "vehicles": []
+           {
+          "id": 21,
+          "first_name": "Samuel",
+          "last_name": "Adesina",
+          "email": "asoluwaseun@yahoo.com",
+          "phone": "08130027102",
+          "admin_type_id": "1",
+          "status": 1,
+          "updatedAt": "2021-01-27T14:13:59.643Z",
+          "createdAt": "2021-01-27T14:13:59.643Z"
         },
-        {
-            "id": 11,
-            "state_id": 2,
-            "tag_no": "2",
-            "status": 1,
-            "createdAt": "2021-01-28T07:40:36.000Z",
-            "updatedAt": "2021-01-28T07:40:36.000Z",
-            "img":"/assets/img/uploads/car.jfif",
-            "vehicles": []
+         {
+          "id": 25,
+          "first_name": "Samson",
+          "last_name": "Aa",
+          "email": "adeola@gmail.com",
+          "phone": "08135456776",
+          "admin_type_id": "1",
+          "status": 1,
+          "updatedAt": "2021-01-27T14:13:59.643Z",
+          "createdAt": "2021-01-27T14:13:59.643Z"
         }
       ],
       isLoad: false,
       apiBase: apiUrl + "/cakes/fordatatable",
       displayMode: "list",
      sort: {
-        column: "tag_no",
-        label: "Tag Number"
+        column: "first_name",
+        label: "Firstname"
       },
       page: 1,
       perPage: 4,
@@ -112,13 +118,14 @@ export default {
   methods: {
     loadItems() {
       this.isLoad = false;
+      // this.items = this.agents
       let resp = this.sort.column
-        this.items =  this.agents
-        .sort(function(a, b){
-          var x = a[resp]; var y = b[resp]
-          return ((x > y) ? 1 : ((x < y) ? -1 : 0))
-                  });
-          this.isLoad = true;
+  this.items =  this.agents
+  .sort(function(a, b){
+    var x = a[resp]; var y = b[resp]
+    return ((x > y) ? 1 : ((x < y) ? -1 : 0))
+            });
+    this.isLoad = true;
       // axios
       //   .get(this.apiUrl)
       //   .then(response => {
@@ -160,6 +167,7 @@ export default {
     },
     changeOrderBy(sort) {
       this.sort = sort;
+      this.loadItems()
     },
     searchChange(val) {
       this.search = val;
