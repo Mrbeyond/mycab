@@ -6,11 +6,11 @@
         <div class="separator mb-5"></div>
       </b-colxx>
     </b-row>
-    
+
     <b-row>
-      <b-colxx xl="4" lg="6" md="12" class="mb-4">
+<!--<b-colxx xl="4" lg="6" md="12" class="mb-4">
         <product-categories-doughnut></product-categories-doughnut>
-      </b-colxx>
+      </b-colxx>-->
 
       <b-colxx xl="4" lg="6" md="12" class="mb-4">
         <profile-statuses :analytic="analytic"></profile-statuses>
