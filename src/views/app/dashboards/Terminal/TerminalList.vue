@@ -7,8 +7,10 @@
             </router-link>
             <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.tag_no}}</p>
             <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.vehicles}}</p>
-            <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.createdAt}}</p>
-            <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.updatedAt}}</p>
+            <p class="mb-0 text-muted text-small w-5 w-sm-100">
+              {{Timest(data.createdAt)}}
+            </p>
+            <p class="mb-0 text-muted text-small w-5 w-sm-100">{{Timest(data.updatedAt)}}</p>
             <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.status}}</p>
             <div class="w-15 w-sm-100">
                 <b-badge pill :variant="data.statusColor">{{ data.status }}</b-badge>
@@ -22,12 +24,26 @@
 </template>
 
 <script>
+import { LUX_ZONE } from '../../../../constants/formKey'
 export default {
     props: ['data', 'selectedItems'],
+    data: ()=>({
+      des: Timest(5)
+    }),
     methods: {
         toggleItem(event, itemId) {
             this.$emit('toggle-item', event, itemId)
-        }
+        },
+
+      Timest(val){
+        return LUX_ZONE(val)
+      }
+    },
+    computed: {
+      fest(d){
+        return d
+      }
     }
+
 }
 </script>

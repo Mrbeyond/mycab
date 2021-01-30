@@ -52,17 +52,28 @@ const routes = [
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Cards/Cards.vue"),
         // meta: { roles: [UserRole.Editor] },
       },
-      // {
-      //   path: "analytics",
-
-      //   component: () =>
-      //     import(/* webpackChunkName: "dashboards" */ "/views/app/dashboards/Analytics/Analytics"),
-      //   // meta: { roles: [UserRole.Admin] },
-      // },
+      {
+        path: "all-vehicle-payments",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/VehiclePayment/PaymentCover.vue"),
+        // meta: { roles: [UserRole.Admin] },
+      },
+      {
+        path: "commercial-vehicle-payments",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/VehiclePayment/PaymentCover.vue"),
+        // meta: { roles: [UserRole.Admin] },
+      },
+      {
+        path: "import-vehicle-payments",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/VehiclePayment/PaymentCover.vue"),
+        // meta: { roles: [UserRole.Admin] },
+      },
       {
         path: "payers",
         component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Payer/PayersList/Payers.vue"),
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Payer/PayersCover.vue"),
           // redirect: `${adminRoot}/dashboard/payers`,
         // meta: { roles: [UserRole.Admin, UserRole.Editor] },
         children: [

@@ -57,3 +57,29 @@ export const resCoder=(status)=>{
   }
   return defaulter;
 }
+
+export const LUX_ZONE=(time)=>{
+  if(!time) return '';
+  if(window.luxon){
+      const local = window.luxon.DateTime.local();
+      const format = time.trim().replace(' ',"T")
+      const ms = window.luxon.DateTime.fromISO(format, {zone: 'Africa/Accra'});
+      const rezoned = ms.setZone(local.zoneName);
+      let dater = new Date(Date.parse(rezoned)).toString()
+      dater = dater.slice(0,dater.indexOf('GMT'))
+      return `${dater}`;
+  }
+  return '';
+}
+
+export const plainTimeZone=(time)=>{
+  if(!time) return '';
+  if(window.luxon){
+      const local = window.luxon.DateTime.local();
+      const format = time.trim().replace(' ',"T")
+      const ms = window.luxon.DateTime.fromISO(format, {zone: 'Africa/Accra'});
+      const rezoned = ms.setZone(local.zoneName);
+      return new Date(Date.parse(rezoned));
+  }
+  return '';
+}

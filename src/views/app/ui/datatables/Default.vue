@@ -97,7 +97,9 @@ export default {
           title: "Name",
           titleClass: "",
           dataClass: "list-item-heading",
-          width: "50%"
+          width: "50%",
+          nomr: "hjhjh",
+          ghghg:"jhjhjh"
         },
         {
           name: "sales",
@@ -105,7 +107,9 @@ export default {
           title: "Sales",
           titleClass: "",
           dataClass: "text-muted",
-          width: "10%"
+          width: "10%",
+          nomr: "hjhjh",
+          ghghg:"jhjhjh"
         },
         {
           name: "stock",
@@ -113,7 +117,9 @@ export default {
           title: "Stock",
           titleClass: "",
           dataClass: "text-muted",
-          width: "10%"
+          width: "10%",
+          nomr: "hjhjh",
+          ghghg:"jhjhjh"
         },
         {
           name: "category",
@@ -121,14 +127,18 @@ export default {
           title: "Category",
           titleClass: "",
           dataClass: "text-muted",
-          width: "25%"
+          width: "25%",
+          nomr: "hjhjh",
+          ghghg:"jhjhjh"
         },
         {
           name: "__slot:actions",
           title: "",
           titleClass: "center aligned text-right",
           dataClass: "center aligned text-right",
-          width: "5%"
+          width: "5%",
+          nomr: "hjhjh",
+          ghghg:"jhjhjh"
         }
       ]
     };
