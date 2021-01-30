@@ -1,12 +1,14 @@
 <template>
-  <div>Dashboard Cover</div>
+  <Analytics :analytic="analytic" />
 </template>
 <script>
 import Axios from 'axios'
 import { PROXY } from '../../../../constants/config'
 import { hToken } from '../../../../constants/formKey'
+import Analytics from './Analytics/Analytics';
 export default {
   components:{
+    Analytics
 
   },
   data:()=>({

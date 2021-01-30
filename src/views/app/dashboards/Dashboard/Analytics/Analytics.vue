@@ -19,6 +19,7 @@ import vehiclesCard from "./AnalyticsCarde.vue";
 import router from 'vue-router'
 
 export default {
+  props: ["analytics"],
   data () {
     return {
       pname:"",
