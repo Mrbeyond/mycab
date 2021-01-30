@@ -2,7 +2,7 @@
 <b-row>
     <b-colxx xxs="12">
         <b-card>
-            <b-form @submit.prevent="onValitadeFormSubmit" class="av-tooltip tooltip-label-right">
+            <b-form ref="form" @submit.prevent="onValitadeFormSubmit" class="av-tooltip tooltip-label-right">
                 <b-form-group label="First name">
                     <b-form-input type="text" v-model="$v.first_name.$model" :state="!$v.first_name.$error" />
                     <b-form-invalid-feedback v-if="!$v.first_name.required">Please enter your first name</b-form-invalid-feedback>

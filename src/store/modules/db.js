@@ -54,7 +54,8 @@ export default {
     },
 
     [RES_KEY](state, payload){
-      state.resErrorKey = payload;
+      // console.log(payload.owner);
+      state.resKey = payload;
     },
   },
 

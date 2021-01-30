@@ -1,8 +1,8 @@
 <template>
 <b-row>
     <b-colxx xxs="12">
-        <b-card class="mb-4" title="Add Card">
-          <b-form @submit.prevent="onValitadeFormSubmit" class="av-tooltip tooltip-label-right">
+        <b-card class="mb-4">
+          <b-form ref="form" @submit.prevent="onValitadeFormSubmit" class="av-tooltip tooltip-label-right">
               <b-form-group label="Card number">
                 <b-form-input type="text" v-model="$v.card_no.$model" :state="!$v.card_no.$error" />
                 <b-form-invalid-feedback v-if="!$v.card_no.required">Please enter a value</b-form-invalid-feedback>

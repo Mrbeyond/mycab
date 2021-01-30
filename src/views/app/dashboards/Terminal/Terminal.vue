@@ -18,11 +18,12 @@
         :total="total"
         :perPage="perPage"
         :sortOptions="sortOptions"
+        :formKey="ADD_TERMINAL"
       ></list-page-heading>
       <template v-if="isLoad">
         <terminal-page-listing
           :displayMode="displayMode"
-          :items="items"
+          :items="terminals"
           :selectedItems="selectedItems"
           :toggleItem="toggleItem"
           :lastPage="lastPage"
@@ -38,46 +39,6 @@
       </template>
     </b-colxx>
   </b-row>
-  <!-- <div>
-  <b-tabs content-class="mt-3" justified>
-
-    <b-tab :title="$t('menu.all-agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.port-agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.garage-agents')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-    <b-tab :title="$t('menu.agents-registrations')" active>
-        <b-row >
-        <b-colxx sm="12" md="4" class="mb-4" v-for="(test,index) in vehicles" :key="index">
-            <agent-Card v-bind:test="test"></agent-Card>
-        </b-colxx>
-        </b-row>
-    </b-tab>
-  </b-tabs>
-</div> -->
 </template>
 
 <script>
@@ -85,15 +46,7 @@ import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
 import ListPageHeading from "./../ListsHeader/ListPageHeading";
 import TerminalListing from "./TerminalListing.vue";
-// import ConversionRatesChartCard from "../../../containers/dashboards/ConversionRatesChartCard";
-// import OrderStockRadarChart from "../../../containers/dashboards/OrderStockRadarChart";
-// import ProductCategoriesDoughnut from "../../../containers/dashboards/ProductCategoriesDoughnut";
-// import ProductCategoriesPolarArea from "../../../containers/dashboards/ProductCategoriesPolarArea";
-// import ProfileStatuses from "../../../containers/dashboards/ProfileStatuses";
-// import SalesChartCard from "../../../containers/dashboards/SalesChartCard";
-// import SmallLineCharts from "../../../containers/dashboards/SmallLineCharts";
-// import SortableStaticticsRow from "../../../containers/dashboards/SortableStaticticsRow";
-// import AgentsCard from "../../../containers/dashboards/AgentsCard";
+import { ADD_TERMINAL, TERMINALS } from '../../../../constants/formKey';
 
 export default {
 
@@ -101,20 +54,10 @@ export default {
     "list-page-heading": ListPageHeading,
     "terminal-page-listing": TerminalListing
   },
-//    components: {
-//     "converconversion-rates-chart-card": ConversionRatesChartCard,
-//     "order-stock-radar-chart": OrderStockRadarChart,
-//     "product-categories-doughnut": ProductCategoriesDoughnut,
-//     "product-categories-polar-area": ProductCategoriesPolarArea,
-//     "profile-statuses": ProfileStatuses,
-//     "sales-chart-card": SalesChartCard,
-//     "small-line-charts": SmallLineCharts,
-//     "sortable-statictics-row": SortableStaticticsRow,
-//     "agent-Card": AgentsCard
-//   }
-// };
+
   data() {
     return {
+        ADD_TERMINAL,
        sortOptions: [
         {
           column: "terminal_no",
@@ -126,26 +69,7 @@ export default {
         },
       ],
 
-         agents: [
-         {
-            "id": 1,
-            "state_id": null,
-            "terminal_no": "1",
-            "status": null,
-            "createdAt": "2021-01-28T07:19:09.000Z",
-            "updatedAt": "2021-01-28T07:19:09.000Z",
-            "agents": []
-        },
-        {
-            "id": 11,
-            "state_id": 1,
-            "terminal_no": "2",
-            "status": 1,
-            "createdAt": "2021-01-28T07:40:36.000Z",
-            "updatedAt": "2021-01-28T07:40:36.000Z",
-            "agents": []
-        }
-      ],
+
       isLoad: false,
       apiBase: apiUrl + "/cakes/fordatatable",
       displayMode: "list",
@@ -165,45 +89,19 @@ export default {
     };
   },
   methods: {
+    getTerminals(){
+      this.$store.dispatch(TERMINALS);
+    },
     loadItems() {
       this.isLoad = false;
       let resp = this.sort.column
-        this.items =  this.agents
-        .sort(function(a, b){
-          var x = a[resp]; var y = b[resp]
-          return ((x > y) ? 1 : ((x < y) ? -1 : 0))
-                  });
-          this.isLoad = true;
-      // axios
-      //   .get(this.apiUrl)
-      //   .then(response => {
-      //     return response.data;
-      //   })
-      //   .then(res => {
-      //     this.total = res.total;
-      //     this.from = res.from;
-      //     this.to = res.to;
-      //         this.items = this.agents
+      this.items =  this.agents
+      .sort(function(a, b){
+        var x = a[resp]; var y = b[resp]
+        return ((x > y) ? 1 : ((x < y) ? -1 : 0))
+                });
+        this.isLoad = true;
 
-      //   //   this.items = res.data.map(x => {
-      //   //     return {
-      //   //       ...x,
-      //   //       img: x.img.replace("/img/", "/img/products/")
-      //   //     };
-      //   //   });
-      //   var resp = this.sort
-      //   // console.log(resp)
-      //    this.items =  this.agents.sort(function(a, b){
-      //       if(a.resp > b.resp) return 1;
-      //       if(a.resp < b.resp) return -1;
-      //       return 0;
-      //       });
-      //     console.log(this.items)
-      //     this.perPage = res.per_page;
-      //     this.selectedItems = [];
-      //     this.lastPage = res.last_page;
-      //     this.isLoad = true;
-      //   });
     },
 
     changeDisplayMode(displayType) {
@@ -298,7 +196,15 @@ export default {
     },
     apiUrl() {
       return `${this.apiBase}?sort=${this.sort.column}&page=${this.page}&per_page=${this.perPage}&search=${this.search}`;
+    },
+    terminals(){
+      return this.$store.getters.terminals;
+    },
+    resKey(){
+      return this.$store.getters.resKey;
     }
+
+
 
   },
   watch: {
@@ -306,11 +212,22 @@ export default {
       this.page = 1;
     },
     apiUrl() {
-      this.loadItems();
+      // this.loadItems();
+    },
+    resKey(){
+      if(this.resKey && this.resKey.owner && this.resKey.owner == TERMINALS){
+        this.isLoad = true;
+      }
     }
+
   },
   mounted() {
-    this.loadItems();
+    // this.loadItems();
+
+  },
+  created() {
+    // this.loadItems();
+    this.getTerminals();
 
   }
 };

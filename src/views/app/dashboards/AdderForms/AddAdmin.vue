@@ -83,6 +83,7 @@ export default {
       admin_type: "",
 
       submitting: false,
+      resMessage: "",
     };
   },
   mixins: [validationMixin],

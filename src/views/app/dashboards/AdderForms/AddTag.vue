@@ -1,7 +1,7 @@
 <template>
 <b-row>
     <b-colxx xxs="12">
-        <b-card class="mb-4" title="Add Tag">
+        <b-card class="mb-4">
           <b-form @submit.prevent="onValitadeFormSubmit" class="av-tooltip tooltip-label-right">
               <b-form-group label="Tag number">
                 <b-form-input type="text" v-model="$v.tag_no.$model" :state="!$v.tag_no.$error" />
@@ -32,7 +32,7 @@ import {
     validationMixin
 } from "vuelidate";
 import { PROXY } from '../../../../constants/config';
-import { hToken } from '../../../../constants/formKey';
+import { hToken, TAGS } from '../../../../constants/formKey';
 const {
     required,
     numeric,
@@ -67,20 +67,14 @@ export default {
         tag_no:this.tag_no,
       }
 
-      console.log(formData);
       this.submitting = true;
       Axios.post(`${PROXY}admin/register/vehicle_tag`, formData, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
           this.variant = "success";
-          console.log(res.data);
           this.resMessage = res.data.message;
           this.tag_no = "";
-          // localStorage.authToken = res.data.data.authorization
-          // delete res.data.data.authorization;
-          // const authUser = res.data.data;
-          // setCurrentUser(authUser)
-          // this.$store.commit("setUser", authUser);
+          this.$store.dispatch(TAGS);
         }else{
           this.variant = "danger";
           this.resMessage = "Something went wrong, please retry"
