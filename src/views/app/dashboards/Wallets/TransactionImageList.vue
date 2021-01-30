@@ -1,8 +1,8 @@
 <template>
 <b-card @click.prevent="toggleItem($event,data.id)" :class="{'active' : selectedItems.includes(data.id)}" no-body>
     <div class="position-relative">
-        <router-link :to="`?p=${data.id}`" class="w-40 w-sm-100">
-            <img :src="data.img" class="card-img-top" style="height:200px" :alt="data.firstname" />
+        <router-link :to="`/dashboard/wallets/transaction`" class="w-40 w-sm-100">
+            <img :src="data.img" class="card-img-top" style="height:200px" :alt="data.balance" />
           
         </router-link>
         <b-badge pill :variant="data.statusColor" class="position-absolute badge-top-left">{{ data.status }}</b-badge>
@@ -12,17 +12,17 @@
                 <b-form-checkbox :checked="selectedItems.includes(data.id)" class="itemCheck mb-0 float-right" />
             </b-row>
             <b-row class="mb-3">
-               <span right  class="col-12">{{data.card_no}}</span>
+               <span right  class="col-12">{{data.balance}}</span>
             </b-row>
              <b-row class="mb-3" >
-                <span class="col-12">{{data.system_identifier}}</span>
+                <span class="col-12">{{data.post_paid_balance}}</span>
              </b-row>
-             <b-row  class="mb-3">
+             <!-- <b-row  class="mb-3">
                  <span class="col-12">{{data.createdAt}}</span>
              </b-row>
              <b-row class="mb-3">
                 <span  class="col-12">{{data.accounts}}</span>
-             </b-row>
+             </b-row> -->
     </b-card-body>
 </b-card>
 </template>

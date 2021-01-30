@@ -20,7 +20,7 @@
         :sortOptions="sortOptions"
       ></list-page-heading>
       <template v-if="isLoad">
-        <cards-page-listing
+        <tran-page-listing
           :displayMode="displayMode"
           :items="items"
           :selectedItems="selectedItems"
@@ -31,7 +31,7 @@
           :changePage="changePage"
           :handleContextMenu="handleContextMenu"
           :onContextMenuAction="onContextMenuAction"
-        ></cards-page-listing>
+        ></tran-page-listing>
       </template>
       <template v-else>
         <div class="loading"></div>
@@ -44,13 +44,13 @@
 import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
 import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
-import CardListing from "./CardListing.vue";
+import TransactionListing from "./TransactionListing.vue";
 
 export default {
 
   components: {
     "list-page-heading": ListPageHeading,
-    "cards-page-listing": CardListing
+    "tran-page-listing": TransactionListing
   },
   data() {
     return {
@@ -66,29 +66,60 @@ export default {
       ],
 
          agents: [
-         {
-            "id": 1,
-            "state_id": null,
-            "card_no": "1",
-            "system_identifier": "54555644517a45324d5445344d5467794d7a41334e6a673d",
-            "status": 1,
-            "createdAt": "2021-01-28T07:17:11.000Z",
-            "updatedAt": "2021-01-28T07:17:11.000Z",
-            "img":"/assets/img/uploads/vehicle.jfif",
-            "accounts": []
-        },
- 
-        {
-            "id": 11,
-             "state_id": null,
-            "card_no": "1",
-            "system_identifier": "54555644517a45324d5445344d5467794d7a41334e6a673d",
-            "status": 1,
-            "createdAt": "2021-01-28T07:17:11.000Z",
-            "updatedAt": "2021-01-28T07:17:11.000Z",
-            "img":"/assets/img/uploads/vehicle.jfif",
-            "accounts": []
-        }
+          {
+          "balance": 202000,
+          "post_paid_balance": 0,
+          "account_wallet_transactions": [
+            {
+              "reference": null,
+              "description": null,
+              "amount": 2000,
+              "type": 1,
+              "status": 1,
+              "createdAt": "2021-01-28T14:26:11.000Z",
+              "payment_channel": {
+                "name": "Paystack"
+              }
+            },
+            {
+              "reference": null,
+              "description": null,
+              "amount": 200000,
+              "type": 1,
+              "status": 1,
+              "createdAt": "2021-01-28T13:50:33.000Z",
+              "payment_channel": null
+            }
+          ]
+    },
+
+    
+     {
+          "balance": 202000,
+          "post_paid_balance": 0,
+          "account_wallet_transactions": [
+            {
+              "reference": null,
+              "description": null,
+              "amount": 2000,
+              "type": 1,
+              "status": 1,
+              "createdAt": "2021-01-28T14:26:11.000Z",
+              "payment_channel": {
+                "name": "Paystack"
+              }
+            },
+            {
+              "reference": null,
+              "description": null,
+              "amount": 200000,
+              "type": 1,
+              "status": 1,
+              "createdAt": "2021-01-28T13:50:33.000Z",
+              "payment_channel": null
+            }
+          ]
+    },
       ],
       isLoad: false,
       apiBase: apiUrl + "/cakes/fordatatable",
