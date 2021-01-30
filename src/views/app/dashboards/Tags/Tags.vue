@@ -23,7 +23,7 @@
       <template v-if="isLoad">
         <tags-page-listing
           :displayMode="displayMode"
-          :items="items"
+          :items="tags"
           :selectedItems="selectedItems"
           :toggleItem="toggleItem"
           :lastPage="lastPage"
@@ -46,7 +46,7 @@ import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
 import ListPageHeading from "./../ListsHeader/ListPageHeading";
 import TagsListing from "./TagsListing.vue";
-import { ADD_TAG } from '../../../../constants/formKey';
+import { ADD_TAG, TAGS } from '../../../../constants/formKey';
 
 export default {
 
@@ -69,28 +69,28 @@ export default {
         },
       ],
 
-         agents: [
-         {
-            "id": 1,
-            "state_id": 1,
-            "tag_no": "1",
-            "status": 1,
-            "createdAt": "2021-01-28T07:19:09.000Z",
-            "updatedAt": "2021-01-28T07:19:09.000Z",
-            "img":"/assets/img/uploads/vehicle.jfif",
-            "vehicles": []
-        },
-        {
-            "id": 11,
-            "state_id": 2,
-            "tag_no": "2",
-            "status": 1,
-            "createdAt": "2021-01-28T07:40:36.000Z",
-            "updatedAt": "2021-01-28T07:40:36.000Z",
-            "img":"/assets/img/uploads/car.jfif",
-            "vehicles": []
-        }
-      ],
+      //    agents: [
+      //    {
+      //       "id": 1,
+      //       "state_id": 1,
+      //       "tag_no": "1",
+      //       "status": 1,
+      //       "createdAt": "2021-01-28T07:19:09.000Z",
+      //       "updatedAt": "2021-01-28T07:19:09.000Z",
+      //       "img":"/assets/img/uploads/vehicle.jfif",
+      //       "vehicles": []
+      //   },
+      //   {
+      //       "id": 11,
+      //       "state_id": 2,
+      //       "tag_no": "2",
+      //       "status": 1,
+      //       "createdAt": "2021-01-28T07:40:36.000Z",
+      //       "updatedAt": "2021-01-28T07:40:36.000Z",
+      //       "img":"/assets/img/uploads/car.jfif",
+      //       "vehicles": []
+      //   }
+      // ],
       isLoad: false,
       apiBase: apiUrl + "/cakes/fordatatable",
       displayMode: "list",
@@ -110,39 +110,48 @@ export default {
     };
   },
   methods: {
+    getTags(){
+      this.$store.dispatch(TAGS);
+    },
     loadItems() {
       this.isLoad = false;
-
-      axios
-        .get(this.apiUrl)
-        .then(response => {
-          return response.data;
-        })
-        .then(res => {
-          this.total = res.total;
-          this.from = res.from;
-          this.to = res.to;
-              this.items = this.agents
-
-        //   this.items = res.data.map(x => {
-        //     return {
-        //       ...x,
-        //       img: x.img.replace("/img/", "/img/products/")
-        //     };
-        //   });
-        var resp = this.sort
-        // console.log(resp)
-         this.items =  this.agents.sort(function(a, b){
-            if(a.resp > b.resp) return 1;
-            if(a.resp < b.resp) return -1;
-            return 0;
-            });
-          console.log(this.items)
-          this.perPage = res.per_page;
-          this.selectedItems = [];
-          this.lastPage = res.last_page;
+      let resp = this.sort.column
+        this.items =  this.agents
+        .sort(function(a, b){
+          var x = a[resp]; var y = b[resp]
+          return ((x > y) ? 1 : ((x < y) ? -1 : 0))
+                  });
           this.isLoad = true;
-        });
+      // axios
+      //   .get(this.apiUrl)
+      //   .then(response => {
+      //     return response.data;
+      //   })
+      //   .then(res => {
+      //     this.total = res.total;
+      //     this.from = res.from;
+      //     this.to = res.to;
+      //         this.items = this.agents
+
+      //   //   this.items = res.data.map(x => {
+      //   //     return {
+      //   //       ...x,
+      //   //       img: x.img.replace("/img/", "/img/products/")
+      //   //     };
+      //   //   });
+      //   var resp = this.sort
+      //   // console.log(resp)
+      //    this.items =  this.agents.sort(function(a, b){
+      //       if(a.resp > b.resp) return 1;
+      //       if(a.resp < b.resp) return -1;
+      //       return 0;
+      //       });
+      //     console.log(this.items)
+      //     this.perPage = res.per_page;
+      //     this.selectedItems = [];
+      //     this.lastPage = res.last_page;
+      //     this.isLoad = true;
+      //   });
     },
 
     changeDisplayMode(displayType) {
@@ -236,19 +245,26 @@ export default {
     },
     apiUrl() {
       return `${this.apiBase}?sort=${this.sort.column}&page=${this.page}&per_page=${this.perPage}&search=${this.search}`;
-    }
+    },
 
+    tags(){
+      console.log(this.$store.getters.tags);
+      return this.$store.getters.tags;
+    }
   },
   watch: {
     search() {
       this.page = 1;
     },
     apiUrl() {
-      this.loadItems();
+      // this.loadItems();
+    },
+    tags(){
+      if(this.tags) this.isLoad = true;
     }
   },
-  mounted() {
-    this.loadItems();
+  created() {
+    this.getTags();
 
   }
 };

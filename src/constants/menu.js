@@ -9,6 +9,12 @@ import { UserRole } from "../utils/auth.roles";
 
 const data = [
   {
+    id:"dashboard",
+    icon:"iconsminds-shop-4",
+    label: "menu.dashboard",
+    to: `${adminRoot}`,
+  },
+  {
     id:"payers",
     icon:"simple-icon-people",
     label: "menu.payers",
@@ -106,6 +112,12 @@ const data = [
       //   },
     ]
   },
+  {
+    id:"terminals",
+    icon:"iconsminds-shop-4",
+    label: "menu.terminals",
+    to: `${adminRoot}/terminals`,
+  },
   {id:"vehicles",
   icon:"simple-icon-speedometer",
   label: "menu.vehicles",
@@ -133,7 +145,7 @@ const data = [
     {
       icon: "simple-icon-badge",
       label: "menu.vehicle-tags",
-      to: `${adminRoot}/vehicle-tags`,
+      to: `${adminRoot}/vehicles/tags`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
     {

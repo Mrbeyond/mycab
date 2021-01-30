@@ -2,7 +2,7 @@
   <b-row>
     <b-colxx class="disable-text-selection">
       <list-page-heading
-        :title="$t('menu.agents')"
+        :title="$t('menu.admins')"
         :selectAll="selectAll"
         :isSelectedAll="isSelectedAll"
         :isAnyItemSelected="isAnyItemSelected"
@@ -18,12 +18,12 @@
         :total="total"
         :perPage="perPage"
         :sortOptions="sortOptions"
-        :formKey="ADD_AGENT"
+        :formKey="ADD_ADMIN"
       ></list-page-heading>
       <template v-if="isLoad">
-        <agent-page-listing
+        <admin-page-listing
           :displayMode="displayMode"
-          :items="agents"
+          :items="items"
           :selectedItems="selectedItems"
           :toggleItem="toggleItem"
           :lastPage="lastPage"
@@ -32,7 +32,7 @@
           :changePage="changePage"
           :handleContextMenu="handleContextMenu"
           :onContextMenuAction="onContextMenuAction"
-        ></agent-page-listing>
+        ></admin-page-listing>
       </template>
       <template v-else>
         <div class="loading"></div>
@@ -42,101 +42,71 @@
 </template>
 
 <script>
-import { PROXY } from "./../../../../constants/config";
 import {hToken} from './../../../../constants/formKey'
 import Axios from 'axios';
+import { apiUrl } from "../../../../constants/config";
 import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
-import AgentListing from "./AgentListing";
-// import ConversionRatesChartCard from "../../../containers/dashboards/ConversionRatesChartCard";
-// import OrderStockRadarChart from "../../../containers/dashboards/OrderStockRadarChart";
-// import ProductCategoriesDoughnut from "../../../containers/dashboards/ProductCategoriesDoughnut";
-// import ProductCategoriesPolarArea from "../../../containers/dashboards/ProductCategoriesPolarArea";
-// import ProfileStatuses from "../../../containers/dashboards/ProfileStatuses";
-// import SalesChartCard from "../../../containers/dashboards/SalesChartCard";
-// import SmallLineCharts from "../../../containers/dashboards/SmallLineCharts";
-// import SortableStaticticsRow from "../../../containers/dashboards/SortableStaticticsRow";
-// import AgentsCard from "../../../containers/dashboards/AgentsCard";
-import {ADD_AGENT} from './../../../../constants/formKey';
-
+import AdminListing from "./AdminListing.vue";
+import { ADD_ADMIN } from '../../../../constants/formKey';
 
 export default {
 
   components: {
     "list-page-heading": ListPageHeading,
-    "agent-page-listing": AgentListing
+    "admin-page-listing": AdminListing
   },
   data() {
     return {
-      ADD_AGENT,
-        sortOptions: [
+      ADD_ADMIN,
+       sortOptions: [
         {
-          column: "firstname",
-          label: "firstname"
+          column: "first_name",
+          label: "Firstname"
         },
          {
-          column: "lastname",
+          column: "last_name",
           label: "Lastname"
         },
-          {
-          column: "id",
-          label: "id"
-        },
-        {
-          column: "agent_type",
-          label: "Agent_type"
+         {
+          column: "email",
+          label: "Email"
         },
         {
           column: "phone",
           label: "Phone"
+        },
+      ],
+
+         agents: [
+           {
+          "id": 21,
+          "first_name": "Samuel",
+          "last_name": "Adesina",
+          "email": "asoluwaseun@yahoo.com",
+          "phone": "08130027102",
+          "admin_type_id": "1",
+          "status": 1,
+          "updatedAt": "2021-01-27T14:13:59.643Z",
+          "createdAt": "2021-01-27T14:13:59.643Z"
+        },
+         {
+          "id": 25,
+          "first_name": "Samson",
+          "last_name": "Aa",
+          "email": "adeola@gmail.com",
+          "phone": "08135456776",
+          "admin_type_id": "1",
+          "status": 1,
+          "updatedAt": "2021-01-27T14:13:59.643Z",
+          "createdAt": "2021-01-27T14:13:59.643Z"
         }
       ],
-
-       sort: {
-        column: "firstname",
-        label: "Name"
-      },
-         agents: [
-        {
-          firstname: 'Stephanie',
-          lastname: 'Sunday',
-          agent_type: 'commercial',
-          garage:"Sabo Ogbomoso",
-          phone:"0908924664567",
-          img:"/assets/img/agents/agent1.jfif"
-        },
-         {
-          firstname: 'Bola',
-          lastname: 'Sunday',
-          agent_type: 'commercial',
-          garage:"Sabo Ogbomoso",
-          phone:"0908924664567",
-          img:"/assets/img/agents/agent2.jfif"
-
-        },
-         {
-           firstname: 'Victor',
-          lastname: 'Ogunniran',
-          agent_type: 'commercial',
-          garage:"Taki Ogbomoso",
-          phone:"080892656764567",
-          img:"/assets/img/agents/agent3.jfif"
-
-        },
-         {
-          firstname: 'Sola',
-          lastname: 'Jonson',
-          agent_type: 'commercial',
-          garage:"Hojo Ibadan",
-          phone:"0908924789889",
-          img:"/assets/img/agents/agent4.jfif"
-        },
-      ],
-      isLoad: true,
-      apiBase: PROXY + "",
+      isLoad: false,
+      apiBase: apiUrl + "/cakes/fordatatable",
       displayMode: "list",
-      sort: {
-        column: "firstname",
-        label: "firstname"
+     sort: {
+        column: "first_name",
+        label: "Firstname"
       },
       page: 1,
       perPage: 4,
@@ -146,43 +116,45 @@ export default {
       total: 0,
       lastPage: 0,
       items: [],
-      paramName:"",
       selectedItems: []
     };
   },
   methods: {
     loadItems() {
       this.isLoad = false;
-           let resp = this.sort.column
-        this.items =  this.agents
-        .sort(function(a, b){
-          var x = a[resp]; var y = b[resp]
-          return ((x > y) ? 1 : ((x < y) ? -1 : 0))
+      // this.items = this.agents
+      let resp = this.sort.column
+  this.items =  this.agents
+  .sort(function(a, b){
+    var x = a[resp]; var y = b[resp]
+    return ((x > y) ? 1 : ((x < y) ? -1 : 0))
             });
-          this.isLoad = true;
-          console.log(this.items)
-      // Axios
-      //   .get(`${this.PROXY}`,{headers:hToken()})
-      //   .then(response => {
-      //     return response.data;
-      //   })
-      //   .then(res => {
-      //     console.log(res)
-      //     this.total = res.total;
-      //     this.from = res.from;
-      //     this.to = res.to;
+    this.isLoad = true;
 
-      //   //   this.items = res.data.map(x => {
-      //   //     return {
-      //   //       ...x,
-      //   //       img: x.img.replace("/img/", "/img/products/")
-      //   //     };
-      //   //   });
-      //     this.perPage = res.per_page;
-      //     this.selectedItems = [];
-      //     this.lastPage = res.last_page;
-      //     this.isLoad = true;
-      //   });
+      Axios
+        .get(this.apiUrl)
+        .then(response => {
+          return response.data;
+        })
+        .then(res => {
+          console.log(res)
+          this.total = res.total;
+          this.from = res.from;
+          this.to = res.to;
+              this.items = this.agents
+
+        //   this.items = res.data.map(x => {
+        //     return {
+        //       ...x,
+        //       img: x.img.replace("/img/", "/img/products/")
+        //     };
+        //   });
+          console.log(this.items)
+          this.perPage = res.per_page;
+          this.selectedItems = [];
+          this.lastPage = res.last_page;
+          this.isLoad = true;
+        });
     },
 
     changeDisplayMode(displayType) {
@@ -288,17 +260,9 @@ export default {
       this.loadItems();
     }
   },
-   mounted: function(){
-      this.paramName =this.$router.currentRoute.params.name
-      console.log(this.paramName)
-        this.loadItems();
-  },
- watch: {
-    $route(to, from) {
-      this.paramName = to.params.name
-      console.log(this.paramName)
+  mounted() {
+    this.loadItems();
 
-    }
   }
 };
 </script>

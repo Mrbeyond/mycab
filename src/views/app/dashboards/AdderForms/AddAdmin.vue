@@ -2,7 +2,7 @@
 <b-row>
     <b-colxx xxs="12">
         <b-card class="mb-4" title="Register Admin">
-            <b-form @submit.prevent="onValitadeFormSubmit" class="av-tooltip tooltip-label-right">
+            <b-form ref="form" @submit.prevent="onValitadeFormSubmit" class="av-tooltip tooltip-label-right">
                 <b-form-group label="First name">
                     <b-form-input type="text" v-model="$v.first_name.$model" :state="!$v.first_name.$error" />
                     <b-form-invalid-feedback v-if="!$v.first_name.required">Please enter your first name</b-form-invalid-feedback>
@@ -44,8 +44,10 @@
                   <b-button type="submit" variant="primary" class="mt-4">{{ $t('forms.submit') }}</b-button>
                 </div>
 
-                <b-toast variant="danger" id="example-toast" title="Something went wrong" >
-                Please try again, there was an whlie error processing your regristration
+                <b-toast :variant="variant" id="example-toast"
+                  title="Response" auto-hide-delay="8000"
+                >
+                  {{ resMessage }}
               </b-toast>
             </b-form>
         </b-card>
@@ -81,6 +83,7 @@ export default {
       admin_type: "",
 
       submitting: false,
+      resMessage: "",
     };
   },
   mixins: [validationMixin],
@@ -129,23 +132,25 @@ export default {
       Axios.post(`${PROXY}admin/register/admin`, formData, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
-          alert("succcess")
-
-          // localStorage.authToken = res.data.data.authorization
-          // delete res.data.data.authorization;
-          // const authUser = res.data.data;
-          // setCurrentUser(authUser)
-          // this.$store.commit("setUser", authUser);
+          this.variant = "success";
+          this.resMessage = res.data.message;
+          this.$refs.form.reset();
         }else{
-          this.$bvToast.show("example-toast");
+          this.variant = "danger";
+          this.resMessage = "Something went wrong, please retry"
           // commit('setError', "Something went wrong");
         }
+        this.$bvToast.show("example-toast");
         this.submitting = false;
       })
       .catch(err=>{
-        console.log(err);
+         this.variant = "danger";
         if(err && err.response){
-          alert(err.response.status)
+         if(err.response.data && err.response.data.message){
+           this.resMessage = err.response.data.message
+         }else{
+          this.resMessage = "Something went wrong, please retry"
+         }
         }
 
         this.$bvToast.show("example-toast");

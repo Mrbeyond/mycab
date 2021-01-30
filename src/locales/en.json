@@ -30,6 +30,7 @@
     "home": "Home",
     "app": "Home",
     "dashboards": "Dashboards",
+    "dashboard": "Dashboard",
     "default": "Default",
 
     "payers": "Payers",
@@ -38,6 +39,8 @@
     "all-payers": "All Payers",
 
     "wallets": "Wallets",
+    "terminals": "Terminals",
+
 
     "agents": "Agents",
     "all-agents": "All agents",
