@@ -40,9 +40,18 @@
                     <b-form-invalid-feedback v-if="!$v.garage_id.required">Please enter a value</b-form-invalid-feedback>
                     <b-form-invalid-feedback v-else-if="!$v.garage_id.numeric">Value must be a number</b-form-invalid-feedback>
                 </b-form-group>
+
+                <div class="text-center">
+                  <b-spinner v-if="submitting" label="Spinning"></b-spinner>
+                </div>
+
                 <div class="text-center">
                   <b-button type="submit" variant="primary" class="mt-4">{{ $t('forms.submit') }}</b-button>
                 </div>
+
+                <b-toast variant="danger" id="example-toast" title="Something went wrong" >
+                Please try again, there was an whlie error processing your regristration
+              </b-toast>
             </b-form>
         </b-card>
     </b-colxx>
@@ -73,7 +82,8 @@ export default {
       email: "",
       phone: "",
       agent_type: "",
-      garage_id: ""
+      garage_id: "",
+      submitting: false,
     };
   },
   mixins: [validationMixin],
@@ -110,14 +120,45 @@ export default {
   methods: {
     onValitadeFormSubmit() {
       this.$v.$touch();
-      console.log(
-      JSON.stringify({
-        email: this.email,
-        last_name: this.last_name,
-        phone: this.phone,
+      if(this.$v.$invalid) return;
+
+      if(this.submitting) return;
+      let formData = {
+        phone:this.phone,
+        first_name:this.first_name,
+        last_name:this.last_name,
+        email:this.email,
         agent_type: this.agent_type,
+        garage_id: garage_id
+      }
+
+      console.log(formData);
+      this.submitting = true;
+      Axios.post(`${PROXY}admin/register/agent`, formData, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          alert("succcess")
+
+          // localStorage.authToken = res.data.data.authorization
+          // delete res.data.data.authorization;
+          // const authUser = res.data.data;
+          // setCurrentUser(authUser)
+          // this.$store.commit("setUser", authUser);
+        }else{
+          this.$bvToast.show("example-toast");
+          // commit('setError', "Something went wrong");
+        }
+        this.submitting = false;
       })
-    );
+      .catch(err=>{
+        console.log(err);
+        if(err && err.response){
+          alert(err.response.status)
+        }
+
+        this.$bvToast.show("example-toast");
+        this.submitting = false;
+      })
   }
 }
 };

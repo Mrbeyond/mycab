@@ -35,9 +35,18 @@
                     <b-form-invalid-feedback v-if="!$v.admin_type.required">Please enter a type</b-form-invalid-feedback>
                     <b-form-invalid-feedback v-else-if="!$v.admin_type.numeric">Value must be a number</b-form-invalid-feedback>
                 </b-form-group>
+
+                <div class="text-center">
+                  <b-spinner v-if="submitting" label="Spinning"></b-spinner>
+                </div>
+
                 <div class="text-center">
                   <b-button type="submit" variant="primary" class="mt-4">{{ $t('forms.submit') }}</b-button>
                 </div>
+
+                <b-toast variant="danger" id="example-toast" title="Something went wrong" >
+                Please try again, there was an whlie error processing your regristration
+              </b-toast>
             </b-form>
         </b-card>
     </b-colxx>
@@ -45,6 +54,7 @@
 </template>
 
 <script>
+import Axios from 'axios';
 import {
     validationMixin
 } from "vuelidate";
@@ -54,7 +64,6 @@ const {
     alpha,
     email,
     numeric,
-    minValue,
     helpers
 } = require("vuelidate/lib/validators");
 
@@ -67,7 +76,9 @@ export default {
       last_name: "",
       email: "",
       phone: "",
-      admin_type: ""
+      admin_type: "",
+
+      submitting: false,
     };
   },
   mixins: [validationMixin],
@@ -93,22 +104,51 @@ export default {
     phone: {
         required,
         numeric,
-        minLength: minValue(11)
+        minLength: minLength(11)
     },
 
     },
   methods: {
     onValitadeFormSubmit() {
       this.$v.$touch();
-      console.log(
-      JSON.stringify({
-        name: this.first_name,
-        email: this.email,
-        last_name: this.last_name,
-        phine: this.phone,
-        admin_type: this.admin_type,
+      if(this.$v.$invalid) return;
+
+      if(this.submitting) return;
+      let formData = {
+        phone:this.phone,
+        first_name:this.first_name,
+        last_name:this.last_name,
+        email:this.email,
+        admin_type:this.admin_type
+      }
+
+      console.log(formData);
+      this.submitting = true;
+      Axios.post(`${PROXY}admin/register/admin`, formData, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          alert("succcess")
+
+          // localStorage.authToken = res.data.data.authorization
+          // delete res.data.data.authorization;
+          // const authUser = res.data.data;
+          // setCurrentUser(authUser)
+          // this.$store.commit("setUser", authUser);
+        }else{
+          this.$bvToast.show("example-toast");
+          // commit('setError', "Something went wrong");
+        }
+        this.submitting = false;
       })
-    );
+      .catch(err=>{
+        console.log(err);
+        if(err && err.response){
+          alert(err.response.status)
+        }
+
+        this.$bvToast.show("example-toast");
+        this.submitting = false;
+      })
   }
 }
 };
