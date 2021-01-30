@@ -19,22 +19,24 @@
                     </ul>
                 </b-tab>
                 <b-tab title="Account Vehicle" title-item-class="w-50 text-center">
-                <ul>
-                  <li>{{payment.account_vehicle.id}}</li>
-                  <li>{{payment.account_vehicle.account_id}}</li>
-                  <li>{{payment.account_vehicle.vehicle_type_id}}</li>
-                  <li>{{payment.account_vehicle.agent_id}}</li>
-                  <li>{{payment.account_vehicle.garage_id}}</li>
-                  <li>{{payment.account_vehicle.port_id}}</li>
-                  <li>{{payment.account_vehicle.plate_number}}</li>
-                  <li>{{payment.account_vehicle.vehicle_identification_number}}</li>
-                  <li>{{payment.account_vehicle.vehicle_color}}</li>
-                  <li>{{payment.account_vehicle.vehicle_brand}}</li>
-                  <li>{{payment.account_vehicle.vehicle_year}}</li>
-                  <li>{{payment.account_vehicle.vehicle_model}}</li>
-                  <li>{{payment.account_vehicle.status}}</li>
-                  <li>{{payment.account_vehicle.createdAt}}</li>
-                </ul>
+                <div class="text-center ">
+                  <ul>
+                    <li>ID: {{payment.account_vehicle.id}}</li>
+                    <li>Account ID: {{payment.account_vehicle.account_id}}</li>
+                    <li>Vehicle Type ID: {{payment.account_vehicle.vehicle_type_id}}</li>
+                    <li>Agent ID: {{payment.account_vehicle.agent_id}}</li>
+                    <li>Garage ID: {{payment.account_vehicle.garage_id}}</li>
+                    <li>Port ID: {{payment.account_vehicle.port_id}}</li>
+                    <li>Plate Number: {{payment.account_vehicle.plate_number}}</li>
+                    <li>VIN: {{payment.account_vehicle.vehicle_identification_number}}</li>
+                    <li>Color: {{payment.account_vehicle.vehicle_color}}</li>
+                    <li>Brand: {{payment.account_vehicle.vehicle_brand}}</li>
+                    <li>Year: {{payment.account_vehicle.vehicle_year}}</li>
+                    <li>Model: {{payment.account_vehicle.vehicle_model}}</li>
+                    <li>Status: {{payment.account_vehicle.status}}</li>
+                    <li>created On: {{payment.account_vehicle.createdAt}}</li>
+                  </ul>
+                </div>
 
                 </b-tab>
               </b-tabs>
