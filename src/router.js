@@ -47,7 +47,6 @@ const routes = [
         // meta: { roles: [UserRole.Editor] },
       },
       {
-        
         path: "payers",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Payer/PayersList/Payers.vue"),
@@ -83,7 +82,7 @@ const routes = [
         
       },
       {
-        path: "all-tags",
+        path: "tags",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Tags/Tags.vue"),
         // meta: { roles: [UserRole.Editor] },
@@ -92,6 +91,18 @@ const routes = [
         path: "admins/terminals",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Terminal/Terminal.vue"),
+        // meta: { roles: [UserRole.Editor] },
+      },
+      {
+        path: "wallets",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Wallets/Transaction.vue"),
+        // meta: { roles: [UserRole.Editor] },
+      },
+      {
+        path: "wallets/:name",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Wallets/TansactionDetails.vue"),
         // meta: { roles: [UserRole.Editor] },
       },
      

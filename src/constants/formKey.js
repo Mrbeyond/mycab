@@ -5,6 +5,7 @@ export const ADD_TAG = "add_tag";
 export const ADD_PAYER = "add_payer";
 export const ADD_CV = "add_commercial";
 export const ADD_IV = "add_imported";
+export const ADD_WALLET= "add_wallet";
 
 export const hToken=()=>{
   try {

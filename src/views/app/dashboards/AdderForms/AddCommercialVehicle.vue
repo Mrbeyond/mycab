@@ -4,7 +4,7 @@
         <b-card>
             <b-form @submit.prevent="onValitadeFormSubmit" class="av-tooltip tooltip-label-right">
 
-                <b-form-group label="Port ID">
+                <b-form-group label="G ID">
                     <b-form-input type="text" v-model="$v.garage_id.$model" :state="!$v.garage_id.$error" />
                     <b-form-invalid-feedback v-if="!$v.garage_id.required">Please enter ID</b-form-invalid-feedback>
                     <b-form-invalid-feedback v-else-if="!$v.garage_id.numeric">Value must be a number</b-form-invalid-feedback>
