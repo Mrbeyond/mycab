@@ -2,7 +2,6 @@ import Axios from 'axios';
 import { PROXY } from '../../constants/config';
 import { ADMINS, AGENTS, CARDS, RES_KEY, hToken, TAGS, TERMINALS } from '../../constants/formKey';
 
-
 export default {
   state: {
     admins: null,
@@ -58,18 +57,12 @@ export default {
       // console.log(payload.owner);
       state.resKey = payload;
     },
-
-
-
-
-
-
   },
 
+
+
   actions: {
-
     [TAGS]({commit}){
-
       Axios.get(`${PROXY}admin/vehicle_tags`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){

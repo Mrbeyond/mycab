@@ -2,7 +2,7 @@
   <b-row>
     <b-colxx class="disable-text-selection">
       <list-page-heading
-        :title="$t('menu.cards')"
+        :title="$t('menu.wallets')"
         :selectAll="selectAll"
         :isSelectedAll="isSelectedAll"
         :isAnyItemSelected="isAnyItemSelected"

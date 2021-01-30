@@ -248,9 +248,9 @@ export default {
     },
 
     tags(){
+      console.log(this.$store.getters.tags);
       return this.$store.getters.tags;
     }
-
   },
   watch: {
     search() {
@@ -264,7 +264,6 @@ export default {
     }
   },
   created() {
-    // this.loadItems();
     this.getTags();
 
   }

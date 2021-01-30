@@ -44,9 +44,9 @@
 <script>
 import { PROXY } from "./../../../../constants/config";
 import {hToken} from './../../../../constants/formKey'
+import Axios from 'axios';
 import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
 import AgentListing from "./AgentListing";
-import Axios from 'axios';
 // import ConversionRatesChartCard from "../../../containers/dashboards/ConversionRatesChartCard";
 // import OrderStockRadarChart from "../../../containers/dashboards/OrderStockRadarChart";
 // import ProductCategoriesDoughnut from "../../../containers/dashboards/ProductCategoriesDoughnut";
