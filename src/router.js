@@ -71,7 +71,7 @@ const routes = [
             component: () =>
               import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Default"),
             // meta: { roles: [UserRole.Admin] },
-          },         
+          },
         ]
       },
       // {
@@ -98,7 +98,7 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/vehicles/Vehicles.vue"),
         // meta: { roles: [UserRole.Editor] },
-        
+
       },
       {
         path: "tags",
@@ -124,7 +124,7 @@ const routes = [
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Wallets/TansactionDetails.vue"),
         // meta: { roles: [UserRole.Editor] },
       },
-     
+
       {
         path: "pages",
         component: () =>
