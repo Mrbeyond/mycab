@@ -1,11 +1,11 @@
 <template>
-  <b-card :title="'Status'">
+  <b-card v-if="analytic != null" :title="'Status'">
     <div  class="mb-4">
       <p class="mb-2">
        Total agents
         <span class="float-right text-muted">{{analytic.total_agents}}</span>
       </p>
-      <b-progress :value="(analytic.total_agents / 100) * 100"></b-progress>
+      <b-progress  :value="(analytic.total_agents / 100) * 100"></b-progress>
     </div>
 
      <div  class="mb-4">
@@ -57,7 +57,7 @@
     </div>
   </b-card>
 
-  
+
 </template>
 <script>
 import profileStatuses from "../Analcomponents/data/profileStatuses";

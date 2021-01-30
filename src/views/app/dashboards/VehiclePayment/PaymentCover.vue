@@ -1,7 +1,7 @@
 <template>
   <b-row>
     <b-colxx xxs="12">
-      <h5 class="mb-4 card-title">{{ $t('cards.tab-card') }}</h5>
+      <h5 class="mb-4 card-title">VEHICLE PAYMENTS</h5>
       <b-row>
         <b-colxx xxs="12" xs="6" lg="6" class="mb-3">
           <div v-if="isFetched ">
