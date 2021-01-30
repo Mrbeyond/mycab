@@ -2,7 +2,7 @@
   <div>
     <b-row>
       <b-colxx xxs="12">
-        <piaf-breadcrumb :heading="$t('menu.analytics')" />
+        <piaf-breadcrumb :heading="$t('menu.dashboard')" />
         <div class="separator mb-5"></div>
       </b-colxx>
     </b-row>
@@ -50,7 +50,8 @@
   </div>
 </template>
 
-<script>
+<script>// @ts-nocheck
+
 import ConversionRatesChartCard from "../Analdashboard/ConversionRatesChartCard.vue";
 import OrderStockRadarChart from "../Analdashboard/OrderStockRadarChart.vue";
 import ProductCategoriesDoughnut from "../Analdashboard/ProductCategoriesDoughnut";
