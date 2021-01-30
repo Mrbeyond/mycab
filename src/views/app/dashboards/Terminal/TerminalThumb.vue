@@ -1,7 +1,7 @@
 <template>
 <b-card @click.prevent="toggleItem($event,data.id)" :class="{'d-flex flex-row':true,'active' : selectedItems.includes(data.id)}" no-body>
     <router-link :to="`?p=${data.id}`" class="d-flex">
-        <img :src="data.img" class="list-thumbnail responsive border-0" :alt="data.title" />
+        <img :src="data.img" v-if="data.img" class="list-thumbnail responsive border-0" :alt="data.title" />
     </router-link>
     <div class="pl-2 d-flex flex-grow-1 min-width-zero">
         <div class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">

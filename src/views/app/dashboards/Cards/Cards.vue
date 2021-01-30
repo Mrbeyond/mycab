@@ -114,37 +114,36 @@ export default {
   methods: {
     loadItems() {
       this.isLoad = false;
+        let resp = this.sort.column
+        this.items =  this.agents
+        .sort(function(a, b){
+            var x = a[resp]; var y = b[resp]
+            return ((x > y) ? 1 : ((x < y) ? -1 : 0))
+                    });
+            this.isLoad = true;
+    //   axios
+    //     .get(this.apiUrl)
+    //     .then(response => {
+    //       return response.data;
+    //     })
+    //     .then(res => {
+    //       this.total = res.total;
+    //       this.from = res.from;
+    //       this.to = res.to;
+    //           this.items = this.agents
 
-      axios
-        .get(this.apiUrl)
-        .then(response => {
-          return response.data;
-        })
-        .then(res => {
-          this.total = res.total;
-          this.from = res.from;
-          this.to = res.to;
-              this.items = this.agents
-
-        //   this.items = res.data.map(x => {
-        //     return {
-        //       ...x,
-        //       img: x.img.replace("/img/", "/img/products/")
-        //     };
-        //   });
-        var resp = this.sort
-        // console.log(resp)
-         this.items =  this.agents.sort(function(a, b){
-            if(a.resp > b.resp) return 1;
-            if(a.resp < b.resp) return -1;
-            return 0;
-            });
-          console.log(this.items)
-          this.perPage = res.per_page;
-          this.selectedItems = [];
-          this.lastPage = res.last_page;
-          this.isLoad = true;
-        });
+    //     //   this.items = res.data.map(x => {
+    //     //     return {
+    //     //       ...x,
+    //     //       img: x.img.replace("/img/", "/img/products/")
+    //     //     };
+    //     //   });
+    //       console.log(this.items)
+    //       this.perPage = res.per_page;
+    //       this.selectedItems = [];
+    //       this.lastPage = res.last_page;
+    //       this.isLoad = true;
+    //     });
     },
 
     changeDisplayMode(displayType) {

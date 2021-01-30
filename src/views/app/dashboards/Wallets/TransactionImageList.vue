@@ -2,7 +2,7 @@
 <b-card @click.prevent="toggleItem($event,data.id)" :class="{'active' : selectedItems.includes(data.id)}" no-body>
     <div class="position-relative">
         <router-link :to="`/dashboard/wallets/transaction`" class="w-40 w-sm-100">
-            <img :src="data.img" class="card-img-top" style="height:200px" :alt="data.balance" />
+            <img :src="data.img" v-if="data.img" class="card-img-top" style="height:200px" :alt="data.balance" />
           
         </router-link>
         <b-badge pill :variant="data.statusColor" class="position-absolute badge-top-left">{{ data.status }}</b-badge>
