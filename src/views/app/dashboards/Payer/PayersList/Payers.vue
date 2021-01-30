@@ -62,7 +62,7 @@ export default {
           label: "firstname"
         },
          {
-          column: "lasname",
+          column: "lassname",
           label: "Lastname"
         },
           {
@@ -140,32 +140,39 @@ export default {
   },
   methods: {
     loadItems() {
-      // this.isLoad = false;
-
-
-      Axios.get(`${PROXY}agent/payers`, {headers: hToken()})
-        .then(res => {
-          console.log(res.data);
-        //   this.total = res.total;
-        //   this.from = res.from;
-        //   this.to = res.to;
-        //       this.items = this.agents
-
-        // //   this.items = res.data.map(x => {
-        // //     return {
-        // //       ...x,
-        // //       img: x.img.replace("/img/", "/img/products/")
-        // //     };
-        // //   });
-        //   console.log(this.items)
-        //   this.perPage = res.per_page;
-        //   this.selectedItems = [];
-        //   this.lastPage = res.last_page;
+      this.isLoad = false;
+       let resp = this.sort.column
+        this.items =  this.agents
+        .sort(function(a, b){
+          var x = a[resp]; var y = b[resp]
+          return ((x > y) ? 1 : ((x < y) ? -1 : 0))
+                  });
           this.isLoad = true;
-        })
-        .then(err=>{
-          console.log(err);
-        });
+
+
+      // Axios.get(`${PROXY}agent/payers`, {headers: hToken()})
+      //   .then(res => {
+      //     console.log(res.data);
+      //   //   this.total = res.total;
+      //   //   this.from = res.from;
+      //   //   this.to = res.to;
+      //   //       this.items = this.agents
+
+      //   // //   this.items = res.data.map(x => {
+      //   // //     return {
+      //   // //       ...x,
+      //   // //       img: x.img.replace("/img/", "/img/products/")
+      //   // //     };
+      //   // //   });
+      //   //   console.log(this.items)
+      //   //   this.perPage = res.per_page;
+      //   //   this.selectedItems = [];
+      //   //   this.lastPage = res.last_page;
+      //     this.isLoad = true;
+      //   })
+      //   .then(err=>{
+      //     console.log(err);
+      //   });
     },
 
     changeDisplayMode(displayType) {
