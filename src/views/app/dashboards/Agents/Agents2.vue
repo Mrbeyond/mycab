@@ -36,14 +36,15 @@
         >
           <div slot="ctions" >
             hjjhjhjhjhj
-            <b-button variant="success"
+            <!--<b-button variant="success"
             {{ props.rowData.id }}
             >
-            </b-button>
+            </b-button>-->
           </div>
           <div slot="new" >
-            efedjbjh
-            <b-button variant="danger" slot="new" slot-scope="news">
+
+            <b-button variant="danger" slot="new" slot-scope="news"
+            >
             {{ news.rowData.id }}
             </b-button>
           </div>
@@ -74,7 +75,7 @@
 </template>
 <script>// @ts-nocheck
 
-import Vuetable from "vuetable-2/src/components/Vuetable.vue";
+import Vuetable from "vuetable-2/src/components/Vuetable";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
 import { hToken, loadash } from "../../../../constants/formKey";
@@ -91,7 +92,7 @@ export default {
     return {
       head: {headers: hToken()},
       isLoad: false,
-      apiBase: `${PROXY}admin/agent/details`,//apiUrl + "/cakes/fordatatable",
+      apiBase: `${PROXY}admin/payer/details`,//apiUrl + "/cakes/fordatatable",
       sort: "",
       page: 1,
       perPage: 8,
@@ -123,7 +124,14 @@ export default {
           dataClass: "",
           width: "10%"
         },
-       
+        {
+          name: "account_no",
+          sortField: "account_no",
+          title: "Account no.",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
         {
           name: "phone",
           sortField: "phone",
@@ -132,18 +140,9 @@ export default {
           dataClass: "",
           width: "10%"
         },
-         {
-          name: "agent_wallet",
-          sortField: "Wallet",
-          title: "Wallets no.",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
-        },
         {
-          name: "Action",
-          title: "Agent type id",
-          sortField:"agent_type_id",
+          name: "ctions",
+          title: "Actions",
           titleClass: "center aligned text-right",
           dataClass: "center aligned text-right",
           width: "10%"
