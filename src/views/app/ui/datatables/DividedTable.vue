@@ -1,6 +1,6 @@
 <template>
   <div>
-    <datatable-heading
+    <!--<datatable-heading
       :title="$t('menu.divided-table')"
       :selectAll="selectAll"
       :isSelectedAll="isSelectedAll"
@@ -12,22 +12,28 @@
       :to="to"
       :total="total"
       :perPage="perPage"
-    ></datatable-heading>
+    ></datatable-heading>-->
     <b-row>
       <b-colxx xxs="12">
+          <!--:api-url="apiBase"
+          @vuetable:row-clicked="alert(5)"
+          -->
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
-          :api-url="apiBase"
           :query-params="makeQueryParams"
           :per-page="perPage"
+          :http-options="head"
+          :api-url="apiBase"
           :reactive-api-url="true"
           :fields="fields"
+          @click="alert()"
           pagination-path
           :row-class="onRowClass"
           @vuetable:pagination-data="onPaginationData"
-          @vuetable:row-clicked="rowClicked"
           @vuetable:cell-rightclicked="rightClicked"
+
+          @vuetable:cell-clicked="cellClicked"
         >
           <template slot="actions" slot-scope="props">
             <b-form-checkbox
@@ -44,7 +50,7 @@
       </b-colxx>
     </b-row>
 
-    <v-contextmenu ref="contextmenu">
+    <!--<v-contextmenu ref="contextmenu">
       <v-contextmenu-item @click="onContextMenuAction('copy')">
         <i class="simple-icon-docs" />
         <span>Copy</span>
@@ -57,13 +63,15 @@
         <i class="simple-icon-trash" />
         <span>Delete</span>
       </v-contextmenu-item>
-    </v-contextmenu>
+    </v-contextmenu>-->
   </div>
 </template>
-<script>
+<script>// @ts-nocheck
+
 import Vuetable from "vuetable-2/src/components/Vuetable";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap";
-import { apiUrl } from "../../../../constants/config";
+import { apiUrl, PROXY } from "../../../../constants/config";
+import { hToken, loadash } from "../../../../constants/formKey";
 import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {
@@ -71,12 +79,13 @@ export default {
   components: {
     vuetable: Vuetable,
     "vuetable-pagination-bootstrap": VuetablePaginationBootstrap,
-    "datatable-heading": DatatableHeading
+    // "datatable-heading": DatatableHeading
   },
   data() {
     return {
+      head: {headers: hToken()},
       isLoad: false,
-      apiBase: apiUrl + "/cakes/fordatatable",
+      apiBase: `${PROXY}admin/payer/details`,//apiUrl + "/cakes/fordatatable",
       sort: "",
       page: 1,
       perPage: 8,
@@ -88,46 +97,56 @@ export default {
       items: [],
       selectedItems: [],
 
+      // isFetched: false,
+      // isLoading: true,
+
       fields: [
-        {
-          name: "title",
-          sortField: "title",
-          title: "Name",
-          titleClass: "",
-          dataClass: "list-item-heading",
-          width: "50%"
-        },
-        {
-          name: "sales",
-          sortField: "sales",
-          title: "Sales",
-          titleClass: "",
-          dataClass: "text-muted",
-          width: "10%"
-        },
-        {
-          name: "stock",
-          sortField: "stock",
-          title: "Stock",
-          titleClass: "",
-          dataClass: "text-muted",
-          width: "10%"
-        },
-        {
-          name: "category",
-          sortField: "category",
-          title: "Category",
-          titleClass: "",
-          dataClass: "text-muted",
-          width: "25%"
-        },
-        {
-          name: "__slot:actions",
-          title: "",
-          titleClass: "center aligned text-right",
-          dataClass: "center aligned text-right",
-          width: "5%"
-        }
+        'first_name',
+        "last_name"
+//         "title",
+// "sales",
+// "stock",
+// "category",
+// "__slot:actions",
+        // {
+        //   name:
+        //   // sortField: "title",
+        //   // title: "Name",
+        //   // titleClass: "",
+        //   // dataClass: "list-item-heading",
+        //   // width: "50%"
+        // },
+        // {
+        //   name:
+        //   // sortField: "sales",
+        //   // title: "Sales",
+        //   // titleClass: "",
+        //   // dataClass: "text-muted",
+        //   // width: "10%"
+        // },
+        // {
+        //   name:
+        //   // sortField: "stock",
+        //   // title: "Stock",
+        //   // titleClass: "",
+        //   // dataClass: "text-muted",
+        //   // width: "10%"
+        // },
+        // {
+        //   name:
+        //   // sortField: "category",
+        //   // title: "Category",
+        //   // titleClass: "",
+        //   // dataClass: "text-muted",
+        //   // width: "25%"
+        // },
+        // {
+        //   name:
+        //   title: "",
+        //   titleClass: "center aligned text-right",
+        //   dataClass: "center aligned text-right",
+        //   width: "5%"
+        // }
       ]
     };
   },
@@ -156,8 +175,17 @@ export default {
       return "";
     },
 
+    cellClicked(item, field, event){
+      console.log(item, 'item');
+      console.log(field, 'feild');
+      console.log(event,'eve');
+    },
+
     rowClicked(dataItem, event) {
-      const itemId = dataItem.id;
+      // const itemId = dataItem.id;
+      console.log(dataItem)
+      alert();
+      return;
       if (event.shiftKey && this.selectedItems.length > 0) {
         let itemsForToggle = this.items;
         var start = this.getIndex(itemId, itemsForToggle, "id");
@@ -190,6 +218,7 @@ export default {
       this.$refs.contextmenu.show({ top: event.pageY, left: event.pageX });
     },
     onPaginationData(paginationData) {
+      console.log(paginationData);
       this.from = paginationData.from;
       this.to = paginationData.to;
       this.total = paginationData.total;
@@ -254,6 +283,12 @@ export default {
         this.selectedItems.length < this.items.length
       );
     }
+  },
+  watch: {
+  },
+  created(){
+    console.log(this.head);
+    console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>

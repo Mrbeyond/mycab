@@ -83,3 +83,5 @@ export const plainTimeZone=(time)=>{
   }
   return '';
 }
+
+export const loadash = window._.noConflict();
