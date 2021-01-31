@@ -8,18 +8,21 @@
     </b-row>
 
     <b-row>
-<!--<b-colxx xl="4" lg="6" md="12" class="mb-4">
+<!-- <b-colxx xl="4" lg="6" md="12" class="mb-4">
         <product-categories-doughnut></product-categories-doughnut>
-      </b-colxx>-->
-
-      <b-colxx xl="4" lg="6" md="12" class="mb-4">
+      </b-colxx>  -->
+        <icons-cards :analytic="analytic"></icons-cards>
+    </b-row>
+    
+  <!-- <b-row>
+<b-colxx xl="6" lg="12" md="12" class="mb-4">
         <profile-statuses :analytic="analytic"></profile-statuses>
       </b-colxx>
-
-      <b-colxx xl="4" lg="12" md="12">
+      <b-colxx xl="6" lg="12" md="12">
         <small-line-charts itemC  lass="dashboard-small-chart-analytics"></small-line-charts>
       </b-colxx>
-    </b-row>
+
+  </b-row> -->
 
     <!-- <sortable-statictics-row></sortable-statictics-row> -->
 
@@ -32,11 +35,11 @@
       </b-colxx>
     </b-row> -->
 
-    <b-row>
+    <!-- <b-row>
       <b-colxx xxs="12" class="mb-4">
         <sales-chart-card></sales-chart-card>
       </b-colxx>
-    </b-row>
+    </b-row> -->
 
     <!-- <b-row>
 
@@ -61,6 +64,8 @@ import SalesChartCard from "../Analdashboard/SalesChartCard";
 import SmallLineCharts from "../Analdashboard/SmallLineCharts";
 import SortableStaticticsRow from "../Analdashboard/SortableStaticticsRow";
 import WebsiteVisitsChartCard from "../Analdashboard/WebsiteVisitsChartCard";
+import IconCardsCarousel from "../Analdashboard/IconCardsCarousel";
+
 
 export default {
   props: ["analytic"],
@@ -73,7 +78,9 @@ export default {
     "sales-chart-card": SalesChartCard,
     "small-line-charts": SmallLineCharts,
     "sortable-statictics-row": SortableStaticticsRow,
-    "website-visit-chart-card": WebsiteVisitsChartCard
+    "website-visit-chart-card": WebsiteVisitsChartCard,
+    "icons-cards": IconCardsCarousel
+
   }
 };
 </script>
