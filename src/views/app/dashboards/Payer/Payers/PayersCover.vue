@@ -30,16 +30,20 @@
           pagination-path
           :row-class="onRowClass"
           @vuetable:pagination-data="onPaginationData"
+          @vuetable:row-clicked="rowClicked"
           @vuetable:cell-rightclicked="rightClicked"
-          @vuetable:cell-clicked="cellClicked"
         >
-          <div slot="ctions" >
-            hjjhjhjhjhj
-            <!--<b-button variant="success"
-            {{ props.rowData.id }}
-            >
-            </b-button>-->
-          </div>
+         <!-- pgination-path
+          :row-class="onRowClass"
+          @vuetable:pagination-data="onPaginationData"
+          @vuetable:cell-rightclicked="rightClicked"
+          @vuetable:cell-clicked="cellClicked"-->
+          <template slot="actions" slot-scope="props">
+           jkjkjkj<!-- <b-form-checkbox
+              :checked="selectedItems.includes(props.rowData.id)"
+              class="itemCheck mb-0"
+            ></b-form-checkbox>-->
+          </template>
           <div slot="new" >
 
             <b-button variant="danger" slot="new" slot-scope="news"
@@ -70,14 +74,20 @@
         <span>Delete</span>
       </v-contextmenu-item>
     </v-contextmenu>-->
+    <div>
+      <b-modal id="modallg" size="lg" title="Large Modal" hide-footer>
+          <PayerVehicles />
+      </b-modal>
+    </div>
   </div>
 </template>
 <script>// @ts-nocheck
 
 import Vuetable from "vuetable-2/src/components/Vuetable";
+import VuetablePaginationBootstrap from "../../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { PROXY } from '../../../../../constants/config';
 import { hToken, loadash } from '../../../../../constants/formKey';
-import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap";
+import PayerVehicles from './PayerVehicles.vue';
 // import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {
@@ -85,6 +95,7 @@ export default {
   components: {
     vuetable: Vuetable,
     "vuetable-pagination-bootstrap": VuetablePaginationBootstrap,
+    PayerVehicles,
     // "datatable-heading": DatatableHeading
   },
   data() {
@@ -102,6 +113,7 @@ export default {
       lastPage: 0,
       items: [],
       selectedItems: [],
+      selectedItemVehicles: [],
 
       // isFetched: false,
       // isLoading: true,
@@ -140,14 +152,14 @@ export default {
           width: "10%"
         },
         {
-          name: "ctions",
-          title: "Actions",
+          name: "__slot:actions",
+          title: "Vehicles",
           titleClass: "center aligned text-right",
           dataClass: "center aligned text-right",
           width: "10%"
         },
         {
-          name: "new",
+          name: "__slot:new",
           title: "New",
           titleClass: "center aligned text-right",
           dataClass: "center aligned text-right",
@@ -197,6 +209,8 @@ export default {
     rowClicked(dataItem, event) {
       // const itemId = dataItem.id;
       console.log(dataItem)
+      this.selectedItemVehicles = dataItem.account_ehicles;
+      this.$refs.modallg.show()
       alert();
       return;
       if (event.shiftKey && this.selectedItems.length > 0) {

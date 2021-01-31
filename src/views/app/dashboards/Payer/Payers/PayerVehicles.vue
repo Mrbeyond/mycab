@@ -77,7 +77,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable";
 import { PROXY } from '../../../../../constants/config';
 import { hToken, loadash } from '../../../../../constants/formKey';
-import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap";
+import VuetablePaginationBootstrap from "../../../../../components/Common/VuetablePaginationBootstrap.vue";
 // import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {

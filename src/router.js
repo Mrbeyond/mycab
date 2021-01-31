@@ -73,7 +73,7 @@ const routes = [
       {
         path: "payers",
         component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Payer/PayersCover.vue"),
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Payer/Payers/PayersCover.vue"),
           // redirect: `${adminRoot}/dashboard/payers`,
         // meta: { roles: [UserRole.Admin, UserRole.Editor] },
         children: [
