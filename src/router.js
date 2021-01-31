@@ -85,13 +85,13 @@ const routes = [
           },
         ]
       },
-      // {
-      //   path: "analytics",
+      {
+        path: "analytics",
 
-      //   component: () =>
-      //     import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Dashboard/Analytics/Analytics"),
-      //   // meta: { roles: [UserRole.Admin] },
-      // },
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Analytics"),
+        // meta: { roles: [UserRole.Admin] },
+      },
       {
         path: "admins",
         component: () =>

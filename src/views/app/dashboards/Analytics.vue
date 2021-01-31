@@ -51,7 +51,7 @@ import ProfileStatuses from "../../../containers/dashboards/ProfileStatuses";
 import SalesChartCard from "../../../containers/dashboards/SalesChartCard";
 import SmallLineCharts from "../../../containers/dashboards/SmallLineCharts";
 import SortableStaticticsRow from "../../../containers/dashboards/SortableStaticticsRow";
-import WebsiteVisitsChartCard from "../../../containers/dashboards/WebsiteVisitsChartCard";
+import WebsiteVisitsChartCard from "../../../containers/dashboards/IconCardsCarousel";
 
 export default {
   components: {
