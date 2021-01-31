@@ -31,10 +31,10 @@
         >
           <template slot="actions" slot-scope="props">
           <b-button>jkjkj</b-button>
-           <!-- <b-form-checkbox
+           <b-form-checkbox
               :checked="selectedItems.includes(props.rowData.id)"
               class="itemCheck mb-0"
-            ></b-form-checkbox>-->
+            ></b-form-checkbox>
           </template>
         </vuetable>
         <vuetable-pagination-bootstrap
