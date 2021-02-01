@@ -1,26 +1,48 @@
-
-
-
-
-
-
 <template>
-  <div>
-<!-- <b-row>
+  <b-row>
+    <b-colxx class="disable-text-selection">
+      <list-page-heading
+        :title="$t('menu.terminals')"
+        :selectAll="selectAll"
+        :isSelectedAll="isSelectedAll"
+        :isAnyItemSelected="isAnyItemSelected"
+        :keymap="keymap"
+        :displayMode="displayMode"
+        :changeDisplayMode="changeDisplayMode"
+        :changeOrderBy="changeOrderBy"
+        :changePageSize="changePageSize"
+        :sort="sort"
+        :searchChange="searchChange"
+        :from="from"
+        :to="to"
+        :total="total"
+        :perPage="perPage"
+        :sortOptions="sortOptions"
+        :formKey="ADD_TERMINAL"
+      ></list-page-heading>
+      <!-- <template v-if="isLoad">
+        <terminal-page-listing
+          :displayMode="displayMode"
+          :items="terminals"
+          :selectedItems="selectedItems"
+          :toggleItem="toggleItem"
+          :lastPage="lastPage"
+          :perPage="perPage"
+          :page="page"
+          :changePage="changePage"
+          :handleContextMenu="handleContextMenu"
+          :onContextMenuAction="onContextMenuAction"
+        ></terminal-page-listing>
+      </template> -->
+        <b-row>
       <b-colxx xxs="12">
-        <piaf-breadcrumb heading="Terminal" />
-        <div class="separator mb-5"></div>
-      </b-colxx>
-    </b-row> -->
-    <b-row>
-      <b-colxx xxs="12">
-        <vuetable
+        <vuetable v-if="isLoad"
           ref="vuetable"
           class="table-divided order-with-arrow"
           :query-params="makeQueryParams"
           :per-page="perPage"
           :http-options="head"
-          :data="terminals"
+          :data="terminal"
           :reactive-api-url="false"
           :fields="fields"
           pagination-path
@@ -38,6 +60,9 @@
               </router-link>
             </template>
         </vuetable>
+        <template v-else>
+        <div class="loading"></div>
+      </template>
         <vuetable-pagination-bootstrap
           class="mt-4"
           ref="pagination"
@@ -45,7 +70,7 @@
         />
       </b-colxx>
 
-       <b-colxx xxs="12">
+       <!-- <b-colxx xxs="12">
           <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
                  <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Account</h1>
@@ -108,50 +133,57 @@
                     <b-button variant="secondary" @click="hideModal('modalright')">Cancel</b-button>
                 </template>
             </b-modal>
-    </b-colxx>
+    </b-colxx> -->
     </b-row>
-    <!--<v-contextmenu ref="contextmenu">
-      <v-contextmenu-item @click="onContextMenuAction('copy')">
-        <i class="simple-icon-docs" />
-        <span>Copy</span>
-      </v-contextmenu-item>
-      <v-contextmenu-item @click="onContextMenuAction('move-to-archive')">
-        <i class="simple-icon-drawer" />
-        <span>Move to archive</span>
-      </v-contextmenu-item>
-      <v-contextmenu-item @click="onContextMenuAction('delete')">
-        <i class="simple-icon-trash" />
-        <span>Delete</span>
-      </v-contextmenu-item>
-    </v-contextmenu>-->
-  </div>
+      
+    </b-colxx>
+  </b-row>
 </template>
-<script>// @ts-nocheck
 
+<script>
+import axios from "axios";
+import { apiUrl } from "../../../../constants/config";
+import ListPageHeading from "./../ListsHeader/ListPageHeading";
+import TerminalListing from "./TerminalListing.vue";
+import { ADD_TERMINAL, TERMINALS } from '../../../../constants/formKey';
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
-import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash } from "../../../../constants/formKey";
 import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
-import { ADD_TERMINAL, TERMINALS } from '../../../../constants/formKey';
-
+import { hToken, loadash } from "../../../../constants/formKey";
 
 export default {
-  ADD_TERMINAL,
-  props: ["title"],
+
   components: {
     vuetable: Vuetable,
-    "vuetable-pagination-bootstrap": VuetablePaginationBootstrap,
-    // "datatable-heading": DatatableHeading
+     "vuetable-pagination-bootstrap": VuetablePaginationBootstrap,
+    "list-page-heading": ListPageHeading,
+    "terminal-page-listing": TerminalListing
   },
+
   data() {
     return {
-      head: {headers: hToken()},
+        ADD_TERMINAL,
+       sortOptions: [
+        {
+          column: "terminal_no",
+          label: "Terminal Number"
+        },
+         {
+          column: "state_id",
+          label: "State"
+        },
+      ],
+
+
       isLoad: false,
-      apiBase: `${PROXY}admin/vehicle/details`,//apiUrl + "/cakes/fordatatable",
-      sort: "",
+      apiBase: apiUrl + "/cakes/fordatatable",
+      displayMode: "list",
+     sort: {
+        column: "tag_no",
+        label: "Tag Number"
+      },
       page: 1,
-      perPage: 8,
+      perPage: 4,
       search: "",
       from: 0,
       to: 0,
@@ -159,186 +191,108 @@ export default {
       lastPage: 0,
       items: [],
       selectedItems: [],
-      RightmodalData:"",
-      RigthVery:"",
-
-      // isFetched: false,
-      // isLoading: true,
 
       fields: [
         {
         name: "terminal_no",
-        sortField: "terminal",
-        title: "Terminal No",
+        sortField: "model",
+        title: "Terminal No.",
         titleClass: "",
         dataClass: "list-item-heading",
         width: "10%"
         },
         {
-          name:"state_id",
-          sortField: "state id",
-          title: "State ID",
+          name:"updatedAt",
+          sortField: "update",
+          title: "Updated",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
        
         {
-          name: "createdAt",
-          sortField: "created",
-          title: "Created at",
+          name: "vehicle_model",
+          sortField: "color",
+          title: "Color",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
           {
-          name: "status",
-          sortField: "status",
-          title: "Status",
+          name: "plate_number",
+          sortField: "plate number",
+          title: "Plate number",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
-        //    {
-        //   name: "vehicle_identification_number",
-        //   sortField: "id",
-        //   title: "ID",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //  {
-        //   name: "vehicle_year",
-        //   sortField: "year",
-        //   title: "Year",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //  {
-        //   name: "__slot:Details",
-        //   sortField: "Details",
-        //   title: "Details",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //   {
-        //   name: "__slot:details",
-        //   sortField: "details",
-        //   title: "Full details",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-      
+           {
+          name: "vehicle_identification_number",
+          sortField: "id",
+          title: "ID",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+         {
+          name: "vehicle_year",
+          sortField: "year",
+          title: "Year",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+         {
+          name: "__slot:Details",
+          sortField: "Details",
+          title: "Details",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+          {
+          name: "__slot:details",
+          sortField: "details",
+          title: "Full details",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
       ]
     };
   },
   methods: {
-     getTerminals(){
+    getTerminals(){
       this.$store.dispatch(TERMINALS);
     },
-    modalinfo(account,garage,port,type){
-    this.RightmodalData = {"account":account,"garage":garage,"type":type,"port":port}
-   console.log( this.RightmodalData)
-    },
-      hideModal (refname) {
-      this.$refs[refname].hide()
-      console.log('hide modal:: ' + refname)
+    loadItems() {
+      this.isLoad = false;
+      let resp = this.sort.column
+      this.items =  this.agents
+      .sort(function(a, b){
+        var x = a[resp]; var y = b[resp]
+        return ((x > y) ? 1 : ((x < y) ? -1 : 0))
+                });
+        this.isLoad = true;
 
-      if (refname === 'modalnestedinline') {
-        this.$refs['modalnested'].show()
-      }
     },
-    makeQueryParams(sortOrder, currentPage, perPage) {
-      this.selectedItems = [];
-      return sortOrder[0]
-        ? {
-            sort: sortOrder[0]
-              ? sortOrder[0].field + "|" + sortOrder[0].direction
-              : "",
-            page: currentPage,
-            per_page: this.perPage,
-            search: this.search
-          }
-        : {
-            page: currentPage,
-            per_page: this.perPage,
-            search: this.search
-          };
-    },
-    onRowClass(dataItem, index) {
-      if (this.selectedItems.includes(dataItem.id)) {
-        return "selected";
-      }
-      return "";
-    },
-
-    cellClicked(item, field, event){
-      alert()
-      console.log(item, 'item');
-      console.log(field, 'feild');
-      console.log(event,'eve');
-    },
-
-    rowClicked(dataItem, event) {
-      // const itemId = dataItem.id;
-      console.log(dataItem)
-      alert();
-      return;
-      if (event.shiftKey && this.selectedItems.length > 0) {
-        let itemsForToggle = this.items;
-        var start = this.getIndex(itemId, itemsForToggle, "id");
-        var end = this.getIndex(
-          this.selectedItems[this.selectedItems.length - 1],
-          itemsForToggle,
-          "id"
-        );
-        itemsForToggle = itemsForToggle.slice(
-          Math.min(start, end),
-          Math.max(start, end) + 1
-        );
-        this.selectedItems.push(
-          ...itemsForToggle.map(item => {
-            return item.id;
-          })
-        );
-        this.selectedItems = [...new Set(this.selectedItems)];
-      } else {
-        if (this.selectedItems.includes(itemId)) {
-          this.selectedItems = this.selectedItems.filter(x => x !== itemId);
-        } else this.selectedItems.push(itemId);
-      }
-    },
-    rightClicked(dataItem, field, event) {
-      event.preventDefault();
-      if (!this.selectedItems.includes(dataItem.id)) {
-        this.selectedItems = [dataItem.id];
-      }
-      // this.$refs.contextmenu.show({ top: event.pageY, left: event.pageX });
-    },
-    onPaginationData(paginationData) {
-      console.log(paginationData);
-      this.from = paginationData.from;
-      this.to = paginationData.to;
-      this.total = paginationData.total;
-      this.lastPage = paginationData.last_page;
-      this.items = paginationData.data;
-      this.$refs.pagination.setPaginationData(paginationData);
-    },
-    onChangePage(page) {
+ onChangePage(page) {
       this.$refs.vuetable.changePage(page);
     },
-
-    changePageSize(perPage) {
-      this.perPage = perPage;
-      this.$refs.vuetable.refresh();
+    changeDisplayMode(displayType) {
+      this.displayMode = displayType;
     },
-
+    changePageSize(perPage) {
+      this.page = 1;
+      this.perPage = perPage;
+    },
+    changeOrderBy(sort) {
+      this.sort = sort;
+      this.loadItems()
+    },
     searchChange(val) {
       this.search = val;
-      this.$refs.vuetable.refresh();
+      this.page = 1;
     },
 
     selectAll(isToggle) {
@@ -366,12 +320,43 @@ export default {
       }
       return -1;
     },
-
+    toggleItem(event, itemId) {
+      if (event.shiftKey && this.selectedItems.length > 0) {
+        let itemsForToggle = this.items;
+        var start = this.getIndex(itemId, itemsForToggle, "id");
+        var end = this.getIndex(
+          this.selectedItems[this.selectedItems.length - 1],
+          itemsForToggle,
+          "id"
+        );
+        itemsForToggle = itemsForToggle.slice(
+          Math.min(start, end),
+          Math.max(start, end) + 1
+        );
+        this.selectedItems.push(
+          ...itemsForToggle.map(item => {
+            return item.id;
+          })
+        );
+      } else {
+        if (this.selectedItems.includes(itemId)) {
+          this.selectedItems = this.selectedItems.filter(x => x !== itemId);
+        } else this.selectedItems.push(itemId);
+      }
+    },
+    handleContextMenu(vnode) {
+      if (!this.selectedItems.includes(vnode.key)) {
+        this.selectedItems = [vnode.key];
+      }
+    },
     onContextMenuAction(action) {
       console.log(
         "context menu item clicked - " + action + ": ",
         this.selectedItems
       );
+    },
+    changePage(pageNum) {
+      this.page = pageNum;
     }
   },
   computed: {
@@ -384,24 +369,40 @@ export default {
         this.selectedItems.length < this.items.length
       );
     },
-      terminals(){
+    apiUrl() {
+      return `${this.apiBase}?sort=${this.sort.column}&page=${this.page}&per_page=${this.perPage}&search=${this.search}`;
+    },
+    terminals(){
       return this.$store.getters.terminals;
     },
     resKey(){
       return this.$store.getters.resKey;
     }
+
+
+
   },
   watch: {
-     resKey(){
+    search() {
+      this.page = 1;
+    },
+    apiUrl() {
+      // this.loadItems();
+    },
+    resKey(){
       if(this.resKey && this.resKey.owner && this.resKey.owner == TERMINALS){
         this.isLoad = true;
       }
     }
+
   },
-  created(){
-    this.getTerminals()
-    console.log(this.head);
-    console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+  mounted() {
+    // this.loadItems();
+  },
+  created() {
+    // this.loadItems();
+    this.getTerminals();
+
   }
 };
 </script>

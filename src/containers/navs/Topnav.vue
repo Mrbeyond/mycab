@@ -1,4 +1,5 @@
 <template>
+<div>
   <nav class="navbar fixed-top">
     <div class="d-flex align-items-center navbar-left">
       <a
@@ -17,10 +18,7 @@
       </a>
     </div>
     <router-link class="navbar-logo" tag="a" :to="adminRoot">
-<!--      <span class="logo d-none d-xs-block"></span>-->
-<!--      <span class="logo-mobile d-block d-xs-none"></span>-->
       <span class="text-center logo-size logo-bold">MECP</span>
-<!--        <img  width="80"height="40" src="./../../assets/lasepa-mobile-logo.png" class="d-inline-block align-top" alt="MECP">-->
     </router-link>
 
     <div class="navbar-right">
@@ -106,6 +104,7 @@
       </div>
     </div>
   </nav>
+</div>
 </template>
 
 <script>
