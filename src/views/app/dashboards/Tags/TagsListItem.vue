@@ -12,11 +12,9 @@
              />
             </router-link>
             <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.tag_no}}</p>
-            <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.createdAt}}</p>
-            <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.updatedAt}}</p>
-            <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.status}}</p>
+            <p class="mb-0 text-muted text-small w-5 w-sm-100">{{new Date(data.createdAt).toDateString()}}</p>
             <div class="w-15 w-sm-100">
-                <b-badge pill :variant="data.statusColor">{{ data.status }}</b-badge>
+                <b-badge pill :variant="data.statusColor">{{data.vehicles.length > 0 ? "Assigned" : "Not Assigned"}}</b-badge>
             </div>
              <div class="w-15 w-sm-100">
                   <b-btn v-b-toggle="data.updatedAt" title="View Vehicles" badge-variant="dark">
@@ -24,9 +22,9 @@
                 <!-- <b-badge pill :variant="data.statusColor"  ></b-badge> -->
             </div>
         </div>
-        <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
-            <b-form-checkbox :checked="selectedItems.includes(data.id)" class="itemCheck mb-0" />
-        </div>
+<!--        <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">-->
+<!--            <b-form-checkbox :checked="selectedItems.includes(data.id)" class="itemCheck mb-0" />-->
+<!--        </div>-->
     </div>
      <b-row>
     <b-colxx xxs="12">
