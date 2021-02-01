@@ -20,7 +20,8 @@
     </template>
   </b-modal>
 </template>
-<script>
+<script>// @ts-nocheck
+
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import AddAdmin from '@/views/app/dashboards/AdderForms/AddAdmin';

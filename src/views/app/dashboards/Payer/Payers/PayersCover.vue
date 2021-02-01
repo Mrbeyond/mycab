@@ -346,6 +346,7 @@ export default {
   watch: {
   },
   created(){
+    // console.log(this.$route.path);
     // console.log(this.head);
     // console.log( loadash*/.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
