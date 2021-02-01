@@ -11,6 +11,14 @@
         >
         {{ $t('pages.add-new') }}
         </b-button>
+        <b-button
+          v-b-modal.modalright
+          variant="warning"
+          size="lg"
+          class="top-right-button"
+        >
+          Print All Pending
+        </b-button>
         <b-button-group>
           <b-dropdown split right @click="selectAll(true)" class="check-button" variant="primary">
             <label
@@ -174,7 +182,7 @@ export default {
           value: "PROCESSED"
         }
       ],
-    
+
       pageSizes: [4, 8, 12]
     };
   },
