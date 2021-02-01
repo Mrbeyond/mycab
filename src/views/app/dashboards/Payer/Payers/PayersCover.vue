@@ -74,7 +74,7 @@
       </v-contextmenu-item>
     </v-contextmenu>-->
     <div>
-      <b-modal id="modallg" ref="modallg"  title="Payer vehicles" hide-footer>
+      <b-modal id="modallg" ref="modallg" size="xl" title="Payer vehicles" hide-footer>
           <div>
             <PayerVehicles :localData="selectedItemVehicles " />
           </div>

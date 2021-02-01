@@ -1,26 +1,32 @@
 <template>
   <div class="row-item">
-    <b-card class="mb-4 text-center">
+    <b-card class="mb-4">
 
       <div v-if="selectedPayload">
       <h3><strong>Basic info</strong></h3>
-       <p v-for="(item, i) in getKeys(selectedPayload, 0)" v-bind:key="i">
-        <Strong>{{ formatName(item) }}: {{ item == "createdAt"?
-            formatDate(selectedPayload[0][item]): selectedPayload[0][item] === null? "Null":
-            selectedPayload[0][item]
-            }}</Strong>
+       <div v-for="(item, i) in getKeys(selectedPayload, 0)" v-bind:key="i">
+        <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
+        <p class="mb-3">
+          {{ item == "createdAt"?
+          formatDate(selectedPayload[0][item]): selectedPayload[0][item] === null? "Null":
+          selectedPayload[0][item]
+          }}
         </p>
+        </div>
       </div>
     </b-card>
-    <b-card class="mb-4 text-center">
+    <b-card class="mb-4">
       <div v-if="selectedPayload">
-      <h3><strong>Business Acount Details</strong></h3>
-       <p v-for="(item, i) in getKeys(selectedPayload, 1)" v-bind:key="i">
-        <Strong>{{ formatName(item) }}: {{ item == "createdAt"?
-            formatDate(selectedPayload[1][item]): selectedPayload[1][item] === null? "Null":
-            selectedPayload[1][item]
-            }}</Strong>
+      <h3><strong>Business Account Details</strong></h3>
+       <div v-for="(item, i) in getKeys(selectedPayload, 1)" v-bind:key="i">
+        <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
+        <p class="mb-3">
+          {{ item == "createdAt"?
+          formatDate(selectedPayload[1][item]): selectedPayload[1][item] === null? "Null":
+          selectedPayload[1][item]
+          }}
         </p>
+        </div>
       </div>
     </b-card>
     <b-card class="mb-4 text-center">
