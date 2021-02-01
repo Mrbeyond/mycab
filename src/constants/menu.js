@@ -156,7 +156,7 @@ const data = [
   {id:"vehicle-tags",
     icon:"simple-icon-pin",
     label: "menu.vehicle-tags",
-    to: `${adminRoot}/vehicle-tags`,
+    to: `${adminRoot}/tags`,
     // roles: [UserRole.Admin, UserRole.Editor],,
     // subs:[
     //   {
