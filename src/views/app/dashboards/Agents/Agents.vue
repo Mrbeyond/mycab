@@ -59,50 +59,22 @@
       </b-colxx>
 
        <b-colxx xxs="12">
-            <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="$t('modal.modal-title')" modal-class="modal-right">
-
-                 <b-card v-if="RightmodalData.wallet !='' && RightmodalData.wallet !=null" class="text-center shadow mb-3 pt-3" style="border-radius:20px" header="WALLET">
-              <b-list-group  class="mb-3">
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                  Balance
-                    <b-badge variant="primary" pill>{{RightmodalData.wallet.balance}}</b-badge>
-                  </b-list-group-item>
-
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Post paid balance
-                    <b-badge variant="primary" pill>{{RightmodalData.wallet.post_paid_balance}}</b-badge>
-                  </b-list-group-item>
-                </b-list-group>
-                   </b-card>
-
-                   <b-card v-if="RightmodalData.type !='' && RightmodalData.type !=null" class="text-center shadow mb-3 pt-3" style="border-radius:20px" header="TYPE">
-              <b-list-group  class="mb-3">
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Name
-                    <b-badge variant="primary" pill>{{RightmodalData.type.name}}</b-badge>
-                  </b-list-group-item>
-
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Slug
-                    <b-badge variant="primary" pill>{{RightmodalData.type.slug}}</b-badge>
-                  </b-list-group-item>
-                </b-list-group>
-                   </b-card>
-
-                   <b-card v-if="RightmodalData.port !=''  && RightmodalData.port !=null" class="text-center shadow pt-3" style="border-radius:20px" header="PORT">
-                <b-list-group >
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Name
-                    <b-badge variant="primary" pill>{{RightmodalData.port.name}}</b-badge>
-                  </b-list-group-item>
-
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Status
-                    <b-badge variant="primary" pill v-if="RightmodalData.port.status==1">Active</b-badge>
-                    <b-badge variant="primary" pill v-else>Inactive</b-badge>
-
-                  </b-list-group-item>
-                </b-list-group>
+            <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
+                 <b-card v-if="RightmodalData !='' && RightmodalData !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+                <h1>Basic info</h1>
+                <div v-if="RightmodalData.wallet !=null">                                                                                                                                                                                                                                                                                                                                                                                                                                           >
+                <p class="text-muted">Balance</p>
+                <p >{{RightmodalData.wallet.balance}}</p>
+                </div>
+                <div v-if="RightmodalData.type !=null">
+                <p class="text-muted">Agent  Type</p>
+                <p >{{RightmodalData.type.name}}</p>
+                </div>
+                <div v-if="RightmodalData.port !=null">
+                <p class="text-muted"> Port Name</p>
+                <p >{{RightmodalData.port.name}}</p>
+                </div>
+                
                    </b-card>
                     <template slot="modal-footer">
                     <b-button variant="secondary" @click="hideModal('modalright')">Cancel</b-button>
