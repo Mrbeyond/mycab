@@ -49,7 +49,6 @@ import TagsListing from "./TagsListing.vue";
 import { ADD_TAG, TAGS } from '../../../../constants/formKey';
 
 export default {
-
   components: {
     "list-page-heading": ListPageHeading,
     "tags-page-listing": TagsListing

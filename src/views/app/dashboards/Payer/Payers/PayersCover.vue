@@ -32,25 +32,24 @@
           @vuetable:pagination-data="onPaginationData"
           @vuetable:row-clicked="rowClicked"
           @vuetable:cell-rightclicked="rightClicked"
+          @vuetable:cell-clicked="cellClicked"
         >
-         <!-- pgination-path
-          :row-class="onRowClass"
-          @vuetable:pagination-data="onPaginationData"
-          @vuetable:cell-rightclicked="rightClicked"
-          @vuetable:cell-clicked="cellClicked"-->
           <template slot="actions" slot-scope="props">
-           jkjkjkj<!-- <b-form-checkbox
-              :checked="selectedItems.includes(props.rowData.id)"
-              class="itemCheck mb-0"
-            ></b-form-checkbox>-->
-          </template>
-          <div slot="new" >
-
-            <b-button variant="danger" slot="new" slot-scope="news"
+            <b-button ref="vehic" id="vehic"
+              @click="cellClick($event, props.rowData.account_vehicles)"
+              variant="info"
             >
-            {{ news.rowData.id }}
+              {{ props.rowData.account_vehicles.length }}
             </b-button>
-          </div>
+          </template>
+          <template slot="account_business_detail" slot-scope="props">
+            <b-button ref="view" id="view" variant="info"
+             @click="cellClick($event, props.rowData)"
+            >
+              View
+            </b-button>
+
+          </template>
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -75,18 +74,25 @@
       </v-contextmenu-item>
     </v-contextmenu>-->
     <div>
-      <b-modal id="modallg" size="lg" title="Large Modal" hide-footer>
-          <PayerVehicles />
+      <b-modal id="modallg" ref="modallg" size="xl" title="Payer vehicles" hide-footer>
+          <div>
+            <PayerVehicles :localData="selectedItemVehicles " />
+          </div>
+      </b-modal>
+    </div>
+    <div>
+      <b-modal id="modalright" ref="modalright" modal-class="modal-right" title="Details" hide-footer>
+          <payer-side-details v-if="selectedPayload" :selectedPayload="selectedPayload" />
       </b-modal>
     </div>
   </div>
 </template>
 <script>// @ts-nocheck
-
 import Vuetable from "vuetable-2/src/components/Vuetable";
 import VuetablePaginationBootstrap from "../../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { PROXY } from '../../../../../constants/config';
 import { hToken, loadash } from '../../../../../constants/formKey';
+import PayerSideDetails from './PayerSideDetails.vue';
 import PayerVehicles from './PayerVehicles.vue';
 // import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
@@ -96,6 +102,7 @@ export default {
     vuetable: Vuetable,
     "vuetable-pagination-bootstrap": VuetablePaginationBootstrap,
     PayerVehicles,
+    PayerSideDetails,
     // "datatable-heading": DatatableHeading
   },
   data() {
@@ -113,6 +120,7 @@ export default {
       lastPage: 0,
       items: [],
       selectedItems: [],
+      selectedPayload: null,
       selectedItemVehicles: [],
 
       // isFetched: false,
@@ -159,8 +167,8 @@ export default {
           width: "10%"
         },
         {
-          name: "__slot:new",
-          title: "New",
+          name: "__slot:account_business_detail",
+          title: "Account Details",
           titleClass: "center aligned text-right",
           dataClass: "center aligned text-right",
           width: "10%"
@@ -201,17 +209,16 @@ export default {
     },
 
     cellClicked(item, field, event){
-      console.log(item, 'item');
       console.log(field, 'feild');
+      console.log(item, 'item');
       console.log(event,'eve');
     },
 
     rowClicked(dataItem, event) {
       // const itemId = dataItem.id;
-      console.log(dataItem)
-      this.selectedItemVehicles = dataItem.account_ehicles;
-      this.$refs.modallg.show()
-      alert();
+      // console.log(dataItem)
+      this.selectedItemVehicles = dataItem.account_vehicles;
+      // this.$refs.modallg.show()
       return;
       if (event.shiftKey && this.selectedItems.length > 0) {
         let itemsForToggle = this.items;
@@ -298,6 +305,28 @@ export default {
         "context menu item clicked - " + action + ": ",
         this.selectedItems
       );
+    },
+    cellClick(event, payload){
+      console.log({...payload});
+      if(event.target.id === 'vehic'){
+        if(!payload || payload.length < 1) return;
+        this.selectedItemVehicles = payload;
+        this.$refs.modallg.show();
+      }
+      else if(event.target.id === 'view'){
+        // this.selectedPayload = null;
+        console.log(this.selectedPayload);
+        let payLoad = {...payload};
+        delete payLoad.account_vehicles;
+        let copy = {...payLoad};
+        let account = copy.account_business_detail;
+        delete payLoad.account_business_detail;
+        let isBusiness = copy.is_business;
+        delete payLoad.is_business;
+        this.selectedPayload = [payLoad, account, isBusiness];
+        console.log(this.selectedPayload);
+        this.$refs.modalright.show();
+      }
     }
   },
   computed: {
@@ -314,8 +343,8 @@ export default {
   watch: {
   },
   created(){
-    console.log(this.head);
-    console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+    // console.log(this.head);
+    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>

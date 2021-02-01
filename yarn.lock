@@ -3792,6 +3792,11 @@ easy-stack@^1.0.1:
   resolved "https://registry.yarnpkg.com/easy-stack/-/easy-stack-1.0.1.tgz#8afe4264626988cabb11f3c704ccd0c835411066"
   integrity sha512-wK2sCs4feiiJeFXn3zvY0p41mdU5VUgbgs1rNsc/y5ngFUijdWd+iIN8eoyuZHKB8xN6BL4PdWmzqFmxNg6V2w==
 
+easyqrcodejs@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/easyqrcodejs/-/easyqrcodejs-4.3.1.tgz#52eb768824dfbbad09131a515287474a2c3f1aa1"
+  integrity sha512-/1QbzGZr60zjGmOyry5ZxXyNMFxVpjEHyU1nirKqy/YhfiztODb9nP+ev7EO70xjm/KoviE8rVTbHY96QryUMA==
+
 ecc-jsbn@~0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.2.tgz#3a83a904e54353287874c564b7549386849a98c9"

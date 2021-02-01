@@ -26,19 +26,7 @@ const data = [
         label: "menu.all-payers",
         to: `${adminRoot}/payers`,
         // roles: [UserRole.Admin, UserRole.Editor],
-        },
-      {
-      icon: "simple-icon-plus",
-      label: "menu.add-payer",
-      to: `${adminRoot}/add-payer`,
-      // roles: [UserRole.Admin, UserRole.Editor],
-      },
-      {
-        icon: "simple-icon-credit-card",
-        label: "menu.payers-cards",
-        to: `${adminRoot}/payers-cards`,
-        // roles: [UserRole.Admin, UserRole.Editor],
-      }
+        }
     ]
   },
   {id:"agents",
@@ -62,13 +50,7 @@ const data = [
     {
       icon: "simple-icon-people",
       label: "menu.garrage-agents",
-      to: `${adminRoot}/agents/garrages`,
-      // roles: [UserRole.Admin, UserRole.Editor],
-    },
-    {
-      icon: "simple-icon-plus",
-      label: "menu.add-agent",
-      to: `${adminRoot}/add-agent`,
+      to: `${adminRoot}/agents/garages`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
   ]},
@@ -83,13 +65,7 @@ const data = [
     label: "menu.all-admins",
     to: `${adminRoot}/admins`,
     // roles: [UserRole.Admin, UserRole.Editor],
-    },
-    {
-      icon: "simple-icon-plus",
-      label: "menu.add-admin",
-      to: `${adminRoot}/add-admin`,
-      // roles: [UserRole.Admin, UserRole.Editor],
-    },
+    }
   ]},
   {
     id:"wallets",
@@ -185,13 +161,7 @@ const data = [
     label: "menu.all-tags",
     to: `${adminRoot}/tags`,
     // roles: [UserRole.Admin, UserRole.Editor],
-    },
-    {
-      icon: "simple-icon-plus",
-      label: "menu.add-vehicle-tag",
-      to: `${adminRoot}/add-tag`,
-      // roles: [UserRole.Admin, UserRole.Editor],
-    },
+    }
   ]},
   {id:"finance",
   icon:"simple-icon-organization",
@@ -200,19 +170,16 @@ const data = [
   // roles: [UserRole.Admin, UserRole.Editor],,
   subs:[
     {
-    icon: "simple-icon-paypal",
     label: "menu.all-vehicle-payments",
     to: `${adminRoot}/all-vehicle-payments`,
     // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
-      icon: "simple-icon-paypal",
       label: "menu.commercial-vehicle-payments",
       to: `${adminRoot}/commercial-vehicle-payments`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
-      icon: "simple-icon-paypal",
       label: "menu.import-vehicle-payments",
       to: `${adminRoot}/import-vehicle-payments`,
       // roles: [UserRole.Admin, UserRole.Editor],
@@ -226,14 +193,14 @@ const data = [
   subs:[
     {
     icon: "simple-icon-location-pin",
-    label: "menu.local-government",
+    label: "Local Governments",
     to: `${adminRoot}/lg`,
     // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
       icon: "simple-icon-plus",
-      label: "menu.compass",
-      to: `${adminRoot}/garrages`,
+      label: "Garages",
+      to: `${adminRoot}/garages`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
   ]},
