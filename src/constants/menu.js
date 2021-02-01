@@ -170,19 +170,16 @@ const data = [
   // roles: [UserRole.Admin, UserRole.Editor],,
   subs:[
     {
-    icon: "simple-icon-paypal",
     label: "menu.all-vehicle-payments",
     to: `${adminRoot}/all-vehicle-payments`,
     // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
-      icon: "simple-icon-paypal",
       label: "menu.commercial-vehicle-payments",
       to: `${adminRoot}/commercial-vehicle-payments`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
-      icon: "simple-icon-paypal",
       label: "menu.import-vehicle-payments",
       to: `${adminRoot}/import-vehicle-payments`,
       // roles: [UserRole.Admin, UserRole.Editor],
