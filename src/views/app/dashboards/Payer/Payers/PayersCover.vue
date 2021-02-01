@@ -36,7 +36,7 @@
         >
           <template slot="actions" slot-scope="props">
             <b-button ref="vehic" id="vehic"
-              @click="cellClick($event, props.rowData)"
+              @click="cellClick($event, props.rowData.account_vehicles)"
               variant="info"
             >
               {{ props.rowData.account_vehicles.length }}
@@ -74,8 +74,10 @@
       </v-contextmenu-item>
     </v-contextmenu>-->
     <div>
-      <b-modal id="modallg" ref="modallg" size="lg" title="Payer vehicles" hide-footer>
-          <PayerVehicles />
+      <b-modal id="modallg" ref="modallg"  title="Payer vehicles" hide-footer>
+          <div>
+            <PayerVehicles :localData="selectedItemVehicles " />
+          </div>
       </b-modal>
     </div>
     <div>
@@ -305,9 +307,9 @@ export default {
       );
     },
     cellClick(event, payload){
-      console.log(event,payload);
+      console.log(event,payload, payload.length);
       if(event.target.id === 'vehic'){
-        if(payload.length < 1) return;
+        if(!payload || payload.length < 1) return;
         this.selectedItemVehicles = payload;
         this.$refs.modallg.show();
       }

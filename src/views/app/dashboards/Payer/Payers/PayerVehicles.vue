@@ -14,7 +14,7 @@
       :perPage="perPage"
     ></datatable-heading>-->
     <b-row>
-      <b-colxx xxs="12">
+      <b-colxx  v-if="localData !== null" xxs="12">
           <!--:api-url="apiBase"
           @vuetable:row-clicked="alert(5)"
           -->
@@ -23,9 +23,8 @@
           class="table-divided order-with-arrow"
           :query-params="makeQueryParams"
           :per-page="perPage"
-          :http-options="head"
-          :api-url="apiBase"
-          :reactive-api-url="false"
+          :api-mode="false"
+          :data="localData"
           :fields="fields"
           pagination-path
           :row-class="onRowClass"
@@ -81,7 +80,7 @@ import VuetablePaginationBootstrap from "../../../../../components/Common/Vuetab
 // import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {
-  props: ["title"],
+  props: ["title", 'localData'],
   components: {
     vuetable: Vuetable,
     "vuetable-pagination-bootstrap": VuetablePaginationBootstrap,
@@ -105,50 +104,69 @@ export default {
 
       // isFetched: false,
       // isLoading: true,
+      // "vehicle_type_id": 11,
+      //     "port_id": 1,
+      //     "plate_number": "qwe3",
+      //     "vehicle_identification_number": "qwe3",
+      //     "vehicle_color": "af",
+      //     "vehicle_brand": "wdf",
+      //     "vehicle_year": "1992",
+      //     "vehicle_model": "sd",
+      //     "status": 1,
+      //     "createdAt": "2021-01-29T13:51:51.000Z",
+      //     "updatedAt": "2021-01-29T13:51:51.000Z",
+      //     "is_imported": true,
 
       fields: [,
         {
-        name: "first_name",
-        sortField: "first_name",
-        title: "First Name",
+        name: "is_imported",
+        sortField: "is_imported",
+        title: "Type",
         titleClass: "",
         dataClass: "list-item-heading",
         width: "10%"
         },
         {
-          name:"last_name",
-          sortField: "last_name",
-          title: "Last Name",
+          name:"vehicle_identification_number",
+          sortField: "vehicle_identification_number",
+          title: "VIN",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
         {
-          name: "account_no",
-          sortField: "account_no",
-          title: "Account no.",
+          name: "status",
+          sortField: "status",
+          title: "Status",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
         {
-          name: "phone",
-          sortField: "phone",
-          title: "Phone",
+          name: "vehicle_brand",
+          sortField: "vehicle_brand",
+          title: "Brand",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
         {
-          name: "ctions",
-          title: "Actions",
+          name: "vehicle_model",
+          title: "Model",
           titleClass: "center aligned text-right",
           dataClass: "center aligned text-right",
           width: "10%"
         },
         {
-          name: "new",
-          title: "New",
+          name: "vehicle_year",
+          title: "Year",
+          titleClass: "center aligned text-right",
+          dataClass: "center aligned text-right",
+          width: "10%"
+        },
+         {
+          name: "vehicle_color",
+          title: "Color",
           titleClass: "center aligned text-right",
           dataClass: "center aligned text-right",
           width: "10%"
