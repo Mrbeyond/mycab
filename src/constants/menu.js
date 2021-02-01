@@ -208,10 +208,11 @@ const data = [
   // ]
   },
   {
-    id:"terminals",
-    icon:"iconsminds-shop-4",
+    id: "terminals",
+    icon: "iconsminds-shop-4",
     label: "menu.terminals",
     to: `${adminRoot}/terminals`,
+  },
 
   { id:"analytics",
     icon: "simple-icon-feed",
