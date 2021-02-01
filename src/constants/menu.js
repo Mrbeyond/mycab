@@ -89,16 +89,11 @@ const data = [
       //   },
     // ]
   },
-  {
-    id:"terminals",
-    icon:"iconsminds-shop-4",
-    label: "menu.terminals",
-    to: `${adminRoot}/terminals`,
-  },
+
   {id:"vehicles",
   icon:"simple-icon-speedometer",
   label: "menu.vehicles",
-  to: `${adminRoot}/agents`,
+  to: `${adminRoot}/vehicles`,
   // roles: [UserRole.Admin, UserRole.Editor],,
   // subs:[
   //   {
@@ -158,6 +153,40 @@ const data = [
     //   },
     // ]
   },
+  {id:"vehicle-tags",
+    icon:"simple-icon-pin",
+    label: "menu.vehicle-tags",
+    to: `${adminRoot}/vehicle-tags`,
+    // roles: [UserRole.Admin, UserRole.Editor],,
+    // subs:[
+    //   {
+    //   icon: "simple-icon-badge",
+    //   label: "menu.all-tags",
+    //   to: `${adminRoot}/tags`,
+    //   // roles: [UserRole.Admin, UserRole.Editor],
+    //   }
+    // ]
+  },
+
+  {id:"locations",
+    icon:"simple-icon-map",
+    label: "menu.locations",
+    to: `${adminRoot}/locations`,
+    // roles: [UserRole.Admin, UserRole.Editor],,
+    subs:[
+      {
+        icon: "simple-icon-location-pin",
+        label: "Local Governments",
+        to: `${adminRoot}/lg`,
+        // roles: [UserRole.Admin, UserRole.Editor],
+      },
+      {
+        icon: "simple-icon-plus",
+        label: "Garages",
+        to: `${adminRoot}/garages`,
+        // roles: [UserRole.Admin, UserRole.Editor],
+      },
+    ]},
   {id:"cards",
   icon:"simple-icon-credit-card",
   label: "menu.vehicle-cards",
@@ -178,40 +207,12 @@ const data = [
   //   },
   // ]
   },
-  {id:"vehicle-tags",
-  icon:"simple-icon-pin",
-  label: "menu.vehicle-tags",
-  to: `${adminRoot}/vehicle-tags`,
-  // roles: [UserRole.Admin, UserRole.Editor],,
-  // subs:[
-  //   {
-  //   icon: "simple-icon-badge",
-  //   label: "menu.all-tags",
-  //   to: `${adminRoot}/tags`,
-  //   // roles: [UserRole.Admin, UserRole.Editor],
-  //   }
-  // ]
+  {
+    id:"terminals",
+    icon:"iconsminds-shop-4",
+    label: "menu.terminals",
+    to: `${adminRoot}/terminals`,
   },
-
-  {id:"locations",
-  icon:"simple-icon-map",
-  label: "menu.locations",
-  to: `${adminRoot}/locations`,
-  // roles: [UserRole.Admin, UserRole.Editor],,
-  subs:[
-    {
-    icon: "simple-icon-location-pin",
-    label: "Local Governments",
-    to: `${adminRoot}/lg`,
-    // roles: [UserRole.Admin, UserRole.Editor],
-    },
-    {
-      icon: "simple-icon-plus",
-      label: "Garages",
-      to: `${adminRoot}/garages`,
-      // roles: [UserRole.Admin, UserRole.Editor],
-    },
-  ]},
   { id:"analytics",
     icon: "simple-icon-feed",
     label: "menu.analytics",

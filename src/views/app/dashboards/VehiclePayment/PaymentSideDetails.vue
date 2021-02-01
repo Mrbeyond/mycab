@@ -54,7 +54,6 @@ export default {
       if(!data) return;
       if( data&& data.updatedAt){
         delete data.updatedAt;
-
       }
       return Object.keys(data).filter(data=> !data.toString().includes('id'));
     },
