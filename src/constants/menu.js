@@ -212,7 +212,7 @@ const data = [
     icon:"iconsminds-shop-4",
     label: "menu.terminals",
     to: `${adminRoot}/terminals`,
-  },
+
   { id:"analytics",
     icon: "simple-icon-feed",
     label: "menu.analytics",

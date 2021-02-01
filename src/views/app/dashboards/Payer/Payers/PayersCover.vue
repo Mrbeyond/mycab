@@ -78,7 +78,7 @@
     <div>
       <b-modal id="modallg" ref="modallg" size="xl" title="Payer vehicles" hide-footer>
           <div>
-            <PayerVehicles :localData="selectedItemVehicles " />
+            <!-- <PayerVehicles :localData="selectedItemVehicles " />-->
           </div>
       </b-modal>
     </div>
@@ -103,7 +103,7 @@ export default {
   components: {
     vuetable: Vuetable,
     "vuetable-pagination-bootstrap": VuetablePaginationBootstrap,
-    PayerVehicles,
+    // PayerVehicles,
     PayerSideDetails,
     // "datatable-heading": DatatableHeading
   },
