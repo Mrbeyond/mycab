@@ -38,14 +38,14 @@
           <template slot="actions" slot-scope="props">
             <b-button ref="vehic" id="vehic"
               @click="cellClick($event, props.rowData)"
-              variant="info"
+              variant="primary"
             >
             <!-- payload.account_business_detail.account_id-->
               <i class="simple-icon-login"></i>
             </b-button>
           </template>
           <template slot="account_business_detail" slot-scope="props">
-            <b-button ref="view" id="view" variant="info"
+            <b-button ref="view" id="view" variant="primary"
              @click="cellClick($event, props.rowData)"
             >
               View

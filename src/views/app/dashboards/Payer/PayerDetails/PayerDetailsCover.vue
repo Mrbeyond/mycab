@@ -8,8 +8,16 @@
   </div>
 </div>
 <div v-else>
-   <PayerDetailsBasic  :PAYLOAD="basics" />
-   <PayerDetailsBusiness  :PAYLOAD="business" />
+    <div class="row">
+      <div class="col-12 col-md-6">
+          <PayerDetailsBasic  :PAYLOAD="basics" />
+      </div>
+      <div class="col-12 col-md-6">
+        <PayerDetailsBusiness  :PAYLOAD="business" />
+      </div>
+      <div></div>
+    </div>
+    <h2>List of Vehicles</h2>
    <PayerDetailsVehicles  :localData="localVehicles" />
    <b-toast :variant="variant" id="example-toast"
       title="Response" auto-hide-delay="8000"
