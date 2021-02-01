@@ -26,19 +26,7 @@ const data = [
         label: "menu.all-payers",
         to: `${adminRoot}/payers`,
         // roles: [UserRole.Admin, UserRole.Editor],
-        },
-      {
-      icon: "simple-icon-plus",
-      label: "menu.add-payer",
-      to: `${adminRoot}/add-payer`,
-      // roles: [UserRole.Admin, UserRole.Editor],
-      },
-      {
-        icon: "simple-icon-credit-card",
-        label: "menu.payers-cards",
-        to: `${adminRoot}/payers-cards`,
-        // roles: [UserRole.Admin, UserRole.Editor],
-      }
+        }
     ]
   },
   {id:"agents",
@@ -65,12 +53,6 @@ const data = [
       to: `${adminRoot}/agents/garrages`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
-    {
-      icon: "simple-icon-plus",
-      label: "menu.add-agent",
-      to: `${adminRoot}/add-agent`,
-      // roles: [UserRole.Admin, UserRole.Editor],
-    },
   ]},
   {id:"admins",
   icon:"simple-icon-graduation",
@@ -83,13 +65,7 @@ const data = [
     label: "menu.all-admins",
     to: `${adminRoot}/admins`,
     // roles: [UserRole.Admin, UserRole.Editor],
-    },
-    {
-      icon: "simple-icon-plus",
-      label: "menu.add-admin",
-      to: `${adminRoot}/add-admin`,
-      // roles: [UserRole.Admin, UserRole.Editor],
-    },
+    }
   ]},
   {
     id:"wallets",
