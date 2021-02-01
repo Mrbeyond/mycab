@@ -14,9 +14,70 @@
       :total="total"
       :perPage="perPage"
     ></datatable-heading>-->
+       <b-row class="align-items-center mb-5 justify-content-center m-1" v-if="RightmodalData !=''">
+              <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+                <h1>Account</h1>
+                <div v-if="RightmodalData.account !=null" >        
+                <p class="text-muted">First name</p>
+                <p >{{RightmodalData.account.first_name}}</p>
+                </div>
+                <div v-if="RightmodalData.account !=null">
+                <p class="text-muted">Last name</p>
+                <p >{{RightmodalData.account.last_name}}</p>
+                </div>
+                <div v-if="RightmodalData.account !=null">
+                <p class="text-muted">Phone</p>
+                <p >{{RightmodalData.account.phone}}</p>
+                </div>
+                 <div v-if="RightmodalData.account !=null">
+                <p class="text-muted">Account No.</p>
+                <p >{{RightmodalData.account.account_no}}</p>
+                </div>
+          </b-card>
+                   
 
-    <b-row>
+          <b-card v-if="RightmodalData" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+                <h1>Garage & Port</h1>
+                <div v-if="RightmodalData.garage !=null">        
+                <p class="text-muted">Name</p>
+                <p >{{RightmodalData.garage.name}}</p>
+                </div>
+                <div v-if="RightmodalData.garage !=null">
+                <p class="text-muted">Address</p>
+                <p >{{RightmodalData.garage.address}}</p>
+                </div>
+                <div v-if="RightmodalData.garage !=null">
+                <p class="text-muted">Latitude</p>
+                <p >{{RightmodalData.garage.latitude}}</p>
+                </div>
+                 <div v-if="RightmodalData.garage !=null">
+                <p class="text-muted">Longitude</p>
+                <p >{{RightmodalData.garage.longitude}}</p>
+                </div>
+                 <div v-if="RightmodalData.port !=null">
+                <p class="text-muted">Port</p>
+                <p >{{RightmodalData.port.name}}</p>
+                </div>
+         </b-card>
+
+          <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+                <h1>Type details</h1>
+                <div >        
+                <p class="text-muted">Name</p>
+                <p >{{RightmodalData.type.name}}</p>
+                </div>
+                <div>
+                <p class="text-muted">Amount</p>
+                <p >{{RightmodalData.type.amount}}</p>
+                </div>
+         </b-card>
+
+
+    </b-row>
+
+    <!-- <b-row>
       <b-colxx xxs="12">
+          <h2 class="text-center">Registered vehicles</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
@@ -25,35 +86,13 @@
           :http-options="head"
           :reactive-api-url="false"
           :fields="fields"
-          :data="admins"
+          :data="agentDetails"
           pagination-path
           :row-class="onRowClass"
           @vuetable:pagination-data="onPaginationData"
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-           <template slot="Type" slot-scope="props">
-             <b-button class="bg-primary" @click="modalinfo(props.rowData.admin_type)"  v-b-modal.modalbasic>View</b-button>
-          </template>
-          <!-- <template slot="agent" slot-scope="props">
-          <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
-          </template> -->
-            <!-- <template slot="accve" slot-scope="props">
-            <b-button class="bg-primary">View</b-button>
-            </template> -->
-            <!-- <template slot="nfc_terminals" slot-scope="props">
-            <b-button class="bg-primary">View</b-button>
-            </template> -->
-             <!-- <template slot="port" slot-scope="props">
-             <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
-            </template> -->
-
-          <!-- <div slot="new" >
-            View
-            <b-button variant="danger" slot="new" slot-scope="news">
-            {{ news.rowData.id }}
-            </b-button>
-          </div> -->
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -61,30 +100,7 @@
           @vuetable-pagination:change-page="onChangePage"
         />
       </b-colxx>
-         <b-colxx xxs="12">
-            <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" title="Admin" modal-class="modal-right">
-                 <b-card v-if="RightmodalData !='' && RightmodalData !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
-                <h1>Type</h1>    
-                <div>                                                                                                                                                                                                                                                                                                                                                                                                                        
-                <p class="text-muted">Name</p>
-                <p >{{RightmodalData.name}}</p>
-                </div>
-                <div>
-                <p class="text-muted">Description</p>
-                <p >{{RightmodalData.description}}</p>
-                </div>
-                <!-- <div v-if="RightmodalData.port !=null">
-                <p class="text-muted"> Port Name</p>
-                <p >{{RightmodalData.port.name}}</p>
-                </div> -->
-                
-                   </b-card>
-                    <template slot="modal-footer">
-                    <b-button variant="secondary" @click="hideModal('modalright')">Cancel</b-button>
-                </template>
-            </b-modal>
-    </b-colxx>
-    </b-row>
+    </b-row> -->
   </div>
 </template>
 <script>// @ts-nocheck
@@ -93,7 +109,6 @@ import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
 import { hToken, loadash } from "../../../../constants/formKey";
-import { ADD_TERMINAL, ADMINS } from '../../../../constants/formKey';
 import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 import   Axios from 'axios'
 
@@ -120,8 +135,10 @@ export default {
       items: [],
       selectedItems: [],
       RightmodalData:"",
+      RigthVery:"",
+      apiBase: "",
       agentDetails:"",
-      // apiBase:`${PROXY}admin/agent/details`,
+      apiBase:`${PROXY}admin/vehicle/details`,
 
 
       // isFetched: false,
@@ -129,42 +146,42 @@ export default {
 
       fields: [,
         {
-        name: "first_name",
-        sortField: "first_name",
-        title: "First name",
+        name: "vehicle_model",
+        sortField: "vehicle_model",
+        title: "Vehicle model",
         titleClass: "",
         dataClass: "list-item-heading",
         width: "10%"
         },
         {
-          name:"last_name",
-          sortField: "last_name",
-          title: "Last name",
+          name:"vehicle_brand",
+          sortField: "vehicle_brand",
+          title: "Vehicle brand",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
        
         {
-          name: "phone",
-          sortField: "phone",
-          title: "phone",
+          name: "vehicle_color",
+          sortField: "vehicle_color",
+          title: "Vehicle color",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
-           {
-           name: "email",
-           sortField: "email",
-           title: "Email",
-           titleClass: "",
-           dataClass: "",
-           width: "10%"
-         },
          {
-          name: "__slot:Type",
-          sortField: "type",
-          title: "Type",
+          name: "plate_number",
+          sortField: "plate_number",
+          title: "Plate number",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+          {
+          name: "vehicle_year",
+          sortField: "vehicle_year",
+          title: "Vehicle year",
           titleClass: "",
           dataClass: "",
           width: "10%"
@@ -188,12 +205,9 @@ export default {
     };
   },
   methods: {
-       modalinfo(data){
-     this.RightmodalData = data
-    console.log( this.RightmodalData)
-     },
-     getAdmins(){
-      this.$store.dispatch(ADMINS);
+      modalinfo(wallet,type,port){
+    this.RightmodalData = {"wallet":wallet,"type":type,"port":port}
+   console.log( this.RightmodalData)
     },
       hideModal (refname) {
           this.$refs[refname].hide()
@@ -325,27 +339,30 @@ export default {
         this.selectedItems
       );
     },
-    // fetchagent(id){
-    //   Axios.get(`${this.apiBase}/${id}`, {headers: hToken()})
-    //   .then(res=>{
-    //     if(!res.data.error){
-    //       this.agentDetails = res.data.data[0].account_vehicles;
-    //       this.RightmodalData = {"wallet":res.data.data[0].agent_wallet,"type":res.data.data[0].agent_type,"port":res.data.data[0].port}
-    //       console.log(this.agentDetails)
-    //       this.isFetched = true;
-    //       return;
-    //     }else{
-    //       this.isFetched = false;
-    //     }
-    //     this.isLoading = false;
+    fetchvehicleDetails(id){
+      console.log(`${this.apiBase}/${id}`);
+      Axios.get(`${this.apiBase}/${id}`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          console.log(res);
+          this.agentDetails = res.data.data[0].account_vehicle_payments;
+           this.RightmodalData = {"account":res.data.data[0].account,"garage":res.data.data[0].garage,"type":res.data.data[0].vehicle_type_details,"port":res.data.data[0].port}
+          // this.RightmodalData = {"wallet":res.data.data[0].agent_wallet,"type":res.data.data[0].agent_type,"port":res.data.data[0].port}
+          console.log(this.agentDetails)
+          this.isFetched = true;
+          return;
+        }else{
+          this.isFetched = false;
+        }
+        this.isLoading = false;
 
-    //   })
-    //   .catch(err=>{
-    //     this.isFetched = false;
-    //     this.isLoading = false;
+      })
+      .catch(err=>{
+        this.isFetched = false;
+        this.isLoading = false;
 
-    //   })
-    // },
+      })
+    },
   },
   computed: {
     isSelectedAll() {
@@ -356,26 +373,21 @@ export default {
         this.selectedItems.length > 0 &&
         this.selectedItems.length < this.items.length
       );
-    },
-     admins(){
-      return this.$store.getters.admins;
-    },
-    resKey(){
-      return this.$store.getters.resKey;
     }
   },
   watch: {
-    resKey(){
-      if(this.resKey && this.resKey.owner && this.resKey.owner == ADMINS){
-        this.isLoad = true;
-      }
-    }
   },
   mounted() {
     this.paramId = this.$router.currentRoute.params.id
+       this.fetchvehicleDetails(this.paramId)
+      // console.log(this.apiBase);
       },
   created(){
-    this.getAdmins()
+    //   this.paramId = this.$router.currentRoute.params.id
+    //    this.fetchagent(this.paramId)
+
+    // this.apiBase= `${PROXY}admin/agent/details/${this.paramId}`,
+   
     console.log(this.paramId);
     console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }

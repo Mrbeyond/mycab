@@ -35,13 +35,6 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-          <div slot="ctions" >
-            hjjhjhjhjhj
-            <b-button variant="success"
-            {{ props.rowData.id }}
-            >
-            </b-button>
-          </div>
            <template slot="preview" slot-scope="props">
              <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>Preview</b-button>
           </template>

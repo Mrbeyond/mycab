@@ -106,9 +106,9 @@ const routes = [
         // meta: { roles: [UserRole.Editor] },
       },
       {
-        path: "vehicles/:name",
+        path: "vehicles/:id",
         component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/vehicles/Vehicles.vue"),
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/vehicles/vehiclesDetails.vue"),
         // meta: { roles: [UserRole.Editor] },
 
       },
