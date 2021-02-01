@@ -16,10 +16,6 @@
     ></datatable-heading>-->
     <b-row>
       <b-colxx xxs="12">
-          <!--:api-url="apiBase"
-          
-          @vuetable:row-clicked="rowClicked"
-          -->
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
