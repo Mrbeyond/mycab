@@ -14,13 +14,56 @@
       :total="total"
       :perPage="perPage"
     ></datatable-heading>-->
+       <b-row class="d-flex justify-content-between align-items-center mb-5 container">
+           <b-card v-if="RightmodalData.wallet !='' && RightmodalData.wallet !=null" class="text-center col-lg-4 shadow mb-3 pt-3" style="border-radius:20px" header="WALLET">
+              <b-list-group  class="mb-3">
+                  <b-list-group-item class="d-flex justify-content-between align-items-center">
+                  Balance
+                    <b-badge variant="primary" pill>{{RightmodalData.wallet.balance}}</b-badge>
+                  </b-list-group-item>
+
+                  <b-list-group-item class="d-flex justify-content-between align-items-center">
+                    Post paid balance
+                    <b-badge variant="primary" pill>{{RightmodalData.wallet.post_paid_balance}}</b-badge>
+                  </b-list-group-item>
+                </b-list-group>
+                   </b-card>
+
+                   <b-card v-if="RightmodalData.type !='' && RightmodalData.type !=null" class="text-center col-lg-3 shadow mb-3 pt-3" style="border-radius:20px" header="TYPE">
+              <b-list-group  class="mb-3">
+                  <b-list-group-item class="d-flex justify-content-between align-items-center">
+                    Name
+                    <b-badge variant="primary" pill>{{RightmodalData.type.name}}</b-badge>
+                  </b-list-group-item>
+
+                  <b-list-group-item class="d-flex justify-content-between align-items-center">
+                    Slug
+                    <b-badge variant="primary" pill>{{RightmodalData.type.slug}}</b-badge>
+                  </b-list-group-item>
+                </b-list-group>
+                   </b-card>
+
+                   <b-card v-if="RightmodalData.port !=''  && RightmodalData.port !=null" class="text-center col-lg-3 shadow pt-3" style="border-radius:20px" header="PORT">
+                <b-list-group >
+                  <b-list-group-item class="d-flex justify-content-between align-items-center">
+                    Name
+                    <b-badge variant="primary" pill>{{RightmodalData.port.name}}</b-badge>
+                  </b-list-group-item>
+
+                  <b-list-group-item class="d-flex justify-content-between align-items-center">
+                    Status
+                    <b-badge variant="primary" pill v-if="RightmodalData.port.status==1">Active</b-badge>
+                    <b-badge variant="primary" pill v-else>Inactive</b-badge>
+
+                  </b-list-group-item>
+                </b-list-group>
+                   </b-card>
+    </b-row>
+
     <b-row>
       <b-colxx xxs="12">
-          <!--:api-url="apiBase"
-          
-          @vuetable:row-clicked="rowClicked"
-          -->
-        <vuetable 
+          <h2 class="text-center">Account vehicles details</h2>
+        <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
           :query-params="makeQueryParams"
@@ -124,25 +167,6 @@
             </b-modal>
     </b-colxx>
     </b-row>
-
-<b-button v-b-modal.modallg  variant="outline-primary" class="mb-2">{{ $t('modal.launch-small-modal') }}</b-button>
-            <b-modal id="modallg" size="lg" title="Large Modal" hide-footer>
-                Hello Modal!
-            </b-modal>
-    <!--<v-contextmenu ref="contextmenu">
-      <v-contextmenu-item @click="onContextMenuAction('copy')">
-        <i class="simple-icon-docs" />
-        <span>Copy</span>
-      </v-contextmenu-item>
-      <v-contextmenu-item @click="onContextMenuAction('move-to-archive')">
-        <i class="simple-icon-drawer" />
-        <span>Move to archive</span>
-      </v-contextmenu-item>
-      <v-contextmenu-item @click="onContextMenuAction('delete')">
-        <i class="simple-icon-trash" />
-        <span>Delete</span>
-      </v-contextmenu-item>
-    </v-contextmenu>-->
   </div>
 </template>
 <script>// @ts-nocheck
@@ -386,6 +410,7 @@ export default {
       .then(res=>{
         if(!res.data.error){
           this.agentDetails = res.data.data[0].account_vehicles;
+          this.RightmodalData = {"wallet":res.data.data[0].agent_wallet,"type":res.data.data[0].agent_type,"port":res.data.data[0].port}
           console.log(this.agentDetails)
           this.isFetched = true;
           return;
