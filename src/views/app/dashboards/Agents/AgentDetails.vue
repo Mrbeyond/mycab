@@ -70,21 +70,21 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-           <template slot="wallet" slot-scope="props">
+           <!-- <template slot="wallet" slot-scope="props">
              <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
-          </template>
-          <template slot="agent" slot-scope="props">
+          </template> -->
+          <!-- <template slot="agent" slot-scope="props">
           <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
-          </template>
-            <template slot="accve" slot-scope="props">
+          </template> -->
+            <!-- <template slot="accve" slot-scope="props">
             <b-button class="bg-primary">View</b-button>
-            </template>
-            <template slot="nfc_terminals" slot-scope="props">
+            </template> -->
+            <!-- <template slot="nfc_terminals" slot-scope="props">
             <b-button class="bg-primary">View</b-button>
-            </template>
-             <template slot="port" slot-scope="props">
+            </template> -->
+             <!-- <template slot="port" slot-scope="props">
              <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
-            </template>
+            </template> -->
 
           <!-- <div slot="new" >
             View
