@@ -5,10 +5,10 @@
             <router-link :to="`?p=${data.id}`" class="w-5 w-sm-100">
 <!--                <p class="list-item-heading mb-0 truncate">{{data.id}}</p>-->
              <qr-code
-               text="data.system_identifier"
-               width="250"
-               height="250"
-               size="250"
+               :text="data.system_identifier"
+               :width="250"
+               :height="250"
+               :size="250"
              />
             </router-link>
             <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.tag_no}}</p>
