@@ -46,7 +46,7 @@
              <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>Preview</b-button>
           </template>
             <template slot="details" slot-scope="props">
-              <router-link :to="`/dashboard/agents/${props.rowData.id}`">
+              <router-link :to="`/dashboard/agents/${props.rowData.agent_wallet.agent_id}`">
             <b-button class="bg-primary">Full details</b-button>
               </router-link>
             </template>
