@@ -20,16 +20,15 @@
           
           @vuetable:row-clicked="rowClicked"
           -->
-          {{apiBase}}
-        <vuetable
+        <vuetable 
           ref="vuetable"
           class="table-divided order-with-arrow"
           :query-params="makeQueryParams"
           :per-page="perPage"
           :http-options="head"
-          :api-url="apiBase"
           :reactive-api-url="false"
           :fields="fields"
+          :data="agentDetails"
           pagination-path
           :row-class="onRowClass"
           @vuetable:pagination-data="onPaginationData"
@@ -189,70 +188,47 @@ export default {
 
       fields: [,
         {
-        name: "first_name",
-        sortField: "first_name",
-        title: "First Name",
+        name: "vehicle_model",
+        sortField: "vehicle_model",
+        title: "Vehicle model",
         titleClass: "",
         dataClass: "list-item-heading",
         width: "10%"
         },
         {
-          name:"last_name",
-          sortField: "last_name",
-          title: "Last Name",
+          name:"vehicle_brand",
+          sortField: "vehicle_brand",
+          title: "Vehicle brand",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
        
         {
-          name: "phone",
-          sortField: "phone",
-          title: "Phone",
+          name: "vehicle_color",
+          sortField: "vehicle_color",
+          title: "Vehicle color",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
          {
-          name: "__slot:wallet",
-          sortField: "wallet",
-          title: "Wallet",
+          name: "plate_number",
+          sortField: "plate_number",
+          title: "Plate number",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
           {
-          name: "__slot:agent",
-          sortField: "Type",
-          title: "Agent type",
+          name: "vehicle_year",
+          sortField: "vehicle_year",
+          title: "Vehicle year",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
-         {
-          name: "__slot:accve",
-          sortField: "Account vehicles",
-          title: "Account vehicles",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
-        },
-         {
-          name: "__slot:nfc_terminals",
-          // sortField: "Account vehicles",
-          title: "NFC terminals",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
-        },
-          {
-          name: "__slot:port",
-          // sortField: "Account vehicles",
-          title: "Port",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
-        },
+        
         //  {
         //   name: "__slot:actions",
         //   title: "Action",
@@ -406,11 +382,10 @@ export default {
       );
     },
     fetchagent(id){
-        console.log(`${this.apiBase}/${id}`)
       Axios.get(`${this.apiBase}/${id}`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
-          this.agentDetails = res.data;
+          this.agentDetails = res.data.data[0].account_vehicles;
           console.log(this.agentDetails)
           this.isFetched = true;
           return;
@@ -441,12 +416,12 @@ export default {
   watch: {
   },
   mounted() {
-    //     this.paramId = this.$router.currentRoute.params.id
-    //   console.log(this.paramId)
+    this.paramId = this.$router.currentRoute.params.id
+       this.fetchagent(this.paramId)
       },
   created(){
-      this.paramId = this.$router.currentRoute.params.id
-       this.fetchagent(this.paramId)
+    //   this.paramId = this.$router.currentRoute.params.id
+    //    this.fetchagent(this.paramId)
 
     // this.apiBase= `${PROXY}admin/agent/details/${this.paramId}`,
    
