@@ -231,7 +231,7 @@ export default {
       // this.$refs.contextmenu.show({ top: event.pageY, left: event.pageX });
     },
     onPaginationData(paginationData) {
-      console.log(paginationData);
+      // console.log(paginationData);
       this.from = paginationData.from;
       this.to = paginationData.to;
       this.total = paginationData.total;
@@ -300,8 +300,8 @@ export default {
   watch: {
   },
   created(){
-    console.log(this.head);
-    console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+    // console.log(this.head);
+    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>
