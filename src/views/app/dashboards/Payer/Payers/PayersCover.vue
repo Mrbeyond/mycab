@@ -17,6 +17,9 @@
       <b-colxx xxs="12">
           <!--:api-url="apiBase"
           @vuetable:row-clicked="alert(5)"
+
+          @vuetable:row-clicked="rowClicked"
+          @vuetable:cell-clicked="cellClicked"
           -->
         <vuetable
           ref="vuetable"
@@ -30,9 +33,7 @@
           pagination-path
           :row-class="onRowClass"
           @vuetable:pagination-data="onPaginationData"
-          @vuetable:row-clicked="rowClicked"
           @vuetable:cell-rightclicked="rightClicked"
-          @vuetable:cell-clicked="cellClicked"
         >
           <template slot="actions" slot-scope="props">
             <b-button ref="vehic" id="vehic"
@@ -92,7 +93,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable";
 import VuetablePaginationBootstrap from "../../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { PROXY } from '../../../../../constants/config';
-import { hToken, loadash } from '../../../../../constants/formKey';
+import { hToken/*, loadash*/ } from '../../../../../constants/formKey';
 import PayerSideDetails from './PayerSideDetails.vue';
 import PayerVehicles from './PayerVehicles.vue';
 // import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
@@ -210,9 +211,9 @@ export default {
     },
 
     cellClicked(item, field, event){
-      console.log(field, 'feild');
-      console.log(item, 'item');
-      console.log(event,'eve');
+      // console.log(field, 'feild');
+      // console.log(item, 'item');
+      // console.log(event,'eve');
     },
 
     rowClicked(dataItem, event) {
@@ -309,7 +310,7 @@ export default {
     },
     cellClick(event, payload){
       if(event.target.id === 'vehic'){
-        // console.log(payload);
+        console.log(payload);
         if(!payload.account_business_detail || !payload.account_business_detail.account_id) return;
         // this.selectedItemVehicles = payload;
         // this.$refs.modallg.show();
@@ -346,7 +347,7 @@ export default {
   },
   created(){
     // console.log(this.head);
-    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+    // console.log( loadash*/.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>

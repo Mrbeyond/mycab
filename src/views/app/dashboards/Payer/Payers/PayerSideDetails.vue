@@ -29,10 +29,6 @@
         </div>
       </div>
     </b-card>
-    <b-card class="mb-4 text-center">
-      <p class="card-text font-weight-semibold mb-0"></p>
-      <p class="lead text-center"></p>
-    </b-card>
   </div>
 </template>
 <script>
