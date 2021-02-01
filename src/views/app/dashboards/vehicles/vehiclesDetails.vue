@@ -14,9 +14,10 @@
       :total="total"
       :perPage="perPage"
     ></datatable-heading>-->
-       <b-row class="align-items-center mb-5 justify-content-center m-1" v-if="RightmodalData !=''">
-              <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+       <b-row class="align-items-center mb-5 justify-content-center m-1 row justify-content-between" v-if="RightmodalData !=''">
+              <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
                 <h1>Account</h1>
+                <div class="d-column d-md-flex justify-content-between">
                 <div v-if="RightmodalData.account !=null" >        
                 <p class="text-muted">First name</p>
                 <p >{{RightmodalData.account.first_name}}</p>
@@ -33,11 +34,13 @@
                 <p class="text-muted">Account No.</p>
                 <p >{{RightmodalData.account.account_no}}</p>
                 </div>
+                </div>
           </b-card>
                    
 
-          <b-card v-if="RightmodalData" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+          <b-card v-if="RightmodalData" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
                 <h1>Garage & Port</h1>
+                <div  class="d-column d-md-flex justify-content-between">
                 <div v-if="RightmodalData.garage !=null">        
                 <p class="text-muted">Name</p>
                 <p >{{RightmodalData.garage.name}}</p>
@@ -58,10 +61,12 @@
                 <p class="text-muted">Port</p>
                 <p >{{RightmodalData.port.name}}</p>
                 </div>
+                </div>
          </b-card>
 
-          <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+          <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
                 <h1>Type details</h1>
+                <div  class="d-column d-md-flex justify-content-between">
                 <div >        
                 <p class="text-muted">Name</p>
                 <p >{{RightmodalData.type.name}}</p>
@@ -69,6 +74,7 @@
                 <div>
                 <p class="text-muted">Amount</p>
                 <p >{{RightmodalData.type.amount}}</p>
+                </div>
                 </div>
          </b-card>
 
