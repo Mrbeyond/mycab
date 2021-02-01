@@ -85,4 +85,11 @@ export const plainTimeZone=(time)=>{
   return '';
 }
 
+export const statusA = ["Inactive", "Active"];
+export const statusS = ["Unsuccessfull", "Successfull"];
+
+export const toMoney = (val)=>{
+  return val;
+}
+
 export const loadash = window._.noConflict();
