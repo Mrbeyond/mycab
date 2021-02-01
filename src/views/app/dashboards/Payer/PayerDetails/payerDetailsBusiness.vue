@@ -1,14 +1,14 @@
 <template>
   <div class="row-item">
       <b-card class="mb-4">
-  <div v-if="selectedPayload">
+  <div v-if="PAYLOAD">
   <h3><strong>Business Account Details</strong></h3>
-    <div v-for="(item, i) in getKeys(selectedPayload, 1)" v-bind:key="i">
+    <div v-for="(item, i) in getKeys(PAYLOAD)" v-bind:key="i">
     <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
     <p class="mb-3">
       {{ item == "createdAt"?
-      formatDate(selectedPayload[item]): selectedPayload[item] === null? "Null":
-      selectedPayload[item]
+      formatDate(PAYLOAD[item]): PAYLOAD[item] === null? "Null":
+      PAYLOAD[item]
       }}
     </p>
     </div>

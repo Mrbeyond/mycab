@@ -36,10 +36,11 @@
         >
           <template slot="actions" slot-scope="props">
             <b-button ref="vehic" id="vehic"
-              @click="cellClick($event, props.rowData.account_vehicles)"
+              @click="cellClick($event, props.rowData)"
               variant="info"
             >
-              {{ props.rowData.account_vehicles.length }}
+            <!-- payload.account_business_detail.account_id-->
+              <i class="simple-icon-login"></i>
             </b-button>
           </template>
           <template slot="account_business_detail" slot-scope="props">
@@ -161,14 +162,14 @@ export default {
         },
         {
           name: "__slot:actions",
-          title: "Vehicles",
+          title: "Full Details",
           titleClass: "center aligned text-right",
           dataClass: "center aligned text-right",
           width: "10%"
         },
         {
           name: "__slot:account_business_detail",
-          title: "Account Details",
+          title: "Preview",
           titleClass: "center aligned text-right",
           dataClass: "center aligned text-right",
           width: "10%"
@@ -217,32 +218,32 @@ export default {
     rowClicked(dataItem, event) {
       // const itemId = dataItem.id;
       // console.log(dataItem)
-      this.selectedItemVehicles = dataItem.account_vehicles;
-      // this.$refs.modallg.show()
-      return;
-      if (event.shiftKey && this.selectedItems.length > 0) {
-        let itemsForToggle = this.items;
-        var start = this.getIndex(itemId, itemsForToggle, "id");
-        var end = this.getIndex(
-          this.selectedItems[this.selectedItems.length - 1],
-          itemsForToggle,
-          "id"
-        );
-        itemsForToggle = itemsForToggle.slice(
-          Math.min(start, end),
-          Math.max(start, end) + 1
-        );
-        this.selectedItems.push(
-          ...itemsForToggle.map(item => {
-            return item.id;
-          })
-        );
-        this.selectedItems = [...new Set(this.selectedItems)];
-      } else {
-        if (this.selectedItems.includes(itemId)) {
-          this.selectedItems = this.selectedItems.filter(x => x !== itemId);
-        } else this.selectedItems.push(itemId);
-      }
+      // this.selectedItemVehicles = dataItem.account_vehicles;
+      // // this.$refs.modallg.show()
+      // return;
+      // if (event.shiftKey && this.selectedItems.length > 0) {
+      //   let itemsForToggle = this.items;
+      //   var start = this.getIndex(itemId, itemsForToggle, "id");
+      //   var end = this.getIndex(
+      //     this.selectedItems[this.selectedItems.length - 1],
+      //     itemsForToggle,
+      //     "id"
+      //   );
+      //   itemsForToggle = itemsForToggle.slice(
+      //     Math.min(start, end),
+      //     Math.max(start, end) + 1
+      //   );
+      //   this.selectedItems.push(
+      //     ...itemsForToggle.map(item => {
+      //       return item.id;
+      //     })
+      //   );
+      //   this.selectedItems = [...new Set(this.selectedItems)];
+      // } else {
+      //   if (this.selectedItems.includes(itemId)) {
+      //     this.selectedItems = this.selectedItems.filter(x => x !== itemId);
+      //   } else this.selectedItems.push(itemId);
+      // }
     },
     rightClicked(dataItem, field, event) {
       event.preventDefault();
@@ -307,15 +308,16 @@ export default {
       );
     },
     cellClick(event, payload){
-      console.log({...payload});
       if(event.target.id === 'vehic'){
-        if(!payload || payload.length < 1) return;
-        this.selectedItemVehicles = payload;
-        this.$refs.modallg.show();
+        // console.log(payload);
+        if(!payload.account_business_detail || !payload.account_business_detail.account_id) return;
+        // this.selectedItemVehicles = payload;
+        // this.$refs.modallg.show();
+        this.$router.push(`payers/${payload.account_business_detail.account_id}`);
       }
       else if(event.target.id === 'view'){
         // this.selectedPayload = null;
-        console.log(this.selectedPayload);
+        // console.log(this.selectedPayload);
         let payLoad = {...payload};
         delete payLoad.account_vehicles;
         let copy = {...payLoad};
@@ -324,7 +326,7 @@ export default {
         let isBusiness = copy.is_business;
         delete payLoad.is_business;
         this.selectedPayload = [payLoad, account, isBusiness];
-        console.log(this.selectedPayload);
+        // console.log(this.selectedPayload);
         this.$refs.modalright.show();
       }
     }
