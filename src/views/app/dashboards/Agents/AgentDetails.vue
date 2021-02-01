@@ -20,28 +20,28 @@
           
           @vuetable:row-clicked="rowClicked"
           -->
-        <vuetable
+        <vuetable 
           ref="vuetable"
           class="table-divided order-with-arrow"
           :query-params="makeQueryParams"
           :per-page="perPage"
           :http-options="head"
-          :api-url="apiBase"
           :reactive-api-url="false"
           :fields="fields"
+          :data="agentDetails"
           pagination-path
           :row-class="onRowClass"
           @vuetable:pagination-data="onPaginationData"
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-          <div slot="ctions" >
+          <!-- <div slot="ctions" >
             hjjhjhjhjhj
             <b-button variant="success"
             {{ props.rowData.id }}
             >
             </b-button>
-          </div>
+          </div> -->
            <template slot="wallet" slot-scope="props">
              <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
           </template>
@@ -49,9 +49,7 @@
           <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
           </template>
             <template slot="accve" slot-scope="props">
-              <router-link :to="`/dashboard/agents/${props.rowData.id}`">
             <b-button class="bg-primary">View</b-button>
-              </router-link>
             </template>
             <template slot="nfc_terminals" slot-scope="props">
             <b-button class="bg-primary">View</b-button>
@@ -154,6 +152,7 @@ import VuetablePaginationBootstrap from "../../../../components/Common/VuetableP
 import { apiUrl, PROXY } from "../../../../constants/config";
 import { hToken, loadash } from "../../../../constants/formKey";
 import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
+import   Axios from 'axios'
 
 export default {
   props: ["title"],
@@ -164,9 +163,9 @@ export default {
   },
   data() {
     return {
-      head: {headers: hToken()},
+        head: {headers: hToken()},
       isLoad: false,
-      apiBase: `${PROXY}admin/agent/details`,//apiUrl + "/cakes/fordatatable",
+      paramId:'',
       sort: "",
       page: 1,
       perPage: 8,
@@ -179,76 +178,57 @@ export default {
       selectedItems: [],
       RightmodalData:"",
       RigthVery:"",
+      apiBase: "",
+      agentDetails:"",
+      apiBase:`${PROXY}admin/agent/details`,
+
 
       // isFetched: false,
       // isLoading: true,
 
       fields: [,
         {
-        name: "first_name",
-        sortField: "first_name",
-        title: "First Name",
+        name: "vehicle_model",
+        sortField: "vehicle_model",
+        title: "Vehicle model",
         titleClass: "",
         dataClass: "list-item-heading",
         width: "10%"
         },
         {
-          name:"last_name",
-          sortField: "last_name",
-          title: "Last Name",
+          name:"vehicle_brand",
+          sortField: "vehicle_brand",
+          title: "Vehicle brand",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
        
         {
-          name: "phone",
-          sortField: "phone",
-          title: "Phone",
+          name: "vehicle_color",
+          sortField: "vehicle_color",
+          title: "Vehicle color",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
          {
-          name: "__slot:wallet",
-          sortField: "wallet",
-          title: "Wallet",
+          name: "plate_number",
+          sortField: "plate_number",
+          title: "Plate number",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
           {
-          name: "__slot:agent",
-          sortField: "Type",
-          title: "Agent type",
+          name: "vehicle_year",
+          sortField: "vehicle_year",
+          title: "Vehicle year",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
-         {
-          name: "__slot:accve",
-          sortField: "Account vehicles",
-          title: "Account vehicles",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
-        },
-         {
-          name: "__slot:nfc_terminals",
-          // sortField: "Account vehicles",
-          title: "NFC terminals",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
-        },
-          {
-          name: "__slot:port",
-          // sortField: "Account vehicles",
-          title: "Port",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
-        },
+        
         //  {
         //   name: "__slot:actions",
         //   title: "Action",
@@ -267,12 +247,12 @@ export default {
     };
   },
   methods: {
-    modalinfo(wallet,type,port){
+      modalinfo(wallet,type,port){
     this.RightmodalData = {"wallet":wallet,"type":type,"port":port}
    console.log( this.RightmodalData)
     },
       hideModal (refname) {
-      this.$refs[refname].hide()
+          this.$refs[refname].hide()
       console.log('hide modal:: ' + refname)
 
       if (refname === 'modalnestedinline') {
@@ -400,7 +380,27 @@ export default {
         "context menu item clicked - " + action + ": ",
         this.selectedItems
       );
-    }
+    },
+    fetchagent(id){
+      Axios.get(`${this.apiBase}/${id}`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          this.agentDetails = res.data.data[0].account_vehicles;
+          console.log(this.agentDetails)
+          this.isFetched = true;
+          return;
+        }else{
+          this.isFetched = false;
+        }
+        this.isLoading = false;
+
+      })
+      .catch(err=>{
+        this.isFetched = false;
+        this.isLoading = false;
+
+      })
+    },
   },
   computed: {
     isSelectedAll() {
@@ -415,8 +415,17 @@ export default {
   },
   watch: {
   },
+  mounted() {
+    this.paramId = this.$router.currentRoute.params.id
+       this.fetchagent(this.paramId)
+      },
   created(){
-    console.log(this.head);
+    //   this.paramId = this.$router.currentRoute.params.id
+    //    this.fetchagent(this.paramId)
+
+    // this.apiBase= `${PROXY}admin/agent/details/${this.paramId}`,
+   
+    console.log(this.paramId);
     console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };

@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <!--<datatable-heading
@@ -15,27 +16,38 @@
     ></datatable-heading>-->
     <b-row>
       <b-colxx xxs="12">
+          <!--:api-url="apiBase"
+          @vuetable:row-clicked="alert(5)"
+          -->
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
-          :api-url="apiBase"
           :query-params="makeQueryParams"
           :per-page="perPage"
-          :reactive-api-url="true"
+          :http-options="head"
+          :api-url="apiBase"
+          :reactive-api-url="false"
           :fields="fields"
           pagination-path
           :row-class="onRowClass"
           @vuetable:pagination-data="onPaginationData"
-          @vuetable:row-clicked="rowClicked"
           @vuetable:cell-rightclicked="rightClicked"
+          @vuetable:cell-clicked="cellClicked"
         >
-          <template slot="actions" slot-scope="props">
-          <b-button>Click</b-button>
-           <!-- <b-form-checkbox
-              :checked="selectedItems.includes(props.rowData.id)"
-              class="itemCheck mb-0"
-            ></b-form-checkbox> -->
-          </template>
+          <div slot="ctions" >
+            hjjhjhjhjhj
+            <!--<b-button variant="success"
+            {{ props.rowData.id }}
+            >
+            </b-button>-->
+          </div>
+          <div slot="new" >
+
+            <b-button variant="danger" slot="new" slot-scope="news"
+            >
+            {{ news.rowData.id }}
+            </b-button>
+          </div>
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -45,7 +57,7 @@
       </b-colxx>
     </b-row>
 
-    <v-contextmenu ref="contextmenu">
+    <!--<v-contextmenu ref="contextmenu">
       <v-contextmenu-item @click="onContextMenuAction('copy')">
         <i class="simple-icon-docs" />
         <span>Copy</span>
@@ -58,14 +70,16 @@
         <i class="simple-icon-trash" />
         <span>Delete</span>
       </v-contextmenu-item>
-    </v-contextmenu>
+    </v-contextmenu>-->
   </div>
 </template>
-<script>
+<script>// @ts-nocheck
+
 import Vuetable from "vuetable-2/src/components/Vuetable";
-import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap";
-import { apiUrl } from "../../../../constants/config";
-// import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
+import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
+import { apiUrl, PROXY } from "../../../../constants/config";
+import { hToken, loadash } from "../../../../constants/formKey";
+import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {
   props: ["title"],
@@ -76,8 +90,9 @@ export default {
   },
   data() {
     return {
+      head: {headers: hToken()},
       isLoad: false,
-      apiBase: apiUrl + "/cakes/fordatatable",
+      apiBase: `${PROXY}admin/payer/details`,//apiUrl + "/cakes/fordatatable",
       sort: "",
       page: 1,
       perPage: 8,
@@ -89,53 +104,63 @@ export default {
       items: [],
       selectedItems: [],
 
-      fields: [
+      // isFetched: false,
+      // isLoading: true,
+
+      fields: [,
         {
-          name: "title",
-          sortField: "title",
-          title: "Name",
-          titleClass: "",
-          dataClass: "list-item-heading",
-          width: "50%"
+        name: "first_name",
+        sortField: "first_name",
+        title: "First Name",
+        titleClass: "",
+        dataClass: "list-item-heading",
+        width: "10%"
         },
         {
-          name: "sales",
-          sortField: "sales",
-          title: "Sales",
+          name:"last_name",
+          sortField: "last_name",
+          title: "Last Name",
           titleClass: "",
-          dataClass: "text-muted",
+          dataClass: "",
           width: "10%"
         },
         {
-          name: "stock",
-          sortField: "stock",
-          title: "Stock",
+          name: "account_no",
+          sortField: "account_no",
+          title: "Account no.",
           titleClass: "",
-          dataClass: "text-muted",
+          dataClass: "",
           width: "10%"
         },
         {
-          name: "category",
-          sortField: "category",
-          title: "Category",
+          name: "phone",
+          sortField: "phone",
+          title: "Phone",
           titleClass: "",
-          dataClass: "text-muted",
-          width: "25%"
+          dataClass: "",
+          width: "10%"
         },
         {
-          name: "__slot:actions",
-          title: "Action",
+          name: "ctions",
+          title: "Actions",
           titleClass: "center aligned text-right",
           dataClass: "center aligned text-right",
-          width: "5%"
+          width: "10%"
         },
         {
-          name: "__slot:act",
-          title: "",
+          name: "new",
+          title: "New",
           titleClass: "center aligned text-right",
           dataClass: "center aligned text-right",
-          width: "5%"
-        }
+          width: "10%"
+        },
+        // {
+        //   name: "account_vehicles",
+        //   title: "Vehicle",
+        //   titleClass: "center aligned text-right",
+        //   dataClass: "center aligned text-right",
+        //   width: "5%"
+        // }
       ]
     };
   },
@@ -164,8 +189,17 @@ export default {
       return "";
     },
 
+    cellClicked(item, field, event){
+      console.log(item, 'item');
+      console.log(field, 'feild');
+      console.log(event,'eve');
+    },
+
     rowClicked(dataItem, event) {
-      const itemId = dataItem.id;
+      // const itemId = dataItem.id;
+      console.log(dataItem)
+      alert();
+      return;
       if (event.shiftKey && this.selectedItems.length > 0) {
         let itemsForToggle = this.items;
         var start = this.getIndex(itemId, itemsForToggle, "id");
@@ -195,9 +229,10 @@ export default {
       if (!this.selectedItems.includes(dataItem.id)) {
         this.selectedItems = [dataItem.id];
       }
-      this.$refs.contextmenu.show({ top: event.pageY, left: event.pageX });
+      // this.$refs.contextmenu.show({ top: event.pageY, left: event.pageX });
     },
     onPaginationData(paginationData) {
+      console.log(paginationData);
       this.from = paginationData.from;
       this.to = paginationData.to;
       this.total = paginationData.total;
@@ -262,6 +297,12 @@ export default {
         this.selectedItems.length < this.items.length
       );
     }
+  },
+  watch: {
+  },
+  created(){
+    console.log(this.head);
+    console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>
