@@ -307,20 +307,23 @@ export default {
       );
     },
     cellClick(event, payload){
-      console.log(event,payload, payload.length);
+      console.log({...payload});
       if(event.target.id === 'vehic'){
         if(!payload || payload.length < 1) return;
         this.selectedItemVehicles = payload;
         this.$refs.modallg.show();
       }
       else if(event.target.id === 'view'){
-        delete payload.account_vehicles;
-        let copy = {...payload};
+        // this.selectedPayload = null;
+        console.log(this.selectedPayload);
+        let payLoad = {...payload};
+        delete payLoad.account_vehicles;
+        let copy = {...payLoad};
         let account = copy.account_business_detail;
-        delete payload.account_business_detail;
+        delete payLoad.account_business_detail;
         let isBusiness = copy.is_business;
-        delete payload.is_business;
-        this.selectedPayload = [payload, account, isBusiness];
+        delete payLoad.is_business;
+        this.selectedPayload = [payLoad, account, isBusiness];
         console.log(this.selectedPayload);
         this.$refs.modalright.show();
       }
