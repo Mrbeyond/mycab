@@ -14,36 +14,28 @@
       :total="total"
       :perPage="perPage"
     ></datatable-heading>-->
-       <b-row class="d-flex justify-content-between align-items-center mb-5 container">
-           <b-card v-if="RightmodalData.wallet !='' && RightmodalData.wallet !=null" class="text-center col-lg-4 shadow mb-3 pt-3" style="border-radius:20px" header="WALLET">
-              <b-list-group  class="mb-3">
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                  Balance
-                    <b-badge variant="primary" pill>{{RightmodalData.wallet.balance}}</b-badge>
-                  </b-list-group-item>
-
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Post paid balance
-                    <b-badge variant="primary" pill>{{RightmodalData.wallet.post_paid_balance}}</b-badge>
-                  </b-list-group-item>
-                </b-list-group>
+       <b-row class="align-items-center mb-5 justify-content-center m-1">
+              <b-card v-if="RightmodalData !='' && RightmodalData !=null" class="shadow-sm mb-3 col-12 pt-3" style="border-radius:20px">
+                <!-- <h1>Basic info</h1> -->
+                <div class="d-column d-md-flex justify-content-around row">
+                <!-- <div v-if="RightmodalData.wallet !=null"                                                                                                                                                                                                                                                                                                                                                                                                                                         >
+                </div> -->
+                <div v-if="RightmodalData.wallet !=null">
+                <p class="text-muted">Balance</p>
+                <p >{{RightmodalData.wallet.balance}}</p>
+                </div>
+                <div v-if="RightmodalData.type !=null">
+                <p class="text-muted">Agent  Type</p>
+                <p >{{RightmodalData.type.name}}</p>
+                </div>
+                <div v-if="RightmodalData.port !=null">
+                <p class="text-muted"> Port Name</p>
+                <p >{{RightmodalData.port.name}}</p>
+                </div>
+                </div>
+                
                    </b-card>
-
-                   <b-card v-if="RightmodalData.type !='' && RightmodalData.type !=null" class="text-center col-lg-3 shadow mb-3 pt-3" style="border-radius:20px" header="TYPE">
-              <b-list-group  class="mb-3">
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Name
-                    <b-badge variant="primary" pill>{{RightmodalData.type.name}}</b-badge>
-                  </b-list-group-item>
-
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Slug
-                    <b-badge variant="primary" pill>{{RightmodalData.type.slug}}</b-badge>
-                  </b-list-group-item>
-                </b-list-group>
-                   </b-card>
-
-                   <b-card v-if="RightmodalData.port !=''  && RightmodalData.port !=null" class="text-center col-lg-3 shadow pt-3" style="border-radius:20px" header="PORT">
+                   <!-- <b-card v-if="RightmodalData.port !=''  && RightmodalData.port !=null" class="text-center col-lg-3 shadow pt-3" style="border-radius:20px" header="PORT">
                 <b-list-group >
                   <b-list-group-item class="d-flex justify-content-between align-items-center">
                     Name
@@ -57,12 +49,12 @@
 
                   </b-list-group-item>
                 </b-list-group>
-                   </b-card>
+                   </b-card> -->
     </b-row>
 
     <b-row>
       <b-colxx xxs="12">
-          <h2 class="text-center">Account vehicles details</h2>
+          <h2 class="text-center">Registered vehicles</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
@@ -78,13 +70,6 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-          <!-- <div slot="ctions" >
-            hjjhjhjhjhj
-            <b-button variant="success"
-            {{ props.rowData.id }}
-            >
-            </b-button>
-          </div> -->
            <template slot="wallet" slot-scope="props">
              <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
           </template>
