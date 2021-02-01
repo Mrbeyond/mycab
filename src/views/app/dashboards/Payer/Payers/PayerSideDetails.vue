@@ -8,8 +8,8 @@
         <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
         <p class="mb-3">
           {{ item == "createdAt"?
-          formatDate(selectedPayload[0][item]): selectedPayload[0][item] === null? "Null":
-          selectedPayload[0][item]
+          formatDate(selectedPayload[0][item]): formatName(item) == "Status" ?
+          ensState(selectedPayload[0][item]): selectedPayload[0][item] == null? "No value": selectedPayload[0][item]
           }}
         </p>
         </div>
@@ -23,7 +23,7 @@
         <p class="mb-3">
           {{ item == "createdAt"?
           formatDate(selectedPayload[1][item]): selectedPayload[1][item] === null? "Null":
-          selectedPayload[1][item]
+           selectedPayload[1][item]
           }}
         </p>
         </div>
@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import { LUX_ZONE } from '../../../../../constants/formKey';
+import { LUX_ZONE, statusA } from '../../../../../constants/formKey';
 export default {
   props: ['selectedPayload'],
   methods:{
@@ -55,6 +55,10 @@ export default {
 
     formatDate(date){
       return LUX_ZONE(date);
+    },
+
+    ensState(val){
+      return statusA[Number(Boolean(!!Boolean(val)))];
     }
   }
   ,

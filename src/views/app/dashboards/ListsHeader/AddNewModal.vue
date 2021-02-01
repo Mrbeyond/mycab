@@ -1,7 +1,7 @@
 <template>
   <b-modal
-    id="modalright"
-    ref="modalright"
+    id="_modalright"
+    ref="_modalright"
     :title="modalTitle"
     modal-class="modal-right"
   >
@@ -15,12 +15,13 @@
     <template slot="modal-footer">
       <b-button
         variant="outline-secondary"
-        @click="hideModal('modalright')"
+        @click="hideModal('_modalright')"
       >{{ $t('pages.cancel') }}</b-button>
     </template>
   </b-modal>
 </template>
-<script>
+<script>// @ts-nocheck
+
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import AddAdmin from '@/views/app/dashboards/AdderForms/AddAdmin';
@@ -40,7 +41,7 @@ export default {
     AddAgent, AddCard, AddPayer, AddTag,
     AddTerminal,
   },
-  props: ["categories", "statuses", "formKey"],
+  props: ["opener", "formKey"],
   data() {
     return {
       ADD_ADMIN,
@@ -67,6 +68,18 @@ export default {
       this.$refs[refname].hide();
     }
   },
+
+  watch:{
+    opener(){
+      if(this.opener === true){
+        this.$refs['_modalright'].show();
+      }
+    }
+  },
+
+  // mounted(){
+  //   console.log(this.opener);
+  // },
 
   computed: {
     modalTitle(){

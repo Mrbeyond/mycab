@@ -78,7 +78,7 @@
     <div>
       <b-modal id="modallg" ref="modallg" size="xl" title="Payer vehicles" hide-footer>
           <div>
-            <PayerVehicles :localData="selectedItemVehicles " />
+            <!-- <PayerVehicles :localData="selectedItemVehicles " />-->
           </div>
       </b-modal>
     </div>
@@ -95,7 +95,7 @@ import VuetablePaginationBootstrap from "../../../../../components/Common/Vuetab
 import { PROXY } from '../../../../../constants/config';
 import { hToken/*, loadash*/ } from '../../../../../constants/formKey';
 import PayerSideDetails from './PayerSideDetails.vue';
-import PayerVehicles from './PayerVehicles.vue';
+// import PayerVehicles from './PayerVehicles.vue';
 // import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {
@@ -103,7 +103,7 @@ export default {
   components: {
     vuetable: Vuetable,
     "vuetable-pagination-bootstrap": VuetablePaginationBootstrap,
-    PayerVehicles,
+    // PayerVehicles,
     PayerSideDetails,
     // "datatable-heading": DatatableHeading
   },
@@ -346,6 +346,7 @@ export default {
   watch: {
   },
   created(){
+    // console.log(this.$route.path);
     // console.log(this.head);
     // console.log( loadash*/.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }

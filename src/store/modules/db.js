@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { PROXY } from '../../constants/config';
-import { ADMINS, AGENTS, CARDS, RES_KEY, hToken, TAGS, TERMINALS } from '../../constants/formKey';
+import { ADMINS, AGENTS, CARDS, RES_KEY, hToken, TAGS, TERMINALS, GARAGES, PORTS, LGS, AGENTTYPES } from '../../constants/formKey';
 
 export default {
   state: {
@@ -11,6 +11,10 @@ export default {
     tags: null,
     resKey: null,
     intendedPage: '',
+    ports:null,
+    garages:null,
+    lgs:null,
+    agentTypes:null,
 
   },
 
@@ -29,6 +33,16 @@ export default {
     agents: state=>state.agents,
 
     resKey: state=> state.resKey,
+
+    paorts: state=> state.paorts,
+
+    garages: state=> state.garages,
+
+    lgs: state=> state.lgs,
+
+    agentTypes: state=> state.agentTypes,
+
+
   },
 
   mutations: {
@@ -56,6 +70,26 @@ export default {
     [RES_KEY](state, payload){
       // console.log(payload.owner);
       state.resKey = payload;
+    },
+
+    [GARAGES](state, payload){
+      // console.log(payload.owner);
+      state.garages = payload;
+    },
+
+    [PORTS](state, payload){
+      // console.log(payload.owner);
+      state.ports = payload;
+    },
+
+    [LGS](state, payload){
+      // console.log(payload.owner);
+      state.lgs = payload;
+    },
+
+    [AGENTTYPES](state, payload){
+      // console.log(payload.owner);
+      state.agentTypes = payload;
     },
   },
 
@@ -177,6 +211,102 @@ export default {
     .catch(err => {
       if(err.response){
         commit(RES_KEY, {status:2, owner: TERMINALS});
+      }
+    })
+  },
+
+  [PORTS]({commit}){
+
+    Axios.get(`${PROXY}location/ports`, {headers: hToken()})
+    .then(res=>{
+      if(!res.data.error){
+        let payload;
+        try {
+          payload = res.data.data
+          commit(PORTS, payload);
+          commit(RES_KEY, {status:0, owner: PORTS});
+        } catch (e) {
+          commit(RES_KEY, {status:1, owner: PORTS});
+        }
+      }else{
+        commit(RES_KEY, {status:1, owner: PORTS});
+      }
+    })
+    .catch(err => {
+      if(err.response){
+        commit(RES_KEY, {status:2, owner: PORTS});
+      }
+    })
+  },
+
+  [GARAGES]({commit, id}){
+
+    Axios.get(`${PROXY}location/garages/${id}`, {headers: hToken()})
+    .then(res=>{
+      if(!res.data.error){
+        let payload;
+        try {
+          payload = res.data.data
+          commit(GARAGES, payload);
+          commit(RES_KEY, {status:0, owner: GARAGES});
+        } catch (e) {
+          commit(RES_KEY, {status:1, owner: GARAGES});
+        }
+      }else{
+        commit(RES_KEY, {status:1, owner: GARAGES});
+      }
+    })
+    .catch(err => {
+      if(err.response){
+        commit(RES_KEY, {status:2, owner: GARAGES});
+      }
+    })
+  },
+
+  [LGS]({commit}){
+
+    Axios.get(`${PROXY}location/local_governments`, {headers: hToken()})
+    .then(res=>{
+      if(!res.data.error){
+        let payload;
+        try {
+          payload = res.data.data
+          commit(LGS, payload);
+          commit(RES_KEY, {status:0, owner: LGS});
+        } catch (e) {
+          commit(RES_KEY, {status:1, owner: LGS});
+        }
+      }else{
+        commit(RES_KEY, {status:1, owner: LGS});
+      }
+    })
+    .catch(err => {
+      if(err.response){
+        commit(RES_KEY, {status:2, owner: LGS});
+      }
+    })
+  },
+
+  [AGENTTYPES]({commit}){
+
+    Axios.get(`${PROXY}admin/terminals`, {headers: hToken()})
+    .then(res=>{
+      if(!res.data.error){
+        let payload;
+        try {
+          payload = res.data.data
+          commit(AGENTTYPES, payload);
+          commit(RES_KEY, {status:0, owner: AGENTTYPES});
+        } catch (e) {
+          commit(RES_KEY, {status:1, owner: AGENTTYPES});
+        }
+      }else{
+        commit(RES_KEY, {status:1, owner: AGENTTYPES});
+      }
+    })
+    .catch(err => {
+      if(err.response){
+        commit(RES_KEY, {status:2, owner: AGENTTYPES});
       }
     })
   },

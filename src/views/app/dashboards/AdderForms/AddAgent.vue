@@ -35,6 +35,26 @@
                     <b-form-invalid-feedback v-if="!$v.agent_type.required">Please enter a type</b-form-invalid-feedback>
                     <b-form-invalid-feedback v-else-if="!$v.agent_type.numeric">Value must be a number</b-form-invalid-feedback>
                 </b-form-group>
+
+
+
+                <!--<b-form-group label="Agent type">
+                  <v-select v-model="get_type" :options="allTypes" :dir="direction" />
+                </b-form-group>
+
+                <b-form-group label="Add">
+                  <v-select v-model="vueSelectForm.single" :options="selectData" :dir="direction" />
+                </b-form-group>
+
+                <b-form-group label="Add">
+                  <v-select v-model="vueSelectForm.single" :options="selectData" :dir="direction" />
+                </b-form-group>
+
+                <b-form-group label="Add">
+                  <v-select v-model="vueSelectForm.single" :options="selectData" :dir="direction" />
+                </b-form-group>-->
+
+
                 <b-form-group label="Garage id">
                     <b-form-input type="text" v-model="$v.garage_id.$model" :state="!$v.garage_id.$error" />
                     <b-form-invalid-feedback v-if="!$v.garage_id.required">Please enter a value</b-form-invalid-feedback>
@@ -88,7 +108,44 @@ export default {
       garage_id: "",
       submitting: false,
       variant: "success",
-      resMessage: ""
+      resMessage: "",
+      allTypes: [ "Port", "Commercial"],
+      typeColl: [],
+      garages: [],
+      lgs: [
+        {
+          name:"oshodi",
+          garages: [
+            {name: "one", id: 1},
+            {name: "two", id: 2},
+            {name: "three", id: 3},
+            {name: "four", id: 4},
+            {name: "five", id: 5},
+          ]
+        },
+        {
+          name:"apapa",
+          garages: [
+            {name: "one", id: 6},
+            {name: "two", id: 7},
+            {name: "three", id: 8},
+            {name: "four", id: 9},
+            {name: "five", id: 10},
+          ]
+        },
+        {
+          name:"epe",
+          garages: [
+            {name: "one", id: 11},
+            {name: "two", id: 12},
+            {name: "three", id: 13},
+            {name: "four", id: 14},
+            {name: "five", id: 15},
+          ]
+        },
+      ],
+
+
     };
   },
   mixins: [validationMixin],
@@ -168,7 +225,58 @@ export default {
         this.$bvToast.show("example-toast");
         this.submitting = false;
       })
+  },
+
+  getLGS(){
+
+  },
+
+  processType(){
+
+  },
+
+  processGarage(){
+
+  },
+
+  getPorts(){
+     Axios.get(`${PROXY}location/ports`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+
+          this.variant = "success";
+          this.resMessage = res.data.message;
+          this.$refs.form.reset();
+        }else{
+          this.variant = "danger";
+          this.resMessage = "Something went wrong, please retry"
+          // commit('setError', "Something went wrong");
+        }
+        this.$bvToast.show("example-toast");
+        this.submitting = false;
+      })
+      .catch(err=>{
+       this.variant = "danger";
+        if(err && err.response){
+         if(err.response.data && err.response.data.message){
+           this.resMessage = err.response.data.message
+         }else{
+          this.resMessage = "Something went wrong, please retry"
+         }
+        }
+
+        this.$bvToast.show("example-toast");
+        this.submitting = false;
+      })
+
+  },
+
+  getGarage(){
+
   }
+
+
+
 }
 };
 </script>

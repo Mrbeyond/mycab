@@ -7,6 +7,10 @@ export const ADD_CV = "add_commercial";
 export const ADD_IV = "add_imported";
 export const ADD_WALLET= "add_wallet";
 export const ADD_TERMINAL = "add_terminal";
+export const ADD_LG = "add_lg";
+export const ADD_PORT = "add_port";
+export const ADD_GARAGE = "add_garage";
+export const ADD_AGENT_TYPE = "add_agent_type";
 
 
 export const ADMINS = "ADMINS";
@@ -16,6 +20,10 @@ export const TERMINALS = "TERMINALS";
 export const TAGS = "TAGS";
 export const RES_KEY = "RES_KEY";
 export const VEHICLES = "VEHICLES";
+export const PORTS = "PORTS";
+export const LGS = "LGS";
+export const GARAGES = "GARAGES";
+export const AGENTTYPES = "AGENTTYPES";
 
 export const hToken=()=>{
   try {
@@ -89,7 +97,9 @@ export const statusA = ["Inactive", "Active"];
 export const statusS = ["Unsuccessfull", "Successfull"];
 
 export const toMoney = (val)=>{
-  return val;
+  return parseInt(val).toLocaleString();
 }
+
+
 
 export const loadash = window._.noConflict();
