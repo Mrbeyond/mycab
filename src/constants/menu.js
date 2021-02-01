@@ -20,26 +20,26 @@ const data = [
     label: "menu.payers",
     to: `${adminRoot}/payers`,
     // roles: [UserRole.Admin, UserRole.Editor],,
-    subs:[
-      {
-        icon: "simple-icon-people",
-        label: "menu.all-payers",
-        to: `${adminRoot}/payers`,
-        // roles: [UserRole.Admin, UserRole.Editor],
-        },
-      {
-      icon: "simple-icon-plus",
-      label: "menu.add-payer",
-      to: `${adminRoot}/add-payer`,
-      // roles: [UserRole.Admin, UserRole.Editor],
-      },
-      {
-        icon: "simple-icon-credit-card",
-        label: "menu.payers-cards",
-        to: `${adminRoot}/payers-cards`,
-        // roles: [UserRole.Admin, UserRole.Editor],
-      }
-    ]
+    // subs:[
+    //   {
+    //     icon: "simple-icon-people",
+    //     label: "menu.all-payers",
+    //     to: `${adminRoot}/payers`,
+    //     // roles: [UserRole.Admin, UserRole.Editor],
+    //     },
+    //   {
+    //   icon: "simple-icon-plus",
+    //   label: "menu.add-payer",
+    //   to: `${adminRoot}/add-payer`,
+    //   // roles: [UserRole.Admin, UserRole.Editor],
+    //   },
+    //   {
+    //     icon: "simple-icon-credit-card",
+    //     label: "menu.payers-cards",
+    //     to: `${adminRoot}/payers-cards`,
+    //     // roles: [UserRole.Admin, UserRole.Editor],
+    //   }
+    // ]
   },
   {id:"agents",
   icon:"simple-icon-people",
