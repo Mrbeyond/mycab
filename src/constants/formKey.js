@@ -15,6 +15,7 @@ export const CARDS = "CARDS";
 export const TERMINALS = "TERMINALS";
 export const TAGS = "TAGS";
 export const RES_KEY = "RES_KEY";
+export const VEHICLES = "VEHICLES";
 
 export const hToken=()=>{
   try {

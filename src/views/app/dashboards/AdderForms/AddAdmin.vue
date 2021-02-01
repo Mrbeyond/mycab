@@ -84,6 +84,7 @@ export default {
 
       submitting: false,
       resMessage: "",
+      variant: "success",
     };
   },
   mixins: [validationMixin],

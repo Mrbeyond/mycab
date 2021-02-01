@@ -1,204 +1,299 @@
+
 <template>
-  <b-row>
-    <b-colxx class="disable-text-selection">
-      <list-page-heading
-        :title="$t('menu.agents')"
-        :selectAll="selectAll"
-        :isSelectedAll="isSelectedAll"
-        :isAnyItemSelected="isAnyItemSelected"
-        :keymap="keymap"
-        :displayMode="displayMode"
-        :changeDisplayMode="changeDisplayMode"
-        :changeOrderBy="changeOrderBy"
-        :changePageSize="changePageSize"
-        :sort="sort"
-        :searchChange="searchChange"
-        :from="from"
-        :to="to"
-        :total="total"
-        :perPage="perPage"
-        :sortOptions="sortOptions"
-        :formKey="ADD_AGENT"
-      ></list-page-heading>
-      <template v-if="isLoad">
-        <agent-page-listing
-          :displayMode="displayMode"
-          :items="agents"
-          :selectedItems="selectedItems"
-          :toggleItem="toggleItem"
-          :lastPage="lastPage"
-          :perPage="perPage"
-          :page="page"
-          :changePage="changePage"
-          :handleContextMenu="handleContextMenu"
-          :onContextMenuAction="onContextMenuAction"
-        ></agent-page-listing>
-      </template>
-      <template v-else>
-        <div class="loading"></div>
-      </template>
+  <div>
+    <!--<datatable-heading
+      :title="$t('menu.divided-table')"
+      :selectAll="selectAll"
+      :isSelectedAll="isSelectedAll"
+      :isAnyItemSelected="isAnyItemSelected"
+      :keymap="keymap"
+      :changePageSize="changePageSize"
+      :searchChange="searchChange"
+      :from="from"
+      :to="to"
+      :total="total"
+      :perPage="perPage"
+    ></datatable-heading>-->
+    <b-row>
+      <b-colxx xxs="12">
+          <!--:api-url="apiBase"
+          
+          @vuetable:row-clicked="rowClicked"
+          -->
+        <vuetable
+          ref="vuetable"
+          class="table-divided order-with-arrow"
+          :query-params="makeQueryParams"
+          :per-page="perPage"
+          :http-options="head"
+          :api-url="apiBase"
+          :reactive-api-url="false"
+          :fields="fields"
+          pagination-path
+          :row-class="onRowClass"
+          @vuetable:pagination-data="onPaginationData"
+          @vuetable:cell-rightclicked="rightClicked"
+          @vuetable:cell-clicked="cellClicked"
+        >
+          <div slot="ctions" >
+            hjjhjhjhjhj
+            <b-button variant="success"
+            {{ props.rowData.id }}
+            >
+            </b-button>
+          </div>
+           <template slot="preview" slot-scope="props">
+             <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>Preview</b-button>
+          </template>
+            <template slot="details" slot-scope="props">
+              <router-link :to="`/dashboard/agents/${props.rowData.agent_wallet.agent_id}`">
+            <b-button class="bg-primary">Full details</b-button>
+              </router-link>
+            </template>
+        </vuetable>
+        <vuetable-pagination-bootstrap
+          class="mt-4"
+          ref="pagination"
+          @vuetable-pagination:change-page="onChangePage"
+        />
+      </b-colxx>
+
+       <b-colxx xxs="12">
+            <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
+                 <b-card v-if="RightmodalData !='' && RightmodalData !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+                <h1>Basic info</h1>
+                <div v-if="RightmodalData.wallet !=null">                                                                                                                                                                                                                                                                                                                                                                                                                                           >
+                <p class="text-muted">Balance</p>
+                <p >{{RightmodalData.wallet.balance}}</p>
+                </div>
+                <div v-if="RightmodalData.type !=null">
+                <p class="text-muted">Agent  Type</p>
+                <p >{{RightmodalData.type.name}}</p>
+                </div>
+                <div v-if="RightmodalData.port !=null">
+                <p class="text-muted"> Port Name</p>
+                <p >{{RightmodalData.port.name}}</p>
+                </div>
+                
+                   </b-card>
+                    <template slot="modal-footer">
+                    <b-button variant="secondary" @click="hideModal('modalright')">Cancel</b-button>
+                </template>
+            </b-modal>
     </b-colxx>
-  </b-row>
+    </b-row>
+    <!--<v-contextmenu ref="contextmenu">
+      <v-contextmenu-item @click="onContextMenuAction('copy')">
+        <i class="simple-icon-docs" />
+        <span>Copy</span>
+      </v-contextmenu-item>
+      <v-contextmenu-item @click="onContextMenuAction('move-to-archive')">
+        <i class="simple-icon-drawer" />
+        <span>Move to archive</span>
+      </v-contextmenu-item>
+      <v-contextmenu-item @click="onContextMenuAction('delete')">
+        <i class="simple-icon-trash" />
+        <span>Delete</span>
+      </v-contextmenu-item>
+    </v-contextmenu>-->
+  </div>
 </template>
+<script>// @ts-nocheck
 
-<script>
-import { PROXY } from "./../../../../constants/config";
-import {hToken} from './../../../../constants/formKey'
-import Axios from 'axios';
-import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
-import AgentListing from "./AgentListing";
-// import ConversionRatesChartCard from "../../../containers/dashboards/ConversionRatesChartCard";
-// import OrderStockRadarChart from "../../../containers/dashboards/OrderStockRadarChart";
-// import ProductCategoriesDoughnut from "../../../containers/dashboards/ProductCategoriesDoughnut";
-// import ProductCategoriesPolarArea from "../../../containers/dashboards/ProductCategoriesPolarArea";
-// import ProfileStatuses from "../../../containers/dashboards/ProfileStatuses";
-// import SalesChartCard from "../../../containers/dashboards/SalesChartCard";
-// import SmallLineCharts from "../../../containers/dashboards/SmallLineCharts";
-// import SortableStaticticsRow from "../../../containers/dashboards/SortableStaticticsRow";
-// import AgentsCard from "../../../containers/dashboards/AgentsCard";
-import {ADD_AGENT} from './../../../../constants/formKey';
-
+import Vuetable from "vuetable-2/src/components/Vuetable.vue";
+import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
+import { apiUrl, PROXY } from "../../../../constants/config";
+import { hToken, loadash } from "../../../../constants/formKey";
+import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {
-
+  props: ["title"],
   components: {
-    "list-page-heading": ListPageHeading,
-    "agent-page-listing": AgentListing
+    vuetable: Vuetable,
+    "vuetable-pagination-bootstrap": VuetablePaginationBootstrap,
+    // "datatable-heading": DatatableHeading
   },
   data() {
     return {
-      ADD_AGENT,
-        sortOptions: [
-        {
-          column: "firstname",
-          label: "firstname"
-        },
-         {
-          column: "lastname",
-          label: "Lastname"
-        },
-          {
-          column: "id",
-          label: "id"
-        },
-        {
-          column: "agent_type",
-          label: "Agent_type"
-        },
-        {
-          column: "phone",
-          label: "Phone"
-        }
-      ],
-
-       sort: {
-        column: "firstname",
-        label: "Name"
-      },
-         agents: [
-        {
-          firstname: 'Stephanie',
-          lastname: 'Sunday',
-          agent_type: 'commercial',
-          garage:"Sabo Ogbomoso",
-          phone:"0908924664567",
-          img:"/assets/img/agents/agent1.jfif"
-        },
-         {
-          firstname: 'Bola',
-          lastname: 'Sunday',
-          agent_type: 'commercial',
-          garage:"Sabo Ogbomoso",
-          phone:"0908924664567",
-          img:"/assets/img/agents/agent2.jfif"
-
-        },
-         {
-           firstname: 'Victor',
-          lastname: 'Ogunniran',
-          agent_type: 'commercial',
-          garage:"Taki Ogbomoso",
-          phone:"080892656764567",
-          img:"/assets/img/agents/agent3.jfif"
-
-        },
-         {
-          firstname: 'Sola',
-          lastname: 'Jonson',
-          agent_type: 'commercial',
-          garage:"Hojo Ibadan",
-          phone:"0908924789889",
-          img:"/assets/img/agents/agent4.jfif"
-        },
-      ],
-      isLoad: true,
-      apiBase: PROXY + "",
-      displayMode: "list",
-      sort: {
-        column: "firstname",
-        label: "firstname"
-      },
+      head: {headers: hToken()},
+      isLoad: false,
+      apiBase: `${PROXY}admin/agent/details`,//apiUrl + "/cakes/fordatatable",
+      sort: "",
       page: 1,
-      perPage: 4,
+      perPage: 8,
       search: "",
       from: 0,
       to: 0,
       total: 0,
       lastPage: 0,
       items: [],
-      paramName:"",
-      selectedItems: []
+      selectedItems: [],
+      RightmodalData:"",
+      RigthVery:"",
+
+      // isFetched: false,
+      // isLoading: true,
+
+      fields: [,
+        {
+        name: "first_name",
+        sortField: "first_name",
+        title: "First Name",
+        titleClass: "",
+        dataClass: "list-item-heading",
+        width: "10%"
+        },
+        {
+          name:"last_name",
+          sortField: "last_name",
+          title: "Last Name",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+       
+        {
+          name: "phone",
+          sortField: "phone",
+          title: "Phone",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+         {
+          name: "__slot:preview",
+          sortField: "preview",
+          title: "preview",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+          {
+          name: "__slot:details",
+          sortField: "details",
+          title: "Full details",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+        //  {
+        //   name: "__slot:actions",
+        //   title: "Action",
+        //   titleClass: "center aligned text-right",
+        //   dataClass: "center aligned text-right",
+        //   width: "5%"
+        // },
+        // {
+        //   name: "account_vehicles",
+        //   title: "Vehicle",
+        //   titleClass: "center aligned text-right",
+        //   dataClass: "center aligned text-right",
+        //   width: "5%"
+        // }
+      ]
     };
   },
   methods: {
-    loadItems() {
-      this.isLoad = false;
-           let resp = this.sort.column
-        this.items =  this.agents
-        .sort(function(a, b){
-          var x = a[resp]; var y = b[resp]
-          return ((x > y) ? 1 : ((x < y) ? -1 : 0))
-            });
-          this.isLoad = true;
-          console.log(this.items)
-      // Axios
-      //   .get(`${this.PROXY}`,{headers:hToken()})
-      //   .then(response => {
-      //     return response.data;
-      //   })
-      //   .then(res => {
-      //     console.log(res)
-      //     this.total = res.total;
-      //     this.from = res.from;
-      //     this.to = res.to;
+    modalinfo(wallet,type,port){
+    this.RightmodalData = {"wallet":wallet,"type":type,"port":port}
+   console.log( this.RightmodalData)
+    },
+      hideModal (refname) {
+      this.$refs[refname].hide()
+      console.log('hide modal:: ' + refname)
 
-      //   //   this.items = res.data.map(x => {
-      //   //     return {
-      //   //       ...x,
-      //   //       img: x.img.replace("/img/", "/img/products/")
-      //   //     };
-      //   //   });
-      //     this.perPage = res.per_page;
-      //     this.selectedItems = [];
-      //     this.lastPage = res.last_page;
-      //     this.isLoad = true;
-      //   });
+      if (refname === 'modalnestedinline') {
+        this.$refs['modalnested'].show()
+      }
+    },
+    makeQueryParams(sortOrder, currentPage, perPage) {
+      this.selectedItems = [];
+      return sortOrder[0]
+        ? {
+            sort: sortOrder[0]
+              ? sortOrder[0].field + "|" + sortOrder[0].direction
+              : "",
+            page: currentPage,
+            per_page: this.perPage,
+            search: this.search
+          }
+        : {
+            page: currentPage,
+            per_page: this.perPage,
+            search: this.search
+          };
+    },
+    onRowClass(dataItem, index) {
+      if (this.selectedItems.includes(dataItem.id)) {
+        return "selected";
+      }
+      return "";
     },
 
-    changeDisplayMode(displayType) {
-      this.displayMode = displayType;
+    cellClicked(item, field, event){
+      alert()
+      console.log(item, 'item');
+      console.log(field, 'feild');
+      console.log(event,'eve');
     },
+
+    rowClicked(dataItem, event) {
+      // const itemId = dataItem.id;
+      console.log(dataItem)
+      alert();
+      return;
+      if (event.shiftKey && this.selectedItems.length > 0) {
+        let itemsForToggle = this.items;
+        var start = this.getIndex(itemId, itemsForToggle, "id");
+        var end = this.getIndex(
+          this.selectedItems[this.selectedItems.length - 1],
+          itemsForToggle,
+          "id"
+        );
+        itemsForToggle = itemsForToggle.slice(
+          Math.min(start, end),
+          Math.max(start, end) + 1
+        );
+        this.selectedItems.push(
+          ...itemsForToggle.map(item => {
+            return item.id;
+          })
+        );
+        this.selectedItems = [...new Set(this.selectedItems)];
+      } else {
+        if (this.selectedItems.includes(itemId)) {
+          this.selectedItems = this.selectedItems.filter(x => x !== itemId);
+        } else this.selectedItems.push(itemId);
+      }
+    },
+    rightClicked(dataItem, field, event) {
+      event.preventDefault();
+      if (!this.selectedItems.includes(dataItem.id)) {
+        this.selectedItems = [dataItem.id];
+      }
+      // this.$refs.contextmenu.show({ top: event.pageY, left: event.pageX });
+    },
+    onPaginationData(paginationData) {
+      console.log(paginationData);
+      this.from = paginationData.from;
+      this.to = paginationData.to;
+      this.total = paginationData.total;
+      this.lastPage = paginationData.last_page;
+      this.items = paginationData.data;
+      this.$refs.pagination.setPaginationData(paginationData);
+    },
+    onChangePage(page) {
+      this.$refs.vuetable.changePage(page);
+    },
+
     changePageSize(perPage) {
-      this.page = 1;
       this.perPage = perPage;
+      this.$refs.vuetable.refresh();
     },
-    changeOrderBy(sort) {
-      this.sort = sort;
-      this.loadItems()
-    },
+
     searchChange(val) {
       this.search = val;
-      this.page = 1;
+      this.$refs.vuetable.refresh();
     },
 
     selectAll(isToggle) {
@@ -226,43 +321,12 @@ export default {
       }
       return -1;
     },
-    toggleItem(event, itemId) {
-      if (event.shiftKey && this.selectedItems.length > 0) {
-        let itemsForToggle = this.items;
-        var start = this.getIndex(itemId, itemsForToggle, "id");
-        var end = this.getIndex(
-          this.selectedItems[this.selectedItems.length - 1],
-          itemsForToggle,
-          "id"
-        );
-        itemsForToggle = itemsForToggle.slice(
-          Math.min(start, end),
-          Math.max(start, end) + 1
-        );
-        this.selectedItems.push(
-          ...itemsForToggle.map(item => {
-            return item.id;
-          })
-        );
-      } else {
-        if (this.selectedItems.includes(itemId)) {
-          this.selectedItems = this.selectedItems.filter(x => x !== itemId);
-        } else this.selectedItems.push(itemId);
-      }
-    },
-    handleContextMenu(vnode) {
-      if (!this.selectedItems.includes(vnode.key)) {
-        this.selectedItems = [vnode.key];
-      }
-    },
+
     onContextMenuAction(action) {
       console.log(
         "context menu item clicked - " + action + ": ",
         this.selectedItems
       );
-    },
-    changePage(pageNum) {
-      this.page = pageNum;
     }
   },
   computed: {
@@ -274,31 +338,13 @@ export default {
         this.selectedItems.length > 0 &&
         this.selectedItems.length < this.items.length
       );
-    },
-    apiUrl() {
-      return `${this.apiBase}?sort=${this.sort.column}&page=${this.page}&per_page=${this.perPage}&search=${this.search}`;
     }
-
   },
   watch: {
-    search() {
-      this.page = 1;
-    },
-    apiUrl() {
-      this.loadItems();
-    }
   },
-   mounted: function(){
-      this.paramName =this.$router.currentRoute.params.name
-      console.log(this.paramName)
-        this.loadItems();
-  },
- watch: {
-    $route(to, from) {
-      this.paramName = to.params.name
-      console.log(this.paramName)
-
-    }
+  created(){
+    console.log(this.head);
+    console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>

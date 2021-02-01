@@ -46,7 +46,7 @@ export default {
         delete data[index].updatedAt;
 
       }
-      return Object.keys(data[index]);
+      return Object.keys(data[index]).filter(data=> !data.toString().includes('id'));
     },
 
     formatName(name){
