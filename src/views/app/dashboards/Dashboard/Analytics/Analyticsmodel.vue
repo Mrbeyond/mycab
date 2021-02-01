@@ -13,7 +13,7 @@
       </b-colxx>  -->
         <icons-cards :analytic="analytic"></icons-cards>
     </b-row>
-    
+
   <!-- <b-row>
 <b-colxx xl="6" lg="12" md="12" class="mb-4">
         <profile-statuses :analytic="analytic"></profile-statuses>
@@ -80,7 +80,6 @@ export default {
     "sortable-statictics-row": SortableStaticticsRow,
     "website-visit-chart-card": WebsiteVisitsChartCard,
     "icons-cards": IconCardsCarousel
-
   }
 };
 </script>
