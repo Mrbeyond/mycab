@@ -16,13 +16,10 @@
     ></datatable-heading>-->
     <b-row>
       <b-colxx xxs="12">
-<<<<<<< HEAD
-=======
           <!--:api-url="apiBase"
 
           @vuetable:row-clicked="rowClicked"
           -->
->>>>>>> 9f17882c5cbfaa2c7cfc18fb8acea2424c0358c7
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
