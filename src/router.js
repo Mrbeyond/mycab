@@ -76,14 +76,15 @@ const routes = [
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Payer/Payers/PayersCover.vue"),
           // redirect: `${adminRoot}/dashboard/payers`,
         // meta: { roles: [UserRole.Admin, UserRole.Editor] },
-        children: [
-          {
-            path: "/:id",
-            component: () =>
-              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Payer/PayerDetails/PayerDetailsCover.vue"),
-            // meta: { roles: [UserRole.Admin] },
-          },
-        ]
+        // children: [
+
+        // ]
+      },
+      {
+        path: "payers/:id",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Payer/PayerDetails/PayerDetailsCover.vue"),
+        // meta: { roles: [UserRole.Admin] },
       },
       {
         path: "analytics",
@@ -517,6 +518,11 @@ const routes = [
   },
   {
     path: "*",
+    component: () => import(/* webpackChunkName: "error" */ "./views/Error")
+  }
+  ,
+  {
+    path: "/not-found",
     component: () => import(/* webpackChunkName: "error" */ "./views/Error")
   }
 ];
