@@ -42,30 +42,14 @@
             >
             </b-button>
           </div>
-           <template slot="wallet" slot-scope="props">
-             <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
+           <template slot="preview" slot-scope="props">
+             <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>Preview</b-button>
           </template>
-          <template slot="agent" slot-scope="props">
-          <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
-          </template>
-            <template slot="accve" slot-scope="props">
+            <template slot="details" slot-scope="props">
               <router-link :to="`/dashboard/agents/${props.rowData.id}`">
-            <b-button class="bg-primary">View</b-button>
+            <b-button class="bg-primary">Full details</b-button>
               </router-link>
             </template>
-            <template slot="nfc_terminals" slot-scope="props">
-            <b-button class="bg-primary">View</b-button>
-            </template>
-             <template slot="port" slot-scope="props">
-             <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
-            </template>
-
-          <!-- <div slot="new" >
-            View
-            <b-button variant="danger" slot="new" slot-scope="news">
-            {{ news.rowData.id }}
-            </b-button>
-          </div> -->
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -126,11 +110,6 @@
             </b-modal>
     </b-colxx>
     </b-row>
-
-<b-button v-b-modal.modallg  variant="outline-primary" class="mb-2">{{ $t('modal.launch-small-modal') }}</b-button>
-            <b-modal id="modallg" size="lg" title="Large Modal" hide-footer>
-                Hello Modal!
-            </b-modal>
     <!--<v-contextmenu ref="contextmenu">
       <v-contextmenu-item @click="onContextMenuAction('copy')">
         <i class="simple-icon-docs" />
@@ -210,41 +189,17 @@ export default {
           width: "10%"
         },
          {
-          name: "__slot:wallet",
-          sortField: "wallet",
-          title: "Wallet",
+          name: "__slot:preview",
+          sortField: "preview",
+          title: "preview",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
           {
-          name: "__slot:agent",
-          sortField: "Type",
-          title: "Agent type",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
-        },
-         {
-          name: "__slot:accve",
-          sortField: "Account vehicles",
-          title: "Account vehicles",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
-        },
-         {
-          name: "__slot:nfc_terminals",
-          // sortField: "Account vehicles",
-          title: "NFC terminals",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
-        },
-          {
-          name: "__slot:port",
-          // sortField: "Account vehicles",
-          title: "Port",
+          name: "__slot:details",
+          sortField: "details",
+          title: "Full details",
           titleClass: "",
           dataClass: "",
           width: "10%"
