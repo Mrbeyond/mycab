@@ -29,6 +29,15 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getCurrentLanguage } from './utils'
 
+import VueFusionCharts from 'vue-fusioncharts';
+import FusionCharts from 'fusioncharts';
+import Charts from 'fusioncharts/fusioncharts.charts';
+
+
+import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion'
+import TimeSeries from 'fusioncharts/fusioncharts.timeseries';
+Vue.use(VueFusionCharts, FusionCharts, Charts, FusionTheme, TimeSeries);
+
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);
 const messages = { en: en, es: es };

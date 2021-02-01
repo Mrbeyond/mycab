@@ -7,7 +7,7 @@
         </div>
       </b-card-body>
       <b-card-footer>
-        <p>Total agents: {{analytic.total_agents}}</p>
+          <p>Total agents: {{analytic.total_agents}}</p>
       </b-card-footer>
     </b-card>
 

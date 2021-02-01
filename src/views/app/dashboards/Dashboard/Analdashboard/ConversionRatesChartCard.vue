@@ -32,7 +32,26 @@ export default {
   },
   data() {
     return {
-      conversionChartData
+      conversionChartData: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [
+          {
+            label: '',
+            data: [65, 60, 68, 60, 58, 63, 60],
+            borderColor: colors.themeColor2,
+            pointBackgroundColor: colors.foregroundColor,
+            pointBorderColor: colors.themeColor2,
+            pointHoverBackgroundColor: colors.themeColor2,
+            pointHoverBorderColor: colors.foregroundColor,
+            pointRadius: 4,
+            pointBorderWidth: 2,
+            pointHoverRadius: 5,
+            fill: true,
+            borderWidth: 2,
+            backgroundColor: colors.themeColor2_10
+          }
+        ]
+      }
     };
   }
 };
