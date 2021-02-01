@@ -1,7 +1,7 @@
 <template>
   <div>
-    <datatable-heading
-      :title="$t('menu.scrollable')"
+    <!--<datatable-heading
+      :title="$t('menu.divided-table')"
       :selectAll="selectAll"
       :isSelectedAll="isSelectedAll"
       :isAnyItemSelected="isAnyItemSelected"
@@ -12,34 +12,41 @@
       :to="to"
       :total="total"
       :perPage="perPage"
-    ></datatable-heading>
-
+    ></datatable-heading>-->
     <b-row>
-      <b-colxx xxs="12">
-        <b-card>
-          <vuetable
-            table-height="360px"
-            ref="vuetable"
-            :api-url="apiBase"
-            class="order-with-arrow"
-            :query-params="makeQueryParams"
-            :per-page="perPage"
-            :reactive-api-url="true"
-            :fields="fields"
-            pagination-path
-            :row-class="onRowClass"
-            @vuetable:pagination-data="onPaginationData"
-            @vuetable:row-clicked="rowClicked"
-            @vuetable:cell-rightclicked="rightClicked"
-          >
-            <template slot="actions" slot-scope="props">
-              <b-form-checkbox
-                :checked="selectedItems.includes(props.rowData.id)"
-                class="itemCheck mb-0"
-              ></b-form-checkbox>
-            </template>
-          </vuetable>
-        </b-card>
+      <b-colxx  v-if="localData !== null" xxs="12">
+          <!--:api-url="apiBase"
+          @vuetable:row-clicked="alert(5)"
+          -->
+        <vuetable
+          ref="vuetable"
+          class="table-divided order-with-arrow"
+          :query-params="makeQueryParams"
+          :per-page="perPage"
+          :api-mode="false"
+          :data="localData"
+          :fields="fields"
+          pagination-path
+          :row-class="onRowClass"
+          @vuetable:pagination-data="onPaginationData"
+          @vuetable:cell-rightclicked="rightClicked"
+          @vuetable:cell-clicked="cellClicked"
+        >
+          <div slot="ctions" >
+            hjjhjhjhjhj
+            <!--<b-button variant="success"
+            {{ props.rowData.id }}
+            >
+            </b-button>-->
+          </div>
+          <div slot="new" >
+
+            <b-button variant="danger" slot="new" slot-scope="news"
+            >
+            {{ news.rowData.id }}
+            </b-button>
+          </div>
+        </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
           ref="pagination"
@@ -48,7 +55,7 @@
       </b-colxx>
     </b-row>
 
-    <v-contextmenu ref="contextmenu">
+    <!--<v-contextmenu ref="contextmenu">
       <v-contextmenu-item @click="onContextMenuAction('copy')">
         <i class="simple-icon-docs" />
         <span>Copy</span>
@@ -61,29 +68,32 @@
         <i class="simple-icon-trash" />
         <span>Delete</span>
       </v-contextmenu-item>
-    </v-contextmenu>
+    </v-contextmenu>-->
   </div>
 </template>
-<script>
+<script>// @ts-nocheck
+
 import Vuetable from "vuetable-2/src/components/Vuetable";
-import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap";
-import { apiUrl } from "../../../../constants/config";
-import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
+import { PROXY } from '../../../../../constants/config';
+import { hToken, loadash } from '../../../../../constants/formKey';
+import VuetablePaginationBootstrap from "../../../../../components/Common/VuetablePaginationBootstrap.vue";
+// import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {
-  props: ["title"],
+  props: ["title", 'localData'],
   components: {
     vuetable: Vuetable,
     "vuetable-pagination-bootstrap": VuetablePaginationBootstrap,
-    "datatable-heading": DatatableHeading
+    // "datatable-heading": DatatableHeading
   },
   data() {
     return {
+      head: {headers: hToken()},
       isLoad: false,
-      apiBase: apiUrl + "/cakes/fordatatable",
+      apiBase: `${PROXY}admin/payer/details`,//apiUrl + "/cakes/fordatatable",
       sort: "",
       page: 1,
-      perPage: 12,
+      perPage: 8,
       search: "",
       from: 0,
       to: 0,
@@ -92,46 +102,82 @@ export default {
       items: [],
       selectedItems: [],
 
-      fields: [
+      // isFetched: false,
+      // isLoading: true,
+      // "vehicle_type_id": 11,
+      //     "port_id": 1,
+      //     "plate_number": "qwe3",
+      //     "vehicle_identification_number": "qwe3",
+      //     "vehicle_color": "af",
+      //     "vehicle_brand": "wdf",
+      //     "vehicle_year": "1992",
+      //     "vehicle_model": "sd",
+      //     "status": 1,
+      //     "createdAt": "2021-01-29T13:51:51.000Z",
+      //     "updatedAt": "2021-01-29T13:51:51.000Z",
+      //     "is_imported": true,
+
+      fields: [,
         {
-          name: "title",
-          sortField: "title",
-          title: "Name",
-          titleClass: "",
-          dataClass: "list-item-heading",
-          width: "50%"
+        name: "is_imported",
+        sortField: "is_imported",
+        title: "Type",
+        titleClass: "",
+        dataClass: "list-item-heading",
+        width: "10%"
         },
         {
-          name: "sales",
-          sortField: "sales",
-          title: "Sales",
+          name:"vehicle_identification_number",
+          sortField: "vehicle_identification_number",
+          title: "VIN",
           titleClass: "",
-          dataClass: "text-muted",
+          dataClass: "",
           width: "10%"
         },
         {
-          name: "stock",
-          sortField: "stock",
-          title: "Stock",
+          name: "status",
+          sortField: "status",
+          title: "Status",
           titleClass: "",
-          dataClass: "text-muted",
+          dataClass: "",
           width: "10%"
         },
         {
-          name: "category",
-          sortField: "category",
-          title: "Category",
+          name: "vehicle_brand",
+          sortField: "vehicle_brand",
+          title: "Brand",
           titleClass: "",
-          dataClass: "text-muted",
-          width: "25%"
+          dataClass: "",
+          width: "10%"
         },
         {
-          name: "__slot:actions",
-          title: "",
+          name: "vehicle_model",
+          title: "Model",
           titleClass: "center aligned text-right",
           dataClass: "center aligned text-right",
-          width: "5%"
-        }
+          width: "10%"
+        },
+        {
+          name: "vehicle_year",
+          title: "Year",
+          titleClass: "center aligned text-right",
+          dataClass: "center aligned text-right",
+          width: "10%"
+        },
+         {
+          name: "vehicle_color",
+          title: "Color",
+          titleClass: "center aligned text-right",
+          dataClass: "center aligned text-right",
+          width: "10%"
+        },
+        // {
+        //   name: "account_vehicles",
+        //   title: "Vehicle",
+        //   titleClass: "center aligned text-right",
+        //   dataClass: "center aligned text-right",
+        //   width: "5%"
+        // }
       ]
     };
   },
@@ -160,8 +206,17 @@ export default {
       return "";
     },
 
+    cellClicked(item, field, event){
+      console.log(item, 'item');
+      console.log(field, 'feild');
+      console.log(event,'eve');
+    },
+
     rowClicked(dataItem, event) {
-      const itemId = dataItem.id;
+      // const itemId = dataItem.id;
+      console.log(dataItem)
+      alert();
+      return;
       if (event.shiftKey && this.selectedItems.length > 0) {
         let itemsForToggle = this.items;
         var start = this.getIndex(itemId, itemsForToggle, "id");
@@ -191,9 +246,10 @@ export default {
       if (!this.selectedItems.includes(dataItem.id)) {
         this.selectedItems = [dataItem.id];
       }
-      this.$refs.contextmenu.show({ top: event.pageY, left: event.pageX });
+      // this.$refs.contextmenu.show({ top: event.pageY, left: event.pageX });
     },
     onPaginationData(paginationData) {
+      // console.log(paginationData);
       this.from = paginationData.from;
       this.to = paginationData.to;
       this.total = paginationData.total;
@@ -258,19 +314,12 @@ export default {
         this.selectedItems.length < this.items.length
       );
     }
+  },
+  watch: {
+  },
+  created(){
+    // console.log(this.head);
+    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>
-
-
-Payers - add payer, cards, all payers
-Agents - add agent, all agents, port agents, garage agents
-Admins - all admins, add admin
-Vehicles - all vehicles, commercial  vehicles, import vehicles, vehicle tags, vehicle payments
-Cards - add card, all cards
-Vehicle Tags - add tag, all tags
-Finance - all vehicle payments, commercial vehicle payments, imported vehicle payments
-Locations - local governments, garages
-Analytics
-Reports
-Settings

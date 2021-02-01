@@ -53,7 +53,7 @@ const routes = [
         // meta: { roles: [UserRole.Editor] },
       },
       {
-        path: "all-vehicle-payments",
+        path: "finance",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/VehiclePayment/PaymentCover.vue"),
         // meta: { roles: [UserRole.Admin] },
@@ -78,9 +78,9 @@ const routes = [
         // meta: { roles: [UserRole.Admin, UserRole.Editor] },
         children: [
           {
-            path: "default",
+            path: "/:id",
             component: () =>
-              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Default"),
+              import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Payer/PayerDetails/PayerDetailsCover.vue"),
             // meta: { roles: [UserRole.Admin] },
           },
         ]
