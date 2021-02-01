@@ -46,32 +46,33 @@ const data = [
   label: "menu.agents",
   to: `${adminRoot}/agents`,
   // roles: [UserRole.Admin, UserRole.Editor],,
-  subs:[
-    {
-    icon: "simple-icon-list",
-    label: "menu.all-agents",
-    to: `${adminRoot}/agents`,
-    // roles: [UserRole.Admin, UserRole.Editor],
-    },
-    {
-      icon: "simple-icon-people",
-      label: "menu.port-agents",
-      to: `${adminRoot}/agents/ports`,
-      // roles: [UserRole.Admin, UserRole.Editor],
-    },
-    {
-      icon: "simple-icon-people",
-      label: "menu.garrage-agents",
-      to: `${adminRoot}/agents/garrages`,
-      // roles: [UserRole.Admin, UserRole.Editor],
-    },
-    {
-      icon: "simple-icon-plus",
-      label: "menu.add-agent",
-      to: `${adminRoot}/add-agent`,
-      // roles: [UserRole.Admin, UserRole.Editor],
-    },
-  ]},
+  // subs:[
+  //   {
+  //   icon: "simple-icon-list",
+  //   label: "menu.all-agents",
+  //   to: `${adminRoot}/agents`,
+  //   // roles: [UserRole.Admin, UserRole.Editor],
+  //   },
+  //   {
+  //     icon: "simple-icon-people",
+  //     label: "menu.port-agents",
+  //     to: `${adminRoot}/agents/ports`,
+  //     // roles: [UserRole.Admin, UserRole.Editor],
+  //   },
+  //   {
+  //     icon: "simple-icon-people",
+  //     label: "menu.garrage-agents",
+  //     to: `${adminRoot}/agents/garrages`,
+  //     // roles: [UserRole.Admin, UserRole.Editor],
+  //   },
+  //   {
+  //     icon: "simple-icon-plus",
+  //     label: "menu.add-agent",
+  //     to: `${adminRoot}/add-agent`,
+  //     // roles: [UserRole.Admin, UserRole.Editor],
+  //   },
+  // ]
+},
   {id:"admins",
   icon:"simple-icon-graduation",
   label: "menu.admins",
