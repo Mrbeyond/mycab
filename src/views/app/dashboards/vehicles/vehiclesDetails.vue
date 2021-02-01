@@ -14,72 +14,75 @@
       :total="total"
       :perPage="perPage"
     ></datatable-heading>-->
-       <b-row class="align-items-center mb-5 justify-content-center m-1 row justify-content-between" v-if="RightmodalData !=''">
-              <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
-                <h1>Account</h1>
-                <div class="d-column d-md-flex justify-content-between">
-                <div v-if="RightmodalData.account !=null" >        
-                <p class="text-muted">First name</p>
-                <p >{{RightmodalData.account.first_name}}</p>
-                </div>
-                <div v-if="RightmodalData.account !=null">
-                <p class="text-muted">Last name</p>
-                <p >{{RightmodalData.account.last_name}}</p>
-                </div>
-                <div v-if="RightmodalData.account !=null">
-                <p class="text-muted">Phone</p>
-                <p >{{RightmodalData.account.phone}}</p>
-                </div>
-                 <div v-if="RightmodalData.account !=null">
-                <p class="text-muted">Account No.</p>
-                <p >{{RightmodalData.account.account_no}}</p>
-                </div>
-                </div>
-          </b-card>
-                   
-
-          <b-card v-if="RightmodalData" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
-                <h1>Garage & Port</h1>
-                <div  class="d-column d-md-flex justify-content-between">
-                <div v-if="RightmodalData.garage !=null">        
-                <p class="text-muted">Name</p>
-                <p >{{RightmodalData.garage.name}}</p>
-                </div>
-                <div v-if="RightmodalData.garage !=null">
-                <p class="text-muted">Address</p>
-                <p >{{RightmodalData.garage.address}}</p>
-                </div>
-                <div v-if="RightmodalData.garage !=null">
-                <p class="text-muted">Latitude</p>
-                <p >{{RightmodalData.garage.latitude}}</p>
-                </div>
-                 <div v-if="RightmodalData.garage !=null">
-                <p class="text-muted">Longitude</p>
-                <p >{{RightmodalData.garage.longitude}}</p>
-                </div>
-                 <div v-if="RightmodalData.port !=null">
-                <p class="text-muted">Port</p>
-                <p >{{RightmodalData.port.name}}</p>
-                </div>
-                </div>
-         </b-card>
-
-          <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
-                <h1>Type details</h1>
-                <div  class="d-column d-md-flex justify-content-between">
-                <div >        
-                <p class="text-muted">Name</p>
-                <p >{{RightmodalData.type.name}}</p>
-                </div>
-                <div>
-                <p class="text-muted">Amount</p>
-                <p >{{RightmodalData.type.amount}}</p>
-                </div>
-                </div>
-         </b-card>
-
-
-    </b-row>
+  <b-row class="align-items-center mb-5 justify-content-center m-1 row justify-content-between" v-if="RightmodalData !=''">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4">
+        <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
+          <h1>Account</h1>
+          <div class="d-column justify-content-between">
+            <div v-if="RightmodalData.account !=null" >
+              <p class="text-muted">First name</p>
+              <p >{{RightmodalData.account.first_name}}</p>
+            </div>
+            <div v-if="RightmodalData.account !=null">
+              <p class="text-muted">Last name</p>
+              <p >{{RightmodalData.account.last_name}}</p>
+            </div>
+            <div v-if="RightmodalData.account !=null">
+              <p class="text-muted">Phone</p>
+              <p >{{RightmodalData.account.phone}}</p>
+            </div>
+            <div v-if="RightmodalData.account !=null">
+              <p class="text-muted">Account No.</p>
+              <p >{{RightmodalData.account.account_no}}</p>
+            </div>
+          </div>
+      </b-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <b-card v-if="RightmodalData" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
+        <h1>Garage & Port</h1>
+        <div  class="d-column justify-content-between">
+          <div v-if="RightmodalData.garage !=null">
+            <p class="text-muted">Name</p>
+            <p >{{RightmodalData.garage.name}}</p>
+          </div>
+          <div v-if="RightmodalData.garage !=null">
+            <p class="text-muted">Address</p>
+            <p >{{RightmodalData.garage.address}}</p>
+          </div>
+          <div v-if="RightmodalData.garage !=null">
+            <p class="text-muted">Latitude</p>
+            <p >{{RightmodalData.garage.latitude}}</p>
+          </div>
+          <div v-if="RightmodalData.garage !=null">
+            <p class="text-muted">Longitude</p>
+            <p >{{RightmodalData.garage.longitude}}</p>
+          </div>
+          <div v-if="RightmodalData.port !=null">
+            <p class="text-muted">Port</p>
+            <p >{{RightmodalData.port.name}}</p>
+          </div>
+        </div>
+      </b-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
+        <h1>Type details</h1>
+        <div  class="d-column  justify-content-between">
+          <div >
+            <p class="text-muted">Name</p>
+            <p >{{RightmodalData.type.name}}</p>
+          </div>
+          <div>
+            <p class="text-muted">Amount</p>
+            <p >{{RightmodalData.type.amount}}</p>
+          </div>
+        </div>
+      </b-card>
+    </div>
+  </div>
+</b-row>
 
     <!-- <b-row>
       <b-colxx xxs="12">
@@ -167,7 +170,7 @@ export default {
           dataClass: "",
           width: "10%"
         },
-       
+
         {
           name: "vehicle_color",
           sortField: "vehicle_color",
@@ -192,7 +195,7 @@ export default {
           dataClass: "",
           width: "10%"
         },
-        
+
         //  {
         //   name: "__slot:actions",
         //   title: "Action",
@@ -393,7 +396,7 @@ export default {
     //    this.fetchagent(this.paramId)
 
     // this.apiBase= `${PROXY}admin/agent/details/${this.paramId}`,
-   
+
     console.log(this.paramId);
     console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
