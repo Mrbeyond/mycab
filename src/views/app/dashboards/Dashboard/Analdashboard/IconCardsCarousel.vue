@@ -11,9 +11,9 @@
       <icon-card class="col-lg-3 col-md-4 col-12" title="Imported Vehicles"  icon="iconsminds-bus-2" :value="analytic.total_imported_vehicles" />
       <icon-card class="col-lg-3 col-md-4 col-12" title="All Garages"  icon="iconsminds-embassy" :value="analytic.total_garages" />
 
-      <icon-card class="col-lg-3 col-md-4 col-12" title="All Vehicle Tags"  icon="iconsminds-mind-tag3" :value="analytic.total_garages" />
-      <icon-card class="col-lg-3 col-md-4 col-12" title="Assigned Vehicle Tags"  icon="iconsminds-mind-tag3" :value="analytic.total_garages" />
-      <icon-card class="col-lg-3 col-md-4 col-12" title="Unassigned Vehicle Tags"  icon="iconsminds-mind-tag3" :value="analytic.total_garages" />
+      <icon-card class="col-lg-3 col-md-4 col-12" title="All Vehicle Tags"  icon="iconsminds-tag-3" :value="analytic.total_garages" />
+      <icon-card class="col-lg-3 col-md-4 col-12" title="Assigned Vehicle Tags"  icon="iconsminds-tag-3" :value="analytic.total_garages" />
+      <icon-card class="col-lg-3 col-md-4 col-12" title="Unassigned Vehicle Tags"  icon="iconsminds-tag-3" :value="analytic.total_garages" />
       <icon-card class="col-lg-3 col-md-4 col-12" title="All Ports"  icon="iconsminds-ship" :value="analytic.total_garages" />
     </glide-component>
   </div>
