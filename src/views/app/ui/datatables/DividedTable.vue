@@ -30,11 +30,11 @@
           @vuetable:cell-rightclicked="rightClicked"
         >
           <template slot="actions" slot-scope="props">
-          <b-button>jkjkj</b-button>
-           <b-form-checkbox
+          <b-button>Click</b-button>
+           <!-- <b-form-checkbox
               :checked="selectedItems.includes(props.rowData.id)"
               class="itemCheck mb-0"
-            ></b-form-checkbox>
+            ></b-form-checkbox> -->
           </template>
         </vuetable>
         <vuetable-pagination-bootstrap
@@ -124,7 +124,7 @@ export default {
         },
         {
           name: "__slot:actions",
-          title: "",
+          title: "Action",
           titleClass: "center aligned text-right",
           dataClass: "center aligned text-right",
           width: "5%"

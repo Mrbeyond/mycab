@@ -41,9 +41,9 @@ const routes = [
         // meta: { roles: [UserRole.Editor] },
       },
       {
-        path: "agents/:name",
+        path: "agents/:id",
         component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents/Agents.vue"),
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents/AgentDetails.vue"),
         // meta: { roles: [UserRole.Editor] },
       },
       {
