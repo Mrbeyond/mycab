@@ -95,7 +95,7 @@ import VuetablePaginationBootstrap from "../../../../../components/Common/Vuetab
 import { PROXY } from '../../../../../constants/config';
 import { hToken/*, loadash*/ } from '../../../../../constants/formKey';
 import PayerSideDetails from './PayerSideDetails.vue';
-import PayerVehicles from './PayerVehicles.vue';
+// import PayerVehicles from './PayerVehicles.vue';
 // import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {

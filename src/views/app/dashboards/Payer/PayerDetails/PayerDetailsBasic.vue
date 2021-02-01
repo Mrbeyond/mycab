@@ -4,13 +4,14 @@
 
       <div v-if="PAYLOAD">
       <h3><strong>Basic info</strong></h3>
-       <div v-for="(item, i) in getKeys(PAYLOAD, 0)" v-bind:key="i">
+       <div v-for="(item, i) in getKeys(PAYLOAD)" v-bind:key="i">
         <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
         <p class="mb-3">
           {{ item == "createdAt"?
-          formatDate(PAYLOAD[item]): PAYLOAD[item] === null? "Null":
-          PAYLOAD[item]
+          formatDate(PAYLOAD[item]): formatName(item) == "Status" ?
+          ensState(PAYLOAD[item]): PAYLOAD[item] == null? "No value": PAYLOAD[item]
           }}
+
         </p>
         </div>
       </div>
@@ -18,7 +19,7 @@
   </div>
 </template>
 <script>
-import { LUX_ZONE } from '../../../../../constants/formKey';
+import { LUX_ZONE, statusA } from '../../../../../constants/formKey';
 export default {
   props: ['PAYLOAD'],
   methods:{
@@ -41,7 +42,12 @@ export default {
 
     formatDate(date){
       return LUX_ZONE(date);
-    }
+    },
+
+    ensState(val){
+      return statusA[Number(Boolean(!!Boolean(val)))];
+    },
+
   }
   ,
   computed: {

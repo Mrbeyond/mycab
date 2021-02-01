@@ -75,7 +75,7 @@
 
 import Vuetable from "vuetable-2/src/components/Vuetable";
 import { PROXY } from '../../../../../constants/config';
-import { hToken, loadash } from '../../../../../constants/formKey';
+import { hToken, loadash, statusA } from '../../../../../constants/formKey';
 import VuetablePaginationBootstrap from "../../../../../components/Common/VuetablePaginationBootstrap.vue";
 // import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
@@ -140,7 +140,11 @@ export default {
           title: "Status",
           titleClass: "",
           dataClass: "",
-          width: "10%"
+          width: "10%",
+          callback(val){
+            return statusA[Number(Boolean(!!Boolean(val)))];
+          },
+
         },
         {
           name: "vehicle_brand",

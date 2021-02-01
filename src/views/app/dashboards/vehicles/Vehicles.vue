@@ -209,7 +209,7 @@ export default {
            {
           name: "vehicle_identification_number",
           sortField: "id",
-          title: "ID",
+          title: "VIN",
           titleClass: "",
           dataClass: "",
           width: "10%"
