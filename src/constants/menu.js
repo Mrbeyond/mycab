@@ -50,7 +50,7 @@ const data = [
     {
       icon: "simple-icon-people",
       label: "menu.garrage-agents",
-      to: `${adminRoot}/agents/garrages`,
+      to: `${adminRoot}/agents/garages`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
   ]},
@@ -161,13 +161,7 @@ const data = [
     label: "menu.all-tags",
     to: `${adminRoot}/tags`,
     // roles: [UserRole.Admin, UserRole.Editor],
-    },
-    {
-      icon: "simple-icon-plus",
-      label: "menu.add-vehicle-tag",
-      to: `${adminRoot}/add-tag`,
-      // roles: [UserRole.Admin, UserRole.Editor],
-    },
+    }
   ]},
   {id:"finance",
   icon:"simple-icon-organization",
@@ -202,14 +196,14 @@ const data = [
   subs:[
     {
     icon: "simple-icon-location-pin",
-    label: "menu.local-government",
+    label: "Local Governments",
     to: `${adminRoot}/lg`,
     // roles: [UserRole.Admin, UserRole.Editor],
     },
     {
       icon: "simple-icon-plus",
-      label: "menu.compass",
-      to: `${adminRoot}/garrages`,
+      label: "Garages",
+      to: `${adminRoot}/garages`,
       // roles: [UserRole.Admin, UserRole.Editor],
     },
   ]},
