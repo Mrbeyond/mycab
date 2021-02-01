@@ -3,7 +3,6 @@
     <b-card class="" no-body>
       <b-card-body>
         <div class="row">
-          <!-- <b-img fluid-grow alt="Fluid-grow image" style="height:200px" v-if="analytic.image" :src="test.image" fluid></b-img> -->
         </div>
       </b-card-body>
       <b-card-footer>
@@ -14,7 +13,6 @@
     <b-card class="" no-body>
       <b-card-body>
         <div class="row">
-          <!-- <b-img fluid-grow alt="Fluid-grow image" style="height:200px" v-if="analytic.image" :src="test.image" fluid></b-img> -->
         </div>
       </b-card-body>
       <b-card-footer>
@@ -26,7 +24,6 @@
     <b-card class="" no-body>
       <b-card-body>
         <div class="row">
-          <!-- <b-img fluid-grow alt="Fluid-grow image" style="height:200px" v-if="analytic.image" :src="test.image" fluid></b-img> -->
         </div>
       </b-card-body>
       <b-card-footer>
@@ -38,7 +35,6 @@
     <b-card class="" no-body>
       <b-card-body>
         <div class="row">
-          <!-- <b-img fluid-grow alt="Fluid-grow image" style="height:200px" v-if="analytic.image" :src="test.image" fluid></b-img> -->
         </div>
       </b-card-body>
       <b-card-footer>
@@ -51,7 +47,6 @@
     <b-card class="" no-body>
       <b-card-body>
         <div class="row">
-          <!-- <b-img fluid-grow alt="Fluid-grow image" style="height:200px" v-if="analytic.image" :src="test.image" fluid></b-img> -->
         </div>
       </b-card-body>
       <b-card-footer>
@@ -62,7 +57,6 @@
     <b-card class="" no-body>
       <b-card-body>
         <div class="row">
-          <!-- <b-img fluid-grow alt="Fluid-grow image" style="height:200px" v-if="analytic.image" :src="test.image" fluid></b-img> -->
         </div>
       </b-card-body>
       <b-card-footer>
@@ -74,7 +68,6 @@
     <b-card class="" no-body>
       <b-card-body>
         <div class="row">
-          <!-- <b-img fluid-grow alt="Fluid-grow image" style="height:200px" v-if="analytic.image" :src="test.image" fluid></b-img> -->
         </div>
       </b-card-body>
       <b-card-footer>

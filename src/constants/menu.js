@@ -195,7 +195,7 @@ const data = [
     {
     icon: "simple-icon-location-pin",
     label: "Local Governments",
-    to: `${adminRoot}/lg`,
+    to: `${adminRoot}/localgovernment`,
     // roles: [UserRole.Admin, UserRole.Editor],
     },
     {

@@ -81,10 +81,22 @@ const routes = [
         // ]
       },
       {
-        path: "payers/:id",
+        path: "localgovernment",
         component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Payer/PayerDetails/PayerDetailsCover.vue"),
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Dashboard/Locations/getLocations.vue"),
         // meta: { roles: [UserRole.Admin] },
+      },
+      {
+        path: "garages",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Dashboard/Locations/getGarage.vue"),
+        // meta: { roles: [UserRole.Admin] },
+      },
+      {
+        path: "agents",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents/Agents.vue"),
+        // meta: { roles: [UserRole.Editor] },
       },
       {
         path: "analytics",
