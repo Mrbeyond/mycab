@@ -17,8 +17,10 @@
       </a>
     </div>
     <router-link class="navbar-logo" tag="a" :to="adminRoot">
-      <!--<span class="text-center logo-size logo-bold">MECP</span>-->
-        <img width="80" height="40" src="./../../assets/lasepa-mobile-logo.png" class="d-inline-block align-top" alt="MECP">
+<!--      <span class="logo d-none d-xs-block"></span>-->
+<!--      <span class="logo-mobile d-block d-xs-none"></span>-->
+      <span class="text-center logo-size logo-bold">MECP</span>
+<!--        <img  width="80"height="40" src="./../../assets/lasepa-mobile-logo.png" class="d-inline-block align-top" alt="MECP">-->
     </router-link>
 
     <div class="navbar-right">
@@ -50,66 +52,30 @@
                 <i class="iconsminds-shop-4 d-block" />
                 {{$t('menu.dashboards')}}
               </router-link>
-              <router-link tag="a" :to="`${adminRoot}/ui`" class="icon-menu-item">
-                <i class="iconsminds-pantone d-block" />
-                {{$t('menu.ui')}}
-              </router-link>
               <router-link tag="a" :to="`${adminRoot}/ui/components/charts`" class="icon-menu-item">
                 <i class="iconsminds-bar-chart-4 d-block" />
-                {{$t('menu.charts')}}
+                Analytics
+              </router-link>
+              <router-link tag="a" :to="`${adminRoot}/ui`" class="icon-menu-item">
+                <i class="iconsminds-user d-block" />
+                Payers
               </router-link>
               <router-link tag="a" :to="`${adminRoot}/applications/chat`" class="icon-menu-item">
-                <i class="iconsminds-speach-bubble d-block" />
-                {{$t('menu.chat')}}
+                <i class="iconsminds-user d-block" />
+                Agents
               </router-link>
               <router-link tag="a" :to="`${adminRoot}/applications/survey`" class="icon-menu-item">
-                <i class="iconsminds-formula d-block" />
-                {{$t('menu.survey')}}
+                <i class="iconsminds-bus-2 d-block" />
+                Vehicles
               </router-link>
               <router-link tag="a" :to="`${adminRoot}/applications/todo`" class="icon-menu-item">
                 <i class="iconsminds-check d-block" />
-                {{$t('menu.todo')}}
+                Vehicle Payments
               </router-link>
             </div>
           </b-dropdown>
         </div>
 
-        <div class="position-relative d-inline-block">
-          <b-dropdown
-            variant="empty"
-            size="sm"
-            right
-            toggle-class="header-icon notificationButton"
-            menu-class="position-absolute mt-3 notificationDropdown"
-            no-caret
-          >
-            <template slot="button-content">
-              <i class="simple-icon-bell" />
-              <span class="count">3</span>
-            </template>
-            <vue-perfect-scrollbar :settings="{ suppressScrollX: true, wheelPropagation: false }">
-              <div
-                class="d-flex flex-row mb-3 pb-3 border-bottom"
-                v-for="(n,index) in notifications"
-                :key="index"
-              >
-                <router-link tag="a" :to="`${adminRoot}/pages/product/details`">
-                  <img
-                    :src="n.img"
-                    :alt="n.title"
-                    class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle"
-                  />
-                </router-link>
-                <div class="pl-3 pr-2">
-                  <router-link tag="a" :to="`${adminRoot}/pages/product/details`">
-                    <p class="font-weight-medium mb-1">{{n.title}}</p>
-                    <p class="text-muted mb-0 text-small">{{n.date}}</p>
-                  </router-link>
-                </div>
-              </div>
-            </vue-perfect-scrollbar>
-          </b-dropdown>
-        </div>
         <div class="position-relative d-none d-sm-inline-block">
           <div class="btn-group">
             <b-button variant="empty" class="header-icon btn-sm" @click="toggleFullScreen">
@@ -117,7 +83,7 @@
                 :class="{'d-inline-block':true,'simple-icon-size-actual':fullScreen,'simple-icon-size-fullscreen':!fullScreen }"
               />
             </b-button>
-          </div>
+          </div>s
         </div>
       </div>
       <div class="user d-inline-block">
@@ -132,14 +98,9 @@
           <template slot="button-content">
             <span class="name mr-1">{{currentUser.first_name}}</span>
             <span>
-              <img :alt="currentUser.first_name" :src="currentUser.img" />
+              <span class="p-3 rounded bg-primary">{{currentUser.first_name.charAt(0).toUpperCase()}}{{currentUser.last_name.charAt(0).toUpperCase()}}</span>
             </span>
           </template>
-          <b-dropdown-item>Account</b-dropdown-item>
-          <b-dropdown-item>Features</b-dropdown-item>
-          <b-dropdown-item>History</b-dropdown-item>
-          <b-dropdown-item>Support</b-dropdown-item>
-          <b-dropdown-divider />
           <b-dropdown-item @click="logout">Sign out</b-dropdown-item>
         </b-dropdown>
       </div>

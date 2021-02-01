@@ -16,15 +16,21 @@
             <div class="w-15 w-sm-100">
                 <b-badge pill :variant="data.statusColor">{{data.vehicles.length > 0 ? "Assigned" : "Not Assigned"}}</b-badge>
             </div>
+          <div class="w-15 w-sm-100">
+            <b-badge pill variant="warning">{{data.is_printed ? "Printed" : "Not Printed"}}</b-badge>
+          </div>
              <div class="w-15 w-sm-100">
                   <b-btn v-b-toggle="data.updatedAt" title="View Vehicles" badge-variant="dark">
                       Vehicles <b-badge variant="primary" rounded-conner>{{data.vehicles.length}}</b-badge></b-btn>
+
                 <!-- <b-badge pill :variant="data.statusColor"  ></b-badge> -->
             </div>
         </div>
-<!--        <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">-->
-<!--            <b-form-checkbox :checked="selectedItems.includes(data.id)" class="itemCheck mb-0" />-->
-<!--        </div>-->
+        <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
+            <b-btn badge-variant="dark">
+              Print
+            </b-btn>
+        </div>
     </div>
      <b-row>
     <b-colxx xxs="12">
