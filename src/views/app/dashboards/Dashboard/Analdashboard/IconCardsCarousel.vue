@@ -1,7 +1,7 @@
 <template>
   <div class="icon-cards-row container">
     <glide-component :settings="glideIconsOption" v-if="analytic" class="mx-auto container">
-      <icon-card class="col-lg-3 col-md-4 col-12" title="All Payers"  icon="iconsminds-mail-read" :value="analytic.total_payers" />
+      <icon-card class="col-lg-3 col-md-4 col-12" title="All Payers"  icon="simple-icon-user" :value="analytic.total_payers" />
       <icon-card class="col-lg-3 col-md-4 col-12" title="All Agents"  icon="simple-icon-user" :value="analytic.total_agents" />
       <icon-card class="col-lg-3 col-md-4 col-12" title="Port Agents"  icon="simple-icon-user" :value="analytic.total_agents" />
       <icon-card class="col-lg-3 col-md-4 col-12" title="Garage Agents"  icon="simple-icon-user" :value="analytic.total_agents" />
@@ -11,10 +11,10 @@
       <icon-card class="col-lg-3 col-md-4 col-12" title="Imported Vehicles"  icon="iconsminds-bus-2" :value="analytic.total_imported_vehicles" />
       <icon-card class="col-lg-3 col-md-4 col-12" title="All Garages"  icon="iconsminds-embassy" :value="analytic.total_garages" />
 
-      <icon-card class="col-lg-3 col-md-4 col-12" title="All Vehicle Tags"  icon="iconsminds-tag-3" :value="analytic.total_garages" />
-      <icon-card class="col-lg-3 col-md-4 col-12" title="Assigned Vehicle Tags"  icon="iconsminds-tag-3" :value="analytic.total_garages" />
-      <icon-card class="col-lg-3 col-md-4 col-12" title="Unassigned Vehicle Tags"  icon="iconsminds-tag-3" :value="analytic.total_garages" />
-      <icon-card class="col-lg-3 col-md-4 col-12" title="All Ports"  icon="iconsminds-ship" :value="analytic.total_garages" />
+      <icon-card class="col-lg-3 col-md-4 col-12" title="All Vehicle Tags"  icon="iconsminds-tag-3" :value="analytic.total_vehicle_tags" />
+      <icon-card class="col-lg-3 col-md-4 col-12" title="Tagged Vehicles"  icon="iconsminds-tag-3" :value="analytic.total_tagged_vehicles" />
+      <icon-card class="col-lg-3 col-md-4 col-12" title="Untagged Vehicles"  icon="iconsminds-tag-3" :value="analytic.total_untagged_vehicles" />
+      <icon-card class="col-lg-3 col-md-4 col-12" title="All Ports"  icon="iconsminds-ship" :value="analytic.total_ports" />
     </glide-component>
   </div>
 </template>

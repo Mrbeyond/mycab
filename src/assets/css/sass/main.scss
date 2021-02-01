@@ -8,3 +8,7 @@ html {
     background-color: $theme-color-1 !important;
 }
 */
+
+svg > g[class^="raphael-group-"] > text{
+  display: none;
+}
