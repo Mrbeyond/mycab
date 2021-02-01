@@ -17,7 +17,7 @@
     <b-row>
       <b-colxx xxs="12">
           <!--:api-url="apiBase"
-          
+
           @vuetable:row-clicked="rowClicked"
           -->
         <vuetable
@@ -59,7 +59,7 @@
       </b-colxx>
 
        <b-colxx xxs="12">
-            <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
+            <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" title="Details" modal-class="modal-right">
                  <b-card v-if="RightmodalData !='' && RightmodalData !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Basic info</h1>
                 <div v-if="RightmodalData.wallet !=null">                                                                                                                                                                                                                                                                                                                                                                                                                                           >
@@ -74,7 +74,7 @@
                 <p class="text-muted"> Port Name</p>
                 <p >{{RightmodalData.port.name}}</p>
                 </div>
-                
+
                    </b-card>
                     <template slot="modal-footer">
                     <b-button variant="secondary" @click="hideModal('modalright')">Cancel</b-button>
@@ -151,7 +151,7 @@ export default {
           dataClass: "",
           width: "10%"
         },
-       
+
         {
           name: "phone",
           sortField: "phone",

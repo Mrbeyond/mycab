@@ -1,79 +1,158 @@
 <template>
+  <div v-if="isLoading && !isFetched" style="h-100">
 
-  <div>
-
-    <h5 class="mb-4 card-title">VEHICLE PAYMENTS</h5>
-      <div v-if="isFetched" class="row">
-          <div
-            v-for="(payment, index) in payments" v-bind:key="index"
-            class="col-12 col-md-6"
-          >
-            <b-card class="mb-4 py-2" no-body >
-            <div style=" height: 300px; max-height: 300px; overflow-y: auto">
-              <b-tabs  card no-fade>
-                <b-tab title="Acount" active title-item-class="w-30">
-                    <ul>
-                    <li>Agent : {{ payment.agent_id }}</li>
-                    <li>Garage ID: {{ payment.garage_id }}</li>
-                    <li>Account Vehicle ID: {{ payment.account_vehicle_id }}</li>
-                    <li>Wallet Transaction ID: {{ payment.account_wallet_transaction_id }}</li>
-                    <li>Status: {{ payment.status }}</li>
-                    <li>Created On : {{  Timest(payment.createdAt) }}</li>
-                    <li></li>
-                    </ul>
-                </b-tab>
-                <b-tab title="Account Vehicle" title-item-class="w-30">
-                <div class="text-center ">
-                  <ul>
-                    <li>ID: {{payment.account_vehicle.id}}</li>
-                    <li>Account ID: {{payment.account_vehicle.account_id}}</li>
-                    <li>Vehicle Type ID: {{payment.account_vehicle.vehicle_type_id}}</li>
-                    <li>Agent ID: {{payment.account_vehicle.agent_id}}</li>
-                    <li>Garage ID: {{payment.account_vehicle.garage_id}}</li>
-                    <li>Port ID: {{payment.account_vehicle.port_id}}</li>
-                    <li>Plate Number: {{payment.account_vehicle.plate_number}}</li>
-                    <li>VIN: {{payment.account_vehicle.vehicle_identification_number}}</li>
-                    <li>Color: {{payment.account_vehicle.vehicle_color}}</li>
-                    <li>Brand: {{payment.account_vehicle.vehicle_brand}}</li>
-                    <li>Year: {{payment.account_vehicle.vehicle_year}}</li>
-                    <li>Model: {{payment.account_vehicle.vehicle_model}}</li>
-                    <li>Status: {{payment.account_vehicle.status}}</li>
-                    <li>created On: {{Timest(payment.account_vehicle.createdAt)}}</li>
-                  </ul>
-                </div>
-
-                </b-tab>
-                <b-tab title="Account Wallet" title-item-class="w-30">
-                <div class="text-center ">
-                  <ul>
-                    <li>ID: {{ payment.account_wallet_transaction.account_wallet_id}}</li>
-                    <li>Amount: {{ payment.account_wallet_transaction.amount}}</li>
-                    <li> Type: {{ payment.account_wallet_transaction.type}}</li>
-                    <li> Status: {{ payment.account_wallet_transaction.status}}</li>
-                    <li>Created On: {{ Timest(payment.account_wallet_transaction.createdAt)}}</li>
-                  </ul>
-                </div>
-                </b-tab>
-              </b-tabs>
-              </div>
-              <div class="text-center">
-                <strong>{{ payment.garage? ` Garage: ${ payment.garage}`: '' }}</strong>
-              </div>
-            </b-card>
-          </div>
+    <div class="align-middle">
+      <div class="d-flex justify-content-center">
+        <b-spinner variant="primary" />
       </div>
+    </div>
+  </div>
+
+  <div v-else-if=" !isLoading && !isFetched">
+
+    Error template here
+  </div>
+
+  <div v-else>
+    <!--<datatable-heading
+      :title="$t('menu.divided-table')"
+      :selectAll="selectAll"
+      :isSelectedAll="isSelectedAll"
+      :isAnyItemSelected="isAnyItemSelected"
+      :keymap="keymap"
+      :changePageSize="changePageSize"
+      :searchChange="searchChange"
+      :from="from"
+      :to="to"
+      :total="total"
+      :perPage="perPage"
+    ></datatable-heading>-->
+    <b-row>
+      <b-colxx  v-if="localData !== null" xxs="12">
+          <!--:api-url="apiBase"
+          @vuetable:cell-clicked="cellClicked"
+          @vuetable:row-clicked="alert(5)"
+          -->
+        <vuetable
+          ref="vuetable"
+          class="table-divided order-with-arrow"
+          :query-params="makeQueryParams"
+          :per-page="perPage"
+          :api-mode="false"
+          :data="localData"
+          :fields="fields"
+          pagination-path
+          :row-class="onRowClass"
+          @vuetable:pagination-data="onPaginationData"
+          @vuetable:cell-rightclicked="rightClicked"
+
+        >
+          <template slot="actions" slot-scope="props" >
+            <b-button id="detailBtn" ref="detailBtn"
+              @click="cellClick($event, props.rowData)"
+              variant="primary"
+            >
+              <i class="simple-icon-login"></i>
+            </b-button>
+          </template>
+        </vuetable>
+        <vuetable-pagination-bootstrap
+          class="mt-4"
+          ref="pagination"
+          @vuetable-pagination:change-page="onChangePage"
+        />
+      </b-colxx>
+    </b-row>
+
+    <!--<v-contextmenu ref="contextmenu">
+      <v-contextmenu-item @click="onContextMenuAction('copy')">
+        <i class="simple-icon-docs" />
+        <span>Copy</span>
+      </v-contextmenu-item>
+      <v-contextmenu-item @click="onContextMenuAction('move-to-archive')">
+        <i class="simple-icon-drawer" />
+        <span>Move to archive</span>
+      </v-contextmenu-item>
+      <v-contextmenu-item @click="onContextMenuAction('delete')">
+        <i class="simple-icon-trash" />
+        <span>Delete</span>
+      </v-contextmenu-item>
+    </v-contextmenu>-->
+
+    <div>
+      <b-modal id="modalright" ref="modalright" modal-class="modal-right" title="Details" hide-footer>
+          <payment-side-details v-if="selectedPayload" :selectedPayload="selectedPayload" />
+      </b-modal>
+    </div>
   </div>
 </template>
-<script>
+<script>// @ts-nocheck
+
 import Axios from 'axios';
+import Vuetable from "vuetable-2/src/components/Vuetable";
 import { PROXY } from '../../../../constants/config';
 import { hToken, LUX_ZONE } from '../../../../constants/formKey';
+import VuetablePaginationBootstrap from '../../../../components/Common/VuetablePaginationBootstrap.vue';
+import PaymentSideDetails from './PaymentSideDetails.vue';
 export default {
+  components: {
+    VuetablePaginationBootstrap,
+    vuetable: Vuetable,
+    PaymentSideDetails,
+  },
   data: ()=>({
-    payments: null,
+
+    localData: null,
     isLoading: true,
     isFetched: false,
-    num: 0,
+    selectedPayload: null,
+
+    sort: "",
+    page: 1,
+    perPage: 8,
+    search: "",
+    from: 0,
+    to: 0,
+    total: 0,
+    lastPage: 0,
+
+    fields: [,
+      {
+      name: "amount",
+      sortField: "amount",
+      title: "Amount",
+      titleClass: "",
+      dataClass: "list-item-heading",
+      width: "10%"
+      },
+      {
+        name:"status",
+        sortField: "status",
+        title: "Status",
+        titleClass: "",
+        dataClass: "",
+        width: "10%"
+      },
+      {
+        name: "createdAt",
+        sortField: "createdAt",
+        title: "Created On",
+        titleClass: "",
+        dataClass: "",
+        width: "10%",
+        callback(value){
+          return LUX_ZONE(value);
+        },
+      },
+      {
+        name: "__slot:actions",
+        title: "Full Details",
+        titleClass: "center aligned text-right",
+        dataClass: "center aligned text-right",
+        width: "10%"
+      },
+
+    ],
 
   }),
   methods: {
@@ -81,7 +160,7 @@ export default {
       Axios.get(`${PROXY}admin/vehicles/payments`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
-          this.payments = res.data.data;
+          this.localData = res.data.data;
           this.isFetched = true;
           return;
         }else{
@@ -96,9 +175,65 @@ export default {
 
       })
     },
+
     Timest(time){
       return LUX_ZONE(time);
-    }
+    },
+
+     cellClick(event, payload){
+       if(event.target.id === "detailBtn"){
+        this.selectedPayload = {...payload};
+        // console.log(this.selectedPayload);
+        this.$refs.modalright.show();
+      }
+    },
+
+    makeQueryParams(sortOrder, currentPage, perPage) {
+      this.selectedItems = [];
+      return sortOrder[0]
+      ? {
+          sort: sortOrder[0]
+            ? sortOrder[0].field + "|" + sortOrder[0].direction
+            : "",
+          page: currentPage,
+          per_page: this.perPage,
+          search: this.search
+        }
+      : {
+          page: currentPage,
+          per_page: this.perPage,
+          search: this.search
+        };
+    },
+
+    onPaginationData(paginationData) {
+      console.log(paginationData);
+      this.from = paginationData.from;
+      this.to = paginationData.to;
+      this.total = paginationData.total;
+      this.lastPage = paginationData.last_page;
+      this.items = paginationData.data;
+      this.$refs.pagination.setPaginationData(paginationData);
+    },
+
+    rightClicked(dataItem, field, event) {
+      event.preventDefault();
+      // if (!this.selectedItems.includes(dataItem.id)) {
+      //   this.selectedItems = [dataItem.id];
+      // }
+      // this.$refs.contextmenu.show({ top: event.pageY, left: event.pageX });
+    },
+
+    onChangePage(page) {
+      this.$refs.vuetable.changePage(page);
+    },
+
+    onRowClass(dataItem, index) {
+      // if (this.selectedItems.includes(dataItem.id)) {
+      //   return "selected";
+      // }
+      return "";
+    },
 
   },
   beforeMount() {
@@ -106,9 +241,6 @@ export default {
   },
 
   watch: {
-    num(){
-      // alert(this.num)
-    }
   }
 }
 </script>
