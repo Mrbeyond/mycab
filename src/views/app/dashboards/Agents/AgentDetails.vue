@@ -153,7 +153,7 @@ import VuetablePaginationBootstrap from "../../../../components/Common/VuetableP
 import { apiUrl, PROXY } from "../../../../constants/config";
 import { hToken, loadash } from "../../../../constants/formKey";
 import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
-import Axios from 'axios'
+import   Axios from 'axios'
 
 export default {
   props: ["title"],
@@ -180,6 +180,9 @@ export default {
       RightmodalData:"",
       RigthVery:"",
       apiBase: "",
+      agentDetails:"",
+      apiBase:`${PROXY}admin/agent/details`,
+
 
       // isFetched: false,
       // isLoading: true,
@@ -187,7 +190,7 @@ export default {
       fields: [,
         {
         name: "first_name",
-        sortField: "plate_number",
+        sortField: "first_name",
         title: "First Name",
         titleClass: "",
         dataClass: "list-item-heading",
@@ -195,7 +198,7 @@ export default {
         },
         {
           name:"last_name",
-          sortField: "vehicle_brand",
+          sortField: "last_name",
           title: "Last Name",
           titleClass: "",
           dataClass: "",
@@ -204,7 +207,7 @@ export default {
        
         {
           name: "phone",
-          sortField: "vehicle_color",
+          sortField: "phone",
           title: "Phone",
           titleClass: "",
           dataClass: "",
@@ -212,7 +215,7 @@ export default {
         },
          {
           name: "__slot:wallet",
-          sortField: "vehicle_model",
+          sortField: "wallet",
           title: "Wallet",
           titleClass: "",
           dataClass: "",
@@ -226,30 +229,30 @@ export default {
           dataClass: "",
           width: "10%"
         },
-        //  {
-        //   name: "__slot:accve",
-        //   sortField: "Account vehicles",
-        //   title: "Account vehicles",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //  {
-        //   name: "__slot:nfc_terminals",
-        //   sortField: "Account vehicles",
-        //   title: "NFC terminals",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //   {
-        //   name: "__slot:port",
-        //   sortField: "Account vehicles",
-        //   title: "Port",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
+         {
+          name: "__slot:accve",
+          sortField: "Account vehicles",
+          title: "Account vehicles",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+         {
+          name: "__slot:nfc_terminals",
+          // sortField: "Account vehicles",
+          title: "NFC terminals",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+          {
+          name: "__slot:port",
+          // sortField: "Account vehicles",
+          title: "Port",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
         //  {
         //   name: "__slot:actions",
         //   title: "Action",
@@ -402,33 +405,27 @@ export default {
         this.selectedItems
       );
     },
-    loadInfo(){
-        Axios.get(this.apiBase,{headers: hToken()})
-        .then(res => {
-          console.log(res.data.data[0].account_vehicles);
-          this.apiBase = res.data.data[0].account_vehicles
-          this.total = res.total;
-          this.from = res.from;
-          this.to = res.to;
-              this.items = this.agents
-              console.log(this.apiBase);
+    fetchagent(id){
+        console.log(`${this.apiBase}/${id}`)
+      Axios.get(`${this.apiBase}/${id}`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          this.agentDetails = res.data;
+          console.log(this.agentDetails)
+          this.isFetched = true;
+          return;
+        }else{
+          this.isFetched = false;
+        }
+        this.isLoading = false;
 
-        //   this.items = res.data.map(x => {
-        //     return {
-        //       ...x,
-        //       img: x.img.replace("/img/", "/img/products/")
-        //     };
-        //   });
-          console.log(this.items)
-          this.perPage = res.per_page;
-          this.selectedItems = [];
-          this.lastPage = res.last_page;
-          this.isLoad = true;
-        })
-        .then(err=>{
-          console.log(err);
-        });
-    }
+      })
+      .catch(err=>{
+        this.isFetched = false;
+        this.isLoading = false;
+
+      })
+    },
   },
   computed: {
     isSelectedAll() {
@@ -443,15 +440,17 @@ export default {
   },
   watch: {
   },
-//   mounted() {
-//         this.paramId = this.$router.currentRoute.params.id
-//       console.log(this.paramId)
-//       },
+  mounted() {
+    //     this.paramId = this.$router.currentRoute.params.id
+    //   console.log(this.paramId)
+      },
   created(){
-    //   this.paramId = this.$router.currentRoute.params.id
+      this.paramId = this.$router.currentRoute.params.id
+       this.fetchagent(this.paramId)
+
     // this.apiBase= `${PROXY}admin/agent/details/${this.paramId}`,
-    console.log(this.head);
-    this.loadInfo();
+   
+    console.log(this.paramId);
     console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
