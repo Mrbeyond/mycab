@@ -36,14 +36,19 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-          <template  slot="garages" slot-scope="props">
-            <router-link :to="`/dashboard/garages/${props.rowData.id}`">
+          <template  slot="garages" slot-scope="props" >
+            <div v-if="props">
+            <router-link :to="`/dashboard/garages/${props.rowData.id}`" v-if="props.rowData.garages.length>=1">
             <b-btn  title="View Vehicles" badge-variant="dark" v-if="props"  v-b-modal.modalbasic
             >
               View <b-badge variant="primary" rounded-conner>{{props.rowData.garages.length}}</b-badge>
             </b-btn>
             </router-link>
-          
+            <b-btn v-else :disabled="props.rowData.garages.length==0"  title="View Vehicles" badge-variant="dark"  v-b-modal.modalbasic
+            >
+              View <b-badge variant="primary" rounded-conner>{{props.rowData.garages.length}}</b-badge>
+            </b-btn>
+            </div>
           </template>
         </vuetable>
         <vuetable-pagination-bootstrap
