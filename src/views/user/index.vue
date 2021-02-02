@@ -4,7 +4,8 @@
   </user-layout>
 </template>
 
-<script>
+<script>// @ts-nocheck
+
 import UserLayout from "../../layouts/UserLayout";
 
 export default {

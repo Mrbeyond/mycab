@@ -5,7 +5,6 @@
 <script>
 export default {
   data:()=>({
-      formSets: [ADD_AGENT, ADD_PAYER, ADD_ADMIN, ADD_TERMINAL, ADD_CARD, ADD_TAG],
       show: false,
       showMenuTop: false,
       opener: false,
