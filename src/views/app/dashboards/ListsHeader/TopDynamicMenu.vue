@@ -1,27 +1,50 @@
-<template>
+<template >
+<div>
+    <div>
+      <b-nav v-if="showMenuTop" fill>
+
+        <div class="top-right-button-container float-left">
+            <b-button @click="openFormsModal">ADD NEW</b-button>
+        </div>
+      </b-nav>
+      <hr />
+
+    </div>
+    <AddNewModal :formKey="formKey" :opener="opener" />
+
+</div>
+
 
 
 </template>
-<script>
+<script>import AddNewModal from './AddNewModal.vue'
+
+import { enroute } from "../../../../constants/formKey";
+
 export default {
+  components: {
+    AddNewModal,
+  },
   data:()=>({
-      show: false,
+
       showMenuTop: false,
       opener: false,
       current_path: " ",
-      compo: "",
       formKey: "",
   }),
   methods: {
     openFormsModal(){
       this.opener = true;
       setTimeout(()=>{this.opener = false}, 300)
-      // alert()
+    },
+
+    pathMonitor(data){
+      return enroute(data);
     }
   },
 
   computed: {
-    enroute(){
+    route_path(){
       return this.$route.path;
     },
   },
@@ -31,43 +54,18 @@ export default {
     }, 100);
   },
   watch: {
-    enroute(){
-      console.log(this.enroute);
-      let arr = ["agents","payers","admins","terminals", "cards", 'tags' ];
-      if(this.enroute.split('/').length === 3){
-        let curr = arr.find(data=>data.toString().toLowerCase() === this.enroute.split('/')[2].toString().toLowerCase());
-        if(curr){
-          curr = curr.toString();
-         let ind = arr.indexOf(curr);
-          this.formKey =  this.formSets[ind];
-          this.current_path = curr.charAt(0).toUpperCase()+curr.slice(1, curr.length);
-          this.showMenuTop = true;
-        }else{
-          this.showMenuTop = false;
-          this.current_path=""
-          this.formKey=""
-        }
-      }
+    route_path(){
+      this.showMenuTop = this.pathMonitor(this.route_path).showMenuTop;
+      this.formKey = this.pathMonitor(this.route_path).formKey;
+      this.current_path = this.pathMonitor(this.route_path).current_path;
     }
 
   },
 
  beforeMount(){
-      let arr = ["agents","payers","admins","terminals", "cards", 'tags' ];
-      if(this.enroute.split('/').length === 3){
-        let curr = arr.find(data=>data.toString().toLowerCase() === this.enroute.split('/')[2].toString().toLowerCase());
-        if(curr){
-          curr = curr.toString();
-          let ind = arr.indexOf(curr)
-          this.formKey =  this.formSets[ind];
-          this.current_path = curr.charAt(0).toUpperCase()+curr.slice(1, curr.length);
-          this.showMenuTop = true;
-        }else{
-          this.showMenuTop = false;
-          this.current_path=""
-          this.formKey=""
-        }
-      }
- }
+  this.showMenuTop = this.pathMonitor(this.route_path).showMenuTop;
+  this.formKey = this.pathMonitor(this.route_path).formKey;
+  this.current_path = this.pathMonitor(this.route_path).current_path;
+ },
 }
 </script>
