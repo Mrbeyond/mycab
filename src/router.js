@@ -81,7 +81,7 @@ const routes = [
         // ]
       },
       {
-        path: "localgovernment",
+        path: "lg",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Dashboard/Locations/getLocations.vue"),
         // meta: { roles: [UserRole.Admin] },
