@@ -58,7 +58,7 @@
             :height="400"
             :dataFormat="'json'"
             :dataSource="wallet_debit_transactions"
-          />
+            />
         </b-card>
       </b-col>
     </b-row>
