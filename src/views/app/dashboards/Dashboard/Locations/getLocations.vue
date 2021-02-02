@@ -12,16 +12,22 @@
         <div class="separator mb-5"></div>
       </b-colxx>
     </b-row> -->
-    <b-row>
-      <b-colxx xxs="12" v-if="isLoad">
+    <div v-if="isLoading && !isFetched" class="row justify-content-center">
+        <div> <b-spinner variant="primary" /></div>
+    </div>
+    <div v-else-if="!isLoading && !isFetched">
+        Went wrong slot
+    </div>
+    <b-row v-else>
+      <b-colxx xxs="12">
         <vuetable
-        
           ref="vuetable"
           class="table-divided order-with-arrow"
           :query-params="makeQueryParams"
           :per-page="perPage"
           :http-options="head"
-          :data="getlg"
+          :api-mode="false"
+          :data="lgs"
           :reactive-api-url="false"
           :fields="fields"
           pagination-path
@@ -30,12 +36,14 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-            <template  slot="garages" slot-scope="props">
-              <b-btn  title="View Vehicles" badge-variant="dark" v-if="props"  v-b-modal.modalbasic
-              @click="modalinfo(props.rowData.garages)">
-                   View <b-badge variant="primary" rounded-conner>{{props.rowData.garages.length}}</b-badge>
-                   </b-btn>
-            
+          <template  slot="garages" slot-scope="props">
+            <router-link :to="`/dashboard/garages/${props.rowData.id}`">
+            <b-btn  title="View Vehicles" badge-variant="dark" v-if="props"  v-b-modal.modalbasic
+            >
+              View <b-badge variant="primary" rounded-conner>{{props.rowData.garages.length}}</b-badge>
+            </b-btn>
+            </router-link>
+          
           </template>
         </vuetable>
         <vuetable-pagination-bootstrap
@@ -44,9 +52,9 @@
           @vuetable-pagination:change-page="onChangePage"
         />
       </b-colxx>
-        <template v-else>
+        <!-- <template v-else>
         <div class="loading"></div>
-      </template>
+      </template> -->
 
        <b-colxx xxs="12">
           <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
@@ -149,8 +157,9 @@ export default {
   data() {
     return {
       head: {headers: hToken()},
-      isLoad: false,
-      // apiBase: `${PROXY}admin/vehicle/details`,//apiUrl + "/cakes/fordatatable",
+      isLoading: true,
+      isFetched: false,
+      apiBase: `${PROXY}location/garages/`,
       sort: "",
       page: 1,
       perPage: 8,
@@ -165,7 +174,7 @@ export default {
       RigthVery:"",
 
       // isFetched: false,
-      // isLoading: true,
+      // isLoadinging: true,
 
       fields: [
         {
@@ -201,38 +210,6 @@ export default {
           dataClass: "",
           width: "10%"
         },
-        //    {
-        //   name: "vehicle_identification_number",
-        //   sortField: "id",
-        //   title: "ID",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //  {
-        //   name: "vehicle_year",
-        //   sortField: "year",
-        //   title: "Year",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //  {
-        //   name: "__slot:Details",
-        //   sortField: "Details",
-        //   title: "Details",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //   {
-        //   name: "__slot:details",
-        //   sortField: "details",
-        //   title: "Full details",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
         {
           name: "__slot:garages",
           sortField: "garages",
@@ -285,16 +262,16 @@ export default {
     },
 
     cellClicked(item, field, event){
-      alert()
-      console.log(item, 'item');
-      console.log(field, 'feild');
-      console.log(event,'eve');
+      // // alert()
+      // console.log(item, 'item');
+      // console.log(field, 'feild');
+      // console.log(event,'eve');
     },
 
     rowClicked(dataItem, event) {
       // const itemId = dataItem.id;
       console.log(dataItem)
-      alert();
+      // alert();
       return;
       if (event.shiftKey && this.selectedItems.length > 0) {
         let itemsForToggle = this.items;
@@ -393,9 +370,11 @@ export default {
         this.selectedItems.length < this.items.length
       );
     },
-      getlg(){
-      return this.$store.getters.lgs;
-    },
+
+    lgs(){
+    return this.$store.getters.lgs;
+  },
+
     resKey(){
       return this.$store.getters.resKey;
     }
@@ -403,14 +382,21 @@ export default {
   watch: {
      resKey(){
       if(this.resKey && this.resKey.owner && this.resKey.owner == LGS){
-        this.isLoad = true;
+        if(this.resKey.status){
+          this.isFetched = false;
+          this.isLoading = true;
+        }else{
+          this.isFetched = true;
+        }
+
       }
+      
     }
   },
   created(){
-    this.getlg()
+    this.getlg();
     console.log(this.head);
-    console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>

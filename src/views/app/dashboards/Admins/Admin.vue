@@ -24,6 +24,8 @@
           :per-page="perPage"
           :http-options="head"
           :reactive-api-url="false"
+          :api-mode="false"
+
           :fields="fields"
           :data="admins"
           pagination-path

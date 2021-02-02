@@ -27,6 +27,7 @@
           :per-page="perPage"
           :http-options="head"
           :api-url="apiBase"
+          :api-mode="false"
           :reactive-api-url="false"
           :fields="fields"
           pagination-path

@@ -23,6 +23,7 @@
           :data="garages"
           :reactive-api-url="false"
           :fields="fields"
+          :api-mode="false"
           pagination-path
           :row-class="onRowClass"
           @vuetable:pagination-data="onPaginationData"
@@ -237,8 +238,8 @@ export default {
     };
   },
   methods: {
-     getGarages(){
-      this.$store.dispatch(GARAGES,1);
+     getGarages(id){
+      this.$store.dispatch(GARAGES,id);
     },
     modalinfo(account,garage,port,type){
     this.RightmodalData = {"account":account,"garage":garage,"type":type,"port":port}
@@ -395,12 +396,17 @@ export default {
   watch: {
      resKey(){
       if(this.resKey && this.resKey.owner && this.resKey.owner == GARAGES){
+        if(this.resKey.status){
+            // alert(this.resKey.status)
+        }else{
+            
+        }
         this.isLoad = true;
       }
     }
   },
   created(){
-    this.getGarages()
+    this.getGarages(this.$router.currentRoute.params.id)
     console.log(this.head);
     console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
