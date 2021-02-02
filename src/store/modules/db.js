@@ -274,7 +274,7 @@ export default {
     })
   },
 
-  [GARAGES]({commit, id}){
+  [GARAGES]({commit},id){
     Axios.get(`${PROXY}location/garages/${id}`, {headers: hToken()})
     .then(res=>{
       if(!res.data.error){

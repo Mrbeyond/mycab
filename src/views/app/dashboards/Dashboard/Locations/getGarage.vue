@@ -238,7 +238,7 @@ export default {
   },
   methods: {
      getGarages(){
-      this.$store.dispatch(GARAGES);
+      this.$store.dispatch(GARAGES,1);
     },
     modalinfo(account,garage,port,type){
     this.RightmodalData = {"account":account,"garage":garage,"type":type,"port":port}
