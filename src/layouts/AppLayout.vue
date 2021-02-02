@@ -3,7 +3,6 @@
     <topnav />
     <sidebar />
     <main>
-
       <div class="container-fluid">
         <slot></slot>
       </div>

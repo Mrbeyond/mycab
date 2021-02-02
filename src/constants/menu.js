@@ -192,6 +192,20 @@ const data = [
   label: "menu.vehicle-cards",
   to: `${adminRoot}/cards`,
   // roles: [UserRole.Admin, UserRole.Editor],,
+  subs:[
+    {
+    icon: "simple-icon-location-pin",
+    label: "Local Governments",
+    to: `${adminRoot}/localgovernment`,
+    // roles: [UserRole.Admin, UserRole.Editor],
+    },
+    {
+      icon: "simple-icon-plus",
+      label: "Garages",
+      to: `${adminRoot}/garages`,
+      // roles: [UserRole.Admin, UserRole.Editor],
+    },
+  ]},
   // subs:[
   //   {
   //   icon: "simple-icon-list",
@@ -206,7 +220,6 @@ const data = [
   //     // roles: [UserRole.Admin, UserRole.Editor],
   //   },
   // ]
-  },
   {
     id: "terminals",
     icon: "iconsminds-shop-4",
