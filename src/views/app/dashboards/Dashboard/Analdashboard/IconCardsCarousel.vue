@@ -3,8 +3,8 @@
     <glide-component :settings="glideIconsOption" v-if="analytic" class="mx-auto container">
       <icon-card class="col-lg-3 col-md-4 col-12" title="All Payers"  icon="simple-icon-user" :value="analytic.total_payers" />
       <icon-card class="col-lg-3 col-md-4 col-12" title="All Agents"  icon="simple-icon-user" :value="analytic.total_agents" />
-      <icon-card class="col-lg-3 col-md-4 col-12" title="Port Agents"  icon="simple-icon-user" :value="analytic.total_agents" />
-      <icon-card class="col-lg-3 col-md-4 col-12" title="Garage Agents"  icon="simple-icon-user" :value="analytic.total_agents" />
+      <icon-card class="col-lg-3 col-md-4 col-12" title="Port Agents"  icon="simple-icon-user" :value="analytic.total_port_agents" />
+      <icon-card class="col-lg-3 col-md-4 col-12" title="Garage Agents"  icon="simple-icon-user" :value="analytic.total_garage_agents" />
 
       <icon-card class="col-lg-3 col-md-4 col-12" title="All Vehicles" icon="iconsminds-bus-2" :value="analytic.total_vehicles"/>
       <icon-card class="col-lg-3 col-md-4 col-12" title="Commercial Vehicles"  icon="iconsminds-bus-2" :value="analytic.total_commercial_vehicles"/>

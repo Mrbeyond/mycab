@@ -36,7 +36,7 @@ export default {
 
     resKey: state=> state.resKey,
 
-    paorts: state=> state.paorts,
+    ports: state=> state.ports,
 
     garages: state=> state.garages,
 
@@ -274,7 +274,7 @@ export default {
     })
   },
 
-  [GARAGES]({commit},id){
+  [GARAGES]({commit}, id){
     Axios.get(`${PROXY}location/garages/${id}`, {headers: hToken()})
     .then(res=>{
       if(!res.data.error){
@@ -347,7 +347,7 @@ export default {
 
   [ADMINTYPES]({commit}){
 
-    Axios.get(`${PROXY}admin/admin/types`, {headers: hToken()})
+    Axios.get(`${PROXY}admin/admins/types`, {headers: hToken()})
     .then(res=>{
       if(!res.data.error){
         let payload;

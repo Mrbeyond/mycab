@@ -3,7 +3,7 @@
     <b-colxx xxs="12">
         <b-card class="mb-4">
           <b-form @submit.prevent="onValitadeFormSubmit" class="av-tooltip tooltip-label-right">
-              <b-form-group label="Tag number">
+              <b-form-group label="Number of tags to generate">
                 <b-form-input type="text" v-model="$v.tag_no.$model" :state="!$v.tag_no.$error" />
                 <b-form-invalid-feedback v-if="!$v.tag_no.required">Please enter a type</b-form-invalid-feedback>
                 <b-form-invalid-feedback v-else-if="!$v.tag_no.numeric">Value must be a number</b-form-invalid-feedback>

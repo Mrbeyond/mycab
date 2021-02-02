@@ -31,46 +31,50 @@
                 </b-form-group>
 
                 <b-form-group label="Agent type">
-                    <b-form-input type="text" v-model="$v.agent_type.$model" :state="!$v.agent_type.$error" />
-                    <b-form-invalid-feedback v-if="!$v.agent_type.required">Please enter a type</b-form-invalid-feedback>
-                    <b-form-invalid-feedback v-else-if="!$v.agent_type.numeric">Value must be a number</b-form-invalid-feedback>
+                    <b-form-select variant="primary"
+                      :options="agentTypes"
+                     v-model="$v.agent_type.$model"
+                      :state="!$v.agent_type.$error"
+                    />
+                    <b-form-invalid-feedback v-if="!$v.agent_type.required">Please choose type</b-form-invalid-feedback>
                 </b-form-group>
 
+                <b-form-group v-if="agent_type">
 
+                  <template v-if="agent_type == 'Port'">
+                    <b-input-group v-if="agent_type == 'Port'" class="mb-3">
+                      <b-form-select
+                        :options="ports"
+                        v-model="selectedPort"
+                      />
+                    <b-form-invalid-feedback :force-show="!Boolean(selectedPort)" >
+                      Select port
+                    </b-form-invalid-feedback>
+                    </b-input-group >
+                  </template>
 
-                <!--<b-form-group label="Agent type">
-                  <v-select v-model="get_type" :options="allTypes" :dir="direction" />
-                </b-form-group>
+                  <template v-if="agent_type != 'Port'">
+                    <b-form-group label="LGs">
+                        <b-form-select variant="primary"
+                          @change="processSelectedLG"
+                          :options="lgs"
+                          v-model="selectedLG"
+                        />
+                    </b-form-group>
+                    <b-form-group v-if="selectedLG" label="Garage">
+                      <!-- Show spinner while loading garages -->
+                      <div v-if="selectedLG && !garages"><b-spinner  variant="primary" /></div>
 
-                <b-form-group label="Add">
-                  <v-select v-model="vueSelectForm.single" :options="selectData" :dir="direction" />
-                </b-form-group>
+                      <b-form-select v-if="garages"
+                        :options="garages"
+                        v-model="selectedGarage" variant="primary"
+                      />
+                      <b-form-invalid-feedback :force-show="!Boolean(selectedGarage)" >
+                        Select Garage
+                      </b-form-invalid-feedback>
+                    </b-form-group>
+                  </template>
 
-                <b-form-group label="Add">
-                  <v-select v-model="vueSelectForm.single" :options="selectData" :dir="direction" />
-                </b-form-group>
-
-                <b-form-group label="Add">
-                  <v-select v-model="vueSelectForm.single" :options="selectData" :dir="direction" />
-                </b-form-group>
-                  <b-input-group-prepend>
-                    <b-dropdown right split :text="$t('input-groups.action')" variant="outline-secondary">
-                        <b-dropdown-header>{{ $t('input-groups.header') }}</b-dropdown-header>
-                        <b-dropdown-item disabled>{{ $t('input-groups.action') }}</b-dropdown-item>
-                        <b-dropdown-item>{{ $t('input-groups.another-action') }}</b-dropdown-item>
-                        <b-dropdown-divider></b-dropdown-divider>
-                        <b-dropdown-item>{{ $t('input-groups.another-action') }}</b-dropdown-item>
-                    </b-dropdown>
-                </b-input-group-prepend>
-                <b-form-input/>
-            </b-input-group>
-                -->
-
-
-                <b-form-group label="Garage id">
-                    <b-form-input type="text" v-model="$v.garage_id.$model" :state="!$v.garage_id.$error" />
-                    <b-form-invalid-feedback v-if="!$v.garage_id.required">Please enter a value</b-form-invalid-feedback>
-                    <b-form-invalid-feedback v-else-if="!$v.garage_id.numeric">Value must be a number</b-form-invalid-feedback>
                 </b-form-group>
 
                 <div class="text-center">
@@ -98,14 +102,13 @@ import {
     validationMixin
 } from "vuelidate";
 import { PROXY } from '../../../../constants/config';
-import { hToken } from '../../../../constants/formKey';
+import { GARAGES, hToken } from '../../../../constants/formKey';
 const {
     required,
     minLength,
     alpha,
     email,
     numeric,
-    minValue
 } = require("vuelidate/lib/validators");
 
 
@@ -121,42 +124,11 @@ export default {
       submitting: false,
       variant: "success",
       resMessage: "",
-      allTypes: [ "Port", "Commercial"],
-      typeColl: [],
-      garages: [],
-      lgs: [
-        {
-          name:"oshodi",
-          garages: [
-            {name: "one", id: 1},
-            {name: "two", id: 2},
-            {name: "three", id: 3},
-            {name: "four", id: 4},
-            {name: "five", id: 5},
-          ]
-        },
-        {
-          name:"apapa",
-          garages: [
-            {name: "one", id: 6},
-            {name: "two", id: 7},
-            {name: "three", id: 8},
-            {name: "four", id: 9},
-            {name: "five", id: 10},
-          ]
-        },
-        {
-          name:"epe",
-          garages: [
-            {name: "one", id: 11},
-            {name: "two", id: 12},
-            {name: "three", id: 13},
-            {name: "four", id: 14},
-            {name: "five", id: 15},
-          ]
-        },
-      ],
+      selectedPort:"",
+      selectedLG:'',
+      selectedGarage:'',
 
+      typeColl: [],
 
     };
   },
@@ -173,11 +145,6 @@ export default {
     },
     agent_type: {
         required,
-        numeric
-    },
-    garage_id: {
-        required,
-        numeric
     },
     last_name: {
         required,
@@ -188,13 +155,91 @@ export default {
         required,
         numeric,
         minLength: minLength(11)
+    }
+
+  },
+
+  computed: {
+    ports(){
+      let all = this.$store.getters.ports;
+      if(all){
+        return all.map(d=>({value:d.id, text:d.name}))
+      }else{
+        return []
+      }
     },
 
+    lgs(){
+      let all = this.$store.getters.lgs;
+      if(all){
+        return all.map(d=>({value:d.id, text:d.name}))
+      }else{
+        return []
+      }
     },
+
+    agentTypes(){
+      let all = this.$store.getters.agentTypes;
+      if(all){
+        return all.map(d=>d.name)
+      }else{
+        return []
+      }
+    },
+    garages(){
+      let all = this.$store.getters.garages;
+      if(all){
+        return all.map(d=>({value:d.id, text:d.name}))
+      }else{
+        return []
+      }
+    },
+    resKey(){
+      return this.$store.getters.resKey;
+    }
+
+  },
+
+  watch:{
+    resKey(){
+      if(this.resKey && this.resKey.status != 0 && this.resKey.owner == GARAGES){
+        this.resMessage = "Garages fetched";
+         this.$bvToast.show("example-toast");
+      }
+    },
+
+    selectedLG(){
+      console.log(this.selectedLG);
+      this.processSelectedLG();
+    },
+
+  },
+
   methods: {
+
+    processSelectedLG(){
+      this.$store.commit(GARAGES, "");
+      this.$store.dispatch(GARAGES,this.selectedLG);
+
+    },
     onValitadeFormSubmit() {
       this.$v.$touch();
       if(this.$v.$invalid) return;
+      let service = this.agent_type.toString().trim();
+      if(!this.selectedGarage && !this.selectedPort){
+        if(service == "Garage"){
+          if(!this.selectedGarage){
+            this.resMessage = "Choose a garage";
+          }
+        }else{
+          this.resMessage = "Choose a port";
+        }
+        this.variant = "danger";
+        this.$bvToast.show("example-toast");
+        return;
+      }
+
+      let id= service ==="Port"? this.selectedPort : this.selectedGarage;
 
       if(this.submitting) return;
       let formData = {
@@ -202,12 +247,13 @@ export default {
         first_name:this.first_name,
         last_name:this.last_name,
         email:this.email,
-        agent_type: this.agent_type,
-        garage_id: this.garage_id
-      }
+        agent_type: service == "Port"? "slug":"commercial",
+        garage_id: id,
+      };
 
-      // console.log(formData);
-      console.log(hToken());
+
+      console.log(formData);
+      // console.log(hToken());
       this.submitting = true;
       Axios.post(`${PROXY}admin/register/agent`, formData, {headers: hToken()})
       .then(res=>{
@@ -216,6 +262,7 @@ export default {
           this.variant = "success";
           this.resMessage = res.data.message;
           this.$refs.form.reset();
+          this.selectedGarage = this.selectedPort = "";
         }else{
           this.variant = "danger";
           this.resMessage = "Something went wrong, please retry"
@@ -237,58 +284,12 @@ export default {
         this.$bvToast.show("example-toast");
         this.submitting = false;
       })
-  },
+    },
 
-  getLGS(){
-
-  },
-
-  processType(){
 
   },
-
-  processGarage(){
-
-  },
-
-  getPorts(){
-     Axios.get(`${PROXY}location/ports`, {headers: hToken()})
-      .then(res=>{
-        if(!res.data.error){
-
-          this.variant = "success";
-          this.resMessage = res.data.message;
-          this.$refs.form.reset();
-        }else{
-          this.variant = "danger";
-          this.resMessage = "Something went wrong, please retry"
-          // commit('setError', "Something went wrong");
-        }
-        this.$bvToast.show("example-toast");
-        this.submitting = false;
-      })
-      .catch(err=>{
-       this.variant = "danger";
-        if(err && err.response){
-         if(err.response.data && err.response.data.message){
-           this.resMessage = err.response.data.message
-         }else{
-          this.resMessage = "Something went wrong, please retry"
-         }
-        }
-
-        this.$bvToast.show("example-toast");
-        this.submitting = false;
-      })
-
-  },
-
-  getGarage(){
-
+  mounted(){
+    // console.log(this.lgs);
   }
-
-
-
-}
 };
 </script>

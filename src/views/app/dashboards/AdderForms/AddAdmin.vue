@@ -32,8 +32,7 @@
 
                 <b-form-group label="Admin type">
                     <div>
-                      <b-form-select v-model="$v.admin_type.$model" :options="options" :state="!$v.admin_type.$error"></b-form-select>
-                      id = {{$v.admin_type.$model}}
+                      <b-form-select v-model="$v.admin_type.$model" :options="adminTypes" :state="!$v.admin_type.$error"></b-form-select>
                     <b-form-invalid-feedback v-if="!$v.admin_type.required">Please enter a type</b-form-invalid-feedback>
                     <b-form-invalid-feedback v-else-if="!$v.admin_type.numeric">Value must be a number</b-form-invalid-feedback>
                     </div>
@@ -123,7 +122,19 @@ export default {
         minLength: minLength(11)
     },
 
-    },
+  },
+
+  computed: {
+    adminTypes(){
+      let all = this.$store.getters.adminTypes;
+      if(all){
+        return all.map(d=>({value:d.id, text:d.name}))
+      }else{
+        return []
+      }
+    }
+  },
+
   methods: {
     onValitadeFormSubmit() {
       this.$v.$touch();
@@ -167,7 +178,7 @@ export default {
         this.$bvToast.show("example-toast");
         this.submitting = false;
       })
+    }
   }
-}
 };
 </script>

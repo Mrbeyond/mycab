@@ -192,20 +192,22 @@ const data = [
   label: "menu.vehicle-cards",
   to: `${adminRoot}/cards`,
   // roles: [UserRole.Admin, UserRole.Editor],,
-  subs:[
-    {
-    icon: "simple-icon-location-pin",
-    label: "Local Governments",
-    to: `${adminRoot}/localgovernment`,
-    // roles: [UserRole.Admin, UserRole.Editor],
-    },
-    {
-      icon: "simple-icon-plus",
-      label: "Garages",
-      to: `${adminRoot}/garages`,
-      // roles: [UserRole.Admin, UserRole.Editor],
-    },
-  ]},
+  // subs:[
+  //   {
+  //   icon: "simple-icon-location-pin",
+  //   label: "Local Governments",
+  //   to: `${adminRoot}/localgovernment`,
+  //   // roles: [UserRole.Admin, UserRole.Editor],
+  //   },
+  //   {
+  //     icon: "simple-icon-plus",
+  //     label: "Garages",
+  //     to: `${adminRoot}/garages`,
+  //     // roles: [UserRole.Admin, UserRole.Editor],
+  //   },
+  // ]
+}
+  ,
   // subs:[
   //   {
   //   icon: "simple-icon-list",
@@ -226,17 +228,16 @@ const data = [
     label: "menu.terminals",
     to: `${adminRoot}/terminals`,
   },
-
-  { id:"analytics",
-    icon: "simple-icon-feed",
-    label: "menu.analytics",
-    to: `${adminRoot}/analytics`,
-    // roles: [UserRole.Admin, UserRole.Editor],
-  },
   { id:"reports",
     icon: "simple-icon-notebook",
     label: "menu.reports",
     to: `${adminRoot}/reports`,
+    // roles: [UserRole.Admin, UserRole.Editor],
+  },
+  { id:"analytics",
+    icon: "simple-icon-feed",
+    label: "menu.analytics",
+    to: `${adminRoot}/analytics`,
     // roles: [UserRole.Admin, UserRole.Editor],
   },
   {id:"settings",

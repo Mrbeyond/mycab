@@ -131,6 +131,12 @@ const routes = [
         // meta: { roles: [UserRole.Editor] },
       },
       {
+        path: "reports",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Reports.vue"),
+        // meta: { roles: [UserRole.Editor] },
+      },
+      {
         path: "terminals",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Terminal/Terminal.vue"),
