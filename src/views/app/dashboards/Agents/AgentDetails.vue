@@ -195,7 +195,7 @@ export default {
       // isFetched: false,
       // isLoading: true,
 
-      fields: [,
+      fields: [
         {
         name: "vehicle_model",
         sortField: "vehicle_model",
@@ -237,21 +237,6 @@ export default {
           dataClass: "",
           width: "10%"
         },
-        
-        //  {
-        //   name: "__slot:actions",
-        //   title: "Action",
-        //   titleClass: "center aligned text-right",
-        //   dataClass: "center aligned text-right",
-        //   width: "5%"
-        // },
-        // {
-        //   name: "account_vehicles",
-        //   title: "Vehicle",
-        //   titleClass: "center aligned text-right",
-        //   dataClass: "center aligned text-right",
-        //   width: "5%"
-        // }
       ]
     };
   },
