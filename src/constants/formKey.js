@@ -24,6 +24,8 @@ export const PORTS = "PORTS";
 export const LGS = "LGS";
 export const GARAGES = "GARAGES";
 export const AGENTTYPES = "AGENTTYPES";
+export const ADMINTYPES = "ADMINTYPES";
+export const PAYERS = "PAYERS";
 
 export const hToken=()=>{
   try {
@@ -98,6 +100,27 @@ export const statusS = ["Unsuccessfull", "Successfull"];
 
 export const toMoney = (val)=>{
   return parseInt(val).toLocaleString();
+
+};
+
+export const enroute=(route)=>{
+  console.log(route);
+  let arr = ["agents","payers","admins","terminals", "cards", 'tags' ];
+  let formSets= [ADD_AGENT, ADD_PAYER, ADD_ADMIN, ADD_TERMINAL, ADD_CARD, ADD_TAG];
+  if(route.split('/').length === 3){
+    let curr = arr.find(data=>data.toString().toLowerCase() === route.split('/')[2].toString().toLowerCase());
+    if(curr){
+      curr = curr.toString();
+     let ind = arr.indexOf(curr);
+      return {
+        formKey :  formSets[ind],
+        current_path : curr.charAt(0).toUpperCase()+curr.slice(1, curr.length),
+        showMenuTop : true,
+      }
+    }else{
+      return  { formKey:"", current_path:"", showMenuTop : false, }
+    }
+  }
 }
 
 

@@ -1,11 +1,12 @@
 import Axios from 'axios';
 import { PROXY } from '../../constants/config';
-import { ADMINS, AGENTS, CARDS, RES_KEY, hToken, TAGS, TERMINALS, GARAGES, PORTS, LGS, AGENTTYPES } from '../../constants/formKey';
+import { ADMINS, AGENTS, CARDS, RES_KEY, hToken, TAGS, TERMINALS, GARAGES, PORTS, LGS, AGENTTYPES, ADMINTYPES, PAYERS } from '../../constants/formKey';
 
 export default {
   state: {
     admins: null,
     agents: null,
+    payers: null,
     cards: null,
     terminals: null,
     tags: null,
@@ -15,6 +16,7 @@ export default {
     garages:null,
     lgs:null,
     agentTypes:null,
+    adminTypes:null,
 
   },
 
@@ -41,6 +43,10 @@ export default {
     lgs: state=> state.lgs,
 
     agentTypes: state=> state.agentTypes,
+
+    adminTypes: state=> state.adminTypes,
+
+    payers: state=> state.payers,
 
 
   },
@@ -90,6 +96,11 @@ export default {
     [AGENTTYPES](state, payload){
       // console.log(payload.owner);
       state.agentTypes = payload;
+    },
+
+    [ADMINTYPES](state, payload){
+      // console.log(payload.owner);
+      state.adminTypes = payload;
     },
   },
 
@@ -187,6 +198,30 @@ export default {
     .catch(err => {
       if(err.response){
         commit(RES_KEY, {status:2, owner: ADMINS});
+      }
+    })
+  },
+
+  [PAYERS]({commit}){
+
+    Axios.get(`${PROXY}admin/payers`, {headers: hToken()})
+    .then(res=>{
+      if(!res.data.error){
+        let payload;
+        try {
+          payload = res.data.data
+          commit(PAYERS, payload);
+          commit(RES_KEY, {status:0, owner: PAYERS});
+        } catch (e) {
+          commit(RES_KEY, {status:1, owner: PAYERS});
+        }
+      }else{
+        commit(RES_KEY, {status:1, owner: PAYERS});
+      }
+    })
+    .catch(err => {
+      if(err.response){
+        commit(RES_KEY, {status:2, owner: PAYERS});
       }
     })
   },
@@ -289,7 +324,7 @@ export default {
 
   [AGENTTYPES]({commit}){
 
-    Axios.get(`${PROXY}admin/terminals`, {headers: hToken()})
+    Axios.get(`${PROXY}admin/agent_types`, {headers: hToken()})
     .then(res=>{
       if(!res.data.error){
         let payload;
@@ -307,6 +342,30 @@ export default {
     .catch(err => {
       if(err.response){
         commit(RES_KEY, {status:2, owner: AGENTTYPES});
+      }
+    })
+  },
+
+  [ADMINTYPES]({commit}){
+
+    Axios.get(`${PROXY}admin/admin/types`, {headers: hToken()})
+    .then(res=>{
+      if(!res.data.error){
+        let payload;
+        try {
+          payload = res.data.data
+          commit(ADMINTYPES, payload);
+          commit(RES_KEY, {status:0, owner: ADMINTYPES});
+        } catch (e) {
+          commit(RES_KEY, {status:1, owner: ADMINTYPES});
+        }
+      }else{
+        commit(RES_KEY, {status:1, owner: ADMINTYPES});
+      }
+    })
+    .catch(err => {
+      if(err.response){
+        commit(RES_KEY, {status:2, owner: ADMINTYPES});
       }
     })
   },
