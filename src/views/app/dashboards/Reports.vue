@@ -212,7 +212,7 @@
           ]
         },
         agents: {
-          apiBase: `${PROXY}admin/payer/details`,//apiUrl + "/cakes/fordatatable",
+          apiBase: `${PROXY}admin/agent/details`,//apiUrl + "/cakes/fordatatable",
           sort: "",
           page: 1,
           perPage: 8,
