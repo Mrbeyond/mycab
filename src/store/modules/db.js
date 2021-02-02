@@ -347,7 +347,7 @@ export default {
 
   [ADMINTYPES]({commit}){
 
-    Axios.get(`${PROXY}admin/admin/types`, {headers: hToken()})
+    Axios.get(`${PROXY}admin/admins/types`, {headers: hToken()})
     .then(res=>{
       if(!res.data.error){
         let payload;
