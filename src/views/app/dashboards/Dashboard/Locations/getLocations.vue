@@ -13,14 +13,15 @@
       </b-colxx>
     </b-row> -->
     <b-row>
-      <b-colxx xxs="12">
+      <b-colxx xxs="12" v-if="isLoad">
         <vuetable
+        
           ref="vuetable"
           class="table-divided order-with-arrow"
           :query-params="makeQueryParams"
           :per-page="perPage"
           :http-options="head"
-          :data="terminals"
+          :data="getlg"
           :reactive-api-url="false"
           :fields="fields"
           pagination-path
@@ -29,14 +30,13 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-           <template slot="Details" slot-scope="props">
-             <b-button class="bg-primary" @click="modalinfo(props.rowData.account,props.rowData.garage,props.rowData.port,props.rowData.vehicle_type_details)"  v-b-modal.modalbasic>Preview</b-button>
+            <template  slot="garages" slot-scope="props">
+              <b-btn  title="View Vehicles" badge-variant="dark" v-if="props"  v-b-modal.modalbasic
+              @click="modalinfo(props.rowData.garages)">
+                   View <b-badge variant="primary" rounded-conner>{{props.rowData.garages.length}}</b-badge>
+                   </b-btn>
+            
           </template>
-            <template slot="details" slot-scope="props">
-              <router-link :to="`/dashboard/vehicles/${props.rowData.id}`">
-            <b-button class="bg-primary">Full details</b-button>
-              </router-link>
-            </template>
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -44,6 +44,9 @@
           @vuetable-pagination:change-page="onChangePage"
         />
       </b-colxx>
+        <template v-else>
+        <div class="loading"></div>
+      </template>
 
        <b-colxx xxs="12">
           <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
@@ -132,12 +135,11 @@ import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../../constants/config";
 import { hToken, loadash } from "../../../../../constants/formKey";
-// import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
-import { ADD_TERMINAL, TERMINALS } from '../../../../../constants/formKey';
+import {LGS} from '../../../../../constants/formKey';
 
 
 export default {
-  ADD_TERMINAL,
+  LGS,
   props: ["title"],
   components: {
     vuetable: Vuetable,
@@ -148,7 +150,7 @@ export default {
     return {
       head: {headers: hToken()},
       isLoad: false,
-      apiBase: `${PROXY}admin/vehicle/details`,//apiUrl + "/cakes/fordatatable",
+      // apiBase: `${PROXY}admin/vehicle/details`,//apiUrl + "/cakes/fordatatable",
       sort: "",
       page: 1,
       perPage: 8,
@@ -167,34 +169,34 @@ export default {
 
       fields: [
         {
-        name: "terminal_no",
-        sortField: "terminal",
-        title: "Terminal No",
+        name: "name",
+        sortField: "name",
+        title: "Name",
         titleClass: "",
         dataClass: "list-item-heading",
         width: "10%"
         },
         {
-          name:"state_id",
-          sortField: "state id",
-          title: "State ID",
+          name:"address",
+          sortField: "address",
+          title: "Adress",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
        
         {
-          name: "createdAt",
-          sortField: "created",
-          title: "Created at",
+          name: "contact_person",
+          sortField: "contact person",
+          title: "Contact person",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
           {
-          name: "status",
-          sortField: "status",
-          title: "Status",
+          name: "contact_person_phone",
+          sortField: "contact phone",
+          title: "Contact number",
           titleClass: "",
           dataClass: "",
           width: "10%"
@@ -231,16 +233,23 @@ export default {
         //   dataClass: "",
         //   width: "10%"
         // },
-      
+        {
+          name: "__slot:garages",
+          sortField: "garages",
+          title: "Garages",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
       ]
     };
   },
   methods: {
-     getTerminals(){
-      this.$store.dispatch(TERMINALS);
+     getlg(){
+      this.$store.dispatch(LGS);
     },
-    modalinfo(account,garage,port,type){
-    this.RightmodalData = {"account":account,"garage":garage,"type":type,"port":port}
+    modalinfo(garages){
+    this.RightmodalData = garages
    console.log( this.RightmodalData)
     },
       hideModal (refname) {
@@ -384,8 +393,8 @@ export default {
         this.selectedItems.length < this.items.length
       );
     },
-      terminals(){
-      return this.$store.getters.terminals;
+      getlg(){
+      return this.$store.getters.lgs;
     },
     resKey(){
       return this.$store.getters.resKey;
@@ -393,13 +402,13 @@ export default {
   },
   watch: {
      resKey(){
-      if(this.resKey && this.resKey.owner && this.resKey.owner == TERMINALS){
+      if(this.resKey && this.resKey.owner && this.resKey.owner == LGS){
         this.isLoad = true;
       }
     }
   },
   created(){
-    this.getTerminals()
+    this.getlg()
     console.log(this.head);
     console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }

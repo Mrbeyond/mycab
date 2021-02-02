@@ -20,7 +20,7 @@
           :query-params="makeQueryParams"
           :per-page="perPage"
           :http-options="head"
-          :data="terminals"
+          :data="garages"
           :reactive-api-url="false"
           :fields="fields"
           pagination-path
@@ -29,14 +29,15 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-           <template slot="Details" slot-scope="props">
-             <b-button class="bg-primary" @click="modalinfo(props.rowData.account,props.rowData.garage,props.rowData.port,props.rowData.vehicle_type_details)"  v-b-modal.modalbasic>Preview</b-button>
-          </template>
-            <template slot="details" slot-scope="props">
+           <!-- <template slot="garages">
+             <b-button class="bg-primary">
+               View</b-button>
+          </template> -->
+            <!-- <template slot="details" slot-scope="props">
               <router-link :to="`/dashboard/vehicles/${props.rowData.id}`">
             <b-button class="bg-primary">Full details</b-button>
               </router-link>
-            </template>
+            </template> -->
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -133,11 +134,11 @@ import VuetablePaginationBootstrap from "../../../../../components/Common/Vuetab
 import { apiUrl, PROXY } from "../../../../../constants/config";
 import { hToken, loadash } from "../../../../../constants/formKey";
 // import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
-import { ADD_TERMINAL, TERMINALS } from '../../../../../constants/formKey';
+import { GARAGES } from '../../../../../constants/formKey';
 
 
 export default {
-  ADD_TERMINAL,
+  GARAGES,
   props: ["title"],
   components: {
     vuetable: Vuetable,
@@ -200,7 +201,7 @@ export default {
           width: "10%"
         },
         //    {
-        //   name: "vehicle_identification_number",
+          //   name: "vehicle_identification_number",
         //   sortField: "id",
         //   title: "ID",
         //   titleClass: "",
@@ -208,7 +209,7 @@ export default {
         //   width: "10%"
         // },
         //  {
-        //   name: "vehicle_year",
+          //   name: "vehicle_year",
         //   sortField: "year",
         //   title: "Year",
         //   titleClass: "",
@@ -216,7 +217,7 @@ export default {
         //   width: "10%"
         // },
         //  {
-        //   name: "__slot:Details",
+          //   name: "__slot:Details",
         //   sortField: "Details",
         //   title: "Details",
         //   titleClass: "",
@@ -224,9 +225,9 @@ export default {
         //   width: "10%"
         // },
         //   {
-        //   name: "__slot:details",
-        //   sortField: "details",
-        //   title: "Full details",
+        //   name: "__slot:garages",
+        //   sortField: "garages",
+        //   title: "Garages",
         //   titleClass: "",
         //   dataClass: "",
         //   width: "10%"
@@ -236,8 +237,8 @@ export default {
     };
   },
   methods: {
-     getTerminals(){
-      this.$store.dispatch(TERMINALS);
+     getGarages(){
+      this.$store.dispatch(GARAGES);
     },
     modalinfo(account,garage,port,type){
     this.RightmodalData = {"account":account,"garage":garage,"type":type,"port":port}
@@ -384,8 +385,8 @@ export default {
         this.selectedItems.length < this.items.length
       );
     },
-      terminals(){
-      return this.$store.getters.terminals;
+      garages(){
+      return this.$store.getters.garages;
     },
     resKey(){
       return this.$store.getters.resKey;
@@ -393,13 +394,13 @@ export default {
   },
   watch: {
      resKey(){
-      if(this.resKey && this.resKey.owner && this.resKey.owner == TERMINALS){
+      if(this.resKey && this.resKey.owner && this.resKey.owner == GARAGES){
         this.isLoad = true;
       }
     }
   },
   created(){
-    this.getTerminals()
+    this.getGarages()
     console.log(this.head);
     console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
