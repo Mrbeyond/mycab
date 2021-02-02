@@ -33,7 +33,6 @@
                 <b-form-group label="Admin type">
                     <div>
                       <b-form-select v-model="$v.admin_type.$model" :options="options" :state="!$v.admin_type.$error"></b-form-select>
-                      id = {{$v.admin_type.$model}}
                     <b-form-invalid-feedback v-if="!$v.admin_type.required">Please enter a type</b-form-invalid-feedback>
                     <b-form-invalid-feedback v-else-if="!$v.admin_type.numeric">Value must be a number</b-form-invalid-feedback>
                     </div>

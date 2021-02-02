@@ -32,7 +32,7 @@
 
                 <b-form-group label="Agent type">
                     <b-form-select variant="primary"
-                      :options="agentTypes.map(d=>d.name)"
+                      :options="agentTypes"
                      v-model="$v.agent_type.$model"
                       :state="!$v.agent_type.$error"
                     />
@@ -44,7 +44,7 @@
                   <template v-if="agent_type == 'Port'">
                     <b-input-group v-if="agent_type == 'Port'" class="mb-3">
                       <b-form-select
-                        :options="ports.map(d=>d.name)"
+                        :options="ports"
                         v-model="selectedPort"
                       />
                     <b-form-invalid-feedback :force-show="!Boolean(selectedPort)" >
@@ -57,7 +57,7 @@
                     <b-form-group label="LGs">
                         <b-form-select variant="primary"
                           @change="processSelectedLG"
-                          :options="lgs.map(d=>d.name)"
+                          :options="lgs"
                           v-model="selectedLG"
                         />
                     </b-form-group>
@@ -66,7 +66,7 @@
                       <div v-if="selectedLG && !garages"><b-spinner  variant="primary" /></div>
 
                       <b-form-select v-if="garages"
-                        :options="garages.map(d=>d.name)"
+                        :options="garages"
                         v-model="selectedGarage" variant="primary"
                       />
                       <b-form-invalid-feedback :force-show="!Boolean(selectedGarage)" >
@@ -161,18 +161,38 @@ export default {
 
   computed: {
     ports(){
-      return this.$store.getters.ports;
+      let all = this.$store.getters.ports;
+      if(all){
+        return all.map(d=>({value:d.id, text:d.name}))
+      }else{
+        return []
+      }
     },
 
     lgs(){
-      return this.$store.getters.lgs;
+      let all = this.$store.getters.lgs;
+      if(all){
+        return all.map(d=>({value:d.id, text:d.name}))
+      }else{
+        return []
+      }
     },
 
     agentTypes(){
-      return this.$store.getters.agentTypes;
+      let all = this.$store.getters.agentTypes;
+      if(all){
+        return all.map(d=>d.name)
+      }else{
+        return []
+      }
     },
     garages(){
-      return this.$store.getters.garages;
+      let all = this.$store.getters.garages;
+      if(all){
+        return all.map(d=>({value:d.id, text:d.name}))
+      }else{
+        return []
+      }
     },
     resKey(){
       return this.$store.getters.resKey;
@@ -183,13 +203,15 @@ export default {
   watch:{
     resKey(){
       if(this.resKey && this.resKey.status != 0 && this.resKey.owner == GARAGES){
-        // alert('error')
+        this.resMessage = "Garages fetched";
+         this.$bvToast.show("example-toast");
       }
     },
 
     selectedLG(){
+      console.log(this.selectedLG);
       this.processSelectedLG();
-    }
+    },
 
   },
 
@@ -197,9 +219,7 @@ export default {
 
     processSelectedLG(){
       this.$store.commit(GARAGES, "");
-      this.garages = null;
-      let lg = this.lgs.find(d=>d.name === this.selectedLG);
-      this.$store.dispatch(GARAGES, lg.id);
+      this.$store.dispatch(GARAGES,this.selectedLG);
 
     },
     onValitadeFormSubmit() {
@@ -219,8 +239,7 @@ export default {
         return;
       }
 
-      let id= service ==="Port"? this.ports.find(d=>d.name === this.selectedPort).id
-        : this.garages.find(d=>d.name === this.selectedGarage).id;
+      let id= service ==="Port"? this.selectedPort : this.selectedGarage;
 
       if(this.submitting) return;
       let formData = {
