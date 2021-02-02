@@ -31,7 +31,7 @@
                 </b-form-group>
 
                 <b-form-group label="Agent type">
-                    <b-form-select
+                    <b-form-select variant="primary"
                       :options="agentTypes.map(d=>d.name)"
                      v-model="$v.agent_type.$model"
                       :state="!$v.agent_type.$error"
@@ -46,34 +46,35 @@
                       <b-form-select
                         :options="ports.map(d=>d.name)"
                         v-model="selectedPort"
-                        :state="!$v.agent_type.$error"
                       />
-                      <b-form-invalid-feedback v-if="!$v.agent_type.required">Please enter Port</b-form-invalid-feedback>
+                    <b-form-invalid-feedback :force-show="!Boolean(selectedPort)" >
+                      Select port
+                    </b-form-invalid-feedback>
                     </b-input-group >
                   </template>
 
                   <template v-if="agent_type != 'Port'">
                     <b-form-group label="LGs">
-                        <b-form-select
+                        <b-form-select variant="primary"
                           @change="processSelectedLG"
                           :options="lgs.map(d=>d.name)"
                           v-model="selectedLG"
                         />
                     </b-form-group>
-                    <b-form-group>
-                      <div v-if="selectedLG && !garages"><b-spinner /></div>
-                      <b-form-select v-if="selectedLG && garages"
+                    <b-form-group v-if="selectedLG" label="Garage">
+                      <!-- Show spinner while loading garages -->
+                      <div v-if="selectedLG && !garages"><b-spinner  variant="primary" /></div>
+
+                      <b-form-select v-if="garages"
                         :options="garages.map(d=>d.name)"
-                        v-model="selectedGarage"
+                        v-model="selectedGarage" variant="primary"
                       />
+                      <b-form-invalid-feedback :force-show="!Boolean(selectedGarage)" >
+                        Select Garage
+                      </b-form-invalid-feedback>
                     </b-form-group>
                   </template>
 
-                </b-form-group>
-                <b-form-group label="Garage id">
-                    <b-form-input type="text" v-model="$v.garage_id.$model" :state="!$v.garage_id.$error" />
-                    <b-form-invalid-feedback v-if="!$v.garage_id.required">Please enter a value</b-form-invalid-feedback>
-                    <b-form-invalid-feedback v-else-if="!$v.garage_id.numeric">Value must be a number</b-form-invalid-feedback>
                 </b-form-group>
 
                 <div class="text-center">
@@ -108,7 +109,6 @@ const {
     alpha,
     email,
     numeric,
-    minValue
 } = require("vuelidate/lib/validators");
 
 
@@ -146,10 +146,6 @@ export default {
     agent_type: {
         required,
     },
-    garage_id: {
-        required,
-
-    },
     last_name: {
         required,
         alpha,
@@ -159,7 +155,7 @@ export default {
         required,
         numeric,
         minLength: minLength(11)
-    },
+    }
 
   },
 
@@ -200,6 +196,8 @@ export default {
   methods: {
 
     processSelectedLG(){
+      this.$store.commit(GARAGES, "");
+      this.garages = null;
       let lg = this.lgs.find(d=>d.name === this.selectedLG);
       this.$store.dispatch(GARAGES, lg.id);
 
@@ -207,6 +205,22 @@ export default {
     onValitadeFormSubmit() {
       this.$v.$touch();
       if(this.$v.$invalid) return;
+      let service = this.agent_type.toString().trim();
+      if(!this.selectedGarage && !this.selectedPort){
+        if(service == "Garage"){
+          if(!this.selectedGarage){
+            this.resMessage = "Choose a garage";
+          }
+        }else{
+          this.resMessage = "Choose a port";
+        }
+        this.variant = "danger";
+        this.$bvToast.show("example-toast");
+        return;
+      }
+
+      let id= service ==="Port"? this.ports.find(d=>d.name === this.selectedPort).id
+        : this.garages.find(d=>d.name === this.selectedGarage).id;
 
       if(this.submitting) return;
       let formData = {
@@ -214,11 +228,12 @@ export default {
         first_name:this.first_name,
         last_name:this.last_name,
         email:this.email,
-        agent_type: this.agent_type,
-        garage_id: this.garage_id
-      }
+        agent_type: service == "Port"? "slug":"commercial",
+        garage_id: id,
+      };
 
-      // console.log(formData);
+
+      console.log(formData);
       // console.log(hToken());
       this.submitting = true;
       Axios.post(`${PROXY}admin/register/agent`, formData, {headers: hToken()})
@@ -228,6 +243,7 @@ export default {
           this.variant = "success";
           this.resMessage = res.data.message;
           this.$refs.form.reset();
+          this.selectedGarage = this.selectedPort = "";
         }else{
           this.variant = "danger";
           this.resMessage = "Something went wrong, please retry"
@@ -254,7 +270,7 @@ export default {
 
   },
   mounted(){
-    console.log(this.lgs);
+    // console.log(this.lgs);
   }
 };
 </script>
