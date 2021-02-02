@@ -120,6 +120,8 @@ export const enroute=(route)=>{
     }else{
       return  { formKey:"", current_path:"", showMenuTop : false, }
     }
+  }else{
+    return  { formKey:"", current_path:"", showMenuTop : false, }
   }
 }
 

@@ -52,7 +52,19 @@
 
                 <b-form-group label="Add">
                   <v-select v-model="vueSelectForm.single" :options="selectData" :dir="direction" />
-                </b-form-group>-->
+                </b-form-group>
+                  <b-input-group-prepend>
+                    <b-dropdown right split :text="$t('input-groups.action')" variant="outline-secondary">
+                        <b-dropdown-header>{{ $t('input-groups.header') }}</b-dropdown-header>
+                        <b-dropdown-item disabled>{{ $t('input-groups.action') }}</b-dropdown-item>
+                        <b-dropdown-item>{{ $t('input-groups.another-action') }}</b-dropdown-item>
+                        <b-dropdown-divider></b-dropdown-divider>
+                        <b-dropdown-item>{{ $t('input-groups.another-action') }}</b-dropdown-item>
+                    </b-dropdown>
+                </b-input-group-prepend>
+                <b-form-input/>
+            </b-input-group>
+                -->
 
 
                 <b-form-group label="Garage id">
