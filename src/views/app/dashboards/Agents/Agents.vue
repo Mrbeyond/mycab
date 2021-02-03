@@ -55,7 +55,7 @@
             <b-button class="bg-primary"  v-b-modal.modalbasic
               @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"
             >
-              View
+               <i class="simple-icon-magnifier" />
             </b-button>
           </template>
             <template slot="details" slot-scope="props">
@@ -176,7 +176,7 @@ export default {
          {
           name: "__slot:preview",
           sortField: "preview",
-          title: "Preview",
+          title: "Basic info",
           titleClass: "",
           dataClass: "",
           width: "10%"

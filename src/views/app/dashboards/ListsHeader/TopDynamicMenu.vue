@@ -7,7 +7,7 @@
           <div class="float-right">
             <!-- <i class="iconsminds-repeat-3 spin text-large bg-primary m-3" style="border-radius:20px"></i>
             <b-spinner variant="primary" /> -->
-            <b-button class="bg-brimary " @click="openFormsModal">ADD NEW</b-button>
+            <b-button class="bg-primary" @click="openFormsModal">ADD NEW</b-button>
           </div>
         </div>
       </b-nav>
