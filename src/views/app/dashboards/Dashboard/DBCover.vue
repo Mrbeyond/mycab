@@ -2,7 +2,6 @@
   <div>
     <Analytics :analytic="analytic" />
     <b-card class="r"  v-if="analytic">
-      <h4>Vehicle Payments</h4>
       <fusioncharts
 
         :type="'spline'"
