@@ -147,7 +147,7 @@ export default {
       Axios.post(`${PROXY}agent/payer/register`, formData, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
-          alert("succcess")
+          // alert("succcess")
 
           // localStorage.authToken = res.data.data.authorization
           // delete res.data.data.authorization;
@@ -163,7 +163,7 @@ export default {
       .catch(err=>{
         console.log(err);
         if(err && err.response){
-          alert(err.response.status)
+          // alert(err.response.status)
         }
 
         this.$bvToast.show("example-toast");
