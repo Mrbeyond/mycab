@@ -304,15 +304,9 @@ export default {
 
     cellClicked(item, field, event){
       // alert()
-<<<<<<< HEAD
-      console.log(item, 'item');
-      console.log(field, 'feild');
-      console.log(event,'eve');
-=======
       // console.log(item, 'item');
       // console.log(field, 'feild');
       // console.log(event,'eve');
->>>>>>> fc628d72d879f8b6eeaf2cc1dd2d0e10306b9c8f
     },
 
     rowClicked(dataItem, event) {
