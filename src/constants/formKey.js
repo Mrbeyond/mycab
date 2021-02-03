@@ -113,8 +113,8 @@ export const toMoney = (val)=>{
 
 export const enroute=(route)=>{
   // console.log(route);
-  let arr = ["agents","payers","admins","terminals", "cards", 'tags' ];
-  let formSets= [ADD_AGENT, ADD_PAYER, ADD_ADMIN, ADD_TERMINAL, ADD_CARD, ADD_TAG];
+  let arr = ["agents","payers","admins","terminals", "cards", 'tags', 'garages' ];
+  let formSets= [ADD_AGENT, ADD_PAYER, ADD_ADMIN, ADD_TERMINAL, ADD_CARD, ADD_TAG, ALL_GARAGES];
   if(route.split('/').length === 3){
     let curr = arr.find(data=>data.toString().toLowerCase() === route.split('/')[2].toString().toLowerCase());
     if(curr){
