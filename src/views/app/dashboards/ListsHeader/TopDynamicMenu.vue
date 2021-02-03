@@ -1,20 +1,36 @@
 <template >
 <div>
     <!-- <div class="float-right"> -->
-      <b-nav v-if="showMenuTop">
+      <b-nav v-if="showMenuTop && !resKey.status">
 
         <div class="top-right-button-container col-12 ">
+          <div class="float-left">
+            <strong><span> {{ current_path }}</span></strong>
+          </div>
           <div class="float-right">
-            <!-- <i class="iconsminds-repeat-3 spin text-large bg-primary m-3" style="border-radius:20px"></i>
-            <b-spinner variant="primary" /> -->
-            <b-button class="bg-primary" @click="openFormsModal">ADD NEW</b-button>
+            <span @click="thenRefresh">
+
+              <i class="iconsminds-repeat-3 spin text-large bg-primary m-3"
+                style="border-radius:20px" v-if="!refresher.status "
+              />
+              <span v-else>
+                <b-spinner variant="primary"  label="Small Spinner"></b-spinner>
+                <b-spinner variant="primary"  label="Small Spinner" type="grow"></b-spinner>
+              </span>
+
+            </span>
+
+            <b-button class="bg-brimary" @click="openFormsModal">
+              ADD NEW
+            </b-button>
           </div>
         </div>
       </b-nav>
-      <hr />
 
-    <!-- </div> -->
+
     <AddNewModal :formKey="formKey" :opener="opener" />
+    <hr />
+    <!-- </div> -->
 
 </div>
 
@@ -23,7 +39,7 @@
 </template>
 <script>import AddNewModal from './AddNewModal.vue'
 
-import { enroute } from "../../../../constants/formKey";
+import { ADMINS, AGENTS, ALL_GARAGES, CARDS, enroute, PAYERS, TAGS, TERMINALS } from "../../../../constants/formKey";
 
 export default {
   components: {
@@ -44,13 +60,33 @@ export default {
 
     pathMonitor(data){
       return enroute(data);
-    }
+    },
+
+    thenRefresh(){
+      if(this.refresher.status) return;
+      let {owner} = this.refresher;
+      if(owner == ADMINS){ return this.$store.dispatch(ADMINS)}
+      if(owner == AGENTS){ return this.$store.dispatch(AGENTS)}
+      if(owner == PAYERS){ return this.$store.dispatch(PAYERS)}
+      if(owner == ALL_GARAGES){ return this.$store.dispatch(ALL_GARAGES)}
+      if(owner == TERMINALS){ return this.$store.dispatch(TERMINALS)}
+      if(owner == CARDS){ return this.$store.dispatch(CARDS)}
+      if(owner == TAGS){ return this.$store.dispatch(TAGS)}
+
+    },
   },
 
   computed: {
     route_path(){
       return this.$route.path;
     },
+    refresher(){
+      return this.$store.getters.refresher;
+    },
+
+    resKey(){
+      return this.$store.getters.resKey;
+    }
   },
   mounted() {
     setTimeout(() => {
@@ -62,6 +98,10 @@ export default {
       this.showMenuTop = this.pathMonitor(this.route_path).showMenuTop;
       this.formKey = this.pathMonitor(this.route_path).formKey;
       this.current_path = this.pathMonitor(this.route_path).current_path;
+    },
+
+    refresher(){
+        // console.log(this.refresher);
     }
 
   },

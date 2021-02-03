@@ -1,5 +1,18 @@
 <template>
-  <div>
+  <div v-if="isLoading && !isFetched" style="h-100">
+
+    <div class="align-middle">
+      <div class="d-flex justify-content-center">
+        <b-spinner variant="primary" />
+      </div>
+    </div>
+  </div>
+
+  <div v-else-if=" !isLoading && !isFetched">
+
+    Error template here
+  </div>
+  <div v-else>
     <Analytics :analytic="analytic" />
     <b-card class="r"  v-if="analytic">
       <fusioncharts

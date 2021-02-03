@@ -60,7 +60,7 @@
        <b-colxx xxs="12">
           <b-modal  RightmodalData  id="modalbasic" ref="modalright" title="Details" modal-class="modal-right">
                 <b-card class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
-                <h1>Cairman</h1>
+                <h1>Chairman</h1>
                 <div >
                 <p class="text-muted">Name</p>
                 <p >{{RightmodalData.name}}</p>

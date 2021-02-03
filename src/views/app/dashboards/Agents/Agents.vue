@@ -164,7 +164,14 @@ export default {
           dataClass: "",
           width: "10%"
         },
-
+        {
+          name:"agent_no",
+          sortField: "agent_no",
+          title: "Agent No",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
         {
           name: "phone",
           sortField: "phone",
