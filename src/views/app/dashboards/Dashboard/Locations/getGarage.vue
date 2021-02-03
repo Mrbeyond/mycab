@@ -23,21 +23,17 @@
           :data="garages"
           :reactive-api-url="false"
           :fields="fields"
+          :api-mode="false"
           pagination-path
           :row-class="onRowClass"
           @vuetable:pagination-data="onPaginationData"
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-           <!-- <template slot="garages">
-             <b-button class="bg-primary">
+           <template slot="chairmen" slot-scope="props">
+                <b-button :disabled="!props.rowData.garage_chairmen" :title="!props.rowData.garage_chairmen?'No chairman':'click to view'" class="bg-primary" v-b-modal.modalbasic  @click="modalinfo(props.rowData.garage_chairmen)">
                View</b-button>
-          </template> -->
-            <!-- <template slot="details" slot-scope="props">
-              <router-link :to="`/dashboard/vehicles/${props.rowData.id}`">
-            <b-button class="bg-primary">Full details</b-button>
-              </router-link>
-            </template> -->
+          </template>
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -47,64 +43,27 @@
       </b-colxx>
 
        <b-colxx xxs="12">
-          <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
-                 <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
-                <h1>Account</h1>
-                <div >        
-                <p class="text-muted">First name</p>
-                <p >{{RightmodalData.account.first_name}}</p>
+          <b-modal  RightmodalData  id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
+                <b-card class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+                <h1>Cairman</h1>
+                <div >
+                <p class="text-muted">Name</p>
+                <p >{{RightmodalData.name}}</p>
                 </div>
                 <div>
-                <p class="text-muted">Last name</p>
-                <p >{{RightmodalData.account.last_name}}</p>
+                <p class="text-muted">Adress</p>
+                <p v-if="RightmodalData.address">{{RightmodalData.address}}</p>
+                <p v-else>No address</p>
                 </div>
                 <div>
                 <p class="text-muted">Phone</p>
-                <p >{{RightmodalData.account.phone}}</p>
+                <p >{{RightmodalData.phone}}</p>
                 </div>
-                 <div>
+                 <!-- <div>
                 <p class="text-muted">Account No.</p>
                 <p >{{RightmodalData.account.account_no}}</p>
-                </div>
+                </div> -->
           </b-card>
-                   
-
-          <b-card v-if="RightmodalData.garage !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
-                <h1>Garage & Port</h1>
-                <div >        
-                <p class="text-muted">Name</p>
-                <p >{{RightmodalData.garage.name}}</p>
-                </div>
-                <div>
-                <p class="text-muted">Address</p>
-                <p >{{RightmodalData.garage.address}}</p>
-                </div>
-                <div>
-                <p class="text-muted">Latitude</p>
-                <p >{{RightmodalData.garage.latitude}}</p>
-                </div>
-                 <div>
-                <p class="text-muted">Longitude</p>
-                <p >{{RightmodalData.garage.longitude}}</p>
-                </div>
-                 <div>
-                <p class="text-muted">Port</p>
-                <p >{{RightmodalData.port.name}}</p>
-                </div>
-         </b-card>
-
-                   
-         <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
-                <h1>Type details</h1>
-                <div >        
-                <p class="text-muted">Name</p>
-                <p >{{RightmodalData.type.name}}</p>
-                </div>
-                <div>
-                <p class="text-muted">Amount</p>
-                <p >{{RightmodalData.type.amount}}</p>
-                </div>
-         </b-card>
                     <template slot="modal-footer">
                     <b-button variant="secondary" @click="hideModal('modalright')">Cancel</b-button>
                 </template>
@@ -168,26 +127,26 @@ export default {
 
       fields: [
         {
-        name: "terminal_no",
-        sortField: "terminal",
-        title: "Terminal No",
+        name: "name",
+        sortField: "name",
+        title: "Name",
         titleClass: "",
         dataClass: "list-item-heading",
         width: "10%"
         },
         {
-          name:"state_id",
-          sortField: "state id",
-          title: "State ID",
+          name:"address",
+          sortField: "address",
+          title: "Address",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
        
         {
-          name: "createdAt",
-          sortField: "created",
-          title: "Created at",
+          name: "__slot:chairmen",
+          sortField: "chairmen",
+          title: "Chairman",
           titleClass: "",
           dataClass: "",
           width: "10%"
@@ -237,11 +196,11 @@ export default {
     };
   },
   methods: {
-     getGarages(){
-      this.$store.dispatch(GARAGES);
+     getGarages(id){
+      this.$store.dispatch(GARAGES,id);
     },
-    modalinfo(account,garage,port,type){
-    this.RightmodalData = {"account":account,"garage":garage,"type":type,"port":port}
+    modalinfo(chairman){
+    this.RightmodalData = chairman
    console.log( this.RightmodalData)
     },
       hideModal (refname) {
@@ -277,7 +236,7 @@ export default {
     },
 
     cellClicked(item, field, event){
-      alert()
+      // alert()
       console.log(item, 'item');
       console.log(field, 'feild');
       console.log(event,'eve');
@@ -286,7 +245,7 @@ export default {
     rowClicked(dataItem, event) {
       // const itemId = dataItem.id;
       console.log(dataItem)
-      alert();
+      // alert();
       return;
       if (event.shiftKey && this.selectedItems.length > 0) {
         let itemsForToggle = this.items;
@@ -395,12 +354,17 @@ export default {
   watch: {
      resKey(){
       if(this.resKey && this.resKey.owner && this.resKey.owner == GARAGES){
+        if(this.resKey.status){
+            // alert(this.resKey.status)
+        }else{
+            
+        }
         this.isLoad = true;
       }
     }
   },
   created(){
-    this.getGarages()
+    this.getGarages(this.$router.currentRoute.params.id)
     console.log(this.head);
     console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
