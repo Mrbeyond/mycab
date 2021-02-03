@@ -14,7 +14,7 @@
             <p class="mb-0 text-muted text-small w-5 w-sm-100">{{data.tag_no}}</p>
             <p class="mb-0 text-muted text-small w-5 w-sm-100">{{new Date(data.createdAt).toDateString()}}</p>
             <div class="w-15 w-sm-100">
-                <b-badge pill :variant="data.statusColor">{{data.vehicles.length > 0 ? "Assigned" : "Not Assigned"}}</b-badge>
+                <b-badge pill :variant="data.vehicles.length > 0 ? 'success' : 'danger'">{{data.vehicles.length > 0 ? "Assigned" : "Not Assigned"}}</b-badge>
             </div>
           <div class="w-15 w-sm-100">
             <b-badge pill variant="warning">{{data.is_printed ? "Printed" : "Not Printed"}}</b-badge>
