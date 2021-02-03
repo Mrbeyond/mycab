@@ -49,7 +49,7 @@
         >
           <template slot="actions" slot-scope="props" >
             <b-button id="detailBtn" ref="detailBtn"
-              @click="cellClick($event, props.rowData)"
+              @click.prevent="cellClick($event, props.rowData)"
               variant="primary"
             >
               <i class="simple-icon-login"></i>
@@ -91,7 +91,7 @@
 import Axios from 'axios';
 import Vuetable from "vuetable-2/src/components/Vuetable";
 import { PROXY } from '../../../../constants/config';
-import { hToken, LUX_ZONE } from '../../../../constants/formKey';
+import { hToken, LUX_ZONE, statusS, toMoney } from '../../../../constants/formKey';
 import VuetablePaginationBootstrap from '../../../../components/Common/VuetablePaginationBootstrap.vue';
 import PaymentSideDetails from './PaymentSideDetails.vue';
 export default {
@@ -123,7 +123,11 @@ export default {
       title: "Amount",
       titleClass: "",
       dataClass: "list-item-heading",
-      width: "10%"
+      width: "10%",
+      callback(val){
+        let result = toMoney(val);
+        return (result == "0")? "\u20A60.00": "\u20A6"+result;
+        }
       },
       {
         name:"status",
@@ -131,7 +135,10 @@ export default {
         title: "Status",
         titleClass: "",
         dataClass: "",
-        width: "10%"
+        width: "10%",
+        callback(val){
+          return statusS[Number(val)]
+        }
       },
       {
         name: "createdAt",

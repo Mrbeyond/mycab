@@ -8,7 +8,10 @@
         <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
         <p class="mb-3">
           {{ item == "createdAt"?
-          formatDate(getMainTransaction(selectedPayload)[item]): getMainTransaction(selectedPayload)[item] === null? "Null":
+          formatDate(getMainTransaction(selectedPayload)[item]):
+          item.toLocaleLowerCase() == 'amount'? to_money(getMainTransaction(selectedPayload)[item]):
+          item =="status"? mapSuccess(getMainTransaction(selectedPayload)[item]):
+          getMainTransaction(selectedPayload)[item] === null? "Null":
           getMainTransaction(selectedPayload)[item]
           }}
         </p>
@@ -22,7 +25,9 @@
         <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
         <p class="mb-3">
           {{ item == "createdAt"?
-          formatDate(selectedPayload.account_vehicle[item]): selectedPayload.account_vehicle[item] === null? "Null":
+          formatDate(selectedPayload.account_vehicle[item]):
+          item =="status"? mapActive(selectedPayload.account_vehicle[item]):
+          selectedPayload.account_vehicle[item] === null? "Null":
           selectedPayload.account_vehicle[item]
           }}
         </p>
@@ -36,7 +41,10 @@
         <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
         <p class="mb-3">
           {{ item == "createdAt"?
-          formatDate(selectedPayload.account_wallet_transaction[item]): selectedPayload.account_wallet_transaction[item] === null? "Null":
+          formatDate(selectedPayload.account_wallet_transaction[item]):
+          item =="status"? mapActive(selectedPayload.account_wallet_transaction[item]):
+          item.toLocaleLowerCase() == 'amount'? to_money(selectedPayload.account_wallet_transaction[item]):
+          selectedPayload.account_wallet_transaction[item] === null? "Null":
           selectedPayload.account_wallet_transaction[item]
           }}
         </p>
@@ -46,10 +54,23 @@
   </div>
 </template>
 <script>
-import { LUX_ZONE } from '../../../../constants/formKey';
+import { LUX_ZONE, statusA, toMoney, statusS } from '../../../../constants/formKey';
 export default {
   props: ['selectedPayload'],
   methods:{
+    mapActive(val){
+      return statusA[Number(val)]
+    },
+
+    mapSuccess(val){
+      return statusS[Number(val)]
+    },
+
+    to_money(val){
+      let result = toMoney(val);
+      return (result == "0")? "\u20A60.00": "\u20A6"+result;
+    },
+
     getKeys(data){
       if(!data) return;
       if( data&& data.updatedAt){
