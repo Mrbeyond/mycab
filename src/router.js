@@ -109,6 +109,12 @@ const routes = [
         // meta: { roles: [UserRole.Admin] },
       },
       {
+        path: "garages",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Locations/getGarages.vue"),
+        // meta: { roles: [UserRole.Admin] },
+      },
+      {
         path: "agents",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents/Agents.vue"),

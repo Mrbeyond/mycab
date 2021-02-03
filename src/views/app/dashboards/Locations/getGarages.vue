@@ -22,14 +22,14 @@
   <div v-else>
     <b-row>
       <b-colxx xxs="12">
-        <h2 class="text-center mb-5">LIST OF GARAGES</h2>
+        <h2 class="text-center mb-5">LIST OF ALL GARAGES</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
           :query-params="makeQueryParams"
           :per-page="perPage"
           :http-options="head"
-          :data="garages"
+          :data="allGarages"
           :reactive-api-url="false"
           :fields="fields"
           :api-mode="false"
@@ -59,7 +59,7 @@
       </b-colxx>
 
        <b-colxx xxs="12">
-          <b-modal  RightmodalData  id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
+          <b-modal  RightmodalData  id="modalbasic" ref="modalright" title="Info" modal-class="modal-right">
                 <b-card class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Cairman</h1>
                 <div >
@@ -107,13 +107,13 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash } from "../../../../constants/formKey";
+import { hToken, loadash, LUX_ZONE, statusA } from "../../../../constants/formKey";
 // import DatatableHeading from "../../../containers/datatable/DatatableHeading";
-import { GARAGES } from '../../../../constants/formKey';
+import { ALL_GARAGES } from '../../../../constants/formKey';
 
 
 export default {
-  GARAGES,
+  ALL_GARAGES,
   props: ["title"],
   components: {
     vuetable: Vuetable,
@@ -168,52 +168,34 @@ export default {
           width: "10%"
         },
           {
+          name: "createdAt",
+          sortField: "createdAt",
+          title: "Created on",
+          titleClass: "",
+          dataClass: "",
+          width: "10%",
+          callback(val){
+            return LUX_ZONE(val);
+          },
+        },
+          {
           name: "status",
           sortField: "status",
           title: "Status",
           titleClass: "",
           dataClass: "",
-          width: "10%"
+          width: "10%",
+           callback(val){
+            return statusA[Number(Boolean(!!Boolean(val)))];
+          },
         },
-        //    {
-          //   name: "vehicle_identification_number",
-        //   sortField: "id",
-        //   title: "ID",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //  {
-          //   name: "vehicle_year",
-        //   sortField: "year",
-        //   title: "Year",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //  {
-          //   name: "__slot:Details",
-        //   sortField: "Details",
-        //   title: "Details",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //   {
-        //   name: "__slot:garages",
-        //   sortField: "garages",
-        //   title: "Garages",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
 
       ]
     };
   },
   methods: {
      getGarages(id){
-      this.$store.dispatch(GARAGES,id);
+      this.$store.dispatch(ALL_GARAGES);
     },
     modalinfo(chairman){
     this.RightmodalData = chairman
@@ -360,8 +342,8 @@ export default {
         this.selectedItems.length < this.items.length
       );
     },
-      garages(){
-      return this.$store.getters.garages;
+      allGarages(){
+      return this.$store.getters.allGarages;
     },
     resKey(){
       return this.$store.getters.resKey;
@@ -369,7 +351,7 @@ export default {
   },
   watch: {
      resKey(){
-      if(this.resKey && this.resKey.owner && this.resKey.owner == GARAGES){
+      if(this.resKey && this.resKey.owner && this.resKey.owner == ALL_GARAGES){
         if(this.resKey.status){
           this.isFetched = false;
           this.isLoading = true;
