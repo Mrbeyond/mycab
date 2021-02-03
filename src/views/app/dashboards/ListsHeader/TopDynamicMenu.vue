@@ -1,7 +1,7 @@
 <template >
 <div>
     <!-- <div class="float-right"> -->
-      <b-nav v-if="showMenuTop">
+      <b-nav v-if="showMenuTop && !resKey.status">
 
         <div class="top-right-button-container col-12 ">
           <div class="float-left">
@@ -26,10 +26,11 @@
           </div>
         </div>
       </b-nav>
-      <hr />
 
-    <!-- </div> -->
+
     <AddNewModal :formKey="formKey" :opener="opener" />
+    <hr />
+    <!-- </div> -->
 
 </div>
 
@@ -81,6 +82,10 @@ export default {
     },
     refresher(){
       return this.$store.getters.refresher;
+    },
+
+    resKey(){
+      return this.$store.getters.resKey;
     }
   },
   mounted() {
