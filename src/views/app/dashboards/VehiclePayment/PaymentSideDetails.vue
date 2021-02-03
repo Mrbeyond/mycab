@@ -3,7 +3,7 @@
     <b-card class="mb-4">
 
       <div>
-      <h3><strong> Transaction</strong></strong></h3>
+      <h3><strong> Transaction</strong></h3>
        <div v-for="(item, i) in getKeys( getMainTransaction(selectedPayload))" v-bind:key="i">
         <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
         <p class="mb-3">
@@ -18,8 +18,8 @@
         </div>
       </div>
     </b-card>
-    <b-card class="mb-4">
-      <div>
+    <b-card class="mb-4" v-if="getKeys(selectedPayload.account_vehicle)">
+      <div >
       <h3><strong>Transaction's vehicle</strong></h3>
        <div v-for="(item, i) in getKeys(selectedPayload.account_vehicle)" v-bind:key="i">
         <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
@@ -34,8 +34,8 @@
         </div>
       </div>
     </b-card>
-    <b-card class="mb-4">
-      <div>
+    <b-card class="mb-4" v-if="getKeys(selectedPayload.account_wallet_transaction)">
+      <div >
       <h3><strong>Account Wallet</strong></h3>
        <div v-for="(item, i) in getKeys(selectedPayload.account_wallet_transaction)" v-bind:key="i">
         <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>

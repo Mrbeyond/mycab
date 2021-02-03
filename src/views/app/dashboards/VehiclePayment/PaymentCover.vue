@@ -14,25 +14,8 @@
   </div>
 
   <div v-else>
-    <!--<datatable-heading
-      :title="$t('menu.divided-table')"
-      :selectAll="selectAll"
-      :isSelectedAll="isSelectedAll"
-      :isAnyItemSelected="isAnyItemSelected"
-      :keymap="keymap"
-      :changePageSize="changePageSize"
-      :searchChange="searchChange"
-      :from="from"
-      :to="to"
-      :total="total"
-      :perPage="perPage"
-    ></datatable-heading>-->
     <b-row>
       <b-colxx  v-if="localData !== null" xxs="12">
-          <!--:api-url="apiBase"
-          @vuetable:cell-clicked="cellClicked"
-          @vuetable:row-clicked="alert(5)"
-          -->
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
@@ -67,21 +50,6 @@
         />
       </b-colxx>
     </b-row>
-
-    <!--<v-contextmenu ref="contextmenu">
-      <v-contextmenu-item @click="onContextMenuAction('copy')">
-        <i class="simple-icon-docs" />
-        <span>Copy</span>
-      </v-contextmenu-item>
-      <v-contextmenu-item @click="onContextMenuAction('move-to-archive')">
-        <i class="simple-icon-drawer" />
-        <span>Move to archive</span>
-      </v-contextmenu-item>
-      <v-contextmenu-item @click="onContextMenuAction('delete')">
-        <i class="simple-icon-trash" />
-        <span>Delete</span>
-      </v-contextmenu-item>
-    </v-contextmenu>-->
 
     <div>
       <b-modal id="paymentModal" ref="paymentModal" modal-class="modal-right" title="Details" hide-footer>
@@ -119,7 +87,7 @@ export default {
     to: 0,
     total: 0,
     lastPage: 0,
-    fields: [,
+    fields: [
       {
       name: "amount",
       sortField: "amount",
