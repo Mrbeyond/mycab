@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 col-sm-6">
-                    <p class="mb-0 text-muted">MECP 2020</p>
+                    <p class="mb-0 text-muted">MECP {{ new Date().getFullYear() }}</p>
                 </div>
             </div>
         </div>
