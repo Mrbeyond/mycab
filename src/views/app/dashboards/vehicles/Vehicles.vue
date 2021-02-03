@@ -80,7 +80,7 @@
           </b-card>
 
 
-          <b-card v-if="RightmodalData.garage !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+          <!-- <b-card v-if="RightmodalData !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Garage & Port</h1>
                 <div >
                 <p class="text-muted">Name</p>
@@ -102,7 +102,7 @@
                 <p class="text-muted">Port</p>
                 <p >{{RightmodalData.port.name}}</p>
                 </div>
-         </b-card>
+         </b-card> -->
 
 
          <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
