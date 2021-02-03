@@ -1,8 +1,5 @@
 
 <template>
-<<<<<<< HEAD
-  <div>
-=======
 
   <div v-if="isLoading && !isFetched" style="h-100">
 
@@ -31,7 +28,6 @@
       :total="total"
       :perPage="perPage"
     ></datatable-heading>-->
->>>>>>> add6a0f2bc9db9f4e7826753065a9249efee1373
        <b-row class="align-items-center mb-5 justify-content-center m-1">
               <b-card v-if="RightmodalData !='' && RightmodalData !=null" class="shadow-sm mb-3 col-12 pt-3" style="border-radius:20px">
                 <div class="d-column d-md-flex justify-content-around row">
@@ -48,12 +44,8 @@
                 <p >{{RightmodalData.port.name}}</p>
                 </div>
                 </div>
-<<<<<<< HEAD
-           </b-card>
-=======
 
                    </b-card>
->>>>>>> add6a0f2bc9db9f4e7826753065a9249efee1373
     </b-row>
 
     <b-row>
@@ -75,10 +67,6 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-<<<<<<< HEAD
-=======
-
->>>>>>> add6a0f2bc9db9f4e7826753065a9249efee1373
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -124,15 +112,11 @@ export default {
       apiBase: "",
       localData: null,
       apiBase:`${PROXY}admin/agent/details`,
-<<<<<<< HEAD
-      
-=======
 
 
       isFetched: false,
       isLoading: true,
 
->>>>>>> add6a0f2bc9db9f4e7826753065a9249efee1373
       fields: [
         {
         name: "vehicle_model",
