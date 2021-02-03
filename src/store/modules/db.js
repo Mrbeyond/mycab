@@ -1,6 +1,9 @@
 import Axios from 'axios';
 import { PROXY } from '../../constants/config';
-import { ADMINS, AGENTS, CARDS, RES_KEY, hToken, TAGS, TERMINALS, GARAGES, PORTS, LGS, AGENTTYPES, ADMINTYPES, PAYERS, FETCHING, AUTO_FETCHING, GETTINGTYPES, VEHICLES } from '../../constants/formKey';
+import { ADMINS, AGENTS, CARDS, RES_KEY, hToken, TAGS, TERMINALS, GARAGES,
+  PORTS, LGS, AGENTTYPES, ADMINTYPES, PAYERS, FETCHING, AUTO_FETCHING,
+  GETTINGTYPES, VEHICLES, ALL_GARAGES, VEHICLE_TYPES, REFRESHER, REFRESHING
+} from '../../constants/formKey';
 
 export default {
   state: {
@@ -21,6 +24,10 @@ export default {
     autoFetching: false,
     gettingTypes: false,
     vehicles: null,
+    vehicleTypes: null,
+    allGarages: null,
+    refresher: {status:false, owner:''},
+    refreshing: false,
 
   },
 
@@ -60,6 +67,13 @@ export default {
 
     vehicles: state=> state.vehicles,
 
+    vehicleTypes: state => state.vehicleTypes,
+
+    allGarages: state => state.allGarages,
+
+    refresher: state => state.refresher,
+
+    refreshing: state => state.refreshing,
   },
 
   mutations: {
@@ -139,6 +153,22 @@ export default {
       state.vehicles = payload;
     },
 
+    [ALL_GARAGES](state,payload){
+      state.allGarages = payload;
+    },
+
+    [VEHICLE_TYPES](state,payload){
+      state.vehicleTypes = payload;
+    },
+
+    [REFRESHER](state,payload){
+      state.refresher = {status: !state.refresher.status, owner:payload};
+    },
+
+    [REFRESHING](state){
+      state.refreshing = !state.refreshing;
+    },
+
 
 
   },
@@ -147,6 +177,7 @@ export default {
 
   actions: {
     [TAGS]({commit}){
+      commit(REFRESHER, TAGS);
       Axios.get(`${PROXY}admin/vehicle_tags`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
@@ -161,16 +192,18 @@ export default {
         }else{
           commit(RES_KEY, {status:1, owner: TAGS});
         }
+        commit(REFRESHER, TAGS);
       })
       .catch(err => {
         if(err.response){
           commit(RES_KEY, {status:2, owner: TAGS});
+          commit(REFRESHER, TAGS);
         }
       })
     },
 
     [CARDS]({commit}){
-
+      commit(REFRESHER, CARDS);
       Axios.get(`${PROXY}admin/cards`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
@@ -185,16 +218,18 @@ export default {
         }else{
           commit(RES_KEY, {status:1, owner: CARDS});
         }
+        commit(REFRESHER, CARDS);
       })
       .catch(err => {
         if(err.response){
           commit(RES_KEY, {status:2, owner: CARDS});
+          commit(REFRESHER, CARDS);
         }
       })
     },
 
     [AGENTS]({commit}){
-
+      commit(REFRESHER, AGENTS);
       Axios.get(`${PROXY}admin/agent/details`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
@@ -209,16 +244,18 @@ export default {
         }else{
           commit(RES_KEY, {status:1, owner: AGENTS});
         }
+        commit(REFRESHER, AGENTS);
       })
       .catch(err => {
         if(err.response){
           commit(RES_KEY, {status:2, owner: AGENTS});
+          commit(REFRESHER, AGENTS);
         }
       })
     },
 
     [ADMINS]({commit}){
-
+      commit(REFRESHER, ADMINS);
       Axios.get(`${PROXY}admin/admins`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
@@ -233,16 +270,18 @@ export default {
         }else{
           commit(RES_KEY, {status:1, owner: ADMINS});
         }
+        commit(REFRESHER, ADMINS);
       })
       .catch(err => {
         if(err.response){
           commit(RES_KEY, {status:2, owner: ADMINS});
+          commit(REFRESHER, ADMINS);
         }
       })
     },
 
     [PAYERS]({commit}){
-
+      commit(REFRESHER, PAYERS);
       Axios.get(`${PROXY}admin/payer/details`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
@@ -257,16 +296,18 @@ export default {
         }else{
           commit(RES_KEY, {status:1, owner: PAYERS});
         }
+        commit(REFRESHER, PAYERS);
       })
       .catch(err => {
         if(err.response){
           commit(RES_KEY, {status:2, owner: PAYERS});
+          commit(REFRESHER, PAYERS);
         }
       })
     },
 
     [TERMINALS]({commit}){
-
+      commit(REFRESHER, TERMINALS);
       Axios.get(`${PROXY}admin/terminals`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
@@ -281,16 +322,18 @@ export default {
         }else{
           commit(RES_KEY, {status:1, owner: TERMINALS});
         }
+        commit(REFRESHER, TERMINALS);
       })
       .catch(err => {
         if(err.response){
           commit(RES_KEY, {status:2, owner: TERMINALS});
+          commit(REFRESHER, TERMINALS);
         }
       })
     },
 
     [PORTS]({commit}){
-
+      commit(REFRESHER, PORTS);
       Axios.get(`${PROXY}location/ports`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
@@ -305,10 +348,12 @@ export default {
         }else{
           commit(RES_KEY, {status:1, owner: PORTS});
         }
+        commit(REFRESHER, PORTS);
       })
       .catch(err => {
         if(err.response){
           commit(RES_KEY, {status:2, owner: PORTS});
+          commit(REFRESHER, PORTS);
         }
       })
     },
@@ -417,7 +462,7 @@ export default {
     },
 
     [VEHICLES]({commit}){
-
+      commit(REFRESHER, VEHICLES);
       Axios.get(`${PROXY}admin/vehicle/details`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
@@ -432,12 +477,64 @@ export default {
         }else{
           commit(RES_KEY, {status:1, owner: VEHICLES});
         }
-
+        commit(REFRESHER, VEHICLES);
       })
       .catch(err => {
         if(err.response){
           commit(RES_KEY, {status:2, owner: VEHICLES});
+          commit(REFRESHER, VEHICLES);
+        }
+      })
+    },
 
+    [ALL_GARAGES]({commit}){
+      commit(REFRESHER, ALL_GARAGES);
+      Axios.get(`${PROXY}location/garages`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          let payload;
+          try {
+            payload = res.data.data
+            commit(ALL_GARAGES, payload);
+            commit(RES_KEY, {status:0, owner: ALL_GARAGES});
+          } catch (e) {
+            commit(RES_KEY, {status:1, owner: ALL_GARAGES});
+          }
+        }else{
+          commit(RES_KEY, {status:1, owner: ALL_GARAGES});
+        }
+        commit(REFRESHER, ALL_GARAGES);
+      })
+      .catch(err => {
+        if(err.response){
+          commit(RES_KEY, {status:2, owner: ALL_GARAGES});
+          commit(REFRESHER, ALL_GARAGES);
+        }
+      })
+    },
+
+    [VEHICLE_TYPES]({commit}){
+      commit(REFRESHER, VEHICLE_TYPES);
+      Axios.get(`${PROXY}admin/vehicle_types`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          let payload;
+          try {
+            payload = res.data.data
+            commit(VEHICLE_TYPES, payload);
+            commit(RES_KEY, {status:0, owner: VEHICLE_TYPES});
+          } catch (e) {
+            commit(RES_KEY, {status:1, owner: VEHICLE_TYPES});
+          }
+        }else{
+          commit(RES_KEY, {status:1, owner: VEHICLE_TYPES});
+        }
+        commit(REFRESHER, VEHICLE_TYPES);
+      })
+      .catch(err => {
+        if(err.response){
+          commit(RES_KEY, {status:2, owner: VEHICLE_TYPES});
+          commit(REFRESHER, VEHICLE_TYPES);
         }
       })
     },

@@ -6,13 +6,13 @@
 
 <template>
   <div>
-<!-- <b-row>
-      <b-colxx xxs="12">
-        <piaf-breadcrumb heading="Terminal" />
-        <div class="separator mb-5"></div>
-      </b-colxx>
-    </b-row> -->
-    <b-row>
+    <div v-if="isLoading && !isFetched" class="row justify-content-center">
+        <div> <b-spinner variant="primary" /></div>
+    </div>
+    <div v-else-if="!isLoading && !isFetched">
+        Went wrong slot
+    </div>
+    <b-row v-else>
       <b-colxx xxs="12">
         <vuetable
           ref="vuetable"
@@ -20,6 +20,7 @@
           :query-params="makeQueryParams"
           :per-page="perPage"
           :http-options="head"
+          :api-mode="false"
           :data="terminals"
           :reactive-api-url="false"
           :fields="fields"
@@ -29,14 +30,20 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-           <template slot="Details" slot-scope="props">
-             <b-button class="bg-primary" @click="modalinfo(props.rowData.account,props.rowData.garage,props.rowData.port,props.rowData.vehicle_type_details)"  v-b-modal.modalbasic>Preview</b-button>
-          </template>
-            <template slot="details" slot-scope="props">
-              <router-link :to="`/dashboard/vehicles/${props.rowData.id}`">
-            <b-button class="bg-primary">Full details</b-button>
-              </router-link>
-            </template>
+          <!-- <template  slot="garages" slot-scope="props" >
+            <div v-if="props">
+            <router-link :to="`/dashboard/garages/${props.rowData.id}`" v-if="props.rowData.garages.length>=1">
+            <b-btn  title="View Vehicles" badge-variant="dark" v-if="props"  v-b-modal.modalbasic
+            >
+              View <b-badge variant="primary" rounded-conner>{{props.rowData.garages.length}}</b-badge>
+            </b-btn>
+            </router-link>
+            <b-btn v-else :disabled="props.rowData.garages.length==0"  title="View Vehicles" badge-variant="dark"  v-b-modal.modalbasic
+            >
+              View <b-badge variant="primary" rounded-conner>{{props.rowData.garages.length}}</b-badge>
+            </b-btn>
+            </div>
+          </template> -->
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -44,6 +51,9 @@
           @vuetable-pagination:change-page="onChangePage"
         />
       </b-colxx>
+        <!-- <template v-else>
+        <div class="loading"></div>
+      </template> -->
 
        <b-colxx xxs="12">
           <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
@@ -131,13 +141,13 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash } from "../../../../constants/formKey";
-import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
-import { ADD_TERMINAL, TERMINALS } from '../../../../constants/formKey';
+import { hToken, loadash, LUX_ZONE, statusA } from "../../../../constants/formKey";
+import {LGS} from '../../../../constants/formKey';
+import {ADD_CARD,TERMINALS } from '../../../../constants/formKey';
 
 
 export default {
-  ADD_TERMINAL,
+  LGS,
   props: ["title"],
   components: {
     vuetable: Vuetable,
@@ -146,9 +156,11 @@ export default {
   },
   data() {
     return {
+      ADD_CARD,
       head: {headers: hToken()},
-      isLoad: false,
-      apiBase: `${PROXY}admin/vehicle/details`,//apiUrl + "/cakes/fordatatable",
+      isLoading: true,
+      isFetched: false,
+      apiBase: `${PROXY}location/garages/`,
       sort: "",
       page: 1,
       perPage: 8,
@@ -163,84 +175,67 @@ export default {
       RigthVery:"",
 
       // isFetched: false,
-      // isLoading: true,
+      // isLoadinging: true,
 
       fields: [
         {
         name: "terminal_no",
-        sortField: "terminal",
-        title: "Terminal No",
+        sortField: "card_no",
+        title: "Terminal No.",
         titleClass: "",
         dataClass: "list-item-heading",
-        width: "10%"
-        },
-        {
-          name:"state_id",
-          sortField: "state id",
-          title: "State ID",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
+        width: "10%",
         },
 
         {
-          name: "createdAt",
-          sortField: "created",
-          title: "Created at",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
-        },
-          {
           name: "status",
           sortField: "status",
           title: "Status",
           titleClass: "",
           dataClass: "",
-          width: "10%"
+          width: "10%",
+          callback(val){
+            return statusA[Number(Boolean(!!Boolean(val)))];
+          },
         },
-        //    {
-        //   name: "vehicle_identification_number",
-        //   sortField: "id",
-        //   title: "ID",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //  {
-        //   name: "vehicle_year",
-        //   sortField: "year",
-        //   title: "Year",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //  {
-        //   name: "__slot:Details",
-        //   sortField: "Details",
-        //   title: "Details",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //   {
-        //   name: "__slot:details",
-        //   sortField: "details",
-        //   title: "Full details",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
 
+         {
+          name:"createdAt",
+          sortField: "createdat",
+          title: "Created on",
+          titleClass: "",
+          dataClass: "",
+          width: "10%",
+          callback(val){
+            return LUX_ZONE(val);
+          },
+        },
+        //   {
+        //   name: "contact_person_phone",
+        //   sortField: "contact phone",
+        //   title: "Contact number",
+        //   titleClass: "",
+        //   dataClass: "",
+        //   width: "10%"
+        // },
+        // {
+        //   name: "__slot:garages",
+        //   sortField: "garages",
+        //   title: "Garages",
+        //   titleClass: "",
+        //   dataClass: "",
+        //   width: "10%"
+        // },
       ]
     };
   },
   methods: {
+
      getTerminals(){
       this.$store.dispatch(TERMINALS);
     },
-    modalinfo(account,garage,port,type){
-    this.RightmodalData = {"account":account,"garage":garage,"type":type,"port":port}
+    modalinfo(garages){
+    this.RightmodalData = garages
    console.log( this.RightmodalData)
     },
       hideModal (refname) {
@@ -276,16 +271,16 @@ export default {
     },
 
     cellClicked(item, field, event){
-      alert()
-      console.log(item, 'item');
-      console.log(field, 'feild');
-      console.log(event,'eve');
+      // // alert()
+      // console.log(item, 'item');
+      // console.log(field, 'feild');
+      // console.log(event,'eve');
     },
 
     rowClicked(dataItem, event) {
       // const itemId = dataItem.id;
       console.log(dataItem)
-      alert();
+      // alert();
       return;
       if (event.shiftKey && this.selectedItems.length > 0) {
         let itemsForToggle = this.items;
@@ -384,9 +379,11 @@ export default {
         this.selectedItems.length < this.items.length
       );
     },
-      terminals(){
-      return this.$store.getters.terminals;
-    },
+
+    terminals(){
+    return this.$store.getters.terminals;
+  },
+
     resKey(){
       return this.$store.getters.resKey;
     }
@@ -394,13 +391,20 @@ export default {
   watch: {
      resKey(){
       if(this.resKey && this.resKey.owner && this.resKey.owner == TERMINALS){
-        this.isLoad = true;
+        if(this.resKey.status){
+          this.isFetched = false;
+          this.isLoading = true;
+        }else{
+          this.isFetched = true;
+        }
+
       }
+
     }
   },
   created(){
-    this.getTerminals()
-    // console.log(this.head);
+    this.getTerminals();
+    console.log(this.head);
     // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };

@@ -29,6 +29,10 @@ export const PAYERS = "PAYERS";
 export const FETCHING = "FETCHING";
 export const AUTO_FETCHING = "AUTO_FETCHING";
 export const GETTINGTYPES = "GETTINGTYPES";
+export const ALL_GARAGES = "ALL_GARAGES";
+export const VEHICLE_TYPES = "VEHICLE_TYPES";
+export const REFRESHER = "REFRESHER";
+export const REFRESHING = "REFRESHING";
 
 export const hToken=()=>{
   try {
