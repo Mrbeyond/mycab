@@ -115,7 +115,6 @@ export default {
     to: 0,
     total: 0,
     lastPage: 0,
-
     fields: [,
       {
       name: "amount",
