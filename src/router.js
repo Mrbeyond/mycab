@@ -93,13 +93,19 @@ const routes = [
       {
         path: "lg",
         component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Dashboard/Locations/getLocations.vue"),
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Locations/getLocations.vue"),
         // meta: { roles: [UserRole.Admin] },
       },
       {
         path: "garages/:id",
         component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Dashboard/Locations/getGarage.vue"),
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Locations/getGarage.vue"),
+        // meta: { roles: [UserRole.Admin] },
+      },
+      {
+        path: "ports",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Locations/getPorts.vue"),
         // meta: { roles: [UserRole.Admin] },
       },
       {

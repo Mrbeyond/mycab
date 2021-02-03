@@ -1,9 +1,4 @@
 
-
-
-
-
-
 <template>
   <div>
 <!-- <b-row>
@@ -20,6 +15,7 @@
     </div>
     <b-row v-else>
       <b-colxx xxs="12">
+          <h2 class="text-center mb-3">Ports</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
@@ -27,7 +23,7 @@
           :per-page="perPage"
           :http-options="head"
           :api-mode="false"
-          :data="lgs"
+          :data="ports"
           :reactive-api-url="false"
           :fields="fields"
           pagination-path
@@ -61,7 +57,7 @@
         <div class="loading"></div>
       </template> -->
 
-       <b-colxx xxs="12">
+       <!-- <b-colxx xxs="12">
           <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
                  <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Account</h1>
@@ -124,7 +120,7 @@
                     <b-button variant="secondary" @click="hideModal('modalright')">Cancel</b-button>
                 </template>
             </b-modal>
-    </b-colxx>
+    </b-colxx> -->
     </b-row>
     <!--<v-contextmenu ref="contextmenu">
       <v-contextmenu-item @click="onContextMenuAction('copy')">
@@ -145,14 +141,14 @@
 <script>// @ts-nocheck
 
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
-import VuetablePaginationBootstrap from "../../../../../components/Common/VuetablePaginationBootstrap.vue";
-import { apiUrl, PROXY } from "../../../../../constants/config";
-import { hToken, loadash } from "../../../../../constants/formKey";
-import {LGS} from '../../../../../constants/formKey';
+import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
+import { apiUrl, PROXY } from "../../../../constants/config";
+import { hToken, loadash } from "../../../../constants/formKey";
+import {PORTS} from '../../../../constants/formKey';
 
 
 export default {
-  LGS,
+  PORTS,
   props: ["title"],
   components: {
     vuetable: Vuetable,
@@ -191,44 +187,44 @@ export default {
         width: "10%"
         },
         {
-          name:"address",
-          sortField: "address",
-          title: "Adress",
+          name:"createdAt",
+          sortField: "createdAt",
+          title: "Created on",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
        
         {
-          name: "contact_person",
-          sortField: "contact person",
-          title: "Contact person",
+          name: "status",
+          sortField: "status",
+          title: "Status ",
           titleClass: "",
           dataClass: "",
           width: "10%"
         },
-          {
-          name: "contact_person_phone",
-          sortField: "contact phone",
-          title: "Contact number",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
-        },
-        {
-          name: "__slot:garages",
-          sortField: "garages",
-          title: "Garages",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
-        },
+        //   {
+        //   name: "contact_person_phone",
+        //   sortField: "contact phone",
+        //   title: "Contact number",
+        //   titleClass: "",
+        //   dataClass: "",
+        //   width: "10%"
+        // },
+        // {
+        //   name: "__slot:garages",
+        //   sortField: "garages",
+        //   title: "Garages",
+        //   titleClass: "",
+        //   dataClass: "",
+        //   width: "10%"
+        // },
       ]
     };
   },
   methods: {
-     getlg(){
-      this.$store.dispatch(LGS);
+     getPorts(){
+      this.$store.dispatch(PORTS);
     },
     modalinfo(garages){
     this.RightmodalData = garages
@@ -376,8 +372,8 @@ export default {
       );
     },
 
-    lgs(){
-    return this.$store.getters.lgs;
+    ports(){
+    return this.$store.getters.ports;
   },
 
     resKey(){
@@ -386,7 +382,7 @@ export default {
   },
   watch: {
      resKey(){
-      if(this.resKey && this.resKey.owner && this.resKey.owner == LGS){
+      if(this.resKey && this.resKey.owner && this.resKey.owner == PORTS){
         if(this.resKey.status){
           this.isFetched = false;
           this.isLoading = true;
@@ -399,7 +395,7 @@ export default {
     }
   },
   created(){
-    this.getlg();
+    this.getPorts();
     console.log(this.head);
     // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }

@@ -6,12 +6,6 @@
 
 <template>
   <div>
-<!-- <b-row>
-      <b-colxx xxs="12">
-        <piaf-breadcrumb heading="Terminal" />
-        <div class="separator mb-5"></div>
-      </b-colxx>
-    </b-row> -->
     <b-row>
       <b-colxx xxs="12">
         <vuetable
@@ -89,11 +83,11 @@
 <script>// @ts-nocheck
 
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
-import VuetablePaginationBootstrap from "../../../../../components/Common/VuetablePaginationBootstrap.vue";
-import { apiUrl, PROXY } from "../../../../../constants/config";
-import { hToken, loadash } from "../../../../../constants/formKey";
+import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
+import { apiUrl, PROXY } from "../../../../constants/config";
+import { hToken, loadash } from "../../../../constants/formKey";
 // import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
-import { GARAGES } from '../../../../../constants/formKey';
+import { GARAGES } from '../../../../constants/formKey';
 
 
 export default {
