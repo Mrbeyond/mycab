@@ -84,7 +84,6 @@ export default {
       email: "",
       phone: "",
       admin_type: "",
-
       submitting: false,
       resMessage: "",
       variant: "success",

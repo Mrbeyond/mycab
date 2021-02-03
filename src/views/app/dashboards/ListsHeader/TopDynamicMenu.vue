@@ -1,15 +1,19 @@
 <template >
-<div>
-    <div>
-      <b-nav v-if="showMenuTop" fill>
+<div> 
+    <!-- <div class="float-right"> -->
+      <b-nav v-if="showMenuTop">
 
-        <div class="top-right-button-container float-left">
-            <b-button @click="openFormsModal">ADD NEW</b-button>
+        <div class="top-right-button-container col-12 ">
+          <div class="float-right">
+           <i class="iconsminds-repeat-3 spin text-large bg-primary m-3" style="border-radius:20px"></i>
+          <b-spinner variant="primary" />
+            <b-button class="bg-brimary " @click="openFormsModal">ADD NEW</b-button>
+          </div>
         </div>
       </b-nav>
       <hr />
 
-    </div>
+    <!-- </div> -->
     <AddNewModal :formKey="formKey" :opener="opener" />
 
 </div>
