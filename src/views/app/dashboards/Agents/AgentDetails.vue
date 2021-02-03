@@ -1,6 +1,20 @@
 
 <template>
-  <div>
+
+  <div v-if="isLoading && !isFetched" style="h-100">
+
+    <div class="align-middle">
+      <div class="d-flex justify-content-center">
+        <b-spinner variant="primary" />
+      </div>
+    </div>
+  </div>
+
+  <div v-else-if=" !isLoading && !isFetched">
+
+    Error template here
+  </div>
+  <div v-else>
     <!--<datatable-heading
       :title="$t('menu.divided-table')"
       :selectAll="selectAll"
@@ -22,7 +36,7 @@
                 </div> -->
                 <div v-if="RightmodalData.wallet !=null">
                 <p class="text-muted">Balance</p>
-                <p >{{RightmodalData.wallet.balance}}</p>
+                <p >NGN{{to_money(RightmodalData.wallet.balance)}}</p>
                 </div>
                 <div v-if="RightmodalData.type !=null">
                 <p class="text-muted">Agent  Type</p>
@@ -33,65 +47,30 @@
                 <p >{{RightmodalData.port.name}}</p>
                 </div>
                 </div>
-                
+
                    </b-card>
-                   <!-- <b-card v-if="RightmodalData.port !=''  && RightmodalData.port !=null" class="text-center col-lg-3 shadow pt-3" style="border-radius:20px" header="PORT">
-                <b-list-group >
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Name
-                    <b-badge variant="primary" pill>{{RightmodalData.port.name}}</b-badge>
-                  </b-list-group-item>
-
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Status
-                    <b-badge variant="primary" pill v-if="RightmodalData.port.status==1">Active</b-badge>
-                    <b-badge variant="primary" pill v-else>Inactive</b-badge>
-
-                  </b-list-group-item>
-                </b-list-group>
-                   </b-card> -->
     </b-row>
 
     <b-row>
       <b-colxx xxs="12">
           <h2 class="text-center">Registered vehicles</h2>
-        <vuetable
+         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
           :query-params="makeQueryParams"
           :per-page="perPage"
           :http-options="head"
+          :api-mode="false"
+          :data="localData"
           :reactive-api-url="false"
           :fields="fields"
-          :data="agentDetails"
           pagination-path
           :row-class="onRowClass"
           @vuetable:pagination-data="onPaginationData"
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-           <!-- <template slot="wallet" slot-scope="props">
-             <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
-          </template> -->
-          <!-- <template slot="agent" slot-scope="props">
-          <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
-          </template> -->
-            <!-- <template slot="accve" slot-scope="props">
-            <b-button class="bg-primary">View</b-button>
-            </template> -->
-            <!-- <template slot="nfc_terminals" slot-scope="props">
-            <b-button class="bg-primary">View</b-button>
-            </template> -->
-             <!-- <template slot="port" slot-scope="props">
-             <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
-            </template> -->
 
-          <!-- <div slot="new" >
-            View
-            <b-button variant="danger" slot="new" slot-scope="news">
-            {{ news.rowData.id }}
-            </b-button>
-          </div> -->
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -99,58 +78,6 @@
           @vuetable-pagination:change-page="onChangePage"
         />
       </b-colxx>
-
-       <b-colxx xxs="12">
-            <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="$t('modal.modal-title')" modal-class="modal-right">
-
-                 <b-card v-if="RightmodalData.wallet !='' && RightmodalData.wallet !=null" class="text-center shadow mb-3 pt-3" style="border-radius:20px" header="WALLET">
-              <b-list-group  class="mb-3">
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                  Balance
-                    <b-badge variant="primary" pill>{{RightmodalData.wallet.balance}}</b-badge>
-                  </b-list-group-item>
-
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Post paid balance
-                    <b-badge variant="primary" pill>{{RightmodalData.wallet.post_paid_balance}}</b-badge>
-                  </b-list-group-item>
-                </b-list-group>
-                   </b-card>
-
-                   <b-card v-if="RightmodalData.type !='' && RightmodalData.type !=null" class="text-center shadow mb-3 pt-3" style="border-radius:20px" header="TYPE">
-              <b-list-group  class="mb-3">
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Name
-                    <b-badge variant="primary" pill>{{RightmodalData.type.name}}</b-badge>
-                  </b-list-group-item>
-
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Slug
-                    <b-badge variant="primary" pill>{{RightmodalData.type.slug}}</b-badge>
-                  </b-list-group-item>
-                </b-list-group>
-                   </b-card>
-
-                   <b-card v-if="RightmodalData.port !=''  && RightmodalData.port !=null" class="text-center shadow pt-3" style="border-radius:20px" header="PORT">
-                <b-list-group >
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Name
-                    <b-badge variant="primary" pill>{{RightmodalData.port.name}}</b-badge>
-                  </b-list-group-item>
-
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Status
-                    <b-badge variant="primary" pill v-if="RightmodalData.port.status==1">Active</b-badge>
-                    <b-badge variant="primary" pill v-else>Inactive</b-badge>
-
-                  </b-list-group-item>
-                </b-list-group>
-                   </b-card>
-                    <template slot="modal-footer">
-                    <b-button variant="secondary" @click="hideModal('modalright')">Cancel</b-button>
-                </template>
-            </b-modal>
-    </b-colxx>
     </b-row>
   </div>
 </template>
@@ -159,7 +86,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash } from "../../../../constants/formKey";
+import { hToken, loadash, toMoney } from "../../../../constants/formKey";
 import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 import   Axios from 'axios'
 
@@ -172,7 +99,7 @@ export default {
   },
   data() {
     return {
-        head: {headers: hToken()},
+      head: {headers: hToken()},
       isLoad: false,
       paramId:'',
       sort: "",
@@ -185,15 +112,14 @@ export default {
       lastPage: 0,
       items: [],
       selectedItems: [],
-      RightmodalData:"",
       RigthVery:"",
       apiBase: "",
-      agentDetails:"",
+      localData: null,
       apiBase:`${PROXY}admin/agent/details`,
 
 
-      // isFetched: false,
-      // isLoading: true,
+      isFetched: false,
+      isLoading: true,
 
       fields: [
         {
@@ -212,7 +138,7 @@ export default {
           dataClass: "",
           width: "10%"
         },
-       
+
         {
           name: "vehicle_color",
           sortField: "vehicle_color",
@@ -241,18 +167,14 @@ export default {
     };
   },
   methods: {
-      modalinfo(wallet,type,port){
-    this.RightmodalData = {"wallet":wallet,"type":type,"port":port}
-   console.log( this.RightmodalData)
-    },
-      hideModal (refname) {
-          this.$refs[refname].hide()
+    hideModal (refname) {
+      this.$refs[refname].hide()
       console.log('hide modal:: ' + refname)
 
       if (refname === 'modalnestedinline') {
         this.$refs['modalnested'].show()
       }
-    },
+  },
     makeQueryParams(sortOrder, currentPage, perPage) {
       this.selectedItems = [];
       return sortOrder[0]
@@ -286,7 +208,7 @@ export default {
 
     rowClicked(dataItem, event) {
       // const itemId = dataItem.id;
-      console.log(dataItem)
+      // console.log(dataItem)
       alert();
       return;
       if (event.shiftKey && this.selectedItems.length > 0) {
@@ -321,13 +243,13 @@ export default {
       // this.$refs.contextmenu.show({ top: event.pageY, left: event.pageX });
     },
     onPaginationData(paginationData) {
-      console.log(paginationData);
-      this.from = paginationData.from;
-      this.to = paginationData.to;
-      this.total = paginationData.total;
-      this.lastPage = paginationData.last_page;
-      this.items = paginationData.data;
-      this.$refs.pagination.setPaginationData(paginationData);
+      // console.log(paginationData);
+      // this.from = paginationData.from;
+      // this.to = paginationData.to;
+      // this.total = paginationData.total;
+      // this.lastPage = paginationData.last_page;
+      // this.items = paginationData.data;
+      // this.$refs.pagination.setPaginationData(paginationData);
     },
     onChangePage(page) {
       this.$refs.vuetable.changePage(page);
@@ -379,11 +301,11 @@ export default {
       Axios.get(`${this.apiBase}/${id}`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
-          this.agentDetails = res.data.data[0].account_vehicles;
+          this.localData = res.data.data[0].account_vehicles;
+          console.log(this.localData);
           this.RightmodalData = {"wallet":res.data.data[0].agent_wallet,"type":res.data.data[0].agent_type,"port":res.data.data[0].port}
-          console.log(this.agentDetails)
+
           this.isFetched = true;
-          return;
         }else{
           this.isFetched = false;
         }
@@ -396,6 +318,10 @@ export default {
 
       })
     },
+
+    to_money(val){
+      return toMoney(val);
+    }
   },
   computed: {
     isSelectedAll() {
@@ -417,11 +343,12 @@ export default {
   created(){
     //   this.paramId = this.$router.currentRoute.params.id
     //    this.fetchagent(this.paramId)
+    // alert()
 
     // this.apiBase= `${PROXY}admin/agent/details/${this.paramId}`,
-   
-    console.log(this.paramId);
-    console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+
+    // console.log(this.paramId);
+    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>
