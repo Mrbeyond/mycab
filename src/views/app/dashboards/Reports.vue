@@ -49,29 +49,6 @@
             @vuetable:cell-rightclicked="rightClicked"
           />
         </b-tab>
-        <b-tab title="Payers System Activities">
-          <b-button-group class="mb-2">
-            <b-button disabled>Export</b-button>
-            <b-button variant="primary">PDF</b-button>
-            <b-button variant="primary">Excel</b-button>
-            <b-button variant="primary">Email</b-button>
-          </b-button-group>
-
-          <vuetable
-            ref="vuetable"
-            class="table-divided order-with-arrow"
-            :query-params="makeQueryParams"
-            :per-page="payers_system_activities.perPage"
-            :http-options="head"
-            :api-url="payers_system_activities.apiBase"
-            :reactive-api-url="false"
-            :fields="payers_system_activities.fields"
-            pagination-path
-            :row-class="onRowClass"
-            @vuetable:pagination-data="onPaginationData"
-            @vuetable:cell-rightclicked="rightClicked"
-          />
-        </b-tab>
         <b-tab title="Agents System Activities">
           <b-button-group class="mb-2">
             <b-button disabled>Export</b-button>
@@ -89,6 +66,52 @@
             :api-url="agents_system_activities.apiBase"
             :reactive-api-url="false"
             :fields="agents_system_activities.fields"
+            pagination-path
+            :row-class="onRowClass"
+            @vuetable:pagination-data="onPaginationData"
+            @vuetable:cell-rightclicked="rightClicked"
+          />
+        </b-tab>
+        <b-tab title="Admins System Activities">
+          <b-button-group class="mb-2">
+            <b-button disabled>Export</b-button>
+            <b-button variant="primary">PDF</b-button>
+            <b-button variant="primary">Excel</b-button>
+            <b-button variant="primary">Email</b-button>
+          </b-button-group>
+
+          <vuetable
+            ref="vuetable"
+            class="table-divided order-with-arrow"
+            :query-params="makeQueryParams"
+            :per-page="admins_system_activities.perPage"
+            :http-options="head"
+            :api-url="admins_system_activities.apiBase"
+            :reactive-api-url="false"
+            :fields="admins_system_activities.fields"
+            pagination-path
+            :row-class="onRowClass"
+            @vuetable:pagination-data="onPaginationData"
+            @vuetable:cell-rightclicked="rightClicked"
+          />
+        </b-tab>
+        <b-tab title="Payers System Activities">
+          <b-button-group class="mb-2">
+            <b-button disabled>Export</b-button>
+            <b-button variant="primary">PDF</b-button>
+            <b-button variant="primary">Excel</b-button>
+            <b-button variant="primary">Email</b-button>
+          </b-button-group>
+
+          <vuetable
+            ref="vuetable"
+            class="table-divided order-with-arrow"
+            :query-params="makeQueryParams"
+            :per-page="payers_system_activities.perPage"
+            :http-options="head"
+            :api-url="payers_system_activities.apiBase"
+            :reactive-api-url="false"
+            :fields="payers_system_activities.fields"
             pagination-path
             :row-class="onRowClass"
             @vuetable:pagination-data="onPaginationData"
@@ -321,6 +344,47 @@
               title: "Account No",
               titleClass: "",
               dataClass: "list-item-heading",
+              width: "10%"
+            },
+            {
+              name:"description",
+              sortField: "description",
+              title: "Description",
+              titleClass: "",
+              dataClass: "",
+              width: "10%"
+            }
+          ]
+        },
+        admins_system_activities:{
+          apiBase: `${PROXY}admin/admin/activities`,//apiUrl + "/cakes/fordatatable",
+          sort: "",
+          page: 1,
+          perPage: 8,
+          search: "",
+          from: 0,
+          to: 0,
+          total: 0,
+          lastPage: 0,
+          items: [],
+          selectedItems: [],
+          selectedPayload: null,
+          selectedItemVehicles: [],
+          fields: [
+            {
+              name: "admin.first_name",
+              sortField: "admin.first_name",
+              title: "First Name",
+              titleClass: "",
+              dataClass: "list-item-heading",
+              width: "10%"
+            },
+            {
+              name:"admin.last_name",
+              sortField: "admin.last_name",
+              title: "Last Name",
+              titleClass: "",
+              dataClass: "",
               width: "10%"
             },
             {
