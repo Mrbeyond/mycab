@@ -8,7 +8,9 @@
         <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
         <p class="mb-3">
           {{ item == "createdAt"?
-          formatDate(selectedPayload[0][item]): formatName(item) == "Status" ?
+          formatDate(selectedPayload[0][item]):
+          formatName(item) == "Verified"?  veriState(selectedPayload[0][item]):
+          formatName(item) == "Status" ?
           ensState(selectedPayload[0][item]): selectedPayload[0][item] == null? "No value": selectedPayload[0][item]
           }}
         </p>
@@ -32,7 +34,7 @@
   </div>
 </template>
 <script>
-import { LUX_ZONE, statusA } from '../../../../../constants/formKey';
+import { LUX_ZONE, statusA, statusV } from '../../../../../constants/formKey';
 export default {
   props: ['selectedPayload'],
   methods:{
@@ -59,6 +61,10 @@ export default {
 
     ensState(val){
       return statusA[Number(Boolean(!!Boolean(val)))];
+    },
+
+    veriState(val){
+      return statusV[Number(val)];
     }
   }
   ,

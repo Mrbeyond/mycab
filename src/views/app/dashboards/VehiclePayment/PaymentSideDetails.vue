@@ -106,7 +106,7 @@ export default {
 
   },
   mounted(){
-    console.log(this.selectedPayload);
+    // console.log(this.selectedPayload);
   }
 }
 

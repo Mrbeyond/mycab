@@ -49,7 +49,7 @@
         >
           <template slot="actions" slot-scope="props" >
             <b-button id="detailBtn" ref="detailBtn"
-              @click.prevent="cellClick($event, props.rowData)"
+              @click.stop="cellClick($event, props.rowData)"
               variant="primary"
             >
               <i class="simple-icon-login"></i>
@@ -115,7 +115,6 @@ export default {
     to: 0,
     total: 0,
     lastPage: 0,
-
     fields: [,
       {
       name: "amount",
