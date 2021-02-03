@@ -33,7 +33,7 @@
           @vuetable:cell-clicked="cellClicked"
         >
           <div slot="ctions" >
-            hjjhjhjhjhj
+            <!-- hjjhjhjhjhj -->
             <!--<b-button variant="success"
             {{ props.rowData.id }}
             >

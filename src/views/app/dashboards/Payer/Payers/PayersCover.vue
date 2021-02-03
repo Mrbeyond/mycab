@@ -28,7 +28,7 @@
     ></datatable-heading>-->
     <b-row>
       <b-colxx xxs="12">
-        <h2 class="text-center mb-5">LIST OF PAYERS</h2>
+        <h2 class="text-center text-muted mb-2">LIST OF PAYERS</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
@@ -45,17 +45,21 @@
           <template slot="actions" slot-scope="props">
             <b-button ref="vehic" id="vehic"
               @click="cellClick(props.rowData)"
+              :disabled="!props.rowData.account_business_detail"
               variant="primary"
             >
             <!-- payload.account_business_detail.account_id-->
-              <i class="simple-icon-login"></i>
+              <i v-if="props.rowData.account_business_detail" class="simple-icon-login"></i>
+              <i v-else class="simple-icon-lock" />
             </b-button>
           </template>
           <template slot="account_business_detail" slot-scope="props">
-            <b-button ref="view" id="view" variant="primary"
+            <b-button :disabled="!props.rowData.account_business_detail"
+              ref="view" id="view" variant="primary"
              @click="cellModal(props.rowData)"
             >
-              <i class="simple-icon-magnifier" />
+              <i class="simple-icon-magnifier" v-if="props.rowData.account_business_detail" />
+              <i v-else class="simple-icon-lock" />
             </b-button>
 
           </template>
@@ -323,6 +327,7 @@ export default {
     },
 
     cellModal(payload){
+      if(!payload.account_business_detail) return;
       let payLoad = {...payload};
       delete payLoad.account_vehicles;
       let copy = {...payLoad};
