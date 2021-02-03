@@ -268,7 +268,7 @@
           ]
         },
         payers_system_activities:{
-          apiBase: `${PROXY}admin/payer/details`,//apiUrl + "/cakes/fordatatable",
+          apiBase: `${PROXY}admin/account/activities`,//apiUrl + "/cakes/fordatatable",
           sort: "",
           page: 1,
           perPage: 8,
@@ -281,35 +281,19 @@
           selectedItems: [],
           selectedPayload: null,
           selectedItemVehicles: [],
-          fields: [,
+          fields: [
             {
-              name: "first_name",
-              sortField: "first_name",
-              title: "First Name",
+              name: "account.account_no",
+              sortField: "account.account_no",
+              title: "Account No",
               titleClass: "",
               dataClass: "list-item-heading",
               width: "10%"
             },
             {
-              name:"last_name",
-              sortField: "last_name",
-              title: "Last Name",
-              titleClass: "",
-              dataClass: "",
-              width: "10%"
-            },
-            {
-              name: "account_no",
-              sortField: "account_no",
-              title: "Account no.",
-              titleClass: "",
-              dataClass: "",
-              width: "10%"
-            },
-            {
-              name: "phone",
-              sortField: "phone",
-              title: "Phone",
+              name:"description",
+              sortField: "description",
+              title: "Description",
               titleClass: "",
               dataClass: "",
               width: "10%"
@@ -317,7 +301,7 @@
           ]
         },
         agents_system_activities:{
-          apiBase: `${PROXY}admin/agent/details`,//apiUrl + "/cakes/fordatatable",
+          apiBase: `${PROXY}admin/agent/activities`,//apiUrl + "/cakes/fordatatable",
           sort: "",
           page: 1,
           perPage: 8,
@@ -330,35 +314,19 @@
           selectedItems: [],
           selectedPayload: null,
           selectedItemVehicles: [],
-          fields: [,
+          fields: [
             {
-              name: "first_name",
-              sortField: "first_name",
-              title: "First Name",
+              name: "agent.agent_no",
+              sortField: "agent.agent_no",
+              title: "Account No",
               titleClass: "",
               dataClass: "list-item-heading",
               width: "10%"
             },
             {
-              name:"last_name",
-              sortField: "last_name",
-              title: "Last Name",
-              titleClass: "",
-              dataClass: "",
-              width: "10%"
-            },
-            {
-              name: "account_no",
-              sortField: "account_no",
-              title: "Account no.",
-              titleClass: "",
-              dataClass: "",
-              width: "10%"
-            },
-            {
-              name: "phone",
-              sortField: "phone",
-              title: "Phone",
+              name:"description",
+              sortField: "description",
+              title: "Description",
               titleClass: "",
               dataClass: "",
               width: "10%"
@@ -452,14 +420,6 @@
               title: "Amount",
               titleClass: "",
               dataClass: "list-item-heading",
-              width: "10%"
-            },
-            {
-              name:"status",
-              sortField: "status",
-              title: "Status",
-              titleClass: "",
-              dataClass: "",
               width: "10%"
             },
             {
