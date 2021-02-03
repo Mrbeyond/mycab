@@ -21,6 +21,7 @@
           @vuetable:row-clicked="rowClicked"
           @vuetable:cell-clicked="cellClicked"
           -->
+        <h2 class="text-center mb-5">LIST OF VEHICLES</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"

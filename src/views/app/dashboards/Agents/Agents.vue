@@ -29,6 +29,8 @@
     ></datatable-heading>-->
     <b-row>
       <b-colxx xxs="12">
+        <h2 class="text-center mb-5">LIST OF AGENTS</h2>
+
           <!--:api-url="apiBase"
 
           @vuetable:row-clicked="rowClicked"

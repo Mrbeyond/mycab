@@ -207,7 +207,7 @@ const data = [
         // roles: [UserRole.Admin, UserRole.Editor],
       },
       {
-        icon: "simple-icon-plus",
+        icon: "iconsminds-embassy",
         label: "Garages",
         to: `${adminRoot}/garages`,
         // roles: [UserRole.Admin, UserRole.Editor],

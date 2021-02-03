@@ -1,12 +1,6 @@
 
 <template>
   <div>
-<!-- <b-row>
-      <b-colxx xxs="12">
-        <piaf-breadcrumb heading="Terminal" />
-        <div class="separator mb-5"></div>
-      </b-colxx>
-    </b-row> -->
     <div v-if="isLoading && !isFetched" class="row justify-content-center">
         <div> <b-spinner variant="primary" /></div>
     </div>
@@ -15,7 +9,7 @@
     </div>
     <b-row v-else>
       <b-colxx xxs="12">
-          <h2 class="text-center mb-3">Ports</h2>
+        <h2 class="text-center mb-5">LIST OF PORTS</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
@@ -30,9 +24,11 @@
           :row-class="onRowClass"
           @vuetable:pagination-data="onPaginationData"
           @vuetable:cell-rightclicked="rightClicked"
-          @vuetable:cell-clicked="cellClicked"
         >
-          <template  slot="garages" slot-scope="props" >
+          <!--
+              
+          @vuetable:cell-clicked="cellClicked
+               <template  slot="garages" slot-scope="props" >
             <div v-if="props">
             <router-link :to="`/dashboard/garages/${props.rowData.id}`" v-if="props.rowData.garages.length>=1">
             <b-btn  title="View Vehicles" badge-variant="dark" v-if="props"  v-b-modal.modalbasic
@@ -45,7 +41,7 @@
               View <b-badge variant="primary" rounded-conner>{{props.rowData.garages.length}}</b-badge>
             </b-btn>
             </div>
-          </template>
+          </template> -->
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -57,11 +53,11 @@
         <div class="loading"></div>
       </template> -->
 
-       <!-- <b-colxx xxs="12">
+       <b-colxx xxs="12">
           <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
                  <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Account</h1>
-                <div >        
+                <div >
                 <p class="text-muted">First name</p>
                 <p >{{RightmodalData.account.first_name}}</p>
                 </div>
@@ -78,11 +74,11 @@
                 <p >{{RightmodalData.account.account_no}}</p>
                 </div>
           </b-card>
-                   
+
 
           <b-card v-if="RightmodalData.garage !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Garage & Port</h1>
-                <div >        
+                <div >
                 <p class="text-muted">Name</p>
                 <p >{{RightmodalData.garage.name}}</p>
                 </div>
@@ -104,10 +100,10 @@
                 </div>
          </b-card>
 
-                   
+
          <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Type details</h1>
-                <div >        
+                <div >
                 <p class="text-muted">Name</p>
                 <p >{{RightmodalData.type.name}}</p>
                 </div>
@@ -120,7 +116,7 @@
                     <b-button variant="secondary" @click="hideModal('modalright')">Cancel</b-button>
                 </template>
             </b-modal>
-    </b-colxx> -->
+    </b-colxx>
     </b-row>
     <!--<v-contextmenu ref="contextmenu">
       <v-contextmenu-item @click="onContextMenuAction('copy')">
@@ -143,12 +139,13 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash } from "../../../../constants/formKey";
-import {PORTS} from '../../../../constants/formKey';
+import { hToken, loadash, LUX_ZONE, statusA } from "../../../../constants/formKey";
+import {LGS} from '../../../../constants/formKey';
+import {ADD_CARD,PORTS } from '../../../../constants/formKey';
 
 
 export default {
-  PORTS,
+  LGS,
   props: ["title"],
   components: {
     vuetable: Vuetable,
@@ -157,6 +154,7 @@ export default {
   },
   data() {
     return {
+      ADD_CARD,
       head: {headers: hToken()},
       isLoading: true,
       isFetched: false,
@@ -174,8 +172,8 @@ export default {
       RightmodalData:"",
       RigthVery:"",
 
-      // isFetched: false,
-      // isLoadinging: true,
+      isFetched: false,
+      isLoadinging: true,
 
       fields: [
         {
@@ -184,24 +182,30 @@ export default {
         title: "Name",
         titleClass: "",
         dataClass: "list-item-heading",
-        width: "10%"
+        width: "10%",
         },
         {
           name:"createdAt",
-          sortField: "createdAt",
+          sortField: "createdat",
           title: "Created on",
           titleClass: "",
           dataClass: "",
-          width: "10%"
+          width: "10%",
+          callback(val){
+            return LUX_ZONE(val);
+          },
         },
-       
+
         {
           name: "status",
           sortField: "status",
-          title: "Status ",
+          title: "Status",
           titleClass: "",
           dataClass: "",
-          width: "10%"
+          width: "10%",
+          callback(val){
+            return statusA[Number(Boolean(!!Boolean(val)))];
+          },
         },
         //   {
         //   name: "contact_person_phone",
@@ -223,6 +227,7 @@ export default {
     };
   },
   methods: {
+
      getPorts(){
       this.$store.dispatch(PORTS);
     },
@@ -391,7 +396,7 @@ export default {
         }
 
       }
-      
+
     }
   },
   created(){
