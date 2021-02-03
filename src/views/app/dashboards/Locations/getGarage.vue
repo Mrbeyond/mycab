@@ -28,7 +28,6 @@
     </b-row> -->
     <b-row>
       <b-colxx xxs="12">
-        <h2 class="text-center mb-5">LIST OF GARAGES</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
@@ -53,7 +52,7 @@
               @click="modalinfo(props.rowData.garage_chairmen)"
             >
               <i class="simple-icon-magnifier" v-if="props.rowData.garage_chairmen" />
-              <i class="simple-icon-lock"  v-else />
+              <i class="simple-icon-lock" v-else />
             </b-button>
           </template>
         </vuetable>
@@ -65,7 +64,7 @@
       </b-colxx>
 
        <b-colxx xxs="12">
-          <b-modal  RightmodalData  id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
+          <b-modal  RightmodalData  id="modalbasic" ref="modalright" title="Details" modal-class="modal-right">
                 <b-card class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Cairman</h1>
                 <div >
@@ -113,7 +112,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash } from "../../../../constants/formKey";
+import { hToken, loadash, statusA } from "../../../../constants/formKey";
 // import DatatableHeading from "../../../containers/datatable/DatatableHeading";
 import { GARAGES } from '../../../../constants/formKey';
 
@@ -179,7 +178,10 @@ export default {
           title: "Status",
           titleClass: "",
           dataClass: "",
-          width: "10%"
+          width: "10%",
+          callback(val){
+            return statusA[Number(Boolean(val))]
+          }
         },
         //    {
           //   name: "vehicle_identification_number",
@@ -223,7 +225,7 @@ export default {
     },
     modalinfo(chairman){
     this.RightmodalData = chairman
-   console.log( this.RightmodalData)
+  //  console.log( this.RightmodalData)
     },
       hideModal (refname) {
       this.$refs[refname].hide()

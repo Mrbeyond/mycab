@@ -1,7 +1,7 @@
 <template>
   <div class="icon-cards-row container">
     <glide-component :settings="glideIconsOption" v-if="analytic" class="mx-auto container">
-      <icon-card class="col-lg-3 col-md-4 col-12" title="Total Vehicle Payments" is_currency="true" icon="simple-icon-user" :value="analytic.total_vehicle_payment" />
+      <icon-card class="col-lg-3 col-md-4 col-12" title="Total Vehicle Payments" :is_currency="true" icon="simple-icon-user" :value="analytic.total_vehicle_payment" />
       <icon-card class="col-lg-3 col-md-4 col-12" title="All Payers"  icon="simple-icon-user" :value="analytic.total_payers" />
       <icon-card class="col-lg-3 col-md-4 col-12" title="Port Agents"  icon="simple-icon-user" :value="analytic.total_port_agents" />
       <icon-card class="col-lg-3 col-md-4 col-12" title="Garage Agents"  icon="simple-icon-user" :value="analytic.total_garage_agents" />
