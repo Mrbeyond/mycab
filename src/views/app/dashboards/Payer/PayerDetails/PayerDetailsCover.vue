@@ -17,7 +17,7 @@
       </div>
       <div></div>
     </div>
-    <h2>List of Account's Vehicles</h2>
+    <h2>List of Vehicles</h2>
    <PayerDetailsVehicles  :localData="localVehicles" />
    <b-toast :variant="variant" id="example-toast"
       title="Response" auto-hide-delay="8000"
