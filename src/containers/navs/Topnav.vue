@@ -81,7 +81,7 @@
                 :class="{'d-inline-block':true,'simple-icon-size-actual':fullScreen,'simple-icon-size-fullscreen':!fullScreen }"
               />
             </b-button>
-          </div>s
+          </div>
         </div>
       </div>
       <div class="user d-inline-block">
