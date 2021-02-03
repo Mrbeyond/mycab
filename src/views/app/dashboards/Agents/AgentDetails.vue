@@ -30,18 +30,23 @@
     ></datatable-heading>-->
        <b-row class="align-items-center mb-5 justify-content-center m-1">
               <b-card v-if="RightmodalData !='' && RightmodalData !=null" class="shadow-sm mb-3 col-12 pt-3" style="border-radius:20px">
+                <h2 class="text-center mb-3">Agent  {{RightmodalData[0].first_name}} {{RightmodalData[0].last_name}}</h2>
                 <div class="d-column d-md-flex justify-content-around row">
-                <div v-if="RightmodalData.wallet !=null">
+                <div v-if="RightmodalData !=null">
                 <p class="text-muted">Balance</p>
-                <p >NGN{{to_money(RightmodalData.wallet.balance)}}</p>
+                <p >NGN{{to_money(RightmodalData[0].agent_wallet.balance)}}</p>
                 </div>
-                <div v-if="RightmodalData.type !=null">
+                <div v-if="RightmodalData !=null">
                 <p class="text-muted">Agent  Type</p>
-                <p >{{RightmodalData.type.name}}</p>
+                <p >{{RightmodalData[0].agent_type.name}}</p>
                 </div>
-                <div v-if="RightmodalData.port !=null">
+                <div v-if="RightmodalData[0].port !=null">
                 <p class="text-muted"> Port Name</p>
-                <p >{{RightmodalData.port.name}}</p>
+                <p >{{RightmodalData[0].port.name}}</p>
+                </div>
+                <div v-if="RightmodalData[0].garage !=null">
+                <p class="text-muted"> Garage Name</p>
+                <p >{{RightmodalData[0].garage.name}}</p>
                 </div>
                 </div>
 
@@ -299,7 +304,7 @@ export default {
         if(!res.data.error){
           this.localData = res.data.data[0].account_vehicles;
           console.log(this.localData);
-          this.RightmodalData = {"wallet":res.data.data[0].agent_wallet,"type":res.data.data[0].agent_type,"port":res.data.data[0].port}
+          this.RightmodalData = res.data.data
 
           this.isFetched = true;
         }else{

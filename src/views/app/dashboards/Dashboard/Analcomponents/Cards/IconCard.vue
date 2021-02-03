@@ -17,6 +17,16 @@ export default {
     // img: { type: String, default: '/assets/img/uploads/car.jfif' },
     value: { type: Number, default: 0 }
   }
+
+//   demo(val){
+//   if(typeof val == 'string'){
+//     if(val.trim() == 'false'){
+//       return false,
+//     }
+//     return true,
+//   }
+//   return val
+//   }
 }
 </script>
 <style scoped>
@@ -24,3 +34,5 @@ export default {
 border-radius:20px;
 }
 </style>
+
+

@@ -28,6 +28,7 @@
     </b-row> -->
     <b-row>
       <b-colxx xxs="12">
+        <h2 class="text-center mb-5">LIST OF GARAGES</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
