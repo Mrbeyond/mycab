@@ -30,10 +30,7 @@
     ></datatable-heading>-->
        <b-row class="align-items-center mb-5 justify-content-center m-1">
               <b-card v-if="RightmodalData !='' && RightmodalData !=null" class="shadow-sm mb-3 col-12 pt-3" style="border-radius:20px">
-                <!-- <h1>Basic info</h1> -->
                 <div class="d-column d-md-flex justify-content-around row">
-                <!-- <div v-if="RightmodalData.wallet !=null"                                                                                                                                                                                                                                                                                                                                                                                                                                         >
-                </div> -->
                 <div v-if="RightmodalData.wallet !=null">
                 <p class="text-muted">Balance</p>
                 <p >NGN{{to_money(RightmodalData.wallet.balance)}}</p>
@@ -70,7 +67,6 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"

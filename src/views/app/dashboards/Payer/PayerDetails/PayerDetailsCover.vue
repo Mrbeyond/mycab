@@ -33,7 +33,6 @@ import { PROXY } from '../../../../../constants/config';
 import { hToken } from '../../../../../constants/formKey';
 import PayerDetailsBasic from './PayerDetailsBasic.vue';
 import PayerDetailsVehicles from './PayerDetailsVehicles.vue';
-import PayerDetailsBusiness from './PayerDetailsBusiness.vue';
 
 
 export default {
