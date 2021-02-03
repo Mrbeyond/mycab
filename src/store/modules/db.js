@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { PROXY } from '../../constants/config';
-import { ADMINS, AGENTS, CARDS, RES_KEY, hToken, TAGS, TERMINALS, GARAGES, PORTS, LGS, AGENTTYPES, ADMINTYPES, PAYERS, FETCHING, AUTO_FETCHING, GETTINGTYPES } from '../../constants/formKey';
+import { ADMINS, AGENTS, CARDS, RES_KEY, hToken, TAGS, TERMINALS, GARAGES, PORTS, LGS, AGENTTYPES, ADMINTYPES, PAYERS, FETCHING, AUTO_FETCHING, GETTINGTYPES, VEHICLES } from '../../constants/formKey';
 
 export default {
   state: {
@@ -20,6 +20,7 @@ export default {
     fetching: {status:false, owner:''},
     autoFetching: false,
     gettingTypes: false,
+    vehicles: null,
 
   },
 
@@ -56,6 +57,8 @@ export default {
     autoFetching: state=> state.autoFetching,
 
     gettingTypes: state=> state.gettingTypes,
+
+    vehicles: state=> state.vehicles,
 
   },
 
@@ -127,6 +130,11 @@ export default {
       state.gettingTypes = !state.gettingTypes;
     },
 
+    [VEHICLES](state, payload){
+      // console.log(payload.owner);
+      state.vehicles = payload;
+    },
+
 
 
   },
@@ -157,253 +165,281 @@ export default {
       })
     },
 
-  [CARDS]({commit}){
+    [CARDS]({commit}){
 
-    Axios.get(`${PROXY}admin/cards`, {headers: hToken()})
-    .then(res=>{
-      if(!res.data.error){
-        let payload;
-        try {
-          payload = res.data.data
-          commit(CARDS, payload);
-          commit(RES_KEY, {status:0, owner: CARDS});
-        } catch (e) {
+      Axios.get(`${PROXY}admin/cards`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          let payload;
+          try {
+            payload = res.data.data
+            commit(CARDS, payload);
+            commit(RES_KEY, {status:0, owner: CARDS});
+          } catch (e) {
+            commit(RES_KEY, {status:1, owner: CARDS});
+          }
+        }else{
           commit(RES_KEY, {status:1, owner: CARDS});
         }
-      }else{
-        commit(RES_KEY, {status:1, owner: CARDS});
-      }
-    })
-    .catch(err => {
-      if(err.response){
-        commit(RES_KEY, {status:2, owner: CARDS});
-      }
-    })
-  },
+      })
+      .catch(err => {
+        if(err.response){
+          commit(RES_KEY, {status:2, owner: CARDS});
+        }
+      })
+    },
 
-  [AGENTS]({commit}){
+    [AGENTS]({commit}){
 
-    Axios.get(`${PROXY}admin/agent/details`, {headers: hToken()})
-    .then(res=>{
-      if(!res.data.error){
-        let payload;
-        try {
-          payload = res.data.data
-          commit(AGENTS, payload);
-          commit(RES_KEY, {status:0, owner: AGENTS});
-        } catch (e) {
+      Axios.get(`${PROXY}admin/agent/details`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          let payload;
+          try {
+            payload = res.data.data
+            commit(AGENTS, payload);
+            commit(RES_KEY, {status:0, owner: AGENTS});
+          } catch (e) {
+            commit(RES_KEY, {status:1, owner: AGENTS});
+          }
+        }else{
           commit(RES_KEY, {status:1, owner: AGENTS});
         }
-      }else{
-        commit(RES_KEY, {status:1, owner: AGENTS});
-      }
-    })
-    .catch(err => {
-      if(err.response){
-        commit(RES_KEY, {status:2, owner: AGENTS});
-      }
-    })
-  },
+      })
+      .catch(err => {
+        if(err.response){
+          commit(RES_KEY, {status:2, owner: AGENTS});
+        }
+      })
+    },
 
-  [ADMINS]({commit}){
+    [ADMINS]({commit}){
 
-    Axios.get(`${PROXY}admin/admins`, {headers: hToken()})
-    .then(res=>{
-      if(!res.data.error){
-        let payload;
-        try {
-          payload = res.data.data
-          commit(ADMINS, payload);
-          commit(RES_KEY, {status:0, owner: ADMINS});
-        } catch (e) {
+      Axios.get(`${PROXY}admin/admins`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          let payload;
+          try {
+            payload = res.data.data
+            commit(ADMINS, payload);
+            commit(RES_KEY, {status:0, owner: ADMINS});
+          } catch (e) {
+            commit(RES_KEY, {status:1, owner: ADMINS});
+          }
+        }else{
           commit(RES_KEY, {status:1, owner: ADMINS});
         }
-      }else{
-        commit(RES_KEY, {status:1, owner: ADMINS});
-      }
-    })
-    .catch(err => {
-      if(err.response){
-        commit(RES_KEY, {status:2, owner: ADMINS});
-      }
-    })
-  },
+      })
+      .catch(err => {
+        if(err.response){
+          commit(RES_KEY, {status:2, owner: ADMINS});
+        }
+      })
+    },
 
-  [PAYERS]({commit}){
+    [PAYERS]({commit}){
 
-    Axios.get(`${PROXY}admin/payers`, {headers: hToken()})
-    .then(res=>{
-      if(!res.data.error){
-        let payload;
-        try {
-          payload = res.data.data
-          commit(PAYERS, payload);
-          commit(RES_KEY, {status:0, owner: PAYERS});
-        } catch (e) {
+      Axios.get(`${PROXY}admin/payers`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          let payload;
+          try {
+            payload = res.data.data
+            commit(PAYERS, payload);
+            commit(RES_KEY, {status:0, owner: PAYERS});
+          } catch (e) {
+            commit(RES_KEY, {status:1, owner: PAYERS});
+          }
+        }else{
           commit(RES_KEY, {status:1, owner: PAYERS});
         }
-      }else{
-        commit(RES_KEY, {status:1, owner: PAYERS});
-      }
-    })
-    .catch(err => {
-      if(err.response){
-        commit(RES_KEY, {status:2, owner: PAYERS});
-      }
-    })
-  },
+      })
+      .catch(err => {
+        if(err.response){
+          commit(RES_KEY, {status:2, owner: PAYERS});
+        }
+      })
+    },
 
-  [TERMINALS]({commit}){
+    [TERMINALS]({commit}){
 
-    Axios.get(`${PROXY}admin/terminals`, {headers: hToken()})
-    .then(res=>{
-      if(!res.data.error){
-        let payload;
-        try {
-          payload = res.data.data
-          commit(TERMINALS, payload);
-          commit(RES_KEY, {status:0, owner: TERMINALS});
-        } catch (e) {
+      Axios.get(`${PROXY}admin/terminals`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          let payload;
+          try {
+            payload = res.data.data
+            commit(TERMINALS, payload);
+            commit(RES_KEY, {status:0, owner: TERMINALS});
+          } catch (e) {
+            commit(RES_KEY, {status:1, owner: TERMINALS});
+          }
+        }else{
           commit(RES_KEY, {status:1, owner: TERMINALS});
         }
-      }else{
-        commit(RES_KEY, {status:1, owner: TERMINALS});
-      }
-    })
-    .catch(err => {
-      if(err.response){
-        commit(RES_KEY, {status:2, owner: TERMINALS});
-      }
-    })
-  },
+      })
+      .catch(err => {
+        if(err.response){
+          commit(RES_KEY, {status:2, owner: TERMINALS});
+        }
+      })
+    },
 
-  [PORTS]({commit}){
+    [PORTS]({commit}){
 
-    Axios.get(`${PROXY}location/ports`, {headers: hToken()})
-    .then(res=>{
-      if(!res.data.error){
-        let payload;
-        try {
-          payload = res.data.data
-          commit(PORTS, payload);
-          commit(RES_KEY, {status:0, owner: PORTS});
-        } catch (e) {
+      Axios.get(`${PROXY}location/ports`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          let payload;
+          try {
+            payload = res.data.data
+            commit(PORTS, payload);
+            commit(RES_KEY, {status:0, owner: PORTS});
+          } catch (e) {
+            commit(RES_KEY, {status:1, owner: PORTS});
+          }
+        }else{
           commit(RES_KEY, {status:1, owner: PORTS});
         }
-      }else{
-        commit(RES_KEY, {status:1, owner: PORTS});
-      }
-    })
-    .catch(err => {
-      if(err.response){
-        commit(RES_KEY, {status:2, owner: PORTS});
-      }
-    })
-  },
+      })
+      .catch(err => {
+        if(err.response){
+          commit(RES_KEY, {status:2, owner: PORTS});
+        }
+      })
+    },
 
-  [GARAGES]({commit}, id){
-    commit(AUTO_FETCHING);
-    Axios.get(`${PROXY}location/garages/${id}`, {headers: hToken()})
-    .then(res=>{
-      if(!res.data.error){
-        let payload;
-        try {
-          payload = res.data.data
-          commit(GARAGES, payload);
-          commit(RES_KEY, {status:0, owner: GARAGES});
-        } catch (e) {
+    [GARAGES]({commit}, id){
+      commit(AUTO_FETCHING);
+      Axios.get(`${PROXY}location/garages/${id}`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          let payload;
+          try {
+            payload = res.data.data
+            commit(GARAGES, payload);
+            commit(RES_KEY, {status:0, owner: GARAGES});
+          } catch (e) {
+            commit(RES_KEY, {status:1, owner: GARAGES});
+          }
+        }else{
           commit(RES_KEY, {status:1, owner: GARAGES});
         }
-      }else{
-        commit(RES_KEY, {status:1, owner: GARAGES});
-      }
-      commit(AUTO_FETCHING);
-    })
-    .catch(err => {
-      if(err.response){
-        commit(RES_KEY, {status:2, owner: GARAGES});
         commit(AUTO_FETCHING);
-      }
-    })
-  },
+      })
+      .catch(err => {
+        if(err.response){
+          commit(RES_KEY, {status:2, owner: GARAGES});
+          commit(AUTO_FETCHING);
+        }
+      })
+    },
 
-  [LGS]({commit}){
+    [LGS]({commit}){
 
-    Axios.get(`${PROXY}location/local_governments`, {headers: hToken()})
-    .then(res=>{
-      if(!res.data.error){
-        let payload;
-        try {
-          payload = res.data.data
-          commit(LGS, payload);
-          commit(RES_KEY, {status:0, owner: LGS});
-        } catch (e) {
+      Axios.get(`${PROXY}location/local_governments`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          let payload;
+          try {
+            payload = res.data.data
+            commit(LGS, payload);
+            commit(RES_KEY, {status:0, owner: LGS});
+          } catch (e) {
+            commit(RES_KEY, {status:1, owner: LGS});
+          }
+        }else{
           commit(RES_KEY, {status:1, owner: LGS});
         }
-      }else{
-        commit(RES_KEY, {status:1, owner: LGS});
-      }
-    })
-    .catch(err => {
-      if(err.response){
-        commit(RES_KEY, {status:2, owner: LGS});
-      }
-    })
-  },
+      })
+      .catch(err => {
+        if(err.response){
+          commit(RES_KEY, {status:2, owner: LGS});
+        }
+      })
+    },
 
-  [AGENTTYPES]({commit}){
-    // commit(FETCHING, )
-    commit(GETTINGTYPES);
-    Axios.get(`${PROXY}admin/agent_types`, {headers: hToken()})
-    .then(res=>{
-      if(!res.data.error){
-        let payload;
-        try {
-          payload = res.data.data
-          commit(AGENTTYPES, payload);
-          commit(RES_KEY, {status:0, owner: AGENTTYPES});
-        } catch (e) {
+    [AGENTTYPES]({commit}){
+      // commit(FETCHING, )
+      commit(GETTINGTYPES);
+      Axios.get(`${PROXY}admin/agent_types`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          let payload;
+          try {
+            payload = res.data.data
+            commit(AGENTTYPES, payload);
+            commit(RES_KEY, {status:0, owner: AGENTTYPES});
+          } catch (e) {
+            commit(RES_KEY, {status:1, owner: AGENTTYPES});
+          }
+        }else{
           commit(RES_KEY, {status:1, owner: AGENTTYPES});
         }
-      }else{
-        commit(RES_KEY, {status:1, owner: AGENTTYPES});
-      }
-      commit(GETTINGTYPES);
-    })
-    .catch(err => {
-      if(err.response){
-        commit(RES_KEY, {status:2, owner: AGENTTYPES});
         commit(GETTINGTYPES);
-      }
-    })
-  },
+      })
+      .catch(err => {
+        if(err.response){
+          commit(RES_KEY, {status:2, owner: AGENTTYPES});
+          commit(GETTINGTYPES);
+        }
+      })
+    },
 
-  [ADMINTYPES]({commit}){
+    [ADMINTYPES]({commit}){
 
-    Axios.get(`${PROXY}admin/admins/types`, {headers: hToken()})
-    .then(res=>{
-      if(!res.data.error){
-        let payload;
-        try {
-          payload = res.data.data
-          commit(ADMINTYPES, payload);
-          commit(RES_KEY, {status:0, owner: ADMINTYPES});
-        } catch (e) {
+      Axios.get(`${PROXY}admin/admins/types`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          let payload;
+          try {
+            payload = res.data.data
+            commit(ADMINTYPES, payload);
+            commit(RES_KEY, {status:0, owner: ADMINTYPES});
+          } catch (e) {
+            commit(RES_KEY, {status:1, owner: ADMINTYPES});
+          }
+        }else{
           commit(RES_KEY, {status:1, owner: ADMINTYPES});
         }
-      }else{
-        commit(RES_KEY, {status:1, owner: ADMINTYPES});
-      }
 
-    })
-    .catch(err => {
-      if(err.response){
-        commit(RES_KEY, {status:2, owner: ADMINTYPES});
+      })
+      .catch(err => {
+        if(err.response){
+          commit(RES_KEY, {status:2, owner: ADMINTYPES});
 
-      }
-    })
+        }
+      })
+    },
+
+    [VEHICLES]({commit}){
+
+      Axios.get(`${PROXY}admin/vehicle/details`, {headers: hToken()})
+      .then(res=>{
+        if(!res.data.error){
+          let payload;
+          try {
+            payload = res.data.data
+            commit(VEHICLES, payload);
+            commit(RES_KEY, {status:0, owner: VEHICLES});
+          } catch (e) {
+            commit(RES_KEY, {status:1, owner: VEHICLES});
+          }
+        }else{
+          commit(RES_KEY, {status:1, owner: VEHICLES});
+        }
+
+      })
+      .catch(err => {
+        if(err.response){
+          commit(RES_KEY, {status:2, owner: VEHICLES});
+
+        }
+      })
+    },
+
+
   },
-},
 
 }
 

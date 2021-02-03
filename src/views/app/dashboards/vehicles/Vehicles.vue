@@ -1,6 +1,19 @@
 
 <template>
-  <div>
+   <div v-if="isLoading && !isFetched" style="h-100">
+
+    <div class="align-middle">
+      <div class="d-flex justify-content-center">
+        <b-spinner variant="primary" />
+      </div>
+    </div>
+  </div>
+
+  <div v-else-if=" !isLoading && !isFetched">
+
+    Error template here
+  </div>
+  <div v-else>
     <!--<datatable-heading
       :title="$t('menu.divided-table')"
       :selectAll="selectAll"
@@ -26,8 +39,8 @@
           :query-params="makeQueryParams"
           :per-page="perPage"
           :http-options="head"
-          :api-url="apiBase"
           :api-mode="false"
+          :data="localData"
           :reactive-api-url="false"
           :fields="fields"
           pagination-path
@@ -36,16 +49,16 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-           <template slot="Details" slot-scope="props">
+           <template slot="Preview" slot-scope="props">
              <b-button class="bg-primary" v-b-modal.modalbasic
               @click="modalinfo(props.rowData.account,props.rowData.garage,props.rowData.port,props.rowData.vehicle_type_details)"
               >
-                Preview
+                View
               </b-button>
           </template>
             <template slot="details" slot-scope="props">
               <router-link :to="`/dashboard/vehicles/${props.rowData.id}`">
-            <b-button class="bg-primary">Full details</b-button>
+            <b-button class="bg-primary"><i class="simple-icon-login" /></b-button>
               </router-link>
             </template>
         </vuetable>
@@ -57,7 +70,7 @@
       </b-colxx>
 
        <b-colxx xxs="12">
-          <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
+          <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" title="Basic Details" modal-class="modal-right">
                  <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Account</h1>
                 <div >
@@ -112,7 +125,7 @@
                 </div>
                 <div>
                 <p class="text-muted">Amount</p>
-                <p >{{RightmodalData.type.amount}}</p>
+                <p >&#8358;{{to_money(RightmodalData.type.amount)}}</p>
                 </div>
          </b-card>
                     <template slot="modal-footer">
@@ -142,7 +155,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash } from "../../../../constants/formKey";
+import { hToken, loadash, toMoney, VEHICLES } from "../../../../constants/formKey";
 import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {
@@ -170,8 +183,8 @@ export default {
       RightmodalData:"",
       RigthVery:"",
 
-      // isFetched: false,
-      // isLoading: true,
+      isFetched: false,
+      isLoading: true,
 
       fields: [
         {
@@ -224,9 +237,9 @@ export default {
           width: "10%"
         },
          {
-          name: "__slot:Details",
-          sortField: "Details",
-          title: "Details",
+          name: "__slot:Preview",
+          sortField: "Preview",
+          title: "Preview",
           titleClass: "",
           dataClass: "",
           width: "10%"
@@ -257,11 +270,20 @@ export default {
     };
   },
   methods: {
-    modalinfo(account,garage,port,type){
-    this.RightmodalData = {"account":account,"garage":garage,"type":type,"port":port}
-   console.log( this.RightmodalData)
+    to_money(val){
+      let result = toMoney(val);
+      return (result == "0")? "0.00": result;
     },
-      hideModal (refname) {
+
+    getVehicles(){
+      this.$store.dispatch(VEHICLES);
+    },
+
+    modalinfo(account,garage,port,type){
+      this.RightmodalData = {"account":account,"garage":garage,"type":type,"port":port}
+      console.log( this.RightmodalData)
+    },
+    hideModal (refname) {
       this.$refs[refname].hide()
       console.log('hide modal:: ' + refname)
 
@@ -401,13 +423,33 @@ export default {
         this.selectedItems.length > 0 &&
         this.selectedItems.length < this.items.length
       );
+    },
+    localData(){
+      return this.$store.getters.vehicles;
+    },
+
+    resKey(){
+      return this.$store.getters.resKey;
+    }
+
+  },
+
+  watch: {
+    resKey(){
+      if(this.resKey && this.resKey.owner && this.resKey.owner == VEHICLES){
+        if(!this.resKey.status){
+          this.isFetched = true;
+        }else{
+          this.isFetched = false;
+        }
+        this.isLoading = false;
+      }
     }
   },
-  watch: {
-  },
   created(){
-    console.log(this.head);
-    console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+    this.getVehicles()
+    // console.log(this.head);
+    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>

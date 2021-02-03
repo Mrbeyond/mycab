@@ -49,12 +49,16 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-           <template slot="preview" slot-scope="props">
-             <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>Preview</b-button>
+          <template slot="preview" slot-scope="props">
+            <b-button class="bg-primary"  v-b-modal.modalbasic
+              @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"
+            >
+              View
+            </b-button>
           </template>
             <template slot="details" slot-scope="props">
               <router-link :to="`/dashboard/agents/${props.rowData.agent_wallet.agent_id}`">
-            <b-button class="bg-primary">Full details</b-button>
+            <b-button class="bg-primary"><i class="simple-icon-login" /></b-button>
               </router-link>
             </template>
         </vuetable>
@@ -71,7 +75,7 @@
                 <h1>Basic info</h1>
                 <div v-if="RightmodalData.wallet !=null">
                 <p class="text-muted">Balance</p>
-                <p >{{RightmodalData.wallet.balance}}</p>
+                <p >&#8358;{{to_money(RightmodalData.wallet.balance)}}</p>
                 </div>
                 <div v-if="RightmodalData.type !=null">
                 <p class="text-muted">Agent  Type</p>
@@ -110,7 +114,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { AGENTS, hToken, loadash } from "../../../../constants/formKey";
+import { AGENTS, hToken, loadash, toMoney } from "../../../../constants/formKey";
 import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {
@@ -170,7 +174,7 @@ export default {
          {
           name: "__slot:preview",
           sortField: "preview",
-          title: "preview",
+          title: "Preview",
           titleClass: "",
           dataClass: "",
           width: "10%"
@@ -201,11 +205,19 @@ export default {
     };
   },
   methods: {
-    modalinfo(wallet,type,port){
-    this.RightmodalData = {"wallet":wallet,"type":type,"port":port}
-   console.log( this.RightmodalData)
+    to_money(val){
+      let result = toMoney(val);
+      return (result == "0")? "0.00": result;
     },
-      hideModal (refname) {
+
+    Timest(time){
+      return LUX_ZONE(time);
+    },
+    modalinfo(wallet,type,port){
+      this.RightmodalData = {"wallet":wallet,"type":type,"port":port}
+    console.log( this.RightmodalData)
+      },
+    hideModal (refname) {
       this.$refs[refname].hide()
       console.log('hide modal:: ' + refname)
 
@@ -238,16 +250,16 @@ export default {
     },
 
     cellClicked(item, field, event){
-      alert()
-      console.log(item, 'item');
-      console.log(field, 'feild');
-      console.log(event,'eve');
+      // alert()
+      // console.log(item, 'item');
+      // console.log(field, 'feild');
+      // console.log(event,'eve');
     },
 
     rowClicked(dataItem, event) {
       // const itemId = dataItem.id;
-      console.log(dataItem)
-      alert();
+      // console.log(dataItem)
+      // alert();
       return;
       if (event.shiftKey && this.selectedItems.length > 0) {
         let itemsForToggle = this.items;

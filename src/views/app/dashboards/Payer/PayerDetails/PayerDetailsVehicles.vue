@@ -218,8 +218,8 @@ export default {
 
     rowClicked(dataItem, event) {
       // const itemId = dataItem.id;
-      console.log(dataItem)
-      alert();
+      // console.log(dataItem)
+      // alert();
       return;
       if (event.shiftKey && this.selectedItems.length > 0) {
         let itemsForToggle = this.items;

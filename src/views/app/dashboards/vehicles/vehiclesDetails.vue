@@ -1,6 +1,19 @@
 
 <template>
-  <div>
+   <div v-if="isLoading && !isFetched" style="h-100">
+
+    <div class="align-middle">
+      <div class="d-flex justify-content-center">
+        <b-spinner variant="primary" />
+      </div>
+    </div>
+  </div>
+
+  <div v-else-if=" !isLoading && !isFetched">
+
+    Error template here
+  </div>
+  <div v-else>
     <!--<datatable-heading
       :title="$t('menu.divided-table')"
       :selectAll="selectAll"
@@ -76,7 +89,7 @@
           </div>
           <div>
             <p class="text-muted">Amount</p>
-            <p >{{RightmodalData.type.amount}}</p>
+            <p >&#8358;{{to_money(RightmodalData.type.amount)}}</p>
           </div>
         </div>
       </b-card>
@@ -117,8 +130,8 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash } from "../../../../constants/formKey";
-import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
+import { hToken, loadash, toMoney } from "../../../../constants/formKey";
+// import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 import   Axios from 'axios'
 
 export default {
@@ -150,8 +163,8 @@ export default {
       apiBase:`${PROXY}admin/vehicle/details`,
 
 
-      // isFetched: false,
-      // isLoading: true,
+      isFetched: false,
+      isLoading: true,
 
       fields: [,
         {
@@ -214,13 +227,18 @@ export default {
     };
   },
   methods: {
-      modalinfo(wallet,type,port){
-    this.RightmodalData = {"wallet":wallet,"type":type,"port":port}
-   console.log( this.RightmodalData)
+    to_money(val){
+      let result = toMoney(val);
+      return (result == "0")? "0.00": result;
     },
-      hideModal (refname) {
-          this.$refs[refname].hide()
-      console.log('hide modal:: ' + refname)
+
+    modalinfo(wallet,type,port){
+      this.RightmodalData = {"wallet":wallet,"type":type,"port":port}
+  //  console.log( this.RightmodalData)
+    },
+    hideModal (refname) {
+        this.$refs[refname].hide()
+        console.log('hide modal:: ' + refname)
 
       if (refname === 'modalnestedinline') {
         this.$refs['modalnested'].show()
@@ -397,8 +415,8 @@ export default {
 
     // this.apiBase= `${PROXY}admin/agent/details/${this.paramId}`,
 
-    console.log(this.paramId);
-    console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+  //   console.log(this.paramId);
+  //   console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>

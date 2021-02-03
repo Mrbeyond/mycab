@@ -59,7 +59,7 @@
           <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
                  <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Account</h1>
-                <div >        
+                <div >
                 <p class="text-muted">First name</p>
                 <p >{{RightmodalData.account.first_name}}</p>
                 </div>
@@ -76,11 +76,11 @@
                 <p >{{RightmodalData.account.account_no}}</p>
                 </div>
           </b-card>
-                   
+
 
           <b-card v-if="RightmodalData.garage !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Garage & Port</h1>
-                <div >        
+                <div >
                 <p class="text-muted">Name</p>
                 <p >{{RightmodalData.garage.name}}</p>
                 </div>
@@ -102,10 +102,10 @@
                 </div>
          </b-card>
 
-                   
+
          <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Type details</h1>
-                <div >        
+                <div >
                 <p class="text-muted">Name</p>
                 <p >{{RightmodalData.type.name}}</p>
                 </div>
@@ -141,7 +141,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash } from "../../../../constants/formKey";
+import { hToken, loadash, LUX_ZONE, statusA } from "../../../../constants/formKey";
 import {LGS} from '../../../../constants/formKey';
 import {ADD_CARD,CARDS } from '../../../../constants/formKey';
 
@@ -184,7 +184,7 @@ export default {
         title: "Card No.",
         titleClass: "",
         dataClass: "list-item-heading",
-        width: "10%"
+        width: "10%",
         },
         {
           name:"createdAt",
@@ -192,16 +192,22 @@ export default {
           title: "Created on",
           titleClass: "",
           dataClass: "",
-          width: "10%"
+          width: "10%",
+          callback(val){
+            return LUX_ZONE(val);
+          },
         },
-       
+
         {
           name: "status",
           sortField: "status",
           title: "Status",
           titleClass: "",
           dataClass: "",
-          width: "10%"
+          width: "10%",
+          callback(val){
+            return statusA[Number(Boolean(!!Boolean(val)))];
+          },
         },
         //   {
         //   name: "contact_person_phone",
@@ -223,6 +229,7 @@ export default {
     };
   },
   methods: {
+
      getCards(){
       this.$store.dispatch(CARDS);
     },
@@ -391,7 +398,7 @@ export default {
         }
 
       }
-      
+
     }
   },
   created(){

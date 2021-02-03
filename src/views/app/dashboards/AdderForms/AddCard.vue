@@ -31,7 +31,7 @@ import {
     validationMixin
 } from "vuelidate";
 import { PROXY } from '../../../../constants/config';
-import { hToken } from '../../../../constants/formKey';
+import { CARDS, hToken } from '../../../../constants/formKey';
 const {
     required,
     numeric,
@@ -76,11 +76,7 @@ export default {
           this.variant = "success";
           this.resMessage = res.data.message;
           this.card_no= "";
-          // localStorage.authToken = res.data.data.authorization
-          // delete res.data.data.authorization;
-          // const authUser = res.data.data;
-          // setCurrentUser(authUser)
-          // this.$store.commit("setUser", authUser);
+          this.$store.dispatch(CARDS);
         }else{
           this.variant = "danger";
           this.resMessage = "Something went wrong, please retry"
