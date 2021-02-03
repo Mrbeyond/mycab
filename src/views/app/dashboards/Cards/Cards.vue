@@ -1,164 +1,331 @@
-<template>
-  <b-row>
-    <b-colxx class="disable-text-selection">
-      <list-page-heading
-        :title="$t('menu.cards')"
-        :selectAll="selectAll"
-        :isSelectedAll="isSelectedAll"
-        :isAnyItemSelected="isAnyItemSelected"
-        :keymap="keymap"
-        :displayMode="displayMode"
-        :changeDisplayMode="changeDisplayMode"
-        :changeOrderBy="changeOrderBy"
-        :changePageSize="changePageSize"
-        :sort="sort"
-        :searchChange="searchChange"
-        :from="from"
-        :to="to"
-        :total="total"
-        :perPage="perPage"
-        :sortOptions="sortOptions"
-        :formKey="ADD_CARD"
-      ></list-page-heading>
-      <template v-if="isLoad">
-        <cards-page-listing
-          :displayMode="displayMode"
-          :items="items"
-          :selectedItems="selectedItems"
-          :toggleItem="toggleItem"
-          :lastPage="lastPage"
-          :perPage="perPage"
-          :page="page"
-          :changePage="changePage"
-          :handleContextMenu="handleContextMenu"
-          :onContextMenuAction="onContextMenuAction"
-        ></cards-page-listing>
-      </template>
-      <template v-else>
-        <div class="loading"></div>
-      </template>
-    </b-colxx>
-  </b-row>
-</template>
 
-<script>
-import axios from "axios";
-import { apiUrl } from "../../../../constants/config";
-import ListPageHeading from "./../ListsHeader/ListPageHeading.vue";
-import CardListing from "./CardListing.vue";
-import { ADD_CARD } from '../../../../constants/formKey';
+
+
+
+
+
+<template>
+  <div>
+    <div v-if="isLoading && !isFetched" class="row justify-content-center">
+        <div> <b-spinner variant="primary" /></div>
+    </div>
+    <div v-else-if="!isLoading && !isFetched">
+        Went wrong slot
+    </div>
+    <b-row v-else>
+      <b-colxx xxs="12">
+        <vuetable
+          ref="vuetable"
+          class="table-divided order-with-arrow"
+          :query-params="makeQueryParams"
+          :per-page="perPage"
+          :http-options="head"
+          :api-mode="false"
+          :data="cards"
+          :reactive-api-url="false"
+          :fields="fields"
+          pagination-path
+          :row-class="onRowClass"
+          @vuetable:pagination-data="onPaginationData"
+          @vuetable:cell-rightclicked="rightClicked"
+          @vuetable:cell-clicked="cellClicked"
+        >
+          <!-- <template  slot="garages" slot-scope="props" >
+            <div v-if="props">
+            <router-link :to="`/dashboard/garages/${props.rowData.id}`" v-if="props.rowData.garages.length>=1">
+            <b-btn  title="View Vehicles" badge-variant="dark" v-if="props"  v-b-modal.modalbasic
+            >
+              View <b-badge variant="primary" rounded-conner>{{props.rowData.garages.length}}</b-badge>
+            </b-btn>
+            </router-link>
+            <b-btn v-else :disabled="props.rowData.garages.length==0"  title="View Vehicles" badge-variant="dark"  v-b-modal.modalbasic
+            >
+              View <b-badge variant="primary" rounded-conner>{{props.rowData.garages.length}}</b-badge>
+            </b-btn>
+            </div>
+          </template> -->
+        </vuetable>
+        <vuetable-pagination-bootstrap
+          class="mt-4"
+          ref="pagination"
+          @vuetable-pagination:change-page="onChangePage"
+        />
+      </b-colxx>
+        <!-- <template v-else>
+        <div class="loading"></div>
+      </template> -->
+
+       <b-colxx xxs="12">
+          <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
+                 <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+                <h1>Account</h1>
+                <div >        
+                <p class="text-muted">First name</p>
+                <p >{{RightmodalData.account.first_name}}</p>
+                </div>
+                <div>
+                <p class="text-muted">Last name</p>
+                <p >{{RightmodalData.account.last_name}}</p>
+                </div>
+                <div>
+                <p class="text-muted">Phone</p>
+                <p >{{RightmodalData.account.phone}}</p>
+                </div>
+                 <div>
+                <p class="text-muted">Account No.</p>
+                <p >{{RightmodalData.account.account_no}}</p>
+                </div>
+          </b-card>
+                   
+
+          <b-card v-if="RightmodalData.garage !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+                <h1>Garage & Port</h1>
+                <div >        
+                <p class="text-muted">Name</p>
+                <p >{{RightmodalData.garage.name}}</p>
+                </div>
+                <div>
+                <p class="text-muted">Address</p>
+                <p >{{RightmodalData.garage.address}}</p>
+                </div>
+                <div>
+                <p class="text-muted">Latitude</p>
+                <p >{{RightmodalData.garage.latitude}}</p>
+                </div>
+                 <div>
+                <p class="text-muted">Longitude</p>
+                <p >{{RightmodalData.garage.longitude}}</p>
+                </div>
+                 <div>
+                <p class="text-muted">Port</p>
+                <p >{{RightmodalData.port.name}}</p>
+                </div>
+         </b-card>
+
+                   
+         <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+                <h1>Type details</h1>
+                <div >        
+                <p class="text-muted">Name</p>
+                <p >{{RightmodalData.type.name}}</p>
+                </div>
+                <div>
+                <p class="text-muted">Amount</p>
+                <p >{{RightmodalData.type.amount}}</p>
+                </div>
+         </b-card>
+                    <template slot="modal-footer">
+                    <b-button variant="secondary" @click="hideModal('modalright')">Cancel</b-button>
+                </template>
+            </b-modal>
+    </b-colxx>
+    </b-row>
+    <!--<v-contextmenu ref="contextmenu">
+      <v-contextmenu-item @click="onContextMenuAction('copy')">
+        <i class="simple-icon-docs" />
+        <span>Copy</span>
+      </v-contextmenu-item>
+      <v-contextmenu-item @click="onContextMenuAction('move-to-archive')">
+        <i class="simple-icon-drawer" />
+        <span>Move to archive</span>
+      </v-contextmenu-item>
+      <v-contextmenu-item @click="onContextMenuAction('delete')">
+        <i class="simple-icon-trash" />
+        <span>Delete</span>
+      </v-contextmenu-item>
+    </v-contextmenu>-->
+  </div>
+</template>
+<script>// @ts-nocheck
+
+import Vuetable from "vuetable-2/src/components/Vuetable.vue";
+import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
+import { apiUrl, PROXY } from "../../../../constants/config";
+import { hToken, loadash } from "../../../../constants/formKey";
+import {LGS} from '../../../../constants/formKey';
+import {ADD_CARD,CARDS } from '../../../../constants/formKey';
+
 
 export default {
-
+  LGS,
+  props: ["title"],
   components: {
-    "list-page-heading": ListPageHeading,
-    "cards-page-listing": CardListing
+    vuetable: Vuetable,
+    "vuetable-pagination-bootstrap": VuetablePaginationBootstrap,
+    // "datatable-heading": DatatableHeading
   },
   data() {
     return {
       ADD_CARD,
-       sortOptions: [
-        {
-          column: "tag_no",
-          label: "Tag Number"
-        },
-         {
-          column: "state_id",
-          label: "State"
-        },
-      ],
-
-         agents: [
-         {
-            "id": 1,
-            "state_id": null,
-            "card_no": "1",
-            "system_identifier": "54555644517a45324d5445344d5467794d7a41334e6a673d",
-            "status": 1,
-            "createdAt": "2021-01-28T07:17:11.000Z",
-            "updatedAt": "2021-01-28T07:17:11.000Z",
-            "img":"/assets/img/uploads/vehicle.jfif",
-            "accounts": []
-        },
-
-        {
-            "id": 11,
-             "state_id": null,
-            "card_no": "1",
-            "system_identifier": "54555644517a45324d5445344d5467794d7a41334e6a673d",
-            "status": 1,
-            "createdAt": "2021-01-28T07:17:11.000Z",
-            "updatedAt": "2021-01-28T07:17:11.000Z",
-            "img":"/assets/img/uploads/vehicle.jfif",
-            "accounts": []
-        }
-      ],
-      isLoad: false,
-      apiBase: apiUrl + "/cakes/fordatatable",
-      displayMode: "list",
-     sort: {
-        column: "tag_no",
-        label: "Tag Number"
-      },
+      head: {headers: hToken()},
+      isLoading: true,
+      isFetched: false,
+      apiBase: `${PROXY}location/garages/`,
+      sort: "",
       page: 1,
-      perPage: 4,
+      perPage: 8,
       search: "",
       from: 0,
       to: 0,
       total: 0,
       lastPage: 0,
       items: [],
-      selectedItems: []
+      selectedItems: [],
+      RightmodalData:"",
+      RigthVery:"",
+
+      // isFetched: false,
+      // isLoadinging: true,
+
+      fields: [
+        {
+        name: "card_no",
+        sortField: "card_no",
+        title: "Card No.",
+        titleClass: "",
+        dataClass: "list-item-heading",
+        width: "10%"
+        },
+        {
+          name:"createdAt",
+          sortField: "createdat",
+          title: "Created on",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+       
+        {
+          name: "status",
+          sortField: "status",
+          title: "Status",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+        //   {
+        //   name: "contact_person_phone",
+        //   sortField: "contact phone",
+        //   title: "Contact number",
+        //   titleClass: "",
+        //   dataClass: "",
+        //   width: "10%"
+        // },
+        // {
+        //   name: "__slot:garages",
+        //   sortField: "garages",
+        //   title: "Garages",
+        //   titleClass: "",
+        //   dataClass: "",
+        //   width: "10%"
+        // },
+      ]
     };
   },
   methods: {
-    loadItems() {
-      this.isLoad = false;
-        let resp = this.sort.column
-        this.items =  this.agents
-        .sort(function(a, b){
-            var x = a[resp]; var y = b[resp]
-            return ((x > y) ? 1 : ((x < y) ? -1 : 0))
-                    });
-            this.isLoad = true;
-    //   axios
-    //     .get(this.apiUrl)
-    //     .then(response => {
-    //       return response.data;
-    //     })
-    //     .then(res => {
-    //       this.total = res.total;
-    //       this.from = res.from;
-    //       this.to = res.to;
-    //           this.items = this.agents
+     getCards(){
+      this.$store.dispatch(CARDS);
+    },
+    modalinfo(garages){
+    this.RightmodalData = garages
+   console.log( this.RightmodalData)
+    },
+      hideModal (refname) {
+      this.$refs[refname].hide()
+      console.log('hide modal:: ' + refname)
 
-    //     //   this.items = res.data.map(x => {
-    //     //     return {
-    //     //       ...x,
-    //     //       img: x.img.replace("/img/", "/img/products/")
-    //     //     };
-    //     //   });
-    //       console.log(this.items)
-    //       this.perPage = res.per_page;
-    //       this.selectedItems = [];
-    //       this.lastPage = res.last_page;
-    //       this.isLoad = true;
-    //     });
+      if (refname === 'modalnestedinline') {
+        this.$refs['modalnested'].show()
+      }
+    },
+    makeQueryParams(sortOrder, currentPage, perPage) {
+      this.selectedItems = [];
+      return sortOrder[0]
+        ? {
+            sort: sortOrder[0]
+              ? sortOrder[0].field + "|" + sortOrder[0].direction
+              : "",
+            page: currentPage,
+            per_page: this.perPage,
+            search: this.search
+          }
+        : {
+            page: currentPage,
+            per_page: this.perPage,
+            search: this.search
+          };
+    },
+    onRowClass(dataItem, index) {
+      if (this.selectedItems.includes(dataItem.id)) {
+        return "selected";
+      }
+      return "";
     },
 
-    changeDisplayMode(displayType) {
-      this.displayMode = displayType;
+    cellClicked(item, field, event){
+      // // alert()
+      // console.log(item, 'item');
+      // console.log(field, 'feild');
+      // console.log(event,'eve');
     },
+
+    rowClicked(dataItem, event) {
+      // const itemId = dataItem.id;
+      console.log(dataItem)
+      // alert();
+      return;
+      if (event.shiftKey && this.selectedItems.length > 0) {
+        let itemsForToggle = this.items;
+        var start = this.getIndex(itemId, itemsForToggle, "id");
+        var end = this.getIndex(
+          this.selectedItems[this.selectedItems.length - 1],
+          itemsForToggle,
+          "id"
+        );
+        itemsForToggle = itemsForToggle.slice(
+          Math.min(start, end),
+          Math.max(start, end) + 1
+        );
+        this.selectedItems.push(
+          ...itemsForToggle.map(item => {
+            return item.id;
+          })
+        );
+        this.selectedItems = [...new Set(this.selectedItems)];
+      } else {
+        if (this.selectedItems.includes(itemId)) {
+          this.selectedItems = this.selectedItems.filter(x => x !== itemId);
+        } else this.selectedItems.push(itemId);
+      }
+    },
+    rightClicked(dataItem, field, event) {
+      event.preventDefault();
+      if (!this.selectedItems.includes(dataItem.id)) {
+        this.selectedItems = [dataItem.id];
+      }
+      // this.$refs.contextmenu.show({ top: event.pageY, left: event.pageX });
+    },
+    onPaginationData(paginationData) {
+      console.log(paginationData);
+      this.from = paginationData.from;
+      this.to = paginationData.to;
+      this.total = paginationData.total;
+      this.lastPage = paginationData.last_page;
+      this.items = paginationData.data;
+      this.$refs.pagination.setPaginationData(paginationData);
+    },
+    onChangePage(page) {
+      this.$refs.vuetable.changePage(page);
+    },
+
     changePageSize(perPage) {
-      this.page = 1;
       this.perPage = perPage;
+      this.$refs.vuetable.refresh();
     },
-    changeOrderBy(sort) {
-      this.sort = sort;
-    },
+
     searchChange(val) {
       this.search = val;
-      this.page = 1;
+      this.$refs.vuetable.refresh();
     },
 
     selectAll(isToggle) {
@@ -186,43 +353,12 @@ export default {
       }
       return -1;
     },
-    toggleItem(event, itemId) {
-      if (event.shiftKey && this.selectedItems.length > 0) {
-        let itemsForToggle = this.items;
-        var start = this.getIndex(itemId, itemsForToggle, "id");
-        var end = this.getIndex(
-          this.selectedItems[this.selectedItems.length - 1],
-          itemsForToggle,
-          "id"
-        );
-        itemsForToggle = itemsForToggle.slice(
-          Math.min(start, end),
-          Math.max(start, end) + 1
-        );
-        this.selectedItems.push(
-          ...itemsForToggle.map(item => {
-            return item.id;
-          })
-        );
-      } else {
-        if (this.selectedItems.includes(itemId)) {
-          this.selectedItems = this.selectedItems.filter(x => x !== itemId);
-        } else this.selectedItems.push(itemId);
-      }
-    },
-    handleContextMenu(vnode) {
-      if (!this.selectedItems.includes(vnode.key)) {
-        this.selectedItems = [vnode.key];
-      }
-    },
+
     onContextMenuAction(action) {
       console.log(
         "context menu item clicked - " + action + ": ",
         this.selectedItems
       );
-    },
-    changePage(pageNum) {
-      this.page = pageNum;
     }
   },
   computed: {
@@ -235,22 +371,33 @@ export default {
         this.selectedItems.length < this.items.length
       );
     },
-    apiUrl() {
-      return `${this.apiBase}?sort=${this.sort.column}&page=${this.page}&per_page=${this.perPage}&search=${this.search}`;
-    }
 
+    cards(){
+    return this.$store.getters.cards;
+  },
+
+    resKey(){
+      return this.$store.getters.resKey;
+    }
   },
   watch: {
-    search() {
-      this.page = 1;
-    },
-    apiUrl() {
-      this.loadItems();
+     resKey(){
+      if(this.resKey && this.resKey.owner && this.resKey.owner == CARDS){
+        if(this.resKey.status){
+          this.isFetched = false;
+          this.isLoading = true;
+        }else{
+          this.isFetched = true;
+        }
+
+      }
+      
     }
   },
-  mounted() {
-    this.loadItems();
-
+  created(){
+    this.getCards();
+    console.log(this.head);
+    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>

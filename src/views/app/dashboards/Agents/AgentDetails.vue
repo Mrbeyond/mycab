@@ -1,25 +1,9 @@
 
 <template>
   <div>
-    <!--<datatable-heading
-      :title="$t('menu.divided-table')"
-      :selectAll="selectAll"
-      :isSelectedAll="isSelectedAll"
-      :isAnyItemSelected="isAnyItemSelected"
-      :keymap="keymap"
-      :changePageSize="changePageSize"
-      :searchChange="searchChange"
-      :from="from"
-      :to="to"
-      :total="total"
-      :perPage="perPage"
-    ></datatable-heading>-->
        <b-row class="align-items-center mb-5 justify-content-center m-1">
               <b-card v-if="RightmodalData !='' && RightmodalData !=null" class="shadow-sm mb-3 col-12 pt-3" style="border-radius:20px">
-                <!-- <h1>Basic info</h1> -->
                 <div class="d-column d-md-flex justify-content-around row">
-                <!-- <div v-if="RightmodalData.wallet !=null"                                                                                                                                                                                                                                                                                                                                                                                                                                         >
-                </div> -->
                 <div v-if="RightmodalData.wallet !=null">
                 <p class="text-muted">Balance</p>
                 <p >{{RightmodalData.wallet.balance}}</p>
@@ -33,23 +17,7 @@
                 <p >{{RightmodalData.port.name}}</p>
                 </div>
                 </div>
-                
-                   </b-card>
-                   <!-- <b-card v-if="RightmodalData.port !=''  && RightmodalData.port !=null" class="text-center col-lg-3 shadow pt-3" style="border-radius:20px" header="PORT">
-                <b-list-group >
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Name
-                    <b-badge variant="primary" pill>{{RightmodalData.port.name}}</b-badge>
-                  </b-list-group-item>
-
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Status
-                    <b-badge variant="primary" pill v-if="RightmodalData.port.status==1">Active</b-badge>
-                    <b-badge variant="primary" pill v-else>Inactive</b-badge>
-
-                  </b-list-group-item>
-                </b-list-group>
-                   </b-card> -->
+           </b-card>
     </b-row>
 
     <b-row>
@@ -70,28 +38,6 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-           <!-- <template slot="wallet" slot-scope="props">
-             <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
-          </template> -->
-          <!-- <template slot="agent" slot-scope="props">
-          <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
-          </template> -->
-            <!-- <template slot="accve" slot-scope="props">
-            <b-button class="bg-primary">View</b-button>
-            </template> -->
-            <!-- <template slot="nfc_terminals" slot-scope="props">
-            <b-button class="bg-primary">View</b-button>
-            </template> -->
-             <!-- <template slot="port" slot-scope="props">
-             <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
-            </template> -->
-
-          <!-- <div slot="new" >
-            View
-            <b-button variant="danger" slot="new" slot-scope="news">
-            {{ news.rowData.id }}
-            </b-button>
-          </div> -->
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -99,58 +45,6 @@
           @vuetable-pagination:change-page="onChangePage"
         />
       </b-colxx>
-
-       <b-colxx xxs="12">
-            <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="$t('modal.modal-title')" modal-class="modal-right">
-
-                 <b-card v-if="RightmodalData.wallet !='' && RightmodalData.wallet !=null" class="text-center shadow mb-3 pt-3" style="border-radius:20px" header="WALLET">
-              <b-list-group  class="mb-3">
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                  Balance
-                    <b-badge variant="primary" pill>{{RightmodalData.wallet.balance}}</b-badge>
-                  </b-list-group-item>
-
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Post paid balance
-                    <b-badge variant="primary" pill>{{RightmodalData.wallet.post_paid_balance}}</b-badge>
-                  </b-list-group-item>
-                </b-list-group>
-                   </b-card>
-
-                   <b-card v-if="RightmodalData.type !='' && RightmodalData.type !=null" class="text-center shadow mb-3 pt-3" style="border-radius:20px" header="TYPE">
-              <b-list-group  class="mb-3">
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Name
-                    <b-badge variant="primary" pill>{{RightmodalData.type.name}}</b-badge>
-                  </b-list-group-item>
-
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Slug
-                    <b-badge variant="primary" pill>{{RightmodalData.type.slug}}</b-badge>
-                  </b-list-group-item>
-                </b-list-group>
-                   </b-card>
-
-                   <b-card v-if="RightmodalData.port !=''  && RightmodalData.port !=null" class="text-center shadow pt-3" style="border-radius:20px" header="PORT">
-                <b-list-group >
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Name
-                    <b-badge variant="primary" pill>{{RightmodalData.port.name}}</b-badge>
-                  </b-list-group-item>
-
-                  <b-list-group-item class="d-flex justify-content-between align-items-center">
-                    Status
-                    <b-badge variant="primary" pill v-if="RightmodalData.port.status==1">Active</b-badge>
-                    <b-badge variant="primary" pill v-else>Inactive</b-badge>
-
-                  </b-list-group-item>
-                </b-list-group>
-                   </b-card>
-                    <template slot="modal-footer">
-                    <b-button variant="secondary" @click="hideModal('modalright')">Cancel</b-button>
-                </template>
-            </b-modal>
-    </b-colxx>
     </b-row>
   </div>
 </template>
@@ -190,11 +84,7 @@ export default {
       apiBase: "",
       agentDetails:"",
       apiBase:`${PROXY}admin/agent/details`,
-
-
-      // isFetched: false,
-      // isLoading: true,
-
+      
       fields: [
         {
         name: "vehicle_model",
