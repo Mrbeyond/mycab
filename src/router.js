@@ -81,6 +81,16 @@ const routes = [
         // ]
       },
       {
+        path: "payers/:id",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Payer/PayerDetails/PayerDetailsCover.vue"),
+          // redirect: `${adminRoot}/dashboard/payers`,
+        // meta: { roles: [UserRole.Admin, UserRole.Editor] },
+        // children: [
+
+        // ]
+      },
+      {
         path: "lg",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Dashboard/Locations/getLocations.vue"),
