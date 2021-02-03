@@ -53,7 +53,7 @@ export default {
   computed: {
   },
   mounted(){
-    console.log(this.PAYLOAD);
+    // console.log(this.PAYLOAD);
   }
 }
 

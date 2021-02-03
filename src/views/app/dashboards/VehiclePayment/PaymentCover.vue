@@ -49,7 +49,7 @@
         >
           <template slot="actions" slot-scope="props" >
             <b-button id="detailBtn" ref="detailBtn"
-              @click.prevent="cellClick($event, props.rowData)"
+              @click.stop="cellClick($event, props.rowData)"
               variant="primary"
             >
               <i class="simple-icon-login"></i>
