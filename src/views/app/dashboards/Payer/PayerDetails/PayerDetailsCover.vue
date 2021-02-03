@@ -122,7 +122,7 @@ export default {
 
   },
   beforeEnter(to, from, next){
-    console.log(to, from);
+    // console.log(to, from);
     // alert(to.params.id)
     next(vm => {
   //   // access to component instance via `vm`

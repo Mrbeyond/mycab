@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { PROXY } from '../../constants/config';
-import { ADMINS, AGENTS, CARDS, RES_KEY, hToken, TAGS, TERMINALS, GARAGES, PORTS, LGS, AGENTTYPES, ADMINTYPES, PAYERS } from '../../constants/formKey';
+import { ADMINS, AGENTS, CARDS, RES_KEY, hToken, TAGS, TERMINALS, GARAGES, PORTS, LGS, AGENTTYPES, ADMINTYPES, PAYERS, FETCHING, AUTO_FETCHING, GETTINGTYPES } from '../../constants/formKey';
 
 export default {
   state: {
@@ -17,6 +17,9 @@ export default {
     lgs:null,
     agentTypes:null,
     adminTypes:null,
+    fetching: {status:false, owner:''},
+    autoFetching: false,
+    gettingTypes: false,
 
   },
 
@@ -48,6 +51,11 @@ export default {
 
     payers: state=> state.payers,
 
+    fetching: state=> state.fetching,
+
+    autoFetching: state=> state.autoFetching,
+
+    gettingTypes: state=> state.gettingTypes,
 
   },
 
@@ -102,6 +110,25 @@ export default {
       // console.log(payload.owner);
       state.adminTypes = payload;
     },
+
+    [FETCHING](state, payload){
+      // console.log(payload.owner);
+      state.fecthing = payload;
+    },
+
+    [AUTO_FETCHING](state){
+      // console.log(state.autoFetching.status);
+      state.autoFetching = !state.autoFetching;
+    },
+
+    [GETTINGTYPES](state){
+      // console.log('from store');
+      // console.log(state.autoFetching.status);
+      state.gettingTypes = !state.gettingTypes;
+    },
+
+
+
   },
 
 
@@ -156,7 +183,7 @@ export default {
 
   [AGENTS]({commit}){
 
-    Axios.get(`${PROXY}admin/agents`, {headers: hToken()})
+    Axios.get(`${PROXY}admin/agent/details`, {headers: hToken()})
     .then(res=>{
       if(!res.data.error){
         let payload;
@@ -275,6 +302,7 @@ export default {
   },
 
   [GARAGES]({commit}, id){
+    commit(AUTO_FETCHING);
     Axios.get(`${PROXY}location/garages/${id}`, {headers: hToken()})
     .then(res=>{
       if(!res.data.error){
@@ -289,10 +317,12 @@ export default {
       }else{
         commit(RES_KEY, {status:1, owner: GARAGES});
       }
+      commit(AUTO_FETCHING);
     })
     .catch(err => {
       if(err.response){
         commit(RES_KEY, {status:2, owner: GARAGES});
+        commit(AUTO_FETCHING);
       }
     })
   },
@@ -322,7 +352,8 @@ export default {
   },
 
   [AGENTTYPES]({commit}){
-
+    // commit(FETCHING, )
+    commit(GETTINGTYPES);
     Axios.get(`${PROXY}admin/agent_types`, {headers: hToken()})
     .then(res=>{
       if(!res.data.error){
@@ -337,10 +368,12 @@ export default {
       }else{
         commit(RES_KEY, {status:1, owner: AGENTTYPES});
       }
+      commit(GETTINGTYPES);
     })
     .catch(err => {
       if(err.response){
         commit(RES_KEY, {status:2, owner: AGENTTYPES});
+        commit(GETTINGTYPES);
       }
     })
   },
@@ -361,10 +394,12 @@ export default {
       }else{
         commit(RES_KEY, {status:1, owner: ADMINTYPES});
       }
+
     })
     .catch(err => {
       if(err.response){
         commit(RES_KEY, {status:2, owner: ADMINTYPES});
+
       }
     })
   },

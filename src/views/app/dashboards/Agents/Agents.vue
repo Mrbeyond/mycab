@@ -1,6 +1,19 @@
 
 <template>
-  <div>
+  <div v-if="isLoading && !isFetched" style="h-100">
+
+    <div class="align-middle">
+      <div class="d-flex justify-content-center">
+        <b-spinner variant="primary" />
+      </div>
+    </div>
+  </div>
+
+  <div v-else-if=" !isLoading && !isFetched">
+
+    Error template here
+  </div>
+  <div v-else>
     <!--<datatable-heading
       :title="$t('menu.divided-table')"
       :selectAll="selectAll"
@@ -26,7 +39,8 @@
           :query-params="makeQueryParams"
           :per-page="perPage"
           :http-options="head"
-          :api-url="apiBase"
+          :api-mode="false"
+          :data="localData"
           :reactive-api-url="false"
           :fields="fields"
           pagination-path
@@ -55,7 +69,7 @@
             <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" title="Details" modal-class="modal-right">
                  <b-card v-if="RightmodalData !='' && RightmodalData !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Basic info</h1>
-                <div v-if="RightmodalData.wallet !=null">                                                                                                                                                                                                                                                                    
+                <div v-if="RightmodalData.wallet !=null">
                 <p class="text-muted">Balance</p>
                 <p >{{RightmodalData.wallet.balance}}</p>
                 </div>
@@ -96,7 +110,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash } from "../../../../constants/formKey";
+import { AGENTS, hToken, loadash } from "../../../../constants/formKey";
 import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {
@@ -124,8 +138,8 @@ export default {
       RightmodalData:"",
       RigthVery:"",
 
-      // isFetched: false,
-      // isLoading: true,
+      isFetched: false,
+      isLoading: true,
 
       fields: [,
         {
@@ -267,7 +281,7 @@ export default {
       // this.$refs.contextmenu.show({ top: event.pageY, left: event.pageX });
     },
     onPaginationData(paginationData) {
-      console.log(paginationData);
+      // console.log(paginationData);
       this.from = paginationData.from;
       this.to = paginationData.to;
       this.total = paginationData.total;
@@ -320,7 +334,12 @@ export default {
         "context menu item clicked - " + action + ": ",
         this.selectedItems
       );
+    },
+
+    getAgents(){
+      this.$store.dispatch(AGENTS);
     }
+
   },
   computed: {
     isSelectedAll() {
@@ -331,13 +350,35 @@ export default {
         this.selectedItems.length > 0 &&
         this.selectedItems.length < this.items.length
       );
+    },
+
+    localData(){
+      return this.$store.getters.agents;
+    },
+
+    resKey(){
+      return this.$store.getters.resKey;
     }
+
   },
   watch: {
+    resKey(){
+      if(this.resKey && this.resKey.owner && this.resKey.owner == AGENTS){
+        if(!this.resKey.status){
+          this.isFetched = true;
+        }else{
+          this.isFetched = false;
+        }
+        this.isLoading = false;
+      }
+    }
   },
   created(){
-    console.log(this.head);
-    console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+    this.getAgents();
+    alert();
+
+    // console.log(this.head);
+    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>

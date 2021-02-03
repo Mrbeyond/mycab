@@ -49,7 +49,7 @@
           <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
                  <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Account</h1>
-                <div >        
+                <div >
                 <p class="text-muted">First name</p>
                 <p >{{RightmodalData.account.first_name}}</p>
                 </div>
@@ -66,11 +66,11 @@
                 <p >{{RightmodalData.account.account_no}}</p>
                 </div>
           </b-card>
-                   
+
 
           <b-card v-if="RightmodalData.garage !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Garage & Port</h1>
-                <div >        
+                <div >
                 <p class="text-muted">Name</p>
                 <p >{{RightmodalData.garage.name}}</p>
                 </div>
@@ -92,10 +92,10 @@
                 </div>
          </b-card>
 
-                   
+
          <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Type details</h1>
-                <div >        
+                <div >
                 <p class="text-muted">Name</p>
                 <p >{{RightmodalData.type.name}}</p>
                 </div>
@@ -182,7 +182,7 @@ export default {
           dataClass: "",
           width: "10%"
         },
-       
+
         {
           name: "createdAt",
           sortField: "created",
@@ -231,7 +231,7 @@ export default {
         //   dataClass: "",
         //   width: "10%"
         // },
-      
+
       ]
     };
   },
@@ -400,8 +400,8 @@ export default {
   },
   created(){
     this.getTerminals()
-    console.log(this.head);
-    console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+    // console.log(this.head);
+    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>

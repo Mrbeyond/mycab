@@ -26,6 +26,9 @@ export const GARAGES = "GARAGES";
 export const AGENTTYPES = "AGENTTYPES";
 export const ADMINTYPES = "ADMINTYPES";
 export const PAYERS = "PAYERS";
+export const FETCHING = "FETCHING";
+export const AUTO_FETCHING = "AUTO_FETCHING";
+export const GETTINGTYPES = "GETTINGTYPES";
 
 export const hToken=()=>{
   try {
@@ -104,7 +107,7 @@ export const toMoney = (val)=>{
 };
 
 export const enroute=(route)=>{
-  console.log(route);
+  // console.log(route);
   let arr = ["agents","payers","admins","terminals", "cards", 'tags' ];
   let formSets= [ADD_AGENT, ADD_PAYER, ADD_ADMIN, ADD_TERMINAL, ADD_CARD, ADD_TAG];
   if(route.split('/').length === 3){

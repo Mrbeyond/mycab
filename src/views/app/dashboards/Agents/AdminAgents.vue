@@ -289,6 +289,7 @@ export default {
     }
   },
    mounted: function(){
+    //  alert();
       this.paramName =this.$router.currentRoute.params.name
       console.log(this.paramName)
         this.loadItems();
