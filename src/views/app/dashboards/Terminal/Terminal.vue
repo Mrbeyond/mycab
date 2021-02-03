@@ -6,14 +6,9 @@
 
 <template>
   <div>
-<!-- <b-row>
+    <b-row >
       <b-colxx xxs="12">
-        <piaf-breadcrumb heading="Terminal" />
-        <div class="separator mb-5"></div>
-      </b-colxx>
-    </b-row> -->
-    <b-row>
-      <b-colxx xxs="12">
+        <h2 class="text-center mb-5">LIST OF TERMINALS</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
@@ -161,9 +156,8 @@ export default {
       selectedItems: [],
       RightmodalData:"",
       RigthVery:"",
-
-      // isFetched: false,
-      // isLoading: true,
+      isFetched: false,
+      isLoading: true,
 
       fields: [
         {
@@ -199,38 +193,6 @@ export default {
           dataClass: "",
           width: "10%"
         },
-        //    {
-        //   name: "vehicle_identification_number",
-        //   sortField: "id",
-        //   title: "ID",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //  {
-        //   name: "vehicle_year",
-        //   sortField: "year",
-        //   title: "Year",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //  {
-        //   name: "__slot:Details",
-        //   sortField: "Details",
-        //   title: "Details",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //   {
-        //   name: "__slot:details",
-        //   sortField: "details",
-        //   title: "Full details",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
 
       ]
     };
@@ -276,7 +238,7 @@ export default {
     },
 
     cellClicked(item, field, event){
-      alert()
+      // alert()
       console.log(item, 'item');
       console.log(field, 'feild');
       console.log(event,'eve');
@@ -285,7 +247,7 @@ export default {
     rowClicked(dataItem, event) {
       // const itemId = dataItem.id;
       console.log(dataItem)
-      alert();
+      // alert();
       return;
       if (event.shiftKey && this.selectedItems.length > 0) {
         let itemsForToggle = this.items;
@@ -394,7 +356,7 @@ export default {
   watch: {
      resKey(){
       if(this.resKey && this.resKey.owner && this.resKey.owner == TERMINALS){
-        this.isLoad = true;
+        this.isLoading = false;
       }
     }
   },

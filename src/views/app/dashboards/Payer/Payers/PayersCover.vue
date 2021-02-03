@@ -28,12 +28,7 @@
     ></datatable-heading>-->
     <b-row>
       <b-colxx xxs="12">
-          <!--:api-url="apiBase"
-          @vuetable:row-clicked="alert(5)"
-
-          @vuetable:row-clicked="rowClicked"
-          @vuetable:cell-clicked="cellClicked"
-          -->
+        <h2 class="text-center mb-5">LIST OF PAYERS</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"

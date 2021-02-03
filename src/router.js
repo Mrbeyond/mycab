@@ -103,6 +103,12 @@ const routes = [
         // meta: { roles: [UserRole.Admin] },
       },
       {
+        path: "ports",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Locations/getPorts.vue"),
+        // meta: { roles: [UserRole.Admin] },
+      },
+      {
         path: "agents",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Agents/Agents.vue"),

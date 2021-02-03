@@ -81,11 +81,17 @@
     </div>
     <div class="col-12 col-md-6 col-lg-4">
       <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
-        <h1>Type details</h1>
+        <h1>Vehicle details</h1>
         <div  class="d-column  justify-content-between">
           <div >
             <p class="text-muted">Name</p>
             <p >{{RightmodalData.type.name}}</p>
+          </div>
+          <div >
+            <p class="text-muted">Is imported</p>
+            <p  v-if="is_imported">Yes</p>
+            <p  v-else>No</p>
+
           </div>
           <div>
             <p class="text-muted">Amount</p>

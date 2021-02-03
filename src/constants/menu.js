@@ -91,7 +91,7 @@ const data = [
   },
 
   {id:"vehicles",
-  icon:"simple-icon-speedometer",
+  icon:"iconsminds-bus-2",
   label: "menu.vehicles",
   to: `${adminRoot}/vehicles`,
   // roles: [UserRole.Admin, UserRole.Editor],,
@@ -128,6 +128,30 @@ const data = [
   //   },
   // ]
   },
+  // {
+  //   id:"port",
+  //   icon:"iconsminds-ship",
+  //   label: "menu.port",
+  //   to: `${adminRoot}/location/ports`,
+  //   // roles: [UserRole.Admin, UserRole.Editor],,
+  //   // subs:[
+  //   //   {
+  //   //   label: "menu.all-vehicle-payments",
+  //   //   to: `${adminRoot}/all-vehicle-payments`,
+  //   //   // roles: [UserRole.Admin, UserRole.Editor],
+  //   //   },
+  //   //   {
+  //   //     label: "menu.commercial-vehicle-payments",
+  //   //     to: `${adminRoot}/commercial-vehicle-payments`,
+  //   //     // roles: [UserRole.Admin, UserRole.Editor],
+  //   //   },
+  //   //   {
+  //   //     label: "menu.import-vehicle-payments",
+  //   //     to: `${adminRoot}/import-vehicle-payments`,
+  //   //     // roles: [UserRole.Admin, UserRole.Editor],
+  //   //   },
+  //   // ]
+  // },
 
   {
     id:"finance",
@@ -154,7 +178,7 @@ const data = [
     // ]
   },
   {id:"vehicle-tags",
-    icon:"simple-icon-pin",
+    icon:"iconsminds-tag-3",
     label: "menu.vehicle-tags",
     to: `${adminRoot}/tags`,
     // roles: [UserRole.Admin, UserRole.Editor],,
@@ -167,9 +191,11 @@ const data = [
     //   }
     // ]
   },
+  
+
 
   {id:"locations",
-    icon:"simple-icon-map",
+    icon:"iconsminds-map-marker-2",
     label: "menu.locations",
     to: `${adminRoot}/locations`,
     // roles: [UserRole.Admin, UserRole.Editor],,
@@ -181,9 +207,15 @@ const data = [
         // roles: [UserRole.Admin, UserRole.Editor],
       },
       {
-        icon: "simple-icon-plus",
+        icon: "iconsminds-embassy",
         label: "Garages",
         to: `${adminRoot}/garages`,
+        // roles: [UserRole.Admin, UserRole.Editor],
+      },
+      {
+        icon: "iconsminds-ship",
+        label: "Ports",
+        to: `${adminRoot}/ports`,
         // roles: [UserRole.Admin, UserRole.Editor],
       },
     ]},

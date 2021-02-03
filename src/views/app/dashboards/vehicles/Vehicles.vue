@@ -14,19 +14,6 @@
     Error template here
   </div>
   <div v-else>
-    <!--<datatable-heading
-      :title="$t('menu.divided-table')"
-      :selectAll="selectAll"
-      :isSelectedAll="isSelectedAll"
-      :isAnyItemSelected="isAnyItemSelected"
-      :keymap="keymap"
-      :changePageSize="changePageSize"
-      :searchChange="searchChange"
-      :from="from"
-      :to="to"
-      :total="total"
-      :perPage="perPage"
-    ></datatable-heading>-->
     <b-row>
       <b-colxx xxs="12">
           <!--:api-url="apiBase"
@@ -34,6 +21,7 @@
           @vuetable:row-clicked="rowClicked"
           @vuetable:cell-clicked="cellClicked"
           -->
+        <h2 class="text-center mb-5">LIST OF VEHICLES</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
@@ -325,7 +313,7 @@ export default {
     rowClicked(dataItem, event) {
       // const itemId = dataItem.id;
       console.log(dataItem)
-      alert();
+      // alert();
       return;
       if (event.shiftKey && this.selectedItems.length > 0) {
         let itemsForToggle = this.items;

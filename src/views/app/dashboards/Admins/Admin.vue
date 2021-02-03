@@ -30,6 +30,7 @@
 
     <b-row>
       <b-colxx xxs="12">
+        <h2 class="text-center mb-5">LIST OF ADMINS</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
@@ -247,7 +248,7 @@ export default {
     },
 
     cellClicked(item, field, event){
-      alert()
+      // alert()
       console.log(item, 'item');
       console.log(field, 'feild');
       console.log(event,'eve');
@@ -256,7 +257,7 @@ export default {
     rowClicked(dataItem, event) {
       // const itemId = dataItem.id;
       console.log(dataItem)
-      alert();
+      // alert();
       return;
       if (event.shiftKey && this.selectedItems.length > 0) {
         let itemsForToggle = this.items;

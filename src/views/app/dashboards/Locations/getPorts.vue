@@ -1,9 +1,4 @@
 
-
-
-
-
-
 <template>
   <div>
     <div v-if="isLoading && !isFetched" class="row justify-content-center">
@@ -14,8 +9,7 @@
     </div>
     <b-row v-else>
       <b-colxx xxs="12">
-        <h2 class="text-center mb-5">LIST OF CARDS</h2>
-
+        <h2 class="text-center mb-5">LIST OF PORTS</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
@@ -23,16 +17,18 @@
           :per-page="perPage"
           :http-options="head"
           :api-mode="false"
-          :data="cards"
+          :data="ports"
           :reactive-api-url="false"
           :fields="fields"
           pagination-path
           :row-class="onRowClass"
           @vuetable:pagination-data="onPaginationData"
           @vuetable:cell-rightclicked="rightClicked"
-          @vuetable:cell-clicked="cellClicked"
         >
-          <!-- <template  slot="garages" slot-scope="props" >
+          <!--
+              
+          @vuetable:cell-clicked="cellClicked
+               <template  slot="garages" slot-scope="props" >
             <div v-if="props">
             <router-link :to="`/dashboard/garages/${props.rowData.id}`" v-if="props.rowData.garages.length>=1">
             <b-btn  title="View Vehicles" badge-variant="dark" v-if="props"  v-b-modal.modalbasic
@@ -145,7 +141,7 @@ import VuetablePaginationBootstrap from "../../../../components/Common/VuetableP
 import { apiUrl, PROXY } from "../../../../constants/config";
 import { hToken, loadash, LUX_ZONE, statusA } from "../../../../constants/formKey";
 import {LGS} from '../../../../constants/formKey';
-import {ADD_CARD,CARDS } from '../../../../constants/formKey';
+import {ADD_CARD,PORTS } from '../../../../constants/formKey';
 
 
 export default {
@@ -176,14 +172,14 @@ export default {
       RightmodalData:"",
       RigthVery:"",
 
-      // isFetched: false,
-      // isLoadinging: true,
+      isFetched: false,
+      isLoadinging: true,
 
       fields: [
         {
-        name: "card_no",
-        sortField: "card_no",
-        title: "Card No.",
+        name: "name",
+        sortField: "name",
+        title: "Name",
         titleClass: "",
         dataClass: "list-item-heading",
         width: "10%",
@@ -232,8 +228,8 @@ export default {
   },
   methods: {
 
-     getCards(){
-      this.$store.dispatch(CARDS);
+     getPorts(){
+      this.$store.dispatch(PORTS);
     },
     modalinfo(garages){
     this.RightmodalData = garages
@@ -381,8 +377,8 @@ export default {
       );
     },
 
-    cards(){
-    return this.$store.getters.cards;
+    ports(){
+    return this.$store.getters.ports;
   },
 
     resKey(){
@@ -391,7 +387,7 @@ export default {
   },
   watch: {
      resKey(){
-      if(this.resKey && this.resKey.owner && this.resKey.owner == CARDS){
+      if(this.resKey && this.resKey.owner && this.resKey.owner == PORTS){
         if(this.resKey.status){
           this.isFetched = false;
           this.isLoading = true;
@@ -404,7 +400,7 @@ export default {
     }
   },
   created(){
-    this.getCards();
+    this.getPorts();
     console.log(this.head);
     // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
