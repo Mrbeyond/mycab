@@ -64,7 +64,7 @@ import {
     validationMixin
 } from "vuelidate";
 import { PROXY } from '../../../../constants/config';
-import { hToken } from '../../../../constants/formKey';
+import { ADMINS, hToken } from '../../../../constants/formKey';
 const {
     required,
     minLength,
@@ -157,6 +157,7 @@ export default {
           this.variant = "success";
           this.resMessage = res.data.message;
           this.$refs.form.reset();
+          this.$store.dispatch(ADMINS);
         }else{
           this.variant = "danger";
           this.resMessage = "Something went wrong, please retry"

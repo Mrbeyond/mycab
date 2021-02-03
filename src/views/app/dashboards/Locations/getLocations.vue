@@ -65,7 +65,7 @@
           <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" :title="Details" modal-class="modal-right">
                  <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Account</h1>
-                <div >        
+                <div >
                 <p class="text-muted">First name</p>
                 <p >{{RightmodalData.account.first_name}}</p>
                 </div>
@@ -82,11 +82,11 @@
                 <p >{{RightmodalData.account.account_no}}</p>
                 </div>
           </b-card>
-                   
+
 
           <b-card v-if="RightmodalData.garage !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Garage & Port</h1>
-                <div >        
+                <div >
                 <p class="text-muted">Name</p>
                 <p >{{RightmodalData.garage.name}}</p>
                 </div>
@@ -108,10 +108,10 @@
                 </div>
          </b-card>
 
-                   
+
          <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Type details</h1>
-                <div >        
+                <div >
                 <p class="text-muted">Name</p>
                 <p >{{RightmodalData.type.name}}</p>
                 </div>
@@ -145,10 +145,10 @@
 <script>// @ts-nocheck
 
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
-import VuetablePaginationBootstrap from "../../../../../components/Common/VuetablePaginationBootstrap.vue";
-import { apiUrl, PROXY } from "../../../../../constants/config";
-import { hToken, loadash } from "../../../../../constants/formKey";
-import {LGS} from '../../../../../constants/formKey';
+import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
+import { apiUrl, PROXY } from "../../../../constants/config";
+import { hToken, loadash } from "../../../../constants/formKey";
+import {LGS} from '../../../../constants/formKey';
 
 
 export default {
@@ -198,7 +198,7 @@ export default {
           dataClass: "",
           width: "10%"
         },
-       
+
         {
           name: "contact_person",
           sortField: "contact person",
@@ -393,9 +393,7 @@ export default {
         }else{
           this.isFetched = true;
         }
-
       }
-      
     }
   },
   created(){

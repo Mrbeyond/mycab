@@ -100,6 +100,7 @@ export const plainTimeZone=(time)=>{
 
 export const statusA = ["Inactive", "Active"];
 export const statusS = ["Unsuccessfull", "Successfull"];
+export const statusV = ["NO","YES"];
 
 export const toMoney = (val)=>{
   return parseInt(val).toLocaleString();

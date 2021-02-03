@@ -1,6 +1,19 @@
 
 <template>
-  <div>
+  <div v-if="isLoading && !isFetched" style="h-100">
+
+    <div class="align-middle">
+      <div class="d-flex justify-content-center">
+        <b-spinner variant="primary" />
+      </div>
+    </div>
+  </div>
+
+  <div v-else-if=" !isLoading && !isFetched">
+
+    Error template here
+  </div>
+  <div v-else>
     <!--<datatable-heading
       :title="$t('menu.divided-table')"
       :selectAll="selectAll"
@@ -25,7 +38,6 @@
           :http-options="head"
           :reactive-api-url="false"
           :api-mode="false"
-
           :fields="fields"
           :data="admins"
           pagination-path
@@ -35,7 +47,12 @@
           @vuetable:cell-clicked="cellClicked"
         >
            <template slot="Type" slot-scope="props">
-             <b-button class="bg-primary" @click="modalinfo(props.rowData.admin_type)"  v-b-modal.modalbasic>View</b-button>
+             <b-button class="bg-primary"
+              @click="modalinfo(props.rowData.admin_type)"
+              v-b-modal.modalbasic
+            >
+              <i class="simple-icon-magnifier" />
+            </b-button>
           </template>
           <!-- <template slot="agent" slot-scope="props">
           <b-button class="bg-primary" @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"  v-b-modal.modalbasic>View</b-button>
@@ -66,8 +83,8 @@
          <b-colxx xxs="12">
             <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" title="Admin" modal-class="modal-right">
                  <b-card v-if="RightmodalData !='' && RightmodalData !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
-                <h1>Type</h1>    
-                <div>                                                                                                                                                                                                                                                                                                                                                                                                                        
+                <h1>Type</h1>
+                <div>
                 <p class="text-muted">Name</p>
                 <p >{{RightmodalData.name}}</p>
                 </div>
@@ -79,7 +96,7 @@
                 <p class="text-muted"> Port Name</p>
                 <p >{{RightmodalData.port.name}}</p>
                 </div> -->
-                
+
                    </b-card>
                     <template slot="modal-footer">
                     <b-button variant="secondary" @click="hideModal('modalright')">Cancel</b-button>
@@ -126,8 +143,8 @@ export default {
       // apiBase:`${PROXY}admin/agent/details`,
 
 
-      // isFetched: false,
-      // isLoading: true,
+      isFetched: false,
+      isLoading: true,
 
       fields: [,
         {
@@ -146,7 +163,7 @@ export default {
           dataClass: "",
           width: "10%"
         },
-       
+
         {
           name: "phone",
           sortField: "phone",
@@ -171,7 +188,7 @@ export default {
           dataClass: "",
           width: "10%"
         },
-        
+
         //  {
         //   name: "__slot:actions",
         //   title: "Action",
@@ -369,7 +386,12 @@ export default {
   watch: {
     resKey(){
       if(this.resKey && this.resKey.owner && this.resKey.owner == ADMINS){
-        this.isLoad = true;
+        if(!this.resKey.status){
+          this.isFetched = true;
+        }else{
+          this.isFetched = false;
+        }
+        this.isLoading = false;
       }
     }
   },
@@ -378,8 +400,8 @@ export default {
       },
   created(){
     this.getAdmins()
-    console.log(this.paramId);
-    console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+    // console.log(this.paramId);
+    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>

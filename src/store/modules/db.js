@@ -72,6 +72,10 @@ export default {
       state.agents = payload;
     },
 
+    [PAYERS](state, payload){
+      state.payers = payload;
+    },
+
     [CARDS](state, payload){
       state.cards = payload;
     },
@@ -239,7 +243,7 @@ export default {
 
     [PAYERS]({commit}){
 
-      Axios.get(`${PROXY}admin/payers`, {headers: hToken()})
+      Axios.get(`${PROXY}admin/payer/details`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
           let payload;

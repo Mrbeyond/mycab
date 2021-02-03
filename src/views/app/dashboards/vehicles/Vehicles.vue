@@ -32,6 +32,7 @@
           <!--:api-url="apiBase"
 
           @vuetable:row-clicked="rowClicked"
+          @vuetable:cell-clicked="cellClicked"
           -->
         <vuetable
           ref="vuetable"
@@ -47,13 +48,12 @@
           :row-class="onRowClass"
           @vuetable:pagination-data="onPaginationData"
           @vuetable:cell-rightclicked="rightClicked"
-          @vuetable:cell-clicked="cellClicked"
         >
            <template slot="Preview" slot-scope="props">
              <b-button class="bg-primary" v-b-modal.modalbasic
               @click="modalinfo(props.rowData.account,props.rowData.garage,props.rowData.port,props.rowData.vehicle_type_details)"
               >
-                View
+                <i class="simple-icon-magnifier" />
               </b-button>
           </template>
             <template slot="details" slot-scope="props">
@@ -316,10 +316,10 @@ export default {
     },
 
     cellClicked(item, field, event){
-      alert()
-      console.log(item, 'item');
-      console.log(field, 'feild');
-      console.log(event,'eve');
+      // alert()
+      // console.log(item, 'item');
+      // console.log(field, 'feild');
+      // console.log(event,'eve');
     },
 
     rowClicked(dataItem, event) {

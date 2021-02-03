@@ -1,5 +1,18 @@
 <template>
-  <div>
+  <div v-if="isLoading && !isFetched" style="h-100">
+
+    <div class="align-middle">
+      <div class="d-flex justify-content-center">
+        <b-spinner variant="primary" />
+      </div>
+    </div>
+  </div>
+
+  <div v-else-if=" !isLoading && !isFetched">
+
+    Error template here
+  </div>
+  <div v-else>
     <!--<datatable-heading
       :title="$t('menu.divided-table')"
       :selectAll="selectAll"
@@ -26,9 +39,8 @@
           class="table-divided order-with-arrow"
           :query-params="makeQueryParams"
           :per-page="perPage"
-          :http-options="head"
-          :api-url="apiBase"
-          :reactive-api-url="false"
+          :api-mode="false"
+          :data="localData"
           :fields="fields"
           pagination-path
           :row-class="onRowClass"
@@ -48,7 +60,7 @@
             <b-button ref="view" id="view" variant="primary"
              @click="cellClick($event, props.rowData)"
             >
-              View
+              <i class="simple-icon-magnifier" />
             </b-button>
 
           </template>
@@ -93,7 +105,8 @@
 import Vuetable from "vuetable-2/src/components/Vuetable";
 import VuetablePaginationBootstrap from "../../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { PROXY } from '../../../../../constants/config';
-import { hToken/*, loadash*/ } from '../../../../../constants/formKey';
+import { hToken,/*, loadash*/
+PAYERS} from '../../../../../constants/formKey';
 import PayerSideDetails from './PayerSideDetails.vue';
 // import PayerVehicles from './PayerVehicles.vue';
 // import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
@@ -111,7 +124,7 @@ export default {
     return {
       head: {headers: hToken()},
       isLoad: false,
-      apiBase: `${PROXY}admin/payer/details`,//apiUrl + "/cakes/fordatatable",
+      // apiBase: `${PROXY}admin/payer/details`,//apiUrl + "/cakes/fordatatable",
       sort: "",
       page: 1,
       perPage: 8,
@@ -125,8 +138,8 @@ export default {
       selectedPayload: null,
       selectedItemVehicles: [],
 
-      // isFetched: false,
-      // isLoading: true,
+      isFetched: false,
+      isLoading: true,
 
       fields: [,
         {
@@ -330,6 +343,10 @@ export default {
         // console.log(this.selectedPayload);
         this.$refs.modalright.show();
       }
+    },
+
+    getPayers(){
+      this.$store.dispatch(PAYERS);
     }
   },
   computed: {
@@ -341,11 +358,28 @@ export default {
         this.selectedItems.length > 0 &&
         this.selectedItems.length < this.items.length
       );
+    },
+    localData(){
+      return this.$store.getters.payers
+    },
+    resKey(){
+      return this.$store.getters.resKey
     }
   },
   watch: {
+    resKey(){
+      if(this.resKey && this.resKey.owner && this.resKey.owner == PAYERS){
+        if(!this.resKey.status){
+          this.isFetched = true;
+        }else{
+          this.isFetched = false;
+        }
+        this.isLoading = false;
+      }
+    }
   },
   created(){
+    this.getPayers()
     // console.log(this.$route.path);
     // console.log(this.head);
     // console.log( loadash*/.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));

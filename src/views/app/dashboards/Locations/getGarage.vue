@@ -5,7 +5,21 @@
 
 
 <template>
-  <div>
+
+  <div v-if="isLoading && !isFetched" style="h-100">
+
+    <div class="align-middle">
+      <div class="d-flex justify-content-center">
+        <b-spinner variant="primary" />
+      </div>
+    </div>
+  </div>
+
+  <div v-else-if=" !isLoading && !isFetched">
+
+    Error template here
+  </div>
+  <div v-else>
 <!-- <b-row>
       <b-colxx xxs="12">
         <piaf-breadcrumb heading="Terminal" />
@@ -31,8 +45,15 @@
           @vuetable:cell-clicked="cellClicked"
         >
            <template slot="chairmen" slot-scope="props">
-                <b-button :disabled="!props.rowData.garage_chairmen" :title="!props.rowData.garage_chairmen?'No chairman':'click to view'" class="bg-primary" v-b-modal.modalbasic  @click="modalinfo(props.rowData.garage_chairmen)">
-               View</b-button>
+            <b-button
+              :disabled="!props.rowData.garage_chairmen"
+              :title="!props.rowData.garage_chairmen?'No chairman':'click to view'"
+              class="bg-primary" v-b-modal.modalbasic
+              @click="modalinfo(props.rowData.garage_chairmen)"
+            >
+              <i class="simple-icon-vector" v-if="props.rowData.garage_chairmen" />
+              <i class="simple-icon-lock"  v-else />
+            </b-button>
           </template>
         </vuetable>
         <vuetable-pagination-bootstrap
@@ -89,11 +110,11 @@
 <script>// @ts-nocheck
 
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
-import VuetablePaginationBootstrap from "../../../../../components/Common/VuetablePaginationBootstrap.vue";
-import { apiUrl, PROXY } from "../../../../../constants/config";
-import { hToken, loadash } from "../../../../../constants/formKey";
-// import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
-import { GARAGES } from '../../../../../constants/formKey';
+import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
+import { apiUrl, PROXY } from "../../../../constants/config";
+import { hToken, loadash } from "../../../../constants/formKey";
+// import DatatableHeading from "../../../containers/datatable/DatatableHeading";
+import { GARAGES } from '../../../../constants/formKey';
 
 
 export default {
@@ -122,8 +143,8 @@ export default {
       RightmodalData:"",
       RigthVery:"",
 
-      // isFetched: false,
-      // isLoading: true,
+      isFetched: false,
+      isLoading: true,
 
       fields: [
         {
@@ -142,7 +163,7 @@ export default {
           dataClass: "",
           width: "10%"
         },
-       
+
         {
           name: "__slot:chairmen",
           sortField: "chairmen",
@@ -191,7 +212,7 @@ export default {
         //   dataClass: "",
         //   width: "10%"
         // },
-      
+
       ]
     };
   },
@@ -355,18 +376,19 @@ export default {
      resKey(){
       if(this.resKey && this.resKey.owner && this.resKey.owner == GARAGES){
         if(this.resKey.status){
-            // alert(this.resKey.status)
+          this.isFetched = false;
+          this.isLoading = true;
         }else{
-            
+          this.isFetched = true;
         }
-        this.isLoad = true;
+
       }
     }
   },
   created(){
     this.getGarages(this.$router.currentRoute.params.id)
-    console.log(this.head);
-    console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+    // console.log(this.head);
+    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>
