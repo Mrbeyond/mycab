@@ -91,7 +91,7 @@ const data = [
   },
 
   {id:"vehicles",
-  icon:"simple-icon-speedometer",
+  icon:"iconsminds-bus-2",
   label: "menu.vehicles",
   to: `${adminRoot}/vehicles`,
   // roles: [UserRole.Admin, UserRole.Editor],,
@@ -178,7 +178,7 @@ const data = [
     // ]
   },
   {id:"vehicle-tags",
-    icon:"simple-icon-pin",
+    icon:"iconsminds-tag-3",
     label: "menu.vehicle-tags",
     to: `${adminRoot}/tags`,
     // roles: [UserRole.Admin, UserRole.Editor],,
@@ -191,9 +191,11 @@ const data = [
     //   }
     // ]
   },
+  
+
 
   {id:"locations",
-    icon:"simple-icon-map",
+    icon:"iconsminds-map-marker-2",
     label: "menu.locations",
     to: `${adminRoot}/locations`,
     // roles: [UserRole.Admin, UserRole.Editor],,
