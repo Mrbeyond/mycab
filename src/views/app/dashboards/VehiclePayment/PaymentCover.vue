@@ -38,7 +38,7 @@
                 @click="cellClick($event, props.rowData)"
                 variant="primary"
               >
-                <i class="simple-icon-login"></i>
+                <i class="simple-icon-magnifier"></i>
               </b-button>
             </template>
             </template>
