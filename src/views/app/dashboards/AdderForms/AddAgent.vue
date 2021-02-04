@@ -30,6 +30,16 @@
                   <b-form-invalid-feedback v-else-if="!$v.phone.minLength">Enter valid phone number</b-form-invalid-feedback>
                 </b-form-group>
 
+                <b-form-group label="Address" class="error-l-100">
+                  <b-form-input type="text" v-model="$v.address.$model" :state="!$v.address.$error" />
+                  <b-form-invalid-feedback v-if="!$v.address.required">Address is required</b-form-invalid-feedback>
+                </b-form-group>
+
+                <b-form-group label="Payer ID" class="error-l-100">
+                  <b-form-input type="text" v-model="$v.payer_id.$model" :state="!$v.payer_id.$error" />
+                  <b-form-invalid-feedback v-if="!$v.payer_id.required">Please enter payer id</b-form-invalid-feedback>
+                </b-form-group>
+
                 <b-form-group label="Agent type">
                   <b-input-group>
                     <b-input-group-prepend>
@@ -116,7 +126,7 @@ import {
     validationMixin
 } from "vuelidate";
 import { PROXY } from '../../../../constants/config';
-import { AGENTS, AGENTTYPES, AUTO_FETCHING, GARAGES, hToken } from '../../../../constants/formKey';
+import { AGENTS, AGENTTYPES, AUTO_FETCHING, GARAGES, genRand, hToken } from '../../../../constants/formKey';
 const {
     required,
     minLength,
@@ -135,6 +145,8 @@ export default {
       phone: "",
       agent_type: "",
       garage_id: "",
+      payer_id: genRand(),
+      address: '',
       submitting: false,
       variant: "success",
       resMessage: "",
@@ -169,7 +181,13 @@ export default {
         required,
         numeric,
         minLength: minLength(11)
-    }
+    },
+    address: {
+        required,
+    },
+    payer_id: {
+        required,
+    },
 
   },
 
@@ -291,6 +309,8 @@ export default {
         email:this.email,
         agent_type: service,
         garage_id: id,
+        address: this.address,
+        payer_id:this.payer_id,
       };
 
 
@@ -332,6 +352,7 @@ export default {
 
   },
   mounted(){
+    // console.log(genRand(),4545);
     // console.log(this.lgs);
   }
 };

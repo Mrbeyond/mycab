@@ -133,6 +133,25 @@ export const enroute=(route)=>{
   }
 }
 
+export const genRand=()=>{
+  let rand =(v)=>{
+    return Math.floor(Math.random() *Number(v-1))
+  }
+  let minRand =(min, max)=>{
+  return Math.floor(Math.random() * (max - min) ) + min;
+  }
+  let arr = ['vancop','tghwijb','felkxumz','sdirqy'];
+  let d = Date.now().toString().slice(-10);
+  let un = rand(4);
+  let str = [arr[un].slice(0,3), arr[un].slice(3,arr[un].length)];
+  let ray = Array.from(d.slice(3,6)+ d.slice(6,9)+ d.slice(0,3)+ d.slice(9,10));
+  let ff = rand(2);
+  ray.splice(minRand(0,5),1,str[ff]);
+  str.splice(ff,1);
+  ray.splice(minRand(5,10), 1,str[0]);
+  return ray.join("") ;
+}
+
 
 
 export const loadash = window._.noConflict();
