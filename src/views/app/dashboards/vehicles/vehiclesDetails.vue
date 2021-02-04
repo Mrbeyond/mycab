@@ -14,92 +14,130 @@
   </div>
 
   <div v-else>
-       <b-row class="align-items-center mb-5 justify-content-center m-1 row justify-content-between" v-if="RightmodalData !=''">
-  <div class="row">
-    <div class="col-12 col-md-6 col-lg-4">
-        <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
-          <h1>Account</h1>
-          <div class="d-column justify-content-between">
-            <div v-if="RightmodalData.account !=null" >
-              <p class="text-muted">First name</p>
-              <p >{{RightmodalData.account.first_name}}</p>
+    <div
+      class="d-column d-md-flex justify-content-md-between"
+    >
+      <!-- <div class=""  v-if="RightmodalData !=''"> -->
+        <!-- <div class="col-12 col-md-4 px-4 px-md-0"> -->
+          <b-card v-if="RightmodalData.account !=null"
+            class="text-center shadow-sm mb-3 pt-3 pl-0 pl-md-2 pr-0 pr-md-2"
+            style="border-radius:20px"
+          >
+            <h1>Vehicle Account</h1>
+            <div class="d-column justify-content-between">
+              <div v-if="RightmodalData.account !=null" >
+                <p class="text-muted">First name</p>
+                <p >{{RightmodalData.account.first_name}}</p>
+              </div>
+              <div v-if="RightmodalData.account !=null">
+                <p class="text-muted">Last name</p>
+                <p >{{RightmodalData.account.last_name}}</p>
+              </div>
+              <div v-if="RightmodalData.account !=null">
+                <p class="text-muted">Phone</p>
+                <p >{{RightmodalData.account.phone}}</p>
+              </div>
+              <div v-if="RightmodalData.account !=null">
+                <p class="text-muted">Account No.</p>
+                <p >{{RightmodalData.account.account_no}}</p>
+              </div>
             </div>
-            <div v-if="RightmodalData.account !=null">
-              <p class="text-muted">Last name</p>
-              <p >{{RightmodalData.account.last_name}}</p>
+          </b-card>
+        <!-- </div>
+        <div class="col-12 col-md-4 px-4 px-md-0"> -->
+          <b-card
+            class="text-center shadow-sm mb-3 pt-3  "
+            style="border-radius:20px"
+          >
+            <div class="pl-0 pl-md-4 pr-0 pr-md-4">
+              <!-- if the account type is garage  -->
+              <div v-if="RightmodalData.garage !=null">
+                <h1>Vehicle Garage</h1>
+                <div  class="d-column justify-content-between">
+                  <div>
+                    <p class="text-muted">Name</p>
+                    <p >{{RightmodalData.garage.name}}</p>
+                  </div>
+                  <div v-if="RightmodalData.garage !=null">
+                    <p class="text-muted">Address</p>
+                    <p >{{RightmodalData.garage.address}}</p>
+                  </div>
+                  <div v-if="RightmodalData.garage !=null">
+                    <p class="text-muted">Latitude</p>
+                    <p >{{RightmodalData.garage.latitude}}</p>
+                  </div>
+                  <div v-if="RightmodalData.garage !=null">
+                    <p class="text-muted">Longitude</p>
+                    <p >{{RightmodalData.garage.longitude}}</p>
+                  </div>
+                  <div v-if="RightmodalData.port !=null">
+                    <p class="text-muted">Port</p>
+                    <p >{{RightmodalData.port.name}}</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- if the account type is port  -->
+              <div v-if="RightmodalData.port !=null" >
+                <h1>Vehicle Port</h1>
+                <div  class="d-column justify-content-between">
+                  <div>
+                    <p class="text-muted">Name</p>
+                    <p >{{RightmodalData.port.name}}</p>
+                  </div>
+                  <div>
+                    <p class="text-muted">Time</p>
+                    <p >{{Timest(RightmodalData.port.createdAt)}}</p>
+                  </div>
+                  <div>
+                    <p class="text-muted">Status</p>
+                    <p >{{mapActive(RightmodalData.port.status)}}</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div v-if="RightmodalData.account !=null">
-              <p class="text-muted">Phone</p>
-              <p >{{RightmodalData.account.phone}}</p>
+          </b-card>
+        <!-- </div>
+        <div class="col-12 col-md-4 px-4 px-md-0"> -->
+          <b-card v-if="RightmodalData.type !=null"
+            class="text-center shadow-sm mb-3 pt-3"
+            style="border-radius:20px">
+            <h1>Vehicle Type details</h1>
+            <div  class="d-column  justify-content-between">
+              <div >
+                <p class="text-muted">Name</p>
+                <p >{{RightmodalData.type.name}}</p>
+              </div>
+              <div>
+                <p class="text-muted">Amount</p>
+                <p >&#8358;{{to_money(RightmodalData.type.amount)}}</p>
+              </div>
+              <div>
+                <p class="text-muted">Type</p>
+                <p >
+                  {{Boolean(RightmodalData.type.is_imported)?
+                    'Import':'Garage'
+                  }}
+                </p>
+              </div>
+              <div>
+                <p class="text-muted">Status</p>
+                <p >
+                  {{Boolean(RightmodalData.type.status)?
+                    'Active':'Inactive'
+                  }}
+                </p>
+              </div>
             </div>
-            <div v-if="RightmodalData.account !=null">
-              <p class="text-muted">Account No.</p>
-              <p >{{RightmodalData.account.account_no}}</p>
-            </div>
-          </div>
-      </b-card>
+          </b-card>
+        <!-- </div>
+      </div> -->
     </div>
-    <div class="col-12 col-md-6 col-lg-4">
-      <b-card  v-if="RightmodalData.garage !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
-        <h1>Garage</h1>
-        <div  class="d-column justify-content-between">
-          <div>
-            <p class="text-muted">Name</p>
-            <p >{{RightmodalData.garage.name}}</p>
-          </div>
-          <div v-if="RightmodalData.garage !=null">
-            <p class="text-muted">Address</p>
-            <p >{{RightmodalData.garage.address}}</p>
-          </div>
-          <div v-if="RightmodalData.garage !=null">
-            <p class="text-muted">Latitude</p>
-            <p >{{RightmodalData.garage.latitude}}</p>
-          </div>
-          <div v-if="RightmodalData.garage !=null">
-            <p class="text-muted">Longitude</p>
-            <p >{{RightmodalData.garage.longitude}}</p>
-          </div>
-          <div v-if="RightmodalData.port !=null">
-            <p class="text-muted">Port</p>
-            <p >{{RightmodalData.port.name}}</p>
-          </div>
-        </div>
-      </b-card>
-       <b-card  v-if="RightmodalData.port !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
-        <h1>Port</h1>
-        <div  class="d-column justify-content-between">
-          <div>
-            <p class="text-muted">Name</p>
-            <p >{{RightmodalData.port.name}}</p>
-          </div>
-          <div>
-            <p class="text-muted">Time</p>
-            <p >{{Timest(RightmodalData.port.createdAt)}}</p>
-          </div>
-          <div>
-            <p class="text-muted">Status</p>
-            <p >{{mapActive(RightmodalData.port.status)}}</p>
-          </div>
-        </div>
-      </b-card>
+
+    <!-- Table Description -->
+    <div class="text-center text-muted mt-2">
+      <h1>Vehicle Payment Transction(s)</h1>
     </div>
-    <div class="col-12 col-md-6 col-lg-4">
-      <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
-        <h1>Vehicle Type details</h1>
-        <div  class="d-column  justify-content-between">
-          <div >
-            <p class="text-muted">Name</p>
-            <p >{{RightmodalData.type.name}}</p>
-          </div>
-          <div>
-            <p class="text-muted">Amount</p>
-            <p >&#8358;{{to_money(RightmodalData.type.amount)}}</p>
-          </div>
-        </div>
-      </b-card>
-    </div>
-  </div>
-</b-row>
     <b-row>
       <b-colxx  v-if="localData != ''" xxs="12">
         <vuetable
