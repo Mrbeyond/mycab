@@ -46,8 +46,8 @@
               class="bg-primary" v-b-modal.modalbasic
               @click="modalinfo(props.rowData.garage_chairmen)"
             >
-              <i class="simple-icon-magnifier" v-if="props.rowData.garage_chairmen" />
-              <i class="simple-icon-lock"  v-else />
+              <i class="simple-icon-magnifier" />
+              <!-- <i class="simple-icon-lock"  v-else />  v-if="props.rowData.garage_chairmen" -->
             </b-button>
           </template>
         </vuetable>

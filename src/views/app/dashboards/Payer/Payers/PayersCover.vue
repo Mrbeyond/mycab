@@ -49,8 +49,8 @@
               variant="primary"
             >
             <!-- payload.account_business_detail.account_id-->
-              <i v-if="props.rowData.account_business_detail" class="simple-icon-login"></i>
-              <i v-else class="simple-icon-lock" />
+              <i class="simple-icon-login"></i>
+              <!-- <i v-else class="simple-icon-exclamation" />  v-if="props.rowData.account_business_detail" -->
             </b-button>
           </template>
           <template slot="account_business_detail" slot-scope="props">
@@ -58,8 +58,8 @@
               ref="view" id="view" variant="primary"
              @click="cellModal(props.rowData)"
             >
-              <i class="simple-icon-magnifier" v-if="props.rowData.account_business_detail" />
-              <i v-else class="simple-icon-lock" />
+              <i class="simple-icon-magnifier"/>
+              <!-- <i v-else class="simple-icon-exclamation" />   v-if="props.rowData.account_business_detail"  -->
             </b-button>
 
           </template>
@@ -164,6 +164,17 @@ export default {
           titleClass: "",
           dataClass: "",
           width: "10%"
+        },
+        {
+          name: "is_business",
+          sortField: "is_business",
+          title: "Type",
+          titleClass: "",
+          dataClass: "",
+          width: "10%",
+          callback(val){
+            return val? "Business":"Individual";
+          }
         },
         {
           name: "phone",

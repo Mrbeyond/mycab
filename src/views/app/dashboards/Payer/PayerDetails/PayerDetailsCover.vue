@@ -7,18 +7,25 @@
     </div>
   </div>
 </div>
-<div v-else>
-    <div class="row">
-      <div class="col-12 col-md-6">
-          <PayerDetailsBasic  :PAYLOAD="basics" />
-      </div>
-      <div class="col-12 col-md-6">
-        <PayerDetailsBusiness  :PAYLOAD="business" />
-      </div>
-      <div></div>
+<div v-else >
+
+
+    <!-- Payer details part -->
+     <!-- class="d-column d-md-flex justify-content-md-between" -->
+    <div>
+      <PayerDetailsBasic  :PAYLOAD="childLoad" /> <!-- Basic details-->
     </div>
-    <h2>List of Vehicles</h2>
-   <PayerDetailsVehicles  :localData="localVehicles" />
+
+    <!-- Vehicles table section -->
+    <div v-if="localVehicles">
+      <!-- Table Description -->
+      <div class="text-muted text-center mt-4">
+          <h2>List of Payer's Vehicle(s)</h2>
+      </div>
+      <!-- Table -->
+      <PayerDetailsVehicles  :localData="localVehicles" />
+    </div>
+
    <b-toast :variant="variant" id="example-toast"
       title="Response" auto-hide-delay="8000"
     >
@@ -33,22 +40,18 @@ import { PROXY } from '../../../../../constants/config';
 import { hToken } from '../../../../../constants/formKey';
 import PayerDetailsBasic from './PayerDetailsBasic.vue';
 import PayerDetailsVehicles from './PayerDetailsVehicles.vue';
-import PayerDetailsBusiness from './PayerDetailsBusiness';
 
 
 export default {
   components: {
     PayerDetailsBasic,
     PayerDetailsVehicles,
-    PayerDetailsBusiness,
   },
 
   data: ()=>({
     localVehicles: null,
-    basics: null,
-    business: null,
+    childLoad: null,
     isLoading: true,
-    isBusiness: null,
     isFetched: false,
     resMessage: "",
     variant: "success",
@@ -67,26 +70,23 @@ export default {
             return;
           }
         }
-
         this.variant = "success";
         this.resMessage = res.data.message;
         let resData = {...res.data.data[0]};
         let copyData = {...res.data.data[0]}
-        console.log(resData);
+        // console.log(resData);
         const vehicles = copyData.account_vehicles;
         delete resData.account_vehicles;
         let account = copyData.account_business_detail;
         delete resData.account_business_detail;
         let is_business = copyData.is_business;
         delete resData.is_business;
-        this.basics = resData;
-        this.isBusiness = is_business;
         this.localVehicles = vehicles;
-        this.business = account;
-        console.log(this.basics,
-        this.isBusiness,
+        this.childLoad = {business:account, basic:resData }
+
+        console.log(this.childLoad,
         this.localVehicles,
-        this.business
+        is_business,
         );
         // console.log(this.selectedPayload);
 
