@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="localData !== null">
     <!--<datatable-heading
       :title="$t('menu.divided-table')"
       :selectAll="selectAll"
@@ -14,7 +14,7 @@
       :perPage="perPage"
     ></datatable-heading>-->
     <b-row>
-      <b-colxx  v-if="localData !== null" xxs="12">
+      <b-colxx  xxs="12">
           <!--:api-url="apiBase"
           @vuetable:row-clicked="alert(5)"
           -->
@@ -33,7 +33,7 @@
           @vuetable:cell-clicked="cellClicked"
         >
           <div slot="ctions" >
-            hjjhjhjhjhj
+            <!-- hjjhjhjhjhj -->
             <!--<b-button variant="success"
             {{ props.rowData.id }}
             >

@@ -10,12 +10,12 @@
           <div class="float-right">
             <span @click="thenRefresh">
 
-              <i class="iconsminds-repeat-3 spin text-large bg-primary m-3"
+              <i class="simple-icon-refresh text-large text-primary mr-2"
                 style="border-radius:20px" v-if="!refresher.status "
               />
-              <span v-else>
-                <b-spinner variant="primary"  label="Small Spinner"></b-spinner>
-                <b-spinner variant="primary"  label="Small Spinner" type="grow"></b-spinner>
+              <span class="mr-3" v-else>
+                <b-spinner small variant="primary"  label="Small Spinner"></b-spinner>
+                <b-spinner small variant="primary"  label="Small Spinner" type="grow"></b-spinner>
               </span>
 
             </span>

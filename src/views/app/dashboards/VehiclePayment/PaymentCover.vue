@@ -31,13 +31,17 @@
 
         >
           <template slot="actions" slot-scope="props" >
-            <b-button id="detailBtn" ref="detailBtn"
-              @click.stop="cellClick($event, props.rowData)"
-              variant="primary"
-            >
-              <i class="simple-icon-login"></i>
-            </b-button>
-          </template>
+            <template>
+            <!-- v-b-modal="'paymentModal'" -->
+              <b-button id="detailBtn" ref="detailBtn"
+
+                @click="cellClick($event, props.rowData)"
+                variant="primary"
+              >
+                <i class="simple-icon-magnifier"></i>
+              </b-button>
+            </template>
+            </template>
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -48,7 +52,7 @@
     </b-row>
 
     <div>
-      <b-modal id="modalright" ref="modalright" modal-class="modal-right" title="Details" hide-footer>
+      <b-modal id="paymentModal" ref="paymentModal" modal-class="modal-right" title="Details" hide-footer>
           <payment-side-details v-if="selectedPayload" :selectedPayload="selectedPayload" />
       </b-modal>
     </div>
@@ -155,11 +159,12 @@ export default {
     },
 
      cellClick(event, payload){
-       if(event.target.id === "detailBtn"){
-        this.selectedPayload = {...payload};
-        // console.log(this.selectedPayload);
-        this.$refs.modalright.show();
-      }
+       this.selectedPayload = {...payload};
+         this.$refs.paymentModal.show();
+      //  if(event.target.id === "detailBtn"){
+      //   // console.log(this.selectedPayload);
+      //   // this.$bvModal.show('paymentModal')
+      // }
     },
 
     makeQueryParams(sortOrder, currentPage, perPage) {

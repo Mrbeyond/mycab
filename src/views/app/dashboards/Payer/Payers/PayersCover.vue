@@ -28,7 +28,7 @@
     ></datatable-heading>-->
     <b-row>
       <b-colxx xxs="12">
-        <h2 class="text-center mb-5">LIST OF PAYERS</h2>
+        <h2 class="text-center text-muted mb-2">LIST OF PAYERS</h2>
         <vuetable
           ref="vuetable"
           class="table-divided order-with-arrow"
@@ -44,18 +44,22 @@
         >
           <template slot="actions" slot-scope="props">
             <b-button ref="vehic" id="vehic"
-              @click="cellClick($event, props.rowData)"
+              @click="cellClick(props.rowData)"
+              :disabled="!props.rowData.account_business_detail"
               variant="primary"
             >
             <!-- payload.account_business_detail.account_id-->
               <i class="simple-icon-login"></i>
+              <!-- <i v-else class="simple-icon-exclamation" />  v-if="props.rowData.account_business_detail" -->
             </b-button>
           </template>
           <template slot="account_business_detail" slot-scope="props">
-            <b-button ref="view" id="view" variant="primary"
-             @click="cellClick($event, props.rowData)"
+            <b-button :disabled="!props.rowData.account_business_detail"
+              ref="view" id="view" variant="primary"
+             @click="cellModal(props.rowData)"
             >
-              <i class="simple-icon-magnifier" />
+              <i class="simple-icon-magnifier"/>
+              <!-- <i v-else class="simple-icon-exclamation" />   v-if="props.rowData.account_business_detail"  -->
             </b-button>
 
           </template>
@@ -90,7 +94,7 @@
       </b-modal>
     </div>
     <div>
-      <b-modal id="modalright" ref="modalright" modal-class="modal-right" title="Details" hide-footer>
+      <b-modal id="payerModal" ref="payerModal" modal-class="modal-right" title="Details" hide-footer>
           <payer-side-details v-if="selectedPayload" :selectedPayload="selectedPayload" />
       </b-modal>
     </div>
@@ -160,6 +164,17 @@ export default {
           titleClass: "",
           dataClass: "",
           width: "10%"
+        },
+        {
+          name: "is_business",
+          sortField: "is_business",
+          title: "Type",
+          titleClass: "",
+          dataClass: "",
+          width: "10%",
+          callback(val){
+            return val? "Business":"Individual";
+          }
         },
         {
           name: "phone",
@@ -316,28 +331,24 @@ export default {
         this.selectedItems
       );
     },
-    cellClick(event, payload){
-      if(event.target.id === 'vehic'){
-        console.log(payload);
+    cellClick(payload){
         if(!payload.account_business_detail || !payload.account_business_detail.account_id) return;
-        // this.selectedItemVehicles = payload;
-        // this.$refs.modallg.show();
+
         this.$router.push(`payers/${payload.account_business_detail.account_id}`);
-      }
-      else if(event.target.id === 'view'){
-        // this.selectedPayload = null;
-        // console.log(this.selectedPayload);
-        let payLoad = {...payload};
-        delete payLoad.account_vehicles;
-        let copy = {...payLoad};
-        let account = copy.account_business_detail;
-        delete payLoad.account_business_detail;
-        let isBusiness = copy.is_business;
-        delete payLoad.is_business;
-        this.selectedPayload = [payLoad, account, isBusiness];
-        // console.log(this.selectedPayload);
-        this.$refs.modalright.show();
-      }
+    },
+
+    cellModal(payload){
+      if(!payload.account_business_detail) return;
+      let payLoad = {...payload};
+      delete payLoad.account_vehicles;
+      let copy = {...payLoad};
+      let account = copy.account_business_detail;
+      delete payLoad.account_business_detail;
+      let isBusiness = copy.is_business;
+      delete payLoad.is_business;
+      this.selectedPayload = [payLoad, account, isBusiness];
+      // console.log(this.selectedPayload);
+      this.$refs.payerModal.show();
     },
 
     getPayers(){

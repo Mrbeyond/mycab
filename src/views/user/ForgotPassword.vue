@@ -6,8 +6,8 @@
                 <p class="text-white h2">{{ $t('dashboards.magic-is-in-the-details') }}</p>
                 <p class="white mb-0">
                     Please use your e-mail to reset your password.
-                    <br />If you are not a member, please
-                    <router-link tag="a" to="/user/register" class="white">register</router-link>.
+                    <br />Go back to
+                    <router-link tag="a" to="/login" class="white">Login</router-link>.
                 </p>
             </div>
             <div class="form-side">

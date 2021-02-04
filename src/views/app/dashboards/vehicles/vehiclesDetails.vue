@@ -14,92 +14,130 @@
   </div>
 
   <div v-else>
-       <b-row class="align-items-center mb-5 justify-content-center m-1 row justify-content-between" v-if="RightmodalData !=''">
-  <div class="row">
-    <div class="col-12 col-md-6 col-lg-4">
-        <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
-          <h1>Account</h1>
-          <div class="d-column justify-content-between">
-            <div v-if="RightmodalData.account !=null" >
-              <p class="text-muted">First name</p>
-              <p >{{RightmodalData.account.first_name}}</p>
+    <div
+      class="d-column d-md-flex justify-content-md-between"
+    >
+      <!-- <div class=""  v-if="RightmodalData !=''"> -->
+        <!-- <div class="col-12 col-md-4 px-4 px-md-0"> -->
+          <b-card v-if="RightmodalData.account !=null"
+            class="text-center shadow-sm mb-3 pt-3 pl-0 pl-md-2 pr-0 pr-md-2"
+            style="border-radius:20px"
+          >
+            <h1>Vehicle Account</h1>
+            <div class="d-column justify-content-between">
+              <div v-if="RightmodalData.account !=null" >
+                <p class="text-muted">First name</p>
+                <p >{{RightmodalData.account.first_name}}</p>
+              </div>
+              <div v-if="RightmodalData.account !=null">
+                <p class="text-muted">Last name</p>
+                <p >{{RightmodalData.account.last_name}}</p>
+              </div>
+              <div v-if="RightmodalData.account !=null">
+                <p class="text-muted">Phone</p>
+                <p >{{RightmodalData.account.phone}}</p>
+              </div>
+              <div v-if="RightmodalData.account !=null">
+                <p class="text-muted">Account No.</p>
+                <p >{{RightmodalData.account.account_no}}</p>
+              </div>
             </div>
-            <div v-if="RightmodalData.account !=null">
-              <p class="text-muted">Last name</p>
-              <p >{{RightmodalData.account.last_name}}</p>
+          </b-card>
+        <!-- </div>
+        <div class="col-12 col-md-4 px-4 px-md-0"> -->
+          <b-card
+            class="text-center shadow-sm mb-3 pt-3  "
+            style="border-radius:20px"
+          >
+            <div class="pl-0 pl-md-4 pr-0 pr-md-4">
+              <!-- if the account type is garage  -->
+              <div v-if="RightmodalData.garage !=null">
+                <h1>Vehicle Garage</h1>
+                <div  class="d-column justify-content-between">
+                  <div>
+                    <p class="text-muted">Name</p>
+                    <p >{{RightmodalData.garage.name}}</p>
+                  </div>
+                  <div v-if="RightmodalData.garage !=null">
+                    <p class="text-muted">Address</p>
+                    <p >{{RightmodalData.garage.address}}</p>
+                  </div>
+                  <div v-if="RightmodalData.garage !=null">
+                    <p class="text-muted">Latitude</p>
+                    <p >{{RightmodalData.garage.latitude}}</p>
+                  </div>
+                  <div v-if="RightmodalData.garage !=null">
+                    <p class="text-muted">Longitude</p>
+                    <p >{{RightmodalData.garage.longitude}}</p>
+                  </div>
+                  <div v-if="RightmodalData.port !=null">
+                    <p class="text-muted">Port</p>
+                    <p >{{RightmodalData.port.name}}</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- if the account type is port  -->
+              <div v-if="RightmodalData.port !=null" >
+                <h1>Vehicle Port</h1>
+                <div  class="d-column justify-content-between">
+                  <div>
+                    <p class="text-muted">Name</p>
+                    <p >{{RightmodalData.port.name}}</p>
+                  </div>
+                  <div>
+                    <p class="text-muted">Time</p>
+                    <p >{{Timest(RightmodalData.port.createdAt)}}</p>
+                  </div>
+                  <div>
+                    <p class="text-muted">Status</p>
+                    <p >{{mapActive(RightmodalData.port.status)}}</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div v-if="RightmodalData.account !=null">
-              <p class="text-muted">Phone</p>
-              <p >{{RightmodalData.account.phone}}</p>
+          </b-card>
+        <!-- </div>
+        <div class="col-12 col-md-4 px-4 px-md-0"> -->
+          <b-card v-if="RightmodalData.type !=null"
+            class="text-center shadow-sm mb-3 pt-3"
+            style="border-radius:20px">
+            <h1>Vehicle Type details</h1>
+            <div  class="d-column  justify-content-between">
+              <div >
+                <p class="text-muted">Name</p>
+                <p >{{RightmodalData.type.name}}</p>
+              </div>
+              <div>
+                <p class="text-muted">Amount</p>
+                <p >&#8358;{{to_money(RightmodalData.type.amount)}}</p>
+              </div>
+              <div>
+                <p class="text-muted">Type</p>
+                <p >
+                  {{Boolean(RightmodalData.type.is_imported)?
+                    'Import':'Garage'
+                  }}
+                </p>
+              </div>
+              <div>
+                <p class="text-muted">Status</p>
+                <p >
+                  {{Boolean(RightmodalData.type.status)?
+                    'Active':'Inactive'
+                  }}
+                </p>
+              </div>
             </div>
-            <div v-if="RightmodalData.account !=null">
-              <p class="text-muted">Account No.</p>
-              <p >{{RightmodalData.account.account_no}}</p>
-            </div>
-          </div>
-      </b-card>
+          </b-card>
+        <!-- </div>
+      </div> -->
     </div>
-    <div class="col-12 col-md-6 col-lg-4">
-      <b-card  v-if="RightmodalData.garage !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
-        <h1>Garage</h1>
-        <div  class="d-column justify-content-between">
-          <div>
-            <p class="text-muted">Name</p>
-            <p >{{RightmodalData.garage.name}}</p>
-          </div>
-          <div v-if="RightmodalData.garage !=null">
-            <p class="text-muted">Address</p>
-            <p >{{RightmodalData.garage.address}}</p>
-          </div>
-          <div v-if="RightmodalData.garage !=null">
-            <p class="text-muted">Latitude</p>
-            <p >{{RightmodalData.garage.latitude}}</p>
-          </div>
-          <div v-if="RightmodalData.garage !=null">
-            <p class="text-muted">Longitude</p>
-            <p >{{RightmodalData.garage.longitude}}</p>
-          </div>
-          <div v-if="RightmodalData.port !=null">
-            <p class="text-muted">Port</p>
-            <p >{{RightmodalData.port.name}}</p>
-          </div>
-        </div>
-      </b-card>
-       <b-card  v-if="RightmodalData.port !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
-        <h1>Port</h1>
-        <div  class="d-column justify-content-between">
-          <div>
-            <p class="text-muted">Name</p>
-            <p >{{RightmodalData.port.name}}</p>
-          </div>
-          <div>
-            <p class="text-muted">Time</p>
-            <p >{{Timest(RightmodalData.port.createdAt)}}</p>
-          </div>
-          <div>
-            <p class="text-muted">Status</p>
-            <p >{{mapActive(RightmodalData.port.status)}}</p>
-          </div>
-        </div>
-      </b-card>
+
+    <!-- Table Description -->
+    <div class="text-center text-muted mt-2">
+      <h1>Vehicle Payment Transction(s)</h1>
     </div>
-    <div class="col-12 col-md-6 col-lg-4">
-      <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
-        <h1>Vehicle Type details</h1>
-        <div  class="d-column  justify-content-between">
-          <div >
-            <p class="text-muted">Name</p>
-            <p >{{RightmodalData.type.name}}</p>
-          </div>
-          <div>
-            <p class="text-muted">Amount</p>
-            <p >&#8358;{{to_money(RightmodalData.type.amount)}}</p>
-          </div>
-        </div>
-      </b-card>
-    </div>
-  </div>
-</b-row>
     <b-row>
       <b-colxx  v-if="localData != ''" xxs="12">
         <vuetable
@@ -226,11 +264,11 @@ export default {
       return (result == "0")? "0.00": result;
     },
      fetchvehicleDetails(id){
-      console.log(`${this.apiBase}/${id}`);
+      // console.log(`${this.apiBase}/${id}`);
       Axios.get(`${this.apiBase}/${id}`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
-          console.log(res);
+          // console.log(res);
         //   this.localData = [{"id":1,"agent_id":11,"garage_id":null,"account_vehicle_id":41,"amount":10000,"account_wallet_transaction_id":21,"status":null,"createdAt":"2021-01-28T15:25:38.000Z","updatedAt":"2021-01-28T15:25:38.000Z","account_vehicle":{"id":41,"account_id":141,"vehicle_type_id":11,"agent_id":11,"garage_id":null,"port_id":1,"plate_number":null,"vehicle_identification_number":"11","vehicle_color":"red","vehicle_brand":"Toyota","vehicle_year":"2002","vehicle_model":"Corolla","status":1,"createdAt":"2021-01-28T15:25:36.000Z","updatedAt":"2021-01-28T15:25:36.000Z"},"account_wallet_transaction":{"account_wallet_id":131,"amount":10000,"type":0,"status":1,"createdAt":"2021-01-28T15:25:37.000Z","updatedAt":"2021-01-28T15:25:37.000Z"},"garage":null},{"id":31,"agent_id":11,"garage_id":null,"account_vehicle_id":11,"amount":300,"account_wallet_transaction_id":71,"status":1,"createdAt":"2021-01-29T18:17:42.000Z","updatedAt":"2021-01-29T18:17:42.000Z","account_vehicle":{"id":11,"account_id":141,"vehicle_type_id":1,"agent_id":11,"garage_id":1,"port_id":null,"plate_number":"11","vehicle_identification_number":null,"vehicle_color":"red","vehicle_brand":"Toyota","vehicle_year":"2002","vehicle_model":"Corolla","status":1,"createdAt":"2021-01-28T09:49:08.000Z","updatedAt":"2021-01-28T09:49:08.000Z"},"account_wallet_transaction":{"account_wallet_id":131,"amount":300,"type":0,"status":1,"createdAt":"2021-01-29T18:17:41.000Z","updatedAt":"2021-01-29T18:17:41.000Z"},"garage":null},{"id":41,"agent_id":11,"garage_id":null,"account_vehicle_id":61,"amount":10000,"account_wallet_transaction_id":81,"status":null,"createdAt":"2021-01-29T18:35:56.000Z","updatedAt":"2021-01-29T18:35:56.000Z","account_vehicle":{"id":61,"account_id":141,"vehicle_type_id":11,"agent_id":11,"garage_id":null,"port_id":1,"plate_number":null,"vehicle_identification_number":"111","vehicle_color":"red","vehicle_brand":"Toyota","vehicle_year":"2002","vehicle_model":"Corolla","status":1,"createdAt":"2021-01-29T18:35:55.000Z","updatedAt":"2021-01-29T18:35:55.000Z"},"account_wallet_transaction":{"account_wallet_id":131,"amount":10000,"type":0,"status":1,"createdAt":"2021-01-29T18:35:56.000Z","updatedAt":"2021-01-29T18:35:56.000Z"},"garage":null},{"id":51,"agent_id":11,"garage_id":null,"account_vehicle_id":111,"amount":10000,"account_wallet_transaction_id":131,"status":null,"createdAt":"2021-01-29T18:52:49.000Z","updatedAt":"2021-01-29T18:52:49.000Z","account_vehicle":{"id":111,"account_id":141,"vehicle_type_id":11,"agent_id":11,"garage_id":null,"port_id":1,"plate_number":null,"vehicle_identification_number":"111111","vehicle_color":"red","vehicle_brand":"Toyota","vehicle_year":"2002","vehicle_model":"Corolla","status":1,"createdAt":"2021-01-29T18:52:48.000Z","updatedAt":"2021-01-29T18:52:48.000Z"},"account_wallet_transaction":{"account_wallet_id":131,"amount":10000,"type":0,"status":1,"createdAt":"2021-01-29T18:52:48.000Z","updatedAt":"2021-01-29T18:52:48.000Z"},"garage":null},{"id":61,"agent_id":11,"garage_id":null,"account_vehicle_id":11,"amount":300,"account_wallet_transaction_id":71,"status":1,"createdAt":"2021-01-28T18:17:42.000Z","updatedAt":"2021-01-28T18:17:42.000Z","account_vehicle":{"id":11,"account_id":141,"vehicle_type_id":1,"agent_id":11,"garage_id":1,"port_id":null,"plate_number":"11","vehicle_identification_number":null,"vehicle_color":"red","vehicle_brand":"Toyota","vehicle_year":"2002","vehicle_model":"Corolla","status":1,"createdAt":"2021-01-28T09:49:08.000Z","updatedAt":"2021-01-28T09:49:08.000Z"},"account_wallet_transaction":{"account_wallet_id":131,"amount":300,"type":0,"status":1,"createdAt":"2021-01-29T18:17:41.000Z","updatedAt":"2021-01-29T18:17:41.000Z"},"garage":null}];
           this.localData = res.data.data[0].account_vehicle_payments;
            this.RightmodalData = {"account":res.data.data[0].account,"garage":res.data.data[0].garage,"type":res.data.data[0].vehicle_type_details,"port":res.data.data[0].port}
@@ -280,7 +318,7 @@ export default {
     },
 
     onPaginationData(paginationData) {
-      console.log(paginationData);
+      // console.log(paginationData);
       this.from = paginationData.from;
       this.to = paginationData.to;
       this.total = paginationData.total;

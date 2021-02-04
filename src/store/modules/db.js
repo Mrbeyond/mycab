@@ -13,7 +13,7 @@ export default {
     cards: null,
     terminals: null,
     tags: null,
-    resKey: null,
+    resKey: {status:false, owner:''},
     intendedPage: '',
     ports:null,
     garages:null,

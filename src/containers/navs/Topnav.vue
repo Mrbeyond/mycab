@@ -42,10 +42,10 @@
             menu-class="position-absolute mt-3 iconMenuDropdown"
             no-caret
           >
-            <template slot="button-content">
+            <!--<template slot="button-content">
               <i class="simple-icon-grid" />
             </template>
-            <div>
+             <div>
               <router-link tag="a" :to="`${adminRoot}/dashboards/default`" class="icon-menu-item">
                 <i class="iconsminds-shop-4 d-block" />
                 {{$t('menu.dashboards')}}
@@ -70,7 +70,7 @@
                 <i class="iconsminds-check d-block" />
                 Vehicle Payments
               </router-link>
-            </div>
+            </div>-->
           </b-dropdown>
         </div>
 
@@ -108,6 +108,7 @@
 </template>
 
 <script>
+// @ts-nocheck
 import Switches from "vue-switches";
 import notifications from "../../data/notifications";
 
