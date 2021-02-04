@@ -19,7 +19,7 @@
     <!-- Vehicles table section -->
     <div v-if="localVehicles">
       <!-- Table Description -->
-      <div class="text-muted text-center">
+      <div class="text-muted text-center mt-4">
           <h2>List of Payer's Vehicle(s)</h2>
       </div>
       <!-- Table -->

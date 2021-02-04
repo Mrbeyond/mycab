@@ -1,33 +1,33 @@
 <template>
   <div v-if="PAYLOAD" class="row-item">
-    <div class="d-flex">
+    <div class="d-column d-md-flex justify-content-md-around">
         <!-- The basic info card -->
-      <b-card class="mb-4">
-        <div>
-        <h3><strong>Basic info</strong></h3>
-        <div v-for="(item, i) in getKeys(basicLoad)" v-bind:key="i">
-          <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
-          <p class="mb-3">
-            {{ item == "createdAt"?
-            formatDate(PAYLOAD[item]): formatName(item) == "Status" ?
-            ensState(PAYLOAD[item]): PAYLOAD[item] == null? "No value": PAYLOAD[item]
-            }}
+      <b-card class="text-center shadow-sm mb-3 pt-3 " style="border-radius:20px">
+        <div class="pl-0 pl-md-5 pr-0 pr-md-5">
+          <h3><strong>Basic info</strong></h3>
+          <div v-for="(item, i) in getKeys(basicLoad)" v-bind:key="i">
+            <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
+            <p class="mb-3">
+              {{ item == "createdAt"?
+              formatDate(basicLoad[item]): formatName(item) == "Status" ?
+              ensState(basicLoad[item]): basicLoad[item] == null? "No value": basicLoad[item]
+              }}
 
-          </p>
+            </p>
           </div>
         </div>
       </b-card>
 
       <!-- This account wallet info card -->
-      <b-card class="mb-4">
-        <div >
+      <b-card class="text-center shadow-sm mb-3 pt-3 " style="border-radius:20px">
+        <div class="pl-0 pl-md-5 pr-0 pr-md-5" >
           <h3><strong>Business Account Details</strong></h3>
           <div v-for="(item, i) in getKeys(businessLoad)" v-bind:key="i">
             <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
             <p class="mb-3">
               {{ item == "createdAt"?
-              formatDate(PAYLOAD[item]): PAYLOAD[item] === null? "Null":
-              PAYLOAD[item]
+              formatDate(businessLoad[item]): businessLoad[item] === null? "Null":
+              businessLoad[item]
               }}
             </p>
           </div>
