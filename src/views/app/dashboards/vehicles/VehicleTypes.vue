@@ -211,6 +211,14 @@ export default {
             return LUX_ZONE(value);
             },
         },
+          {
+            name: "account_vehicles",
+            sortField: "account",
+            title: "No of vehicles",
+            titleClass: "",
+            dataClass: "",
+            width: "10%",
+        },
         {
           name: "status",
           sortField: "status",
