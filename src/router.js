@@ -140,6 +140,12 @@ const routes = [
         // meta: { roles: [UserRole.Editor] },
       },
       {
+        path: "vehicle-types",
+        component: () =>
+          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/vehicles/VehicleTypes.vue"),
+        // meta: { roles: [UserRole.Editor] },
+      },
+      {
         path: "vehicles/:id",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/vehicles/vehiclesDetails.vue"),
