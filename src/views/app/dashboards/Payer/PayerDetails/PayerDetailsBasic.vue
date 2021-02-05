@@ -2,7 +2,7 @@
   <div v-if="PAYLOAD" class="row-item">
     <div class="d-column d-md-flex justify-content-md-around">
         <!-- The basic info card -->
-      <b-card class="text-center shadow-sm mb-3 pt-3 " style="border-radius:20px">
+      <b-card class=" shadow-sm mb-3 pt-3 " style="border-radius:20px">
         <div class="pl-0 pl-md-5 pr-0 pr-md-5">
           <h3><strong>Basic info</strong></h3>
           <div v-for="(item, i) in getKeys(basicLoad)" v-bind:key="i">
@@ -19,7 +19,7 @@
       </b-card>
 
       <!-- This account wallet info card -->
-      <b-card class="text-center shadow-sm mb-3 pt-3 " style="border-radius:20px">
+      <b-card class="shadow-sm mb-3 pt-3 " style="border-radius:20px">
         <div class="pl-0 pl-md-5 pr-0 pr-md-5" >
           <h3><strong>Business Account Details</strong></h3>
           <div v-for="(item, i) in getKeys(businessLoad)" v-bind:key="i">

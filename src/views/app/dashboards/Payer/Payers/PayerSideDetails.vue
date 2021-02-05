@@ -2,7 +2,7 @@
   <div class="row-item">
     <b-card class="mb-4">
 
-      <div v-if="selectedPayload">
+      <div v-if="selectedPayload[0]">
       <h3><strong>Basic info</strong></h3>
        <div v-for="(item, i) in getKeys(selectedPayload, 0)" v-bind:key="i">
         <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
@@ -18,7 +18,7 @@
       </div>
     </b-card>
     <b-card class="mb-4">
-      <div v-if="selectedPayload">
+      <div v-if="selectedPayload[1]">
       <h3><strong>Business Account Details</strong></h3>
        <div v-for="(item, i) in getKeys(selectedPayload, 1)" v-bind:key="i">
         <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>

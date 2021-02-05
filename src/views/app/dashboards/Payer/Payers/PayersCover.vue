@@ -54,7 +54,7 @@
             </b-button>
           </template>
           <template slot="account_business_detail" slot-scope="props">
-            <b-button :disabled="!props.rowData.account_business_detail"
+            <b-button
               ref="view" id="view" variant="primary"
              @click="cellModal(props.rowData)"
             >
@@ -338,7 +338,7 @@ export default {
     },
 
     cellModal(payload){
-      if(!payload.account_business_detail) return;
+      // if(!payload.account_business_detail) return;
       let payLoad = {...payload};
       delete payLoad.account_vehicles;
       let copy = {...payLoad};

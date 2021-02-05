@@ -385,7 +385,7 @@ export default {
     },
 
     [LGS]({commit}){
-
+      commit(REFRESHER, LGS);
       Axios.get(`${PROXY}location/local_governments`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
@@ -400,10 +400,12 @@ export default {
         }else{
           commit(RES_KEY, {status:1, owner: LGS});
         }
+        commit(REFRESHER, LGS);
       })
       .catch(err => {
         if(err.response){
           commit(RES_KEY, {status:2, owner: LGS});
+          commit(REFRESHER, LGS);
         }
       })
     },

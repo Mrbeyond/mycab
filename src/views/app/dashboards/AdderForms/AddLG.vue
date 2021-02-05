@@ -5,21 +5,13 @@
             <b-form ref="form" @submit.prevent="onValitadeFormSubmit" class="av-tooltip tooltip-label-right">
                 <b-form-group label="Name">
                     <b-form-input type="text" v-model="$v.name.$model" :state="!$v.name.$error" />
-                    <b-form-invalid-feedback v-if="!$v.name.required">Please enter your first name</b-form-invalid-feedback>
-                    <b-form-invalid-feedback v-else-if="!$v.name.minLength">Name must at least 3 characters</b-form-invalid-feedback>
-                    <b-form-invalid-feedback v-else-if="!$v.name.alpha">Your name must be composed only with letters</b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-if="!$v.name.required">Please enter LG's name</b-form-invalid-feedback>
                 </b-form-group>
 
-                <b-form-group label="Last name" class="error-l-100">
-                    <b-form-input type="text" v-model="$v.last_name.$model" :state="!$v.last_name.$error" />
-                    <b-form-invalid-feedback v-if="!$v.last_name.required">Please enter your last name</b-form-invalid-feedback>
-                    <b-form-invalid-feedback v-else-if="!$v.last_name.minLength">Name must at least 3 characters</b-form-invalid-feedback>
-                    <b-form-invalid-feedback v-else-if="!$v.last_name.alpha">Your name must be composed only with letters</b-form-invalid-feedback>
-                </b-form-group>
 
                 <b-form-group label="Contact Person">
                     <b-form-input type="text" v-model="$v.contact_person_name.$model" :state="!$v.contact_person_name.$error" />
-                    <b-form-invalid-feedback v-if="!$v.contact_person_name.required">Please enter your contact_person_name address</b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-if="!$v.contact_person_name.required">Please enter contact person's name</b-form-invalid-feedback>
                 </b-form-group>
 
                 <b-form-group label=" Contact Peron's Phone" class="error-l-100">
@@ -31,9 +23,8 @@
 
                 <b-form-group label="Chairman Name">
                     <div>
-                      <b-form-select v-model="$v.chairman_name.$model" :options="adminTypes" :state="!$v.chairman_name.$error"></b-form-select>
-                    <b-form-invalid-feedback v-if="!$v.chairman_name.required">Please enter a type</b-form-invalid-feedback>
-                    <b-form-invalid-feedback v-else-if="!$v.chairman_name.numeric">Value must be a number</b-form-invalid-feedback>
+                      <b-form-input v-model="$v.chairman_name.$model" :state="!$v.chairman_name.$error"></b-form-input>
+                    <b-form-invalid-feedback v-if="!$v.chairman_name.required">Please enter chairmain name</b-form-invalid-feedback>
                     </div>
                     <!-- <b-form-input type="text" v-model="$v.chairman_name.$model" :state="!$v.chairman_name.$error" /> -->
                 </b-form-group>
@@ -70,17 +61,8 @@ import {
     validationMixin
 } from "vuelidate";
 import { PROXY } from '../../../../constants/config';
-import { ADMINS, hToken } from '../../../../constants/formKey';
-const {
-    required,
-    minLength,
-    alpha,
-    contact_person_name,
-    numeric,
-    helpers
-} = require("vuelidate/lib/validators");
-
-const upperCase = helpers.regex('upperCase', /^[A-Z]*$/)
+import { LGS, hToken } from '../../../../constants/formKey';
+const { required,  minLength, numeric} = require("vuelidate/lib/validators");
 
 export default {
   data() {
@@ -105,40 +87,30 @@ export default {
   mixins: [validationMixin],
   validations: {
     name: {
-        required,
-        minLength: minLength(3),
-        alpha
+      required,
     },
     contact_person_name: {
-        required,
+      required,
     },
 
     contact_person_phone: {
-        required,
-        numeric,
+      required,
+      numeric,
+      minLength: minLength(11)
     },
     chairman_name: {
-        required,
-        numeric
+      required,
     },
 
     chairman_phone: {
-        required,
-        numeric,
-        minLength: minLength(11)
+      required,
+      numeric,
+      minLength: minLength(11)
     },
 
   },
 
   computed: {
-    adminTypes(){
-      let all = this.$store.getters.adminTypes;
-      if(all){
-        return all.map(d=>({value:d.id, text:d.name}))
-      }else{
-        return []
-      }
-    }
   },
 
   methods: {
@@ -148,11 +120,11 @@ export default {
 
       if(this.submitting) return;
       let formData = {
+        contact_person:this.contact_person_name,
+        contact_person_phone:this.contact_person_phone,
         chairman_phone:this.chairman_phone,
         name:this.name,
-        last_name:this.last_name,
-        contact_person_name:this.contact_person_name,
-        chairman_name:this.chairman_name
+        chairman_name:this.chairman_name,
       }
 
       // console.log(formData);
@@ -163,7 +135,7 @@ export default {
           this.variant = "success";
           this.resMessage = res.data.message;
           this.$refs.form.reset();
-          this.$store.dispatch(ADMINS);
+          this.$store.dispatch(LGS);
         }else{
           this.variant = "danger";
           this.resMessage = "Something went wrong, please retry"

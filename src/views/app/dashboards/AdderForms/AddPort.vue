@@ -30,7 +30,7 @@ import {
     validationMixin
 } from "vuelidate";
 import { PROXY } from '../../../../constants/config';
-import { hToken, LGS } from '../../../../constants/formKey';
+import { hToken, PORTS } from '../../../../constants/formKey';
 const {
     required,
     numeric,
@@ -74,7 +74,7 @@ export default {
           this.variant = "success";
           this.resMessage = res.data.message;
           this.port= "";
-          this.$store.dispatch(LGS);
+          this.$store.dispatch(PORTS);
         }else{
           this.variant = "danger";
           this.resMessage = "Something went wrong, please retry"

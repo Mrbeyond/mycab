@@ -10,8 +10,8 @@
           <div class="float-right">
             <span @click="thenRefresh">
 
-              <i class="simple-icon-refresh text-large text-primary mr-2"
-                style="border-radius:20px" v-if="!refresher.status "
+              <i class="simple-icon-refresh shadow-sm text-primary mr-2"
+                style="font-size: x-large" v-if="!refresher.status "
               />
               <span class="mr-3" v-else>
                 <b-spinner small variant="primary"  label="Small Spinner"></b-spinner>
