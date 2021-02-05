@@ -11,6 +11,9 @@
       <add-payer v-if="formKey == ADD_PAYER" />
       <add-tag  v-if="formKey == ADD_TAG"/>
       <add-terminal v-if="formKey == ADD_TERMINAL" />
+      <add-port  v-if="formKey == ADD_PORT"/>
+      <AddLG v-if="formKey == ADD_LG" />
+      <add-garage v-if="formKey == ADD_GARAGE" />
 
     <template slot="modal-footer">
       <b-button
@@ -29,21 +32,25 @@ import AddAgent from '../AdderForms/AddAgent.vue';
 import AddCard from '../AdderForms/AddCard.vue';
 import AddPayer from '../AdderForms/AddPayer.vue';
 import AddTag from '../AdderForms/AddTag.vue';
+import AddLG from '../AdderForms/AddLG.vue';
+import AddPort from '../AdderForms/AddPort.vue';
 import AddTerminal from '../AdderForms/AddTerminal'
+import AddGarage from '../AdderForms/AddGarage.vue';
+
 import {ADD_ADMIN, ADD_CARD, ADD_TAG, ADD_CV, ADD_IV, ADD_AGENT,
-  ADD_PAYER,
-  ADD_TERMINAL
+  ADD_PAYER, ADD_TERMINAL, ADD_PORT, ADD_LG, ADD_GARAGE
 } from './../../../../constants/formKey';
 
 export default {
   components: {
     "v-select": vSelect, AddAdmin,
     AddAgent, AddCard, AddPayer, AddTag,
-    AddTerminal,
+    AddTerminal, AddLG, AddPort, AddGarage
   },
-  props: ["opener", "formKey"],
+  props:["opener", "formKey"],
   data() {
     return {
+      ADD_GARAGE,
       ADD_ADMIN,
       ADD_CARD,
       ADD_TAG,
@@ -52,6 +59,8 @@ export default {
       ADD_AGENT,
       ADD_PAYER,
       ADD_TERMINAL,
+      ADD_PORT,
+      ADD_LG,
       newItem: {
         title: "",
         category: "",
@@ -100,6 +109,15 @@ export default {
       }
       if(this.formKey === ADD_TERMINAL){
         return "Add New Terminal"
+      }
+      if(this.formKey === ADD_PORT){
+        return "Add New Port"
+      }
+      if(this.formKey === ADD_LG){
+        return "Add New Local Government"
+      }
+      if(this.formKey === ADD_GARAGE){
+        return "Add New Garage"
       }
 
       return "FORM";

@@ -68,7 +68,7 @@ export default {
         card_no:this.card_no
       }
 
-      console.log(formData);
+      // console.log(formData);
       this.submitting = true;
       Axios.post(`${PROXY}admin/register/card`, formData, {headers: hToken()})
       .then(res=>{
@@ -86,10 +86,10 @@ export default {
         this.submitting = false;
       })
       .catch(err=>{
-        console.log(err);
+        // console.log(err);
         this.variant = "danger";
         if(err && err.response){
-          alert()
+          // alert()
          if(err.response.data && err.response.data.message){
            this.resMessage = err.response.data.message
          }else{

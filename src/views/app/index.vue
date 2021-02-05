@@ -6,7 +6,7 @@
 
 <script>// @ts-nocheck
 
-import { ADMINTYPES, AGENTTYPES, LGS, PORTS } from "../../constants/formKey";
+import { ADMINTYPES, AGENTTYPES, LGS, PORTS, VEHICLE_TYPES } from "../../constants/formKey";
 import AppLayout from "../../layouts/AppLayout.vue";
 
 export default {
@@ -23,6 +23,7 @@ export default {
       this.$store.dispatch(AGENTTYPES);
       this.$store.dispatch(LGS);
       this.$store.dispatch(ADMINTYPES);
+      this.$store.dispatch(VEHICLE_TYPES);
     },
   }
 };

@@ -191,7 +191,7 @@ const data = [
     //   }
     // ]
   },
-  
+
 
 
   {id:"locations",
@@ -203,7 +203,7 @@ const data = [
       {
         icon: "simple-icon-location-pin",
         label: "Local Governments",
-        to: `${adminRoot}/lg`,
+        to: `${adminRoot}/lgs`,
         // roles: [UserRole.Admin, UserRole.Editor],
       },
       {

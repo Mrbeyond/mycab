@@ -152,7 +152,7 @@ export default {
         port_id: port_id
       }
 
-      console.log(formData);
+      // console.log(formData);
       this.submitting = true;
       Axios.post(`${PROXY}agent/vehicle/register/import`, formData, {headers: hToken()})
       .then(res=>{
@@ -171,7 +171,7 @@ export default {
         this.submitting = false;
       })
       .catch(err=>{
-        console.log(err);
+        // console.log(err);
         if(err && err.response){
           alert(err.response.status)
         }

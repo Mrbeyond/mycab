@@ -142,7 +142,7 @@ export default {
         player_id:this.player_id
       }
 
-      console.log(formData);
+      // console.log(formData);
       this.submitting = true;
       Axios.post(`${PROXY}agent/payer/register`, formData, {headers: hToken()})
       .then(res=>{

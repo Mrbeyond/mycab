@@ -39,7 +39,9 @@
 </template>
 <script>import AddNewModal from './AddNewModal.vue'
 
-import { ADMINS, AGENTS, ALL_GARAGES, CARDS, enroute, PAYERS, TAGS, TERMINALS } from "../../../../constants/formKey";
+import { ADMINS, AGENTS, ALL_GARAGES, CARDS, enroute, LGS,
+  PAYERS, PORTS, TAGS, TERMINALS
+} from "../../../../constants/formKey";
 
 export default {
   components: {
@@ -72,6 +74,9 @@ export default {
       if(owner == TERMINALS){ return this.$store.dispatch(TERMINALS)}
       if(owner == CARDS){ return this.$store.dispatch(CARDS)}
       if(owner == TAGS){ return this.$store.dispatch(TAGS)}
+      if(owner == PORTS){ return this.$store.dispatch(PORTS)}
+      if(owner == LGS){ return this.$store.dispatch(LGS)}
+
 
     },
   },
@@ -97,6 +102,7 @@ export default {
     route_path(){
       this.showMenuTop = this.pathMonitor(this.route_path).showMenuTop;
       this.formKey = this.pathMonitor(this.route_path).formKey;
+      console.log(this.formKey);
       this.current_path = this.pathMonitor(this.route_path).current_path;
     },
 

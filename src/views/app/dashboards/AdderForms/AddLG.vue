@@ -3,11 +3,11 @@
     <b-colxx xxs="12">
         <b-card class="mb-4" title="Register Admin">
             <b-form ref="form" @submit.prevent="onValitadeFormSubmit" class="av-tooltip tooltip-label-right">
-                <b-form-group label="First name">
-                    <b-form-input type="text" v-model="$v.first_name.$model" :state="!$v.first_name.$error" />
-                    <b-form-invalid-feedback v-if="!$v.first_name.required">Please enter your first name</b-form-invalid-feedback>
-                    <b-form-invalid-feedback v-else-if="!$v.first_name.minLength">Name must at least 3 characters</b-form-invalid-feedback>
-                    <b-form-invalid-feedback v-else-if="!$v.first_name.alpha">Your name must be composed only with letters</b-form-invalid-feedback>
+                <b-form-group label="Name">
+                    <b-form-input type="text" v-model="$v.name.$model" :state="!$v.name.$error" />
+                    <b-form-invalid-feedback v-if="!$v.name.required">Please enter your first name</b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-else-if="!$v.name.minLength">Name must at least 3 characters</b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-else-if="!$v.name.alpha">Your name must be composed only with letters</b-form-invalid-feedback>
                 </b-form-group>
 
                 <b-form-group label="Last name" class="error-l-100">
@@ -17,26 +17,32 @@
                     <b-form-invalid-feedback v-else-if="!$v.last_name.alpha">Your name must be composed only with letters</b-form-invalid-feedback>
                 </b-form-group>
 
-                <b-form-group label="Email">
-                    <b-form-input type="text" v-model="$v.email.$model" :state="!$v.email.$error" />
-                    <b-form-invalid-feedback v-if="!$v.email.required">Please enter your email address</b-form-invalid-feedback>
-                    <b-form-invalid-feedback v-else-if="!$v.email.email">Please enter a valid email address</b-form-invalid-feedback>
+                <b-form-group label="Contact Person">
+                    <b-form-input type="text" v-model="$v.contact_person_name.$model" :state="!$v.contact_person_name.$error" />
+                    <b-form-invalid-feedback v-if="!$v.contact_person_name.required">Please enter your contact_person_name address</b-form-invalid-feedback>
                 </b-form-group>
 
-                <b-form-group label="Phone" class="error-l-100">
-                    <b-form-input type="text" v-model="$v.phone.$model" :state="!$v.phone.$error" />
-                    <b-form-invalid-feedback v-if="!$v.phone.required">Please enter phone number</b-form-invalid-feedback>
-                    <b-form-invalid-feedback v-else-if="!$v.phone.numeric">Enter valid phone number</b-form-invalid-feedback>
-                    <b-form-invalid-feedback v-else-if="!$v.phone.minLength">Enter valid phone number</b-form-invalid-feedback>
+                <b-form-group label=" Contact Peron's Phone" class="error-l-100">
+                    <b-form-input type="text" v-model="$v.contact_person_phone.$model" :state="!$v.contact_person_phone.$error" />
+                    <b-form-invalid-feedback v-if="!$v.contact_person_phone.required">Phone number is required</b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-else-if="!$v.contact_person_phone.numeric">Enter valid phone number</b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-else-if="!$v.contact_person_phone.minLength">Enter valid phone number</b-form-invalid-feedback>
                 </b-form-group>
 
-                <b-form-group label="Admin type">
+                <b-form-group label="Chairman Name">
                     <div>
-                      <b-form-select v-model="$v.admin_type.$model" :options="adminTypes" :state="!$v.admin_type.$error"></b-form-select>
-                    <b-form-invalid-feedback v-if="!$v.admin_type.required">Please enter a type</b-form-invalid-feedback>
-                    <b-form-invalid-feedback v-else-if="!$v.admin_type.numeric">Value must be a number</b-form-invalid-feedback>
+                      <b-form-select v-model="$v.chairman_name.$model" :options="adminTypes" :state="!$v.chairman_name.$error"></b-form-select>
+                    <b-form-invalid-feedback v-if="!$v.chairman_name.required">Please enter a type</b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-else-if="!$v.chairman_name.numeric">Value must be a number</b-form-invalid-feedback>
                     </div>
-                    <!-- <b-form-input type="text" v-model="$v.admin_type.$model" :state="!$v.admin_type.$error" /> -->
+                    <!-- <b-form-input type="text" v-model="$v.chairman_name.$model" :state="!$v.chairman_name.$error" /> -->
+                </b-form-group>
+
+                <b-form-group label="Chairman Phone" class="error-l-100">
+                    <b-form-input type="text" v-model="$v.chairman_phone.$model" :state="!$v.chairman_phone.$error" />
+                    <b-form-invalid-feedback v-if="!$v.chairman_phone.required">Phone number is required</b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-else-if="!$v.chairman_phone.numeric">Enter valid phone number</b-form-invalid-feedback>
+                    <b-form-invalid-feedback v-else-if="!$v.chairman_phone.minLength">Enter valid nphone number</b-form-invalid-feedback>
                 </b-form-group>
 
                 <div class="text-center">
@@ -69,7 +75,7 @@ const {
     required,
     minLength,
     alpha,
-    email,
+    contact_person_name,
     numeric,
     helpers
 } = require("vuelidate/lib/validators");
@@ -79,11 +85,11 @@ const upperCase = helpers.regex('upperCase', /^[A-Z]*$/)
 export default {
   data() {
     return {
-      first_name: "",
-      last_name: "",
-      email: "",
-      phone: "",
-      admin_type: "",
+      name: "",
+      contact_person_name: "",
+      contact_person_phone:"",
+      chairman_phone: "",
+      chairman_name: "",
       submitting: false,
       resMessage: "",
       variant: "success",
@@ -98,25 +104,25 @@ export default {
   },
   mixins: [validationMixin],
   validations: {
-    first_name: {
+    name: {
         required,
         minLength: minLength(3),
         alpha
     },
-    email: {
+    contact_person_name: {
         required,
-        email
     },
-    admin_type: {
+
+    contact_person_phone: {
+        required,
+        numeric,
+    },
+    chairman_name: {
         required,
         numeric
     },
-    last_name: {
-        required,
-        alpha,
-        minLength: minLength(3)
-    },
-    phone: {
+
+    chairman_phone: {
         required,
         numeric,
         minLength: minLength(11)
@@ -142,16 +148,16 @@ export default {
 
       if(this.submitting) return;
       let formData = {
-        phone:this.phone,
-        first_name:this.first_name,
+        chairman_phone:this.chairman_phone,
+        name:this.name,
         last_name:this.last_name,
-        email:this.email,
-        admin_type:this.admin_type
+        contact_person_name:this.contact_person_name,
+        chairman_name:this.chairman_name
       }
 
       // console.log(formData);
       this.submitting = true;
-      Axios.post(`${PROXY}admin/register/admin`, formData, {headers: hToken()})
+      Axios.post(`${PROXY}location/local_government`, formData, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
           this.variant = "success";

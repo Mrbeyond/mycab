@@ -263,7 +263,7 @@ export default {
     // },
 
     gettingTypes(){
-      console.log(this.gettingTypes);
+      // console.log(this.gettingTypes);
     }
 
   },

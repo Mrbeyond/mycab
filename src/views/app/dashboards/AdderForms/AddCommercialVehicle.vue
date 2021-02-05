@@ -149,10 +149,10 @@ export default {
         vehicle_model:this.vehicle_model,
         vehicle_type:this.vehicle_type,
         vehicle_year:this.vehicle_year,
-        garage_id: garage_id
+        garage_id: this.garage_id,
       }
 
-      console.log(formData);
+      // console.log(formData);
       this.submitting = true;
       Axios.post(`${PROXY}agent/vehicle/register/commercial`, formData, {headers: hToken()})
       .then(res=>{
@@ -171,7 +171,7 @@ export default {
         this.submitting = false;
       })
       .catch(err=>{
-        console.log(err);
+        // console.log(err);
         if(err && err.response){
           alert(err.response.status)
         }

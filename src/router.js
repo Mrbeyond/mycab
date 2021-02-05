@@ -91,7 +91,7 @@ const routes = [
         // ]
       },
       {
-        path: "lg",
+        path: "lgs",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Locations/getLocations.vue"),
         // meta: { roles: [UserRole.Admin] },
@@ -175,6 +175,11 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Wallets/TansactionDetails.vue"),
         // meta: { roles: [UserRole.Editor] },
+      },
+      {
+        path: "reset-password",
+        component: () =>
+          import(/* webpackChunkName: "user" */ "./views/user/ResetPassword")
       },
 
       {
