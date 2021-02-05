@@ -1,8 +1,8 @@
 <template>
   <div v-if="PAYLOAD" class="row-item">
-    <div class="d-column d-md-flex justify-content-md-around">
+    <b-card class=" shadow-sm mb-3 pt-3 " style="border-radius:20px">
         <!-- The basic info card -->
-      <b-card class=" shadow-sm mb-3 pt-3 " style="border-radius:20px">
+      <div v-if="basicLoad" class="d-column d-md-flex justify-content-md-around" >
         <div class="pl-0 pl-md-5 pr-0 pr-md-5">
           <h3><strong>Basic info</strong></h3>
           <div v-for="(item, i) in getKeys(basicLoad)" v-bind:key="i">
@@ -16,11 +16,11 @@
             </p>
           </div>
         </div>
-      </b-card>
+      <!--</b-card>-->
 
       <!-- This account wallet info card -->
-      <b-card class="shadow-sm mb-3 pt-3 " style="border-radius:20px">
-        <div class="pl-0 pl-md-5 pr-0 pr-md-5" >
+      <!--<b-card class="shadow-sm mb-3 pt-3 " style="border-radius:20px">-->
+        <div v-if="businessLoad" class="pl-0 pl-md-5 mt-4 mt-md-0 pr-0 pr-md-5">
           <h3><strong>Business Account Details</strong></h3>
           <div v-for="(item, i) in getKeys(businessLoad)" v-bind:key="i">
             <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
@@ -32,9 +32,9 @@
             </p>
           </div>
         </div>
-    </b-card>
 
     </div>
+    </b-card>
   </div>
 </template>
 <script>
