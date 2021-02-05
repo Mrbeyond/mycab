@@ -154,7 +154,10 @@ export default {
           title: "Plate number",
           titleClass: "",
           dataClass: "",
-          width: "10%"
+          width: "10%",
+          callback(val){
+            return Boolean(val)? val:"Not added"
+          }
         },
           {
           name: "vehicle_year",

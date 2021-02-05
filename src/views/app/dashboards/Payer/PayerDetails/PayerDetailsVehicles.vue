@@ -123,8 +123,11 @@ export default {
         sortField: "is_imported",
         title: "Type",
         titleClass: "",
-        dataClass: "list-item-heading",
-        width: "10%"
+        dataClass: "",
+        width: "10%",
+        callback(val){
+          return Boolean(val)? "Import":"Garage";
+        }
         },
         {
           name:"vehicle_identification_number",
@@ -132,7 +135,10 @@ export default {
           title: "VIN",
           titleClass: "",
           dataClass: "",
-          width: "10%"
+          width: "10%",
+        callback(val){
+          return Boolean(val)? val: "Not added";
+        }
         },
         {
           name: "status",

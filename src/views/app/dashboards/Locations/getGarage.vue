@@ -39,14 +39,17 @@
           @vuetable:cell-clicked="cellClicked"
         >
            <template slot="chairmen" slot-scope="props">
+              <!--
+                :disabled="!props.rowData.garage_chairmen"
+                v-b-modal.modalChairman
+              -->
             <b-button
-              :disabled="!props.rowData.garage_chairmen"
               :title="!props.rowData.garage_chairmen?'No chairman':'click to view'"
-              class="bg-primary" v-b-modal.modalbasic
+              class="bg-primary"
               @click="modalinfo(props.rowData.garage_chairmen)"
             >
               <i class="simple-icon-magnifier" v-if="props.rowData.garage_chairmen" />
-              <i class="simple-icon-lock" v-else />
+              <span v-else>None</span>
             </b-button>
           </template>
         </vuetable>
@@ -58,7 +61,7 @@
       </b-colxx>
 
        <b-colxx xxs="12">
-          <b-modal  RightmodalData  id="modalbasic" ref="modalright" title="Details" modal-class="modal-right">
+          <b-modal  RightmodalData  id="modalChairman" ref="modalChairman" title="Details" modal-class="modal-right">
                 <b-card class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Chairman</h1>
                 <div >
@@ -218,7 +221,9 @@ export default {
       this.$store.dispatch(GARAGES,id);
     },
     modalinfo(chairman){
-    this.RightmodalData = chairman
+      if(!chairman) return;
+      this.RightmodalData = chairman
+      this.$refs.modalChairman.show();
   //  console.log( this.RightmodalData)
     },
       hideModal (refname) {

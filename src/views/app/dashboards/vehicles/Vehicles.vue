@@ -206,7 +206,10 @@ export default {
           title: "Plate number",
           titleClass: "",
           dataClass: "",
-          width: "10%"
+          width: "10%",
+           callback(val){
+            return Boolean(val)? val:"Not added";
+          }
         },
            {
           name: "vehicle_identification_number",
@@ -214,7 +217,10 @@ export default {
           title: "VIN",
           titleClass: "",
           dataClass: "",
-          width: "10%"
+          width: "10%",
+          callback(val){
+            return Boolean(val)? val:"Not added";
+          }
         },
          {
           name: "vehicle_year",
@@ -223,6 +229,17 @@ export default {
           titleClass: "",
           dataClass: "",
           width: "10%"
+        },
+        {
+          name: "is_imported",
+          sortField: "is_imported",
+          title: "Type",
+          titleClass: "",
+          dataClass: "",
+          width: "10%",
+          callback(val){
+            return Boolean(val)? "Import":"Commercial";
+          }
         },
          {
           name: "__slot:Preview",
