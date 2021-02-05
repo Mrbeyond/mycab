@@ -95,39 +95,20 @@ const data = [
   label: "menu.vehicles",
   to: `${adminRoot}/vehicles`,
   // roles: [UserRole.Admin, UserRole.Editor],,
-  // subs:[
-  //   {
-  //   icon: "simple-icon-list",
-  //   label: "menu.all-vehicles",
-  //   to: `${adminRoot}/vehicles`,
-  //   // roles: [UserRole.Admin, UserRole.Editor],
-  //   },
-  //   {
-  //     icon: "simple-icon-list",
-  //     label: "menu.commercial-vehicles",
-  //     to: `${adminRoot}/vehicles/commercial`,
-  //     // roles: [UserRole.Admin, UserRole.Editor],
-  //   },
-  //   {
-  //     icon: "simple-icon-list",
-  //     label: "menu.import-vehicles",
-  //     to: `${adminRoot}/vehicles/import`,
-  //     // roles: [UserRole.Admin, UserRole.Editor],
-  //   },
-  //   {
-  //     icon: "simple-icon-badge",
-  //     label: "menu.vehicle-tags",
-  //     to: `${adminRoot}/vehicles/tags`,
-  //     // roles: [UserRole.Admin, UserRole.Editor],
-  //   },
-  //   {
-  //     icon: "simple-icon-diamond",
-  //     label: "menu.vehicle-payments",
-  //     to: `${adminRoot}/vehicle-payments`,
-  //     // roles: [UserRole.Admin, UserRole.Editor],
-  //   },
-  // ]
-  },
+  subs:[
+    {
+    icon: "simple-icon-list",
+    label: "menu.all-vehicles",
+    to: `${adminRoot}/vehicles`,
+    // roles: [UserRole.Admin, UserRole.Editor],
+    },
+    {
+      icon: "simple-icon-list",
+      label: "menu.vehicle-types",
+      to: `${adminRoot}/vehicle-types`,
+      // roles: [UserRole.Admin, UserRole.Editor],
+    },
+  ]},
   // {
   //   id:"port",
   //   icon:"iconsminds-ship",
