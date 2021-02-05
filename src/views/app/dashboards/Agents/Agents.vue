@@ -53,7 +53,7 @@
         >
           <template slot="preview" slot-scope="props">
             <b-button class="bg-primary"  v-b-modal.modalbasic
-              @click="modalinfo(props.rowData.agent_wallet,props.rowData.agent_type,props.rowData.port)"
+              @click="modalinfo(props.rowData)"
             >
                <i class="simple-icon-magnifier" />
             </b-button>
@@ -72,26 +72,66 @@
       </b-colxx>
 
        <b-colxx xxs="12">
-            <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" title="Details" modal-class="modal-right">
-                 <b-card v-if="RightmodalData !='' && RightmodalData !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+            <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright"
+             title="Details" modal-class="modal-right"
+             >
+              <b-card v-if="RightmodalData.wallet" class="shadow-sm mb-3">
+                <h1>Wallet info</h1>
+                <div v-if="RightmodalData.wallet">
+                  <p class="text-muted text-small">Balance</p>
+                  <p >&#8358;{{to_money(RightmodalData.wallet.balance)}}</p>
+                  <p class="text-muted text-small">Postpaid Balance</p>
+                  <p >&#8358;{{to_money(RightmodalData.wallet.postpaid_balance)}}</p>
+                  <p class="text-muted text-small">Created on</p>
+                  <p >{{Timest(RightmodalData.wallet.createdAt)}}</p>
+                </div>
+              </b-card>
+              <b-card v-if="RightmodalData.basic" class="shadow-sm mb-3">
                 <h1>Basic info</h1>
-                <div v-if="RightmodalData.wallet !=null">
-                <p class="text-muted">Balance</p>
-                <p >&#8358;{{to_money(RightmodalData.wallet.balance)}}</p>
+                <div v-if="RightmodalData.basic">
+                  <p class="text-muted text-small">First Name</p>
+                  <p >{{ RightmodalData.basic.first_name }}</p>
+                  <p class="text-muted text-small">Last Name</p>
+                  <p> {{ RightmodalData.basic.last_name }}</p>
+                  <p class="text-muted text-small">Agent NO.</p>
+                  <p >{{ RightmodalData.basic.agent_no }}</p>
+                  <p class="text-muted text-small">Email</p>
+                  <p >{{RightmodalData.basic.email}}</p>
+                  <p class="text-muted text-small">Address</p>
+                  <p >{{ RightmodalData.basic.address? RightmodalData.basic.address: "Not provided" }}</p>
+                  <p class="text-muted text-small">Phone</p>
+                  <p> {{ RightmodalData.basic.phone }}</p>
+                  <p class="text-muted text-small">Created on</p>
+                  <p >{{Timest(RightmodalData.basic.createdAt)}}</p>
                 </div>
-                <div v-if="RightmodalData.type !=null">
-                <p class="text-muted">Agent  Type</p>
-                <p >{{RightmodalData.type.name}}</p>
+              </b-card>
+              <b-card v-if="RightmodalData.garage || RightmodalData.port "
+                class="shadow-sm "
+              >
+                <h1>{{ RightmodalData.garage? "Garage":"Port" }}</h1>
+                <div v-if="RightmodalData.garage">
+                  <p class="text-muted text-small">Name</p>
+                  <p >{{ RightmodalData.garage.name }}</p>
+                  <p class="text-muted text-small">Address</p>
+                  <p> {{ RightmodalData.garage.address?RightmodalData.garage.address : "Not provided" }}</p>
+                  <p class="text-muted text-small">Status</p>
+                  <p >{{ Boolean(RightmodalData.garage.status)?"Active":"Inactive" }}</p>
+                  <p class="text-muted text-small">Icon</p>
+                  <p >{{Boolean(RightmodalData.garage.icon)? RightmodalData.garage.icon: 'Not available'}}</p>
+                  <p class="text-muted text-small">Created on</p>
+                  <p >{{Timest(RightmodalData.basic.createdAt)}}</p>
                 </div>
-                <div v-if="RightmodalData.port !=null">
-                <p class="text-muted"> Port Name</p>
-                <p >{{RightmodalData.port.name}}</p>
+                <div v-else>
+                  <p class="text-muted text-small">Name</p>
+                  <p >{{ RightmodalData.port.name }}</p>
                 </div>
+              </b-card>
 
-                   </b-card>
-                    <template slot="modal-footer">
-                    <b-button variant="secondary" @click="hideModal('modalright')">Cancel</b-button>
-                </template>
+              <template slot="modal-footer">
+                <b-button variant="secondary" @click="hideModal('modalright')">
+                  Cancel
+                </b-button>
+              </template>
             </b-modal>
     </b-colxx>
     </b-row>
@@ -116,8 +156,8 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { AGENTS, hToken, loadash, toMoney } from "../../../../constants/formKey";
-import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
+import { AGENTS, hToken,LUX_ZONE,/* loadash,*/ toMoney } from "../../../../constants/formKey";
+// import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {
   props: ["title"],
@@ -173,6 +213,17 @@ export default {
           width: "10%"
         },
         {
+          name:"port_id",
+          sortField: "port_id",
+          title: "Type",
+          titleClass: "",
+          dataClass: "",
+          width: "10%",
+          callback: (val)=>{
+            return Boolean(val)? 'Port': 'Garage';
+          }
+        },
+        {
           name: "phone",
           sortField: "phone",
           title: "Phone",
@@ -180,9 +231,20 @@ export default {
           dataClass: "",
           width: "10%"
         },
-         {
+        {
+          name: "status",
+          sortField: "status",
+          title: "Satus",
+          titleClass: "",
+          dataClass: "",
+          width: "10%",
+          callback(val){
+            return Boolean(val)? 'Active': 'Inactive';
+          }
+        },
+        {
           name: "__slot:preview",
-          sortField: "preview",
+          sortField: "",
           title: "Basic info",
           titleClass: "",
           dataClass: "",
@@ -190,7 +252,7 @@ export default {
         },
           {
           name: "__slot:details",
-          sortField: "details",
+          sortField: "",
           title: "Full details",
           titleClass: "",
           dataClass: "",
@@ -222,10 +284,44 @@ export default {
     Timest(time){
       return LUX_ZONE(time);
     },
-    modalinfo(wallet,type,port){
-      this.RightmodalData = {"wallet":wallet,"type":type,"port":port}
-    console.log( this.RightmodalData)
+
+    modalinfo(PL){
+      let garage = null;
+      let port = null;
+      let basic = {
+        first_name: PL.first_name,
+        last_name: PL.last_name,
+        phone: PL.phone,
+        email: PL.email,
+        agent_no: PL.agent_no,
+        address: PL.address,
+        createdAt: PL.createdAt,
+      };
+
+      let wallet = {
+        balance: PL.agent_wallet.balance,
+        postpaid_balance: PL.agent_wallet.post_paid_balance,
+        createdAt: PL.agent_wallet.createdAt,
+      }
+
+      if(Boolean(PL.port)){
+        port = {
+          name: PL.port.name,
+          createdAt: PL.port.createdAt,        }
+      }else if(Boolean(PL.garage)){
+        garage ={
+          name: PL.garage.name,
+          address: PL.garage.address,
+          status: PL.garage.status,
+          icon: PL.garage.icon,
+          createdAt: PL.garage.createdAt,
+        }
+      }
+
+      this.RightmodalData = {basic:basic, wallet:wallet, port:port, garage:garage,}
+       console.log( this.RightmodalData)
       },
+
     hideModal (refname) {
       this.$refs[refname].hide()
       console.log('hide modal:: ' + refname)

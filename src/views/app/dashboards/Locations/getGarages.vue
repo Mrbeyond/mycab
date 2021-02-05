@@ -40,14 +40,17 @@
           @vuetable:cell-clicked="cellClicked"
         >
            <template slot="chairmen" slot-scope="props">
-            <b-button
+           <!--
               :disabled="!props.rowData.garage_chairmen"
+              v-b-modal.modalbasic
+            -->
+            <b-button
               :title="!props.rowData.garage_chairmen?'No chairman':'click to view'"
-              class="bg-primary" v-b-modal.modalbasic
+              class="bg-primary"
               @click="modalinfo(props.rowData.garage_chairmen)"
             >
-              <i class="simple-icon-magnifier" />
-              <!-- <i class="simple-icon-lock"  v-else />  v-if="props.rowData.garage_chairmen" -->
+              <i v-if="props.rowData.garage_chairmen" class="simple-icon-magnifier" />
+               <span v-else>None</span>
             </b-button>
           </template>
         </vuetable>
@@ -59,7 +62,7 @@
       </b-colxx>
 
        <b-colxx xxs="12">
-          <b-modal  RightmodalData  id="modalbasic" ref="modalright" title="Info" modal-class="modal-right">
+          <b-modal  RightmodalData  id="modalbasic" ref="modalbasic" title="Info" modal-class="modal-right">
                 <b-card class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Chairman</h1>
                 <div >
@@ -156,7 +159,10 @@ export default {
           title: "Address",
           titleClass: "",
           dataClass: "",
-          width: "10%"
+          width: "10%",
+          callback(val){
+            return (val)? val:"Not provided";
+          },
         },
 
         {
@@ -175,6 +181,7 @@ export default {
           dataClass: "",
           width: "10%",
           callback(val){
+            if(!val) return "Not provided";
             return LUX_ZONE(val);
           },
         },
@@ -198,12 +205,14 @@ export default {
       this.$store.dispatch(ALL_GARAGES);
     },
     modalinfo(chairman){
-    this.RightmodalData = chairman
-   console.log( this.RightmodalData)
+      if(!chairman) return
+    this.RightmodalData = chairman;
+    this.$refs.modalbasic.show();
+  //  console.log( this.RightmodalData)
     },
       hideModal (refname) {
       this.$refs[refname].hide()
-      console.log('hide modal:: ' + refname)
+      // console.log('hide modal:: ' + refname)
 
       if (refname === 'modalnestedinline') {
         this.$refs['modalnested'].show()

@@ -70,9 +70,9 @@
           :row-class="onRowClass"
           @vuetable:pagination-data="onPaginationData"
           @vuetable:cell-rightclicked="rightClicked"
-          @vuetable:cell-clicked="cellClicked"
         >
         </vuetable>
+          <!--@vuetable:cell-clicked="cellClicked"-->
         <vuetable-pagination-bootstrap
           class="mt-4"
           ref="pagination"
@@ -204,10 +204,10 @@ export default {
     },
 
     cellClicked(item, field, event){
-      alert()
-      console.log(item, 'item');
-      console.log(field, 'feild');
-      console.log(event,'eve');
+      // alert()
+      // console.log(item, 'item');
+      // console.log(field, 'feild');
+      // console.log(event,'eve');
     },
 
     rowClicked(dataItem, event) {
@@ -336,7 +336,7 @@ export default {
         this.selectedItems.length > 0 &&
         this.selectedItems.length < this.items.length
       );
-    }
+    },
   },
   watch: {
   },

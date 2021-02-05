@@ -45,7 +45,6 @@
           <template slot="actions" slot-scope="props">
             <b-button ref="vehic" id="vehic"
               @click="cellClick(props.rowData)"
-              :disabled="!props.rowData.account_business_detail"
               variant="primary"
             >
             <!-- payload.account_business_detail.account_id-->
@@ -332,9 +331,8 @@ export default {
       );
     },
     cellClick(payload){
-        if(!payload.account_business_detail || !payload.account_business_detail.account_id) return;
-
-        this.$router.push(`payers/${payload.account_business_detail.account_id}`);
+        if(!payload.id) return;
+        this.$router.push(`payers/${payload.id}`);
     },
 
     cellModal(payload){
