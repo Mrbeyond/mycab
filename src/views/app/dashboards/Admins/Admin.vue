@@ -83,15 +83,21 @@
       </b-colxx>
          <b-colxx xxs="12">
             <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" title="Admin" modal-class="modal-right">
-                 <b-card v-if="RightmodalData !='' && RightmodalData !=null" class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
+                <b-card v-if="RightmodalData !='' && RightmodalData !=null"
+                  class="shadow-sm mb-3" style="border-radius:15px"
+                >
                 <h1>Type</h1>
                 <div>
-                <p class="text-muted">Name</p>
-                <p >{{RightmodalData.name}}</p>
+                  <p class="mb-2 text-small text-muted">Name</p>
+                  <p >{{RightmodalData.name}}</p>
                 </div>
                 <div>
-                <p class="text-muted">Description</p>
-                <p >{{RightmodalData.description}}</p>
+                  <p class="mb-2 text-small text-muted">Description</p>
+                  <p >{{RightmodalData.description}}</p>
+                </div>
+                <div>
+                  <p class="mb-2 text-small text-muted">Created On</p>
+                  <p >{{Timest(RightmodalData.createdAt)}}</p>
                 </div>
                 <!-- <div v-if="RightmodalData.port !=null">
                 <p class="text-muted"> Port Name</p>
@@ -113,7 +119,7 @@ import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
 import { hToken, loadash } from "../../../../constants/formKey";
-import { ADD_TERMINAL, ADMINS } from '../../../../constants/formKey';
+import { LUX_ZONE, ADMINS } from '../../../../constants/formKey';
 import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 import   Axios from 'axios'
 
@@ -208,9 +214,12 @@ export default {
     };
   },
   methods: {
-       modalinfo(data){
-     this.RightmodalData = data
-    console.log( this.RightmodalData)
+    Timest(time){
+      return LUX_ZONE(time);
+    },
+    modalinfo(data){
+      this.RightmodalData = data
+      console.log( this.RightmodalData)
      },
      getAdmins(){
       this.$store.dispatch(ADMINS);
