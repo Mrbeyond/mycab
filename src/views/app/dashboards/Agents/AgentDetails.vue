@@ -28,30 +28,70 @@
       :total="total"
       :perPage="perPage"
     ></datatable-heading>-->
-       <b-row class="align-items-center mb-5 justify-content-center m-1">
-              <b-card v-if="RightmodalData !='' && RightmodalData !=null" class="shadow-sm mb-3 col-12 pt-3" style="border-radius:20px">
-                <h2 class="text-center mb-3">Agent  {{RightmodalData[0].first_name}} {{RightmodalData[0].last_name}}</h2>
-                <div class="d-column d-md-flex justify-content-around row">
-                <div v-if="RightmodalData !=null">
-                <p class="text-muted">Balance</p>
-                <p >NGN{{to_money(RightmodalData[0].agent_wallet.balance)}}</p>
-                </div>
-                <div v-if="RightmodalData !=null">
-                <p class="text-muted">Agent  Type</p>
-                <p >{{RightmodalData[0].agent_type.name}}</p>
-                </div>
-                <div v-if="RightmodalData[0].port !=null">
-                <p class="text-muted"> Port Name</p>
-                <p >{{RightmodalData[0].port.name}}</p>
-                </div>
-                <div v-if="RightmodalData[0].garage !=null">
-                <p class="text-muted"> Garage Name</p>
-                <p >{{RightmodalData[0].garage.name}}</p>
-                </div>
-                </div>
+    <div v-if="RightmodalData" class="align-items-center mb-5 justify-content-center m-1">
+      <b-card class="shadow-sm mb-3 ">
 
-                   </b-card>
-    </b-row>
+        <div class="d-column d-md-flex justify-content-md-around">
+        <!-- Agent wallet  part -->
+          <div v-if="RightmodalData.wallet" >
+            <h1>Wallet info</h1>
+            <div v-if="RightmodalData.wallet">
+              <p class="text-muted text-small mb-2">Balance</p>
+              <p class="mb-3" >&#8358;{{to_money(RightmodalData.wallet.balance)}}</p>
+              <p class="text-muted text-small mb-2">Postpaid Balance</p>
+              <p class="mb-3" >&#8358;{{to_money(RightmodalData.wallet.postpaid_balance)}}</p>
+              <p class="text-muted text-small mb-2">Created on</p>
+              <p class="mb-3" >{{Timest(RightmodalData.wallet.createdAt)}}</p>
+            </div>
+          </div>
+
+          <!-- Basic agent's info part -->
+          <div v-if="RightmodalData.basic">
+            <h1>Basic info</h1>
+            <div v-if="RightmodalData.basic">
+              <p class="text-muted text-small mb-2">First Name</p>
+              <p class="mb-3" >{{ RightmodalData.basic.first_name }}</p>
+              <p class="text-muted text-small mb-2">Last Name</p>
+              <p class="mb-3"> {{ RightmodalData.basic.last_name }}</p>
+              <p class="text-muted text-small mb-2">Agent NO.</p>
+              <p class="mb-3" >{{ RightmodalData.basic.agent_no }}</p>
+              <p class="text-muted text-small mb-2">Email</p>
+              <p class="mb-3" >{{RightmodalData.basic.email}}</p>
+              <p class="text-muted text-small mb-2">Address</p>
+              <p class="mb-3" >{{ RightmodalData.basic.address? RightmodalData.basic.address: "Not provided" }}</p>
+              <p class="text-muted text-small mb-2">Phone</p>
+              <p class="mb-3"> {{ RightmodalData.basic.phone }}</p>
+              <p class="text-muted text-small mb-2">Created on</p>
+              <p class="mb-3" >{{Timest(RightmodalData.basic.createdAt)}}</p>
+            </div>
+          </div>
+
+          <!-- Port or Garage part -->
+          <div v-if="RightmodalData.garage || RightmodalData.port">
+            <h1>{{ RightmodalData.garage? "Garage":"Port" }}</h1>
+            <!-- If agent type is garage  -->
+            <div v-if="RightmodalData.garage">
+              <p class="text-muted text-small mb-2">Name</p>
+              <p class="mb-3" >{{ RightmodalData.garage.name }}</p>
+              <p class="text-muted text-small mb-2">Address</p>
+              <p class="mb-3"> {{ RightmodalData.garage.address?RightmodalData.garage.address : "Not provided" }}</p>
+              <p class="text-muted text-small mb-2">Status</p>
+              <p class="mb-3" >{{ Boolean(RightmodalData.garage.status)?"Active":"Inactive" }}</p>
+              <p class="text-muted text-small mb-2">Icon</p>
+              <p class="mb-3" >{{Boolean(RightmodalData.garage.icon)? RightmodalData.garage.icon: 'Not available'}}</p>
+              <p class="text-muted text-small mb-2">Created on</p>
+              <p class="mb-3" >{{Timest(RightmodalData.basic.createdAt)}}</p>
+            </div>
+            <!-- If agent type is part -->
+            <div v-else>
+              <p class="text-muted text-small mb-2">Name</p>
+              <p class="mb-3" >{{ RightmodalData.port.name }}</p>
+            </div>
+          </div>
+        </div>
+
+      </b-card>
+    </div>
 
     <b-row>
       <b-colxx xxs="12">
@@ -87,7 +127,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash, toMoney } from "../../../../constants/formKey";
+import { hToken, loadash, LUX_ZONE, toMoney } from "../../../../constants/formKey";
 import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 import   Axios from 'axios'
 
@@ -139,6 +179,44 @@ export default {
           dataClass: "",
           width: "10%"
         },
+        {
+          name: "is_imported",
+          sortField: "is_imported",
+          title: "Type",
+          titleClass: "",
+          dataClass: "",
+          width: "10%",
+          callback(val){
+            return Boolean(val)? "Import":"Garage"
+          },
+        },
+        {
+          name: "plate_number",
+          sortField: "plate_number",
+          title: "Plate number",
+          titleClass: "",
+          dataClass: "",
+          width: "10%",
+        },
+        {
+          name: "vehicle_identification_number",
+          sortField: "vehicle_identification_number",
+          title: "VIN",
+          titleClass: "",
+          dataClass: "",
+          width: "10%",
+        },
+        {
+          name: "status",
+          sortField: "status",
+          title: "Status",
+          titleClass: "",
+          dataClass: "",
+          width: "10%",
+          callback(val){
+            return Boolean(val)? "Active":"Inactive"
+          },
+        },
 
         {
           name: "vehicle_color",
@@ -148,24 +226,24 @@ export default {
           dataClass: "",
           width: "10%"
         },
-         {
-          name: "plate_number",
-          sortField: "plate_number",
-          title: "Plate number",
+        {
+        name: "vehicle_year",
+        sortField: "vehicle_year",
+        title: "Vehicle year",
+        titleClass: "",
+        dataClass: "",
+        width: "10%"
+        },
+        {
+          name: "createdAt",
+          sortField: "createdAt",
+          title: "Created On",
           titleClass: "",
           dataClass: "",
           width: "10%",
           callback(val){
-            return Boolean(val)? val:"Not added"
-          }
-        },
-          {
-          name: "vehicle_year",
-          sortField: "vehicle_year",
-          title: "Vehicle year",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
+            return LUX_ZONE(val);
+          },
         },
       ]
     };
@@ -213,7 +291,7 @@ export default {
     rowClicked(dataItem, event) {
       // const itemId = dataItem.id;
       // console.log(dataItem)
-      alert();
+      // alert();
       return;
       if (event.shiftKey && this.selectedItems.length > 0) {
         let itemsForToggle = this.items;
@@ -305,9 +383,43 @@ export default {
       Axios.get(`${this.apiBase}/${id}`, {headers: hToken()})
       .then(res=>{
         if(!res.data.error){
-          this.localData = res.data.data[0].account_vehicles;
+          let PAYLOAD = res.data.data[0]
+          this.localData = PAYLOAD.account_vehicles;
+          let port = null;
+          let garage = null;
           console.log(this.localData);
-          this.RightmodalData = res.data.data
+          let basic = {
+            first_name: PAYLOAD.first_name,
+            last_name: PAYLOAD.last_name,
+            phone: PAYLOAD.phone,
+            email: PAYLOAD.email,
+            agent_no: PAYLOAD.agent_no,
+            address: PAYLOAD.address,
+            createdAt: PAYLOAD.createdAt,
+          };
+
+          let wallet = {
+            balance: PAYLOAD.agent_wallet.balance,
+            postpaid_balance: PAYLOAD.agent_wallet.post_paid_balance,
+            createdAt: PAYLOAD.agent_wallet.createdAt,
+          }
+
+          if(Boolean(PAYLOAD.port)){
+            port = {
+              name: PAYLOAD.port.name,
+              createdAt: PAYLOAD.port.createdAt,        }
+          }else if(Boolean(PAYLOAD.garage)){
+            garage ={
+              name: PAYLOAD.garage.name,
+              address: PAYLOAD.garage.address,
+              status: PAYLOAD.garage.status,
+              icon: PAYLOAD.garage.icon,
+              createdAt: PAYLOAD.garage.createdAt,
+            }
+          }
+
+          this.RightmodalData = {basic:basic, wallet:wallet, port:port, garage:garage,}
+          console.log( this.RightmodalData)
 
           this.isFetched = true;
         }else{
@@ -323,8 +435,14 @@ export default {
       })
     },
 
+    Timest(time){
+      return LUX_ZONE(time);
+    },
+
+
     to_money(val){
-      return toMoney(val);
+      let result = toMoney(val);
+      return (result == "0")? "0.00": result;
     }
   },
   computed: {
