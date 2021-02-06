@@ -28,12 +28,14 @@
       :total="total"
       :perPage="perPage"
     ></datatable-heading>-->
-    <div v-if="RightmodalData" class="align-items-center mb-5 justify-content-center m-1">
-      <b-card class="shadow-sm mb-3 ">
+    <div v-if="RightmodalData" class="mb-5 row">
 
-        <div class="d-column d-md-flex justify-content-md-around">
-        <!-- Agent wallet  part -->
-          <div v-if="RightmodalData.wallet" >
+      <div v-if="RightmodalData.wallet"
+        :class="`col-12 ${(RightmodalData.port || RightmodalData.garage)? 'col-md-4':'col-md-6'} d-md-flex `"
+      >
+        <b-card class=" mb-2 flex-fill">
+           <!-- Agent wallet  part -->
+          <div>
             <h1>Wallet info</h1>
             <div v-if="RightmodalData.wallet">
               <p class="text-muted text-small mb-2">Balance</p>
@@ -44,9 +46,15 @@
               <p class="mb-3" >{{Timest(RightmodalData.wallet.createdAt)}}</p>
             </div>
           </div>
+        </b-card>
+      </div>
 
-          <!-- Basic agent's info part -->
-          <div v-if="RightmodalData.basic">
+      <div  v-if="RightmodalData.basic"
+        :class="`col-12 ${(RightmodalData.port || RightmodalData.garage)? 'col-md-4':'col-md-6'} d-md-flex`"
+      >
+        <b-card class=" mb-2 flex-fill">
+           <!-- Basic agent's info part -->
+          <div>
             <h1>Basic info</h1>
             <div v-if="RightmodalData.basic">
               <p class="text-muted text-small mb-2">First Name</p>
@@ -65,9 +73,14 @@
               <p class="mb-3" >{{Timest(RightmodalData.basic.createdAt)}}</p>
             </div>
           </div>
+        </b-card>
+      </div>
 
-          <!-- Port or Garage part -->
-          <div v-if="RightmodalData.garage || RightmodalData.port">
+      <div v-if="RightmodalData.garage || RightmodalData.port"
+        :class="`col-12 ${(RightmodalData.port || RightmodalData.garage)? 'col-md-4':'col-md-6'} d-md-flex`"
+      >
+        <b-card class=" mb-2 flex-fill">          <!-- Port or Garage part -->
+          <div >
             <h1>{{ RightmodalData.garage? "Garage":"Port" }}</h1>
             <!-- If agent type is garage  -->
             <div v-if="RightmodalData.garage">
@@ -88,9 +101,8 @@
               <p class="mb-3" >{{ RightmodalData.port.name }}</p>
             </div>
           </div>
-        </div>
-
-      </b-card>
+        </b-card>
+      </div>
     </div>
 
     <b-row>
