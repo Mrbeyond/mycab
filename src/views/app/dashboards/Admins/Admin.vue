@@ -84,7 +84,7 @@
          <b-colxx xxs="12">
             <b-modal v-if="RightmodalData" id="modalbasic" ref="modalright" title="Admin" modal-class="modal-right">
                 <b-card v-if="RightmodalData !='' && RightmodalData !=null"
-                  class="shadow-sm mb-3" style="border-radius:15px"
+                  class="shadow-sm mb-3"
                 >
                 <h1>Type</h1>
                 <div>

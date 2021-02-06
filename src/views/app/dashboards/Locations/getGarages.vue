@@ -66,16 +66,16 @@
                 <b-card class="text-center shadow-sm mb-3 pt-3" style="border-radius:20px">
                 <h1>Chairman</h1>
                 <div >
-                <p class="text-muted">Name</p>
+                <p class="text-muted text-small mb-2">Name</p>
                 <p >{{RightmodalData.name}}</p>
                 </div>
                 <div>
-                <p class="text-muted">Adress</p>
+                <p class="text-muted text-small mb-2">Adress</p>
                 <p v-if="RightmodalData.address">{{RightmodalData.address}}</p>
                 <p v-else>No address</p>
                 </div>
                 <div>
-                <p class="text-muted">Phone</p>
+                <p class="text-muted text-small mb-2">Phone</p>
                 <p >{{RightmodalData.phone}}</p>
                 </div>
                  <!-- <div>
