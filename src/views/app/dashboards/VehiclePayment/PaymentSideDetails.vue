@@ -11,7 +11,7 @@
           formatDate(getMainTransaction(selectedPayload)[item]):
           item.toLocaleLowerCase() == 'amount'? to_money(getMainTransaction(selectedPayload)[item]):
           item =="status"? mapSuccess(getMainTransaction(selectedPayload)[item]):
-          getMainTransaction(selectedPayload)[item] === null? "Null":
+          getMainTransaction(selectedPayload)[item] === null? "Not added":
           getMainTransaction(selectedPayload)[item]
           }}
         </p>
@@ -27,7 +27,7 @@
           {{ item == "createdAt"?
           formatDate(selectedPayload.account_vehicle[item]):
           item =="status"? mapActive(selectedPayload.account_vehicle[item]):
-          selectedPayload.account_vehicle[item] === null? "Null":
+          selectedPayload.account_vehicle[item] === null? "Not added":
           selectedPayload.account_vehicle[item]
           }}
         </p>
@@ -44,7 +44,7 @@
           formatDate(selectedPayload.account_wallet_transaction[item]):
           item =="status"? mapActive(selectedPayload.account_wallet_transaction[item]):
           item.toLocaleLowerCase() == 'amount'? to_money(selectedPayload.account_wallet_transaction[item]):
-          selectedPayload.account_wallet_transaction[item] === null? "Null":
+          selectedPayload.account_wallet_transaction[item] === null? "Not added":
           selectedPayload.account_wallet_transaction[item]
           }}
         </p>
@@ -76,8 +76,10 @@ export default {
       if( data&& data.updatedAt){
         delete data.updatedAt;
       }
-      return Object.keys(data).filter(data=>
-      !data.toString().includes('id') || !data.toString().includes('type'));
+      let KEYS = Object.keys(data).filter(data=>
+      !(data.toString().includes('id') && !data.toString().includes('identi')) && !data.toString().includes('type'));
+      console.log(KEYS);
+      return KEYS;
     },
 
     formatName(name){
