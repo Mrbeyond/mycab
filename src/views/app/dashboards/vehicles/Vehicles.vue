@@ -191,16 +191,7 @@ export default {
           dataClass: "",
           width: "10%"
         },
-
         {
-          name: "vehicle_model",
-          sortField: "color",
-          title: "Color",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
-        },
-          {
           name: "plate_number",
           sortField: "plate number",
           title: "Plate number",
@@ -211,7 +202,7 @@ export default {
             return Boolean(val)? val:"Not added";
           }
         },
-           {
+        {
           name: "vehicle_identification_number",
           sortField: "id",
           title: "VIN",
@@ -221,14 +212,6 @@ export default {
           callback(val){
             return Boolean(val)? val:"Not added";
           }
-        },
-         {
-          name: "vehicle_year",
-          sortField: "year",
-          title: "Year",
-          titleClass: "",
-          dataClass: "",
-          width: "10%"
         },
         {
           name: "is_imported",
@@ -241,7 +224,34 @@ export default {
             return Boolean(val)? "Import":"Commercial";
           }
         },
-         {
+        {
+          name: "tag_assigned",
+          sortField: "tag_assigned",
+          title: "Tag",
+          titleClass: "",
+          dataClass: "",
+          width: "10%",
+          callback(val){
+            return Boolean(val)? "Tag assigned":"Not tagged";
+          }
+        },
+        {
+          name: "vehicle_color",
+          sortField: "color",
+          title: "Color",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+        {
+          name: "vehicle_year",
+          sortField: "year",
+          title: "Year",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+        {
           name: "__slot:Preview",
           sortField: "Preview",
           title: "Preview",

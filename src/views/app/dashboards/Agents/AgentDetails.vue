@@ -33,7 +33,7 @@
       <div v-if="RightmodalData.wallet"
         :class="`col-12 ${(RightmodalData.port || RightmodalData.garage)? 'col-md-4':'col-md-6'} d-md-flex `"
       >
-        <b-card class=" mb-2 flex-fill">
+        <b-card class=" mb-2 flex-fill" style="border-radius:15px">
            <!-- Agent wallet  part -->
           <div>
             <h1>Wallet info</h1>
@@ -52,7 +52,7 @@
       <div  v-if="RightmodalData.basic"
         :class="`col-12 ${(RightmodalData.port || RightmodalData.garage)? 'col-md-4':'col-md-6'} d-md-flex`"
       >
-        <b-card class=" mb-2 flex-fill">
+        <b-card class=" mb-2 flex-fill" style="border-radius:15px">
            <!-- Basic agent's info part -->
           <div>
             <h1>Basic info</h1>
@@ -79,7 +79,7 @@
       <div v-if="RightmodalData.garage || RightmodalData.port"
         :class="`col-12 ${(RightmodalData.port || RightmodalData.garage)? 'col-md-4':'col-md-6'} d-md-flex`"
       >
-        <b-card class=" mb-2 flex-fill">          <!-- Port or Garage part -->
+        <b-card class=" mb-2 flex-fill" style="border-radius:15px">          <!-- Port or Garage part -->
           <div >
             <h1>{{ RightmodalData.garage? "Garage":"Port" }}</h1>
             <!-- If agent type is garage  -->
@@ -209,6 +209,9 @@ export default {
           titleClass: "",
           dataClass: "",
           width: "10%",
+          callback(val){
+            return (val)? val:"Not added"
+          }
         },
         {
           name: "vehicle_identification_number",
@@ -217,6 +220,9 @@ export default {
           titleClass: "",
           dataClass: "",
           width: "10%",
+          callback(val){
+            return (val)? val:"Not added"
+          }
         },
         {
           name: "status",

@@ -83,11 +83,6 @@ export default {
         delete resData.is_business;
         this.localVehicles = vehicles;
         this.childLoad = {business:account, basic:resData }
-
-        console.log(this.childLoad,
-        this.localVehicles,
-        is_business,
-        );
         // console.log(this.selectedPayload);
 
         }else{

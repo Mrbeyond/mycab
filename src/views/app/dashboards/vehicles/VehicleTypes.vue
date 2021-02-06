@@ -207,8 +207,8 @@ export default {
             titleClass: "",
             dataClass: "",
             width: "10%",
-            callback(value){
-            return LUX_ZONE(value);
+            callback(val){
+            return val? LUX_ZONE(val):"Not added";
             },
         },
           {
@@ -218,6 +218,9 @@ export default {
             titleClass: "",
             dataClass: "",
             width: "10%",
+            callback(val){
+            return (Array.isArray(val))? val.length: 0;
+          },
         },
         {
           name: "status",

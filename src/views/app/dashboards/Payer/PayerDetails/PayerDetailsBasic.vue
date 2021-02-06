@@ -1,40 +1,48 @@
 <template>
-  <div v-if="PAYLOAD" class="row-item">
-    <b-card class=" shadow-sm mb-3 pt-3 " style="border-radius:20px">
+  <div v-if="PAYLOAD">
         <!-- The basic info card -->
-      <div  class="d-column d-md-flex justify-content-md-around" >
-        <div v-if="basicLoad" class="pl-0 pl-md-5 pr-0 pr-md-5">
-          <h3><strong>Basic info</strong></h3>
-          <div v-for="(item, i) in getKeys(basicLoad)" v-bind:key="i">
-            <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
-            <p class="mb-3">
-              {{ item == "createdAt"?
-              formatDate(basicLoad[item]): formatName(item) == "Status" ?
-              ensState(basicLoad[item]): basicLoad[item] == null? "No value": basicLoad[item]
-              }}
+      <div  class="row" >
+        <div v-if="basicLoad" class="col-12 col-md-6 d-flex">
+          <b-card class="flex-fill" style="border-radius:15px">
+            <div>
+              <h3><strong>Basic info</strong></h3>
+              <div v-for="(item, i) in getKeys(basicLoad)" v-bind:key="i">
+                <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
+                <p class="mb-3">
+                  {{ item == "createdAt"?
+                  formatDate(basicLoad[item]):
+                  item == "verified"? (Boolean(basicLoad[item])? 'Yes': 'No'):
+                   formatName(item) == "Status" ?
+                  ensState(basicLoad[item]): basicLoad[item] == null? "No value": basicLoad[item]
+                  }}
 
-            </p>
-          </div>
+                </p>
+              </div>
+            </div>
+          </b-card>
         </div>
-      <!--</b-card>-->
 
-      <!-- This account wallet info card -->
-      <!--<b-card class="shadow-sm mb-3 pt-3 " style="border-radius:20px">-->
-        <div v-if="businessLoad" class="pl-0 pl-md-5 mt-4 mt-md-0 pr-0 pr-md-5">
-          <h3><strong>Business Account Details</strong></h3>
-          <div v-for="(item, i) in getKeys(businessLoad)" v-bind:key="i">
-            <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
-            <p class="mb-3">
-              {{ item == "createdAt"?
-              formatDate(businessLoad[item]): businessLoad[item] === null? "Null":
-              businessLoad[item]
-              }}
-            </p>
-          </div>
+        <div v-if="businessLoad" class="col-12 col-md-6 d-flex">
+          <!-- This account wallet info card -->
+          <b-card class="flex-fill" style="border-radius:15px">
+            <div>
+              <h3><strong>Business Account Details</strong></h3>
+              <div v-for="(item, i) in getKeys(businessLoad)" v-bind:key="i">
+                <p class="mb-2 text-muted text-small">{{formatName(item)}}</p>
+                <p class="mb-3">
+                  {{ item == "createdAt"?
+                  formatDate(businessLoad[item]): businessLoad[item] === null? "Null":
+                  businessLoad[item]
+                  }}
+                </p>
+              </div>
+            </div>
+          </b-card>
         </div>
+
+
 
     </div>
-    </b-card>
   </div>
 </template>
 <script>

@@ -29,8 +29,8 @@
     ></datatable-heading>-->
   <b-row class="align-items-center mb-5 justify-content-center m-1 row justify-content-between" v-if="RightmodalData !=''">
   <div class="row">
-    <div class="col-12 col-md-6 col-lg-4">
-        <b-card v-if="RightmodalData.account !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
+    <div v-if="RightmodalData.account" class="col-12 col-md-4 d-flex">
+        <b-card  class="shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:15px">
           <h1>Account</h1>
           <div class="d-column justify-content-between">
             <div v-if="RightmodalData.account !=null" >
@@ -52,9 +52,9 @@
           </div>
       </b-card>
     </div>
-    <div class="col-12 col-md-6 col-lg-4">
-      <b-card v-if="RightmodalData" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
-        <h1>Garage & Port</h1>
+    <div v-if="RightmodalData.garage || RightmodalData.port " class="col-12 col-md-4 d-flex">
+      <b-card  class="shadow-sm mb-3 pt-3" style="border-radius:15px">
+        <h1>{{ RightmodalData.garage? "Garage": "Port" }}</h1>
         <div  class="d-column justify-content-between">
           <div v-if="RightmodalData.garage !=null">
             <p class="text-muted">Name</p>
@@ -79,8 +79,8 @@
         </div>
       </b-card>
     </div>
-    <div class="col-12 col-md-6 col-lg-4">
-      <b-card v-if="RightmodalData.type !=null" class="text-center shadow-sm mb-3 pt-3 col-lg-12" style="border-radius:20px">
+    <div v-if="RightmodalData.type" class="col-12 col-md-4 d-flex">
+      <b-card  class="shadow-sm mb-3 pt-3" style="border-radius:20px">
         <h1>Vehicle Type details</h1>
         <div  class="d-column  justify-content-between">
           <div >
