@@ -9,7 +9,7 @@
                   </p>
               </div>
               <div class="form-side">
-                  <span class="logo-single" />
+                  <!-- <span class="logo-single" /> -->
                   <h6 class="mb-4">{{ $t('user.login-title')}}</h6>
 
                   <b-form @submit.prevent="formSubmit" class="av-tooltip tooltip-label-bottom">
