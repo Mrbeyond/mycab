@@ -3,13 +3,13 @@
      <div class="h-100  d-flex justify-content-center">
        <div class="align-self-center">
           <b-card class="auth-card shadow mx-2" style="border-radius: 12px" no-body>
-           <div class="position-relative image-side">
-              <p class="text-white h2">MECP</p>
+           <div class="position-relative  image-side">
+              <p class="text-white mt-0 h2">MECP</p>
               <p class="white mb-0 h4">
                 Please use your credentials to login.
               </p>
             </div>
-              <div class="form-side">
+              <div class="form-side pt-4">
               <div class="mb-4">
                   <img src="./../assets/lasepa-mobile-logo.png" height="40" width="100" />
                   <strong class="text-large text-dark ml-4" >{{ $t('user.login-title')}}</strong>
