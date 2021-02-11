@@ -1,18 +1,19 @@
 <template>
- <b-row class="h-100">
-    <b-colxx xxs="12" md="10" class="mx-auto my-auto">
-        <b-card class="auth-card mx-5"  no-body>
-            <div class="position-relative image-side">
-                <p class="text-white h2">{{ $t('dashboards.magic-is-in-the-details') }}</p>
-                <p class="white mb-0">
-                    Please use your credentials to login.
-                    <br />If you are not a member, please
-                    <router-link tag="a" to="/user/register" class="white">register</router-link>.
-                </p>
+  <div class="fixed-background">
+     <div class="h-100  d-flex justify-content-center">
+       <div class="align-self-center">
+          <b-card class="auth-card shadow mx-2" style="border-radius: 12px" no-body>
+           <div class="position-relative image-side">
+              <p class="text-white h2">MECP</p>
+              <p class="white mb-0 h4">
+                Please use your credentials to login.
+              </p>
             </div>
               <div class="form-side">
-                  <!-- <span class="logo-single" /> -->
-                  <h6 class="mb-4">{{ $t('user.login-title')}}</h6>
+              <div class="mb-4">
+                  <img src="./../assets/lasepa-mobile-logo.png" height="40" width="100" />
+                  <strong class="text-large text-dark ml-4" >{{ $t('user.login-title')}}</strong>
+              </div>
 
                   <b-form @submit.prevent="formSubmit" class="av-tooltip tooltip-label-bottom">
                       <b-form-group :label="$t('user.email')" class="has-float-label mb-4">
@@ -66,15 +67,11 @@
                   </b-form>
               </div>
           </b-card>
-      </b-colxx>
-    </b-row>
+       </div>
+     </div>
+  </div>
 </template>
 
-<style>
-  .mot{
-  background: red url("./../../assets/mot.jpg");
-  }
-</style>
 
 <script>
 import {
@@ -84,7 +81,7 @@ import {
 import {
     validationMixin
 } from "vuelidate";
-import { adminRoot } from '../../constants/config';
+import { adminRoot } from './../constants/config';
 const {
     required,
     minLength,
@@ -154,3 +151,4 @@ export default {
   },
 };
 </script>
+
