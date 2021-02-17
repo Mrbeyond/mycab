@@ -158,7 +158,7 @@ const data = [
     //   },
     // ]
   },
-  {id:"vehicle-tags",
+  {id:"vehicle_tags",
     icon:"iconsminds-tag-3",
     label: "menu.vehicle-tags",
     to: `${adminRoot}/tags`,

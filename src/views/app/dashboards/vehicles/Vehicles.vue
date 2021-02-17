@@ -143,7 +143,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash, toMoney, VEHICLES } from "../../../../constants/formKey";
+import { hToken, loadash, permission, toMoney, VEHICLES } from "../../../../constants/formKey";
 import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {
@@ -462,9 +462,13 @@ export default {
     }
   },
   created(){
-    this.getVehicles()
-    // console.log(this.head);
-    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
-  }
+    if(!permission("vehicles", this.$store.getters.currentUser)){
+      localStorage.clear();
+      this.$router.push('/login');
+      return
+    }else{
+      this.getVehicles();
+    }
+   }
 };
 </script>

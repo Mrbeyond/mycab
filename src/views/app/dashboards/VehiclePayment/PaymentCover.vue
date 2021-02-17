@@ -63,7 +63,7 @@
 import Axios from 'axios';
 import Vuetable from "vuetable-2/src/components/Vuetable";
 import { PROXY } from '../../../../constants/config';
-import { hToken, LUX_ZONE, statusS, toMoney } from '../../../../constants/formKey';
+import { hToken, LUX_ZONE, permission, statusS, toMoney } from '../../../../constants/formKey';
 import VuetablePaginationBootstrap from '../../../../components/Common/VuetablePaginationBootstrap.vue';
 import PaymentSideDetails from './PaymentSideDetails.vue';
 export default {
@@ -215,8 +215,14 @@ export default {
     },
 
   },
-  beforeMount() {
-    this.fetchPayments();
+  created() {
+    if(!permission("finance", this.$store.getters.currentUser)){
+      localStorage.clear();
+      this.$router.push('/login');
+      return
+    }else{
+      this.fetchPayments();
+    }
   },
 
   watch: {

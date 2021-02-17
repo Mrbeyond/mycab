@@ -143,7 +143,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash, LUX_ZONE, statusA } from "../../../../constants/formKey";
+import { hToken, loadash, LUX_ZONE, permission, statusA } from "../../../../constants/formKey";
 import {LGS} from '../../../../constants/formKey';
 import {ADD_CARD,CARDS } from '../../../../constants/formKey';
 
@@ -404,8 +404,13 @@ export default {
     }
   },
   created(){
+    if(!permission("cards", this.$store.getters.currentUser)){
+      localStorage.clear();
+      this.$router.push('/login');
+      return
+    }else{
     this.getCards();
-    console.log(this.head);
+    }
     // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };

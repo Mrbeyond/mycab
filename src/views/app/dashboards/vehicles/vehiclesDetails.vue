@@ -219,7 +219,7 @@
 import Axios from 'axios';
 import Vuetable from "vuetable-2/src/components/Vuetable";
 import { PROXY } from '../../../../constants/config';
-import { hToken, LUX_ZONE, statusA, statusS, toMoney } from '../../../../constants/formKey';
+import { hToken, LUX_ZONE, permission, statusA, statusS, toMoney } from '../../../../constants/formKey';
 import VuetablePaginationBootstrap from '../../../../components/Common/VuetablePaginationBootstrap.vue';
 // import PaymentSideDetails from '../VehiclePayment/PaymentSideDetails';
 export default {
@@ -389,10 +389,15 @@ export default {
     },
 
   },
-  beforeMount() {
-        this.paramId = this.$router.currentRoute.params.id
-       this.fetchvehicleDetails(this.paramId)
-    // this.fetchPayments();
+  created() {
+    if(!permission("vehicles", this.$store.getters.currentUser)){
+      localStorage.clear();
+      this.$router.push('/login');
+      return
+    }else{
+      this.paramId = this.$router.currentRoute.params.id
+      this.fetchvehicleDetails(this.paramId)
+    }
   },
 
   watch: {

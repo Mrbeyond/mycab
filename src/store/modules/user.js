@@ -1,13 +1,15 @@
 import Axios from 'axios';
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import { currentUser, isAuthGuardActive, PROXY } from '../../constants/config'
+import {authUser, keepUser, PROXY } from '../../constants/config'
 import { setCurrentUser, getCurrentUser } from '../../utils';
+import { keepToken } from "./../../constants/formKey";
 
 export default {
   state: {
-    currentUser:  getCurrentUser(),//isAuthGuardActive ? getCurrentUser() : getCurrentUser(),
+    currentUser:  authUser(),//getCurrentUser(),//isAuthGuardActive ? getCurrentUser() : getCurrentUser(),
     // currentUser: isAuthGuardActive ? getCurrentUser() : currentUser,
+
     loginError: null,
     processing: false,
     forgotMailSuccess: null,
@@ -83,11 +85,12 @@ export default {
         .then(res=>{
             if(!res.data.error){
               // const {authorization} = ;
-              localStorage.authToken = res.data.data.authorization
+              localStorage.AT = window// (res.data.data.authorization)
+              keepToken(res.data.data.authorization);
               delete res.data.data.authorization;
-              const authUser = res.data.data;
-              setCurrentUser(authUser);
-              commit('setUser', authUser);
+              const user = res.data.data;
+              keepUser(user)
+              commit('setUser', user);
             }else{
               setCurrentUser(null);
               commit('setError', "Something went wrong");

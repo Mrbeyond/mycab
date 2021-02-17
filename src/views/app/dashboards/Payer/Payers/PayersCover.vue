@@ -104,7 +104,8 @@ import Vuetable from "vuetable-2/src/components/Vuetable";
 import VuetablePaginationBootstrap from "../../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { PROXY } from '../../../../../constants/config';
 import { hToken,/*, loadash*/
-PAYERS} from '../../../../../constants/formKey';
+PAYERS,
+permission} from '../../../../../constants/formKey';
 import PayerSideDetails from './PayerSideDetails.vue';
 // import PayerVehicles from './PayerVehicles.vue';
 // import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
@@ -383,10 +384,13 @@ export default {
     }
   },
   created(){
-    this.getPayers()
-    // console.log(this.$route.path);
-    // console.log(this.head);
-    // console.log( loadash*/.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+    if(!permission("payers", this.$store.getters.currentUser)){
+      localStorage.clear();
+      this.$router.push('/login');
+      return
+    }else{
+      this.getPayers();
+    }
   }
 };
 </script>

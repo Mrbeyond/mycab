@@ -37,7 +37,7 @@
 
 import Axios from 'axios';
 import { PROXY } from '../../../../../constants/config';
-import { hToken } from '../../../../../constants/formKey';
+import { hToken, permission } from '../../../../../constants/formKey';
 import PayerDetailsBasic from './PayerDetailsBasic.vue';
 import PayerDetailsVehicles from './PayerDetailsVehicles.vue';
 
@@ -111,10 +111,15 @@ export default {
 
     },
   },
-  beforeMount(){
-    // alert(JSON.stringify(this.$router.toString()));
-    let id = this.$route.params.id;
-    this.getData(id);
+  created(){
+    if(!permission("payers", this.$store.getters.currentUser)){
+      localStorage.clear();
+      this.$router.push('/login');
+      return
+    }else{
+      let id = this.$route.params.id;
+      this.getData(id);
+    }
 
   },
   beforeEnter(to, from, next){

@@ -100,7 +100,8 @@
   </div>
 </template>
 
-<script>
+<script>// @ts-nocheck
+
 import { mapGetters, mapMutations } from "vuex";
 import {
   menuHiddenBreakpoint,
@@ -303,10 +304,14 @@ export default {
 
     //For UserRole
     filteredMenuItems(menuItems) {
+      let access = this.$store.getters.currentUser;
+      if(!access || !access.admin_type || !access.admin_type.modules) return [];
+      access = access.admin_type.modules.map(d=>d.slug);
+      access = [...access, 'settings'];
+
       return menuItems
         ? menuItems.filter(
-            (x) =>
-              !x.roles || (x.roles && x.roles.includes(this.currentUser.role))
+            (x) =>  access.indexOf(x.id) > -1
           )
         : [];
     },

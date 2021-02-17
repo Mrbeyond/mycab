@@ -139,7 +139,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash, LUX_ZONE, toMoney } from "../../../../constants/formKey";
+import { hToken, loadash, LUX_ZONE, permission, toMoney } from "../../../../constants/formKey";
 import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 import   Axios from 'axios'
 
@@ -481,6 +481,11 @@ export default {
        this.fetchagent(this.paramId)
       },
   created(){
+    if(!permission("agents", this.$store.getters.currentUser)){
+      localStorage.clear();
+      this.$router.push('/login');
+      return
+    }
     //   this.paramId = this.$router.currentRoute.params.id
     //    this.fetchagent(this.paramId)
     // alert()

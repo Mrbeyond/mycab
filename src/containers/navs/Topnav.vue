@@ -96,7 +96,10 @@
           <template slot="button-content">
             <span class="name mr-1">{{currentUser.first_name}}</span>
             <span>
-              <span class="p-3 rounded bg-primary">{{currentUser.first_name.charAt(0).toUpperCase()}}{{currentUser.last_name.charAt(0).toUpperCase()}}</span>
+              <span class="p-3 rounded bg-primary">
+              {{currentUser.first_name.charAt(0).toUpperCase()}}
+              {{currentUser.last_name.charAt(0).toUpperCase()}}
+              </span>
             </span>
           </template>
           <b-dropdown-item @click="logout">Sign out</b-dropdown-item>

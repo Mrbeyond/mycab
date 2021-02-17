@@ -118,7 +118,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash } from "../../../../constants/formKey";
+import { hToken, loadash, permission } from "../../../../constants/formKey";
 import { LUX_ZONE, ADMINS } from '../../../../constants/formKey';
 import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 import   Axios from 'axios'
@@ -409,7 +409,13 @@ export default {
     this.paramId = this.$router.currentRoute.params.id
       },
   created(){
-    this.getAdmins()
+    if(!permission("admins", this.$store.getters.currentUser)){
+      localStorage.clear();
+      this.$router.push('/login');
+      return
+    }else{
+      this.getAdmins();
+    }
     // console.log(this.paramId);
     // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }

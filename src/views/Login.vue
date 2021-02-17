@@ -75,7 +75,8 @@
 </template>
 
 
-<script>
+<script>// @ts-nocheck
+
 import {
     mapGetters,
     mapActions

@@ -156,7 +156,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { AGENTS, hToken,LUX_ZONE,/* loadash,*/ toMoney } from "../../../../constants/formKey";
+import { AGENTS, hToken,LUX_ZONE,permission,/* loadash,*/ toMoney } from "../../../../constants/formKey";
 // import DatatableHeading from "../../../../containers/datatable/DatatableHeading";
 
 export default {
@@ -491,7 +491,13 @@ export default {
     }
   },
   created(){
-    this.getAgents();
+    if(!permission("agents", this.$store.getters.currentUser)){
+      localStorage.clear();
+      this.$router.push('/login');
+      return
+    }else{
+      this.getAgents();
+    }
     // alert();
 
     // console.log(this.head);

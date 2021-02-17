@@ -117,7 +117,7 @@
 <script>
   import Axios from 'axios'
   import { PROXY } from '../../../constants/config'
-  import { hToken } from '../../../constants/formKey'
+  import { hToken, permission } from '../../../constants/formKey'
   import AreaChart from "../../../components/Charts/Area";
   import { ThemeColors } from '../../../utils'
   const colors = ThemeColors()
@@ -625,12 +625,14 @@
       },
     },
 
-    beforeMount(){
-      this.fetchAnalytics();
-    },
-
-    mounted(){
+    created(){
+      if(!permission("analytics", this.$store.getters.currentUser)){
+      localStorage.clear();
+      this.$router.push('/login');
+        return
+      }else{
+        this.fetchAnalytics();
+      }
     }
-
   }
 </script>

@@ -46,7 +46,7 @@ import axios from "axios";
 import { apiUrl } from "../../../../constants/config";
 import ListPageHeading from "./../ListsHeader/ListPageHeading";
 import TagsListing from "./TagsListing.vue";
-import { ADD_TAG, TAGS } from '../../../../constants/formKey';
+import { ADD_TAG, permission, TAGS } from '../../../../constants/formKey';
 
 export default {
   components: {
@@ -263,7 +263,13 @@ export default {
     }
   },
   created() {
-    this.getTags();
+    if(!permission("tags", this.$store.getters.currentUser)){
+      localStorage.clear();
+      this.$router.push('/login');
+      return
+    }else{
+      this.getTags();
+    }
 
   }
 };

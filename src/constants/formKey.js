@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const ADD_ADMIN = "add_admin";
 export const ADD_AGENT = "add_agent";
 export const ADD_CARD = "add_card";
@@ -36,12 +37,29 @@ export const REFRESHING = "REFRESHING";
 
 export const hToken=()=>{
   try {
-     let ls = localStorage.authToken? localStorage.authToken: "";
+     let ls = localStorage.AT? localStorage.AT: null;
+     if(!ls) return "";
+     ls = JSON.parse(window.atob(window.atob(ls)));
      return { authorization: `Bearer ${ls}`}
   } catch (e) {
-
+      return "";
   }
 }
+
+export const keepToken = (token)=>{
+  if(!token) return;
+  localStorage.AT = window.btoa(window.btoa(JSON.stringify(token)));
+}
+
+export const permission = (str, slug)=>{
+  let access = slug;
+  if(!access || !access.admin_type || !access.admin_type.modules) return false;
+  access = access.admin_type.modules.map(d=>d.slug);
+  access = [...access, 'settings'];
+
+  return access.indexOf(str) > -1
+}
+
 
 export const resCoder=(status)=>{
   let defaulter = "Something went wrong, please try again";

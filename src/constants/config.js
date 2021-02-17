@@ -32,13 +32,17 @@ export const PROXY = "https://mecp.herokuapp.com/";
 
 
 
-export const currentUser = {
-  id: 1,
-  title: 'Sarah Kortney',
-  img: '/assets/img/profiles/l-1.jpg',
-  date: 'Last seen today 15:24',
-  role: UserRole.Admin
+export const authUser = ()=> {
+  let auths = localStorage.AU? JSON.parse(window.atob(window.atob(localStorage.AU))): null;
+  return auths && auths.id && auths.email? auths : null;
+
 }
+
+export const keepUser = (user)=>{
+  if(!user) return;
+  localStorage.AU = window.btoa(window.btoa(JSON.stringify(user)));
+}
+
 
 export const isAuthGuardActive = false
 export const themeRadiusStorageKey = 'theme_radius'

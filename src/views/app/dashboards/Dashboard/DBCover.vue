@@ -29,7 +29,7 @@
 <script>
 import Axios from 'axios'
 import { PROXY } from '../../../../constants/config'
-import { hToken } from '../../../../constants/formKey'
+import { hToken, permission } from '../../../../constants/formKey'
 import Analytics from './Analytics/Analytics';
 import AreaChart from "../../../../components/Charts/Area";
 import { ThemeColors } from '../../../../utils'
@@ -104,7 +104,12 @@ export default {
     this.fetchAnalytics();
   },
 
-  mounted(){
+  created(){
+    if(!permission("dashboard", this.$store.getters.currentUser)){
+      localStorage.clear();
+      this.$router.push('/login');
+      return
+    }
   }
 
 }
