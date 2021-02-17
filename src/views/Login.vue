@@ -134,7 +134,7 @@ export default {
   watch: {
     currentUser(val) {
       if (val){
-        console.log(val);
+        // console.log(val);
           this.$router.push(adminRoot);
       }
     },
