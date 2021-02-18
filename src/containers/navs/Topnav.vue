@@ -181,9 +181,11 @@ export default {
       this.setLang(locale);
     },
     logout() {
-      this.signOut().then(() => {
-        this.$router.push("/user/login");
-      });
+      localStorage.clear();
+      this.$router.push("/login");
+      // this.signOut().then(() => {
+
+      // });
     },
 
     toggleFullScreen() {
