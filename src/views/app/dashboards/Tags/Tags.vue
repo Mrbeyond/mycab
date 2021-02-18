@@ -263,7 +263,7 @@ export default {
     }
   },
   created() {
-    if(!permission("tags", this.$store.getters.currentUser)){
+    if(!permission("vehicle_tags", this.$store.getters.currentUser)){
       localStorage.clear();
       this.$router.push('/login');
       return

@@ -48,7 +48,7 @@
           :key="`sub_${item.id}`"
         >
           <li
-            v-for="(sub,subIndex) in filteredMenuItems(item.subs)"
+            v-for="(sub,subIndex) in (item.subs)"
             :key="`sub_${subIndex}`"
             :class="{'has-sub-item' : sub.subs && sub.subs.length > 0 , 'active' : $route.path.indexOf(sub.to)>-1}"
           >
@@ -68,7 +68,7 @@
               <b-collapse visible :id="`menu_${itemIndex}_${subIndex}`">
                 <ul class="list-unstyled third-level-menu">
                   <li
-                    v-for="(thirdLevelSub, thirdIndex) in filteredMenuItems(sub.subs)"
+                    v-for="(thirdLevelSub, thirdIndex) in (sub.subs)"
                     :key="`third_${itemIndex}_${subIndex}_${thirdIndex}`"
                     :class="{'third-level-menu':true , 'active' : $route.path ===thirdLevelSub.to}"
                   >
@@ -309,13 +309,17 @@ export default {
       access = access.admin_type.modules.map(d=>d.slug);
       access = [...access, 'settings'];
 
-      return menuItems
+      let menus =  menuItems
         ? menuItems.filter(
             (x) =>  access.indexOf(x.id) > -1
           )
         : [];
+      // console.log(menus);
+      return menus
     },
   },
+
+
 
   computed: {
     ...mapGetters({
