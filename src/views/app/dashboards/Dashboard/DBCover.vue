@@ -110,6 +110,17 @@ export default {
       this.$router.push('/login');
       return
     }
+  },
+
+  beforeRouteEnter(to, from, next){
+    next(vm=>{
+      if(!permission("dashboard", vm.$store.getters.currentUser)){
+        localStorage.clear();
+        vm.$router.push('/login');
+        return
+      }
+    })
+
   }
 
 }

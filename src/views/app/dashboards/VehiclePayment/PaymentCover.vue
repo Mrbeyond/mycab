@@ -225,7 +225,16 @@ export default {
     }
   },
 
-  watch: {
+  beforeRouteEnter(to, from, next){
+    next(vm=>{
+      if(!permission("finance", vm.$store.getters.currentUser)){
+        localStorage.clear();
+        vm.$router.push('/login');
+        return
+      }
+    })
+
   }
+
 }
 </script>

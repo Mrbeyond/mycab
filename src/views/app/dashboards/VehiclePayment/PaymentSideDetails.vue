@@ -78,7 +78,7 @@ export default {
       }
       let KEYS = Object.keys(data).filter(data=>
       !(data.toString().includes('id') && !data.toString().includes('identi')) && !data.toString().includes('type'));
-      console.log(KEYS);
+      // console.log(KEYS);
       return KEYS;
     },
 
@@ -105,12 +105,7 @@ export default {
     }
   }
   ,
-  computed: {
 
-  },
-  mounted(){
-    // console.log(this.selectedPayload);
-  }
 }
 
 </script>

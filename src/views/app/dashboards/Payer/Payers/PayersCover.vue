@@ -391,6 +391,17 @@ export default {
     }else{
       this.getPayers();
     }
+  },
+
+  beforeRouteEnter(to, from, next){
+    next(vm=>{
+      if(!permission("payers", vm.$store.getters.currentUser)){
+        localStorage.clear();
+        vm.$router.push('/login');
+        return
+      }
+    })
+
   }
 };
 </script>

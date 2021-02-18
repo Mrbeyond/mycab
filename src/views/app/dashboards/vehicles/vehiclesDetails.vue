@@ -400,6 +400,17 @@ export default {
     }
   },
 
+  beforeRouteEnter(to, from, next){
+    next(vm=>{
+      if(!permission("vehicles", vm.$store.getters.currentUser)){
+        localStorage.clear();
+        vm.$router.push('/login');
+        return
+      }
+    })
+
+  },
+
   watch: {
   }
 }

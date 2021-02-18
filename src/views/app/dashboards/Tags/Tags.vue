@@ -270,6 +270,16 @@ export default {
     }else{
       this.getTags();
     }
+  },
+
+  beforeRouteEnter(to, from, next){
+    next(vm=>{
+      if(!permission("vehicle_tags", vm.$store.getters.currentUser)){
+        localStorage.clear();
+        vm.$router.push('/login');
+        return
+      }
+    })
 
   }
 };

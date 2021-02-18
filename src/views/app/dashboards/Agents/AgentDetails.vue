@@ -474,26 +474,24 @@ export default {
       );
     },
   },
+  
   watch: {
   },
-  mounted() {
+
+  created() {
     this.paramId = this.$router.currentRoute.params.id
        this.fetchagent(this.paramId)
-      },
-  created(){
-    if(!permission("agents", this.$store.getters.currentUser)){
-      localStorage.clear();
-      this.$router.push('/login');
-      return
-    }
-    //   this.paramId = this.$router.currentRoute.params.id
-    //    this.fetchagent(this.paramId)
-    // alert()
+  },
 
-    // this.apiBase= `${PROXY}admin/agent/details/${this.paramId}`,
+  beforeRouteEnter(to, from, next){
+    next(vm=>{
+      if(!permission("agents", vm.$store.getters.currentUser)){
+        localStorage.clear();
+        vm.$router.push('/login');
+        return
+      }
+    })
 
-    // console.log(this.paramId);
-    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
   }
 };
 </script>

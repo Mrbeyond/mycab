@@ -122,13 +122,15 @@ export default {
     }
 
   },
-  beforeEnter(to, from, next){
-    // console.log(to, from);
-    // alert(to.params.id)
-    next(vm => {
-  //   // access to component instance via `vm`
-  })
-  next();
+
+  beforeRouteEnter(to, from, next){
+    next(vm=>{
+      if(!permission("payers", vm.$store.getters.currentUser)){
+        localStorage.clear();
+        vm.$router.push('/login');
+        return
+      }
+    })
 
   }
 

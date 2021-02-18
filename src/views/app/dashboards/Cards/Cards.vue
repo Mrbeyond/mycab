@@ -411,7 +411,18 @@ export default {
     }else{
     this.getCards();
     }
-    // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+
+  },
+
+  beforeRouteEnter(to, from, next){
+    next(vm=>{
+      if(!permission("cards", vm.$store.getters.currentUser)){
+        localStorage.clear();
+        vm.$router.push('/login');
+        return
+      }
+    })
+
   }
 };
 </script>

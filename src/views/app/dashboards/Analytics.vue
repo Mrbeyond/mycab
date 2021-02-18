@@ -626,13 +626,18 @@
     },
 
     created(){
-      if(!permission("analytics", this.$store.getters.currentUser)){
-      localStorage.clear();
-      this.$router.push('/login');
+      this.fetchAnalytics();
+    },
+
+  beforeRouteEnter(to, from, next){
+    next(vm=>{
+      if(!permission("analytics", vm.$store.getters.currentUser)){
+        localStorage.clear();
+        vm.$router.push('/login');
         return
-      }else{
-        this.fetchAnalytics();
       }
-    }
+    })
   }
+
+}
 </script>

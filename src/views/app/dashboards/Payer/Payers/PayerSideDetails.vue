@@ -70,9 +70,7 @@ export default {
   ,
   computed: {
   },
-  mounted(){
-    console.log(this.selectedPayload);
-  }
+
 }
 
 </script>

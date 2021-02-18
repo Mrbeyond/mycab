@@ -27,7 +27,7 @@ const routes = [
     path: adminRoot,
     component: () => import(/* webpackChunkName: "app" */ "./views/app"),
     redirect: `${adminRoot}`,
-    meta: { loginRequired: true },  
+    meta: { loginRequired: true },
     /*
     define with Authorization :
     meta: { loginRequired: true, roles: [UserRole.Admin, UserRole.Editor] },
@@ -173,18 +173,6 @@ const routes = [
         path: "terminals",
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Terminal/Terminal.vue"),
-        // meta: { roles: [UserRole.Editor] },
-      },
-      {
-        path: "wallets",
-        component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Wallets/Transaction.vue"),
-        // meta: { roles: [UserRole.Editor] },
-      },
-      {
-        path: "wallets/:name",
-        component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Wallets/TansactionDetails.vue"),
         // meta: { roles: [UserRole.Editor] },
       },
       {

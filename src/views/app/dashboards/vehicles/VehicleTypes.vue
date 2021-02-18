@@ -143,7 +143,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable.vue";
 import VuetablePaginationBootstrap from "../../../../components/Common/VuetablePaginationBootstrap.vue";
 import { apiUrl, PROXY } from "../../../../constants/config";
-import { hToken, loadash, LUX_ZONE, statusA,toMoney } from "../../../../constants/formKey";
+import { hToken, loadash, LUX_ZONE, permission, statusA,toMoney } from "../../../../constants/formKey";
 import {LGS} from '../../../../constants/formKey';
 import {ADD_CARD,VEHICLE_TYPES } from '../../../../constants/formKey';
 
@@ -411,8 +411,19 @@ export default {
   },
   created(){
     this.GetEHICLEtYPES();
-    console.log(this.head);
+    // console.log(this.head);
     // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+  },
+
+  beforeRouteEnter(to, from, next){
+    next(vm=>{
+      if(!permission("vehicles", vm.$store.getters.currentUser)){
+        localStorage.clear();
+        vm.$router.push('/login');
+        return
+      }
+    })
+
   }
 };
 </script>

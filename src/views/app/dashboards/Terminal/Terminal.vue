@@ -411,6 +411,17 @@ export default {
     }else{
       this.getTerminals();
     }
+  },
+
+  beforeRouteEnter(to, from, next){
+    next(vm=>{
+      if(!permission("terminals", vm.$store.getters.currentUser)){
+        localStorage.clear();
+        vm.$router.push('/login');
+        return
+      }
+    })
+
   }
 };
 </script>

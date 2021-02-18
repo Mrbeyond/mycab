@@ -407,7 +407,7 @@ export default {
   },
   mounted() {
     this.paramId = this.$router.currentRoute.params.id
-      },
+  },
   created(){
     if(!permission("admins", this.$store.getters.currentUser)){
       localStorage.clear();
@@ -418,6 +418,18 @@ export default {
     }
     // console.log(this.paramId);
     // console.log( loadash.sortBy([{a:1,b:2,c:{a:1,b:2}},{a:1,b:2,c:{a:5,b:2}},{a:5,b:2,c:{a:2,b:2}},{a:3,b:2,c:{a:1,b:2}}], ['c.a','c.b']));
+  },
+
+  beforeRouteEnter(to, from, next){
+    next(vm=>{
+      if(!permission("admins", vm.$store.getters.currentUser)){
+        localStorage.clear();
+        vm.$router.push('/login');
+        return
+      }
+    })
+
   }
+
 };
 </script>
