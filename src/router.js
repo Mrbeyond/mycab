@@ -178,7 +178,7 @@ const routes = [
       {
         path: "reset-password",
         component: () =>
-          import(/* webpackChunkName: "user" */ "./views/user/ResetPassword")
+          import(/* webpackChunkName: "user" */ "./views/app/dashboards/AdderForms/UpdatePassword.vue")
       },
 
       {
@@ -540,7 +540,7 @@ const routes = [
       {
         path: "login",
         component: () =>
-          import(/* webpackChunkName: "user" */ "./views/user/Login")
+          import(/* webpackChunkName: "user" */ "./views/user/OldLogin")
       },
       {
         path: "register",

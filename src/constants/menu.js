@@ -257,6 +257,14 @@ const data = [
   icon: "simple-icon-settings",
   label: "menu.settings",
   to: `${adminRoot}/settings`,
+  subs: [
+    { id:"reset-password",
+      icon: "simple-icon-password",
+      label: "Reset password",
+      to: `${adminRoot}/reset-password`,
+      // roles: [UserRole.Admin, UserRole.Editor],
+  },
+  ]
   // roles: [UserRole.Admin, UserRole.Editor],
   }
 

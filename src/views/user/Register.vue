@@ -8,9 +8,12 @@
                 <router-link tag="a" to="/user/login" class="white">login</router-link>.
               </p>
           </div>
-          <div class="form-side">
-            <router-link tag="a" to="/"><span class="logo-single"/></router-link>
-            <h6 class="mb-4">{{ $t('user.register')}}</h6>
+          <div class="form-side pt4">
+            <div class="mb-4">
+                  <img src="./../../assets/lasepa-mobile-logo.png" height="40" width="100" />
+                  <strong class="text-large text-dark ml-4" >Register</strong>
+              </div>
+
             <b-form @submit.prevent="formSubmit">
 
               <b-form-group >

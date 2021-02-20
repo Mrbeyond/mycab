@@ -13,12 +13,14 @@ export default {
     loginError: null,
     processing: false,
     forgotMailSuccess: null,
-    resetPasswordSuccess: null
+    resetPasswordSuccess: null,
+    resetError: null,
   },
   getters: {
     currentUser: state => state.currentUser,
     processing: state => state.processing,
     loginError: state => state.loginError,
+    resetError: state => state.resetError,
     forgotMailSuccess: state => state.forgotMailSuccess,
     resetPasswordSuccess: state => state.resetPasswordSuccess,
   },
@@ -42,45 +44,32 @@ export default {
       state.currentUser = null
       state.processing = false
     },
-    setForgotMailSuccess(state) {
-      state.loginError = null
-      state.currentUser = null
+    resetError(state, payload){
+      state.resetError = payload
       state.processing = false
-      state.forgotMailSuccess = true
+    },
+    setForgotMailSuccess(state) {
+      state.loginError = null;
+      state.currentUser = null;
+      state.processing = false;
+      state.forgotMailSuccess = true;
     },
     setResetPasswordSuccess(state) {
       state.loginError = null
-      state.currentUser = null
+      // state.currentUser = null
       state.processing = false
       state.resetPasswordSuccess = true
     },
     clearError(state) {
-      state.loginError = null
+      state.loginError = null;
+      state.resetError = null;
+      state.resetPasswordSuccess = null;
     }
   },
   actions: {
     login({ commit }, payload) {
       commit('clearError')
       commit('setProcessing', true)
-      // firebase
-      //   .auth()
-      //   .signInWithEmailAndPassword(payload.email, payload.password)
-      //   .then(
-      //     user => {
-      //       const item = { uid: user.user.uid, ...currentUser }
-      //       setCurrentUser(item)
-      //       commit('setUser', item)
-      //     },
-      //     err => {
-      //       setCurrentUser(null);
-      //       commit('setError', err.message)
-      //       setTimeout(() => {
-      //         commit('clearError')
-      //       }, 3000)
-      //     }
-      //   );
-
-
         Axios.post(`${PROXY}admin/login`, payload)
         .then(res=>{
             if(!res.data.error){
@@ -127,21 +116,20 @@ export default {
     resetPassword({ commit }, payload) {
       commit('clearError')
       commit('setProcessing', true)
-      firebase
-        .auth()
-        .confirmPasswordReset(payload.resetPasswordCode, payload.newPassword)
-        .then(
-          user => {
-            commit('clearError')
-            commit('setResetPasswordSuccess')
-          },
-          err => {
-            commit('setError', err.message)
-            setTimeout(() => {
-              commit('clearError')
-            }, 3000)
+      Axios.post(`${PROXY}admin/password/change`, payload)
+      .then(res=>{
+          if(!res.data.error){
+            commit('resetPasswordSuccess')
+          }else{
+            commit('resetError', "Something went wrong");
           }
-        )
+      })
+      .catch(err=>{
+          if(err && err.response && err.response.status === 401){
+            console.log(err.response);
+            commit('resetError', err.response.data.message)
+          }
+      })
     },
 
 
