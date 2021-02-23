@@ -74,7 +74,7 @@ export default {
         .then(res=>{
             if(!res.data.error){
               // const {authorization} = ;
-              localStorage.AT = window// (res.data.data.authorization)
+              //localStorage.AT =  (res.data.data.authorization)
               keepToken(res.data.data.authorization);
               delete res.data.data.authorization;
               const user = res.data.data;
@@ -89,7 +89,7 @@ export default {
         .catch(err=>{
             if(err && err.response && err.response.status === 401){
               setCurrentUser(null);
-              commit('setError', err.message)
+              commit('setError', err.response.data.message)
             }
         })
 
