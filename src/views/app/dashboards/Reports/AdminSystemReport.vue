@@ -11,7 +11,7 @@
           Excel
         </download-csv>
       </b-button>
-      <b-button variant="primary">Email</b-button>
+      <!-- <b-button variant="primary">Email</b-button> -->
     </b-button-group>
   <!--
 
