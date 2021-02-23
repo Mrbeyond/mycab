@@ -89,16 +89,16 @@ export default {
     lastPage: 0,
     fields: [
       {
-      name: "amount",
-      sortField: "amount",
-      title: "Amount",
-      titleClass: "",
-      dataClass: "list-item-heading",
-      width: "10%",
-      callback(val){
-        let result = toMoney(val);
-        return (result == "0")? "\u20A60.00": "\u20A6"+result;
-        }
+        name: "amount",
+        sortField: "amount",
+        title: "Amount",
+        titleClass: "",
+        dataClass: "list-item-heading",
+        width: "10%",
+        callback(val){
+          let result = toMoney(val);
+          return (result == "0")? "\u20A60.00": "\u20A6"+result;
+          }
       },
       {
         name:"status",

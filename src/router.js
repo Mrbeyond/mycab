@@ -166,7 +166,8 @@ const routes = [
       {
         path: "reports",
         component: () =>
-          import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Reports.vue"),
+        import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Reports/Reportcover.vue"),
+          // import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards/Reports.vue"),
         // meta: { roles: [UserRole.Editor] },
       },
       {

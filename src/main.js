@@ -32,7 +32,7 @@ import { getCurrentLanguage } from './utils'
 import VueFusionCharts from 'vue-fusioncharts';
 import FusionCharts from 'fusioncharts';
 import Charts from 'fusioncharts/fusioncharts.charts';
-
+import JsonCSV from 'vue-json-csv'
 
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion'
 import TimeSeries from 'fusioncharts/fusioncharts.timeseries';
@@ -55,6 +55,9 @@ Vue.use(VueLineClamp, {
   importCss: true
 });
 
+
+
+Vue.component('downloadCsv', JsonCSV)
 Vue.component('piaf-breadcrumb', Breadcrumb);
 Vue.component('b-refresh-button', RefreshButton);
 Vue.component('b-colxx', Colxx);

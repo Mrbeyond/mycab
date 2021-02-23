@@ -6,12 +6,12 @@
           <b-button-group class="mb-2">
             <b-button disabled>Export</b-button>
             <b-button variant="primary">PDF</b-button>
-            <b-button variant="primary">Excel</b-button>
+            <b-button variant="primary" @click="omal">Excel</b-button>
             <b-button variant="primary">Email</b-button>
           </b-button-group>
 
           <vuetable
-            ref="vuetable"
+            ref="vuetable-payer"
             class="table-divided order-with-arrow"
             :query-params="makeQueryParams"
             :per-page="payers.perPage"
@@ -168,7 +168,8 @@
     </b-card>
   </div>
 </template>
-<script>
+<script>// @ts-nocheck
+
   import Vuetable from "vuetable-2/src/components/Vuetable";
   import VuetablePaginationBootstrap from "../../../components/Common/VuetablePaginationBootstrap.vue";
   import {PROXY} from "../../../constants/config";
@@ -646,6 +647,14 @@
           // console.log(this.selectedPayload);
           this.$refs.modalright.show();
         }
+      },
+
+      seeVent(data){
+        console.log(data);
+      },
+
+      omal(){
+        this.$refs['vuetable-payer'].downloadCsv('table.csv')//refresh();
       }
     },
   }
