@@ -51,6 +51,15 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
+          <template slot="edit_agent" slot-scope="props">
+            <b-button class="bg-primary" 
+            >
+              <!--
+                @click="modalinfo(props.rowData)"
+                v-b-modal.modalbasic-->
+               Edit
+            </b-button>
+          </template>
           <template slot="preview" slot-scope="props">
             <b-button class="bg-primary"  v-b-modal.modalbasic
               @click="modalinfo(props.rowData)"
@@ -58,11 +67,11 @@
                <i class="simple-icon-magnifier" />
             </b-button>
           </template>
-            <template slot="details" slot-scope="props">
-              <router-link :to="`/dashboard/agents/${props.rowData.agent_wallet.agent_id}`">
-            <b-button class="bg-primary"><i class="simple-icon-login" /></b-button>
-              </router-link>
-            </template>
+          <template slot="details" slot-scope="props">
+            <router-link :to="`/dashboard/agents/${props.rowData.agent_wallet.agent_id}`">
+          <b-button class="bg-primary"><i class="simple-icon-login" /></b-button>
+            </router-link>
+          </template>
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -242,10 +251,19 @@ export default {
             return Boolean(val)? 'Active': 'Inactive';
           }
         },
+
         {
           name: "__slot:preview",
           sortField: "",
           title: "Basic info",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+        {
+          name: "__slot:edit_agent",
+          sortField: "",
+          title: "Update",
           titleClass: "",
           dataClass: "",
           width: "10%"

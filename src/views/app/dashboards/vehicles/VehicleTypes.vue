@@ -32,20 +32,12 @@
           @vuetable:cell-rightclicked="rightClicked"
           @vuetable:cell-clicked="cellClicked"
         >
-          <!-- <template  slot="garages" slot-scope="props" >
-            <div v-if="props">
-            <router-link :to="`/dashboard/garages/${props.rowData.id}`" v-if="props.rowData.garages.length>=1">
-            <b-btn  title="View Vehicles" badge-variant="dark" v-if="props"  v-b-modal.modalbasic
-            >
-              View <b-badge variant="primary" rounded-conner>{{props.rowData.garages.length}}</b-badge>
-            </b-btn>
-            </router-link>
-            <b-btn v-else :disabled="props.rowData.garages.length==0"  title="View Vehicles" badge-variant="dark"  v-b-modal.modalbasic
-            >
-              View <b-badge variant="primary" rounded-conner>{{props.rowData.garages.length}}</b-badge>
-            </b-btn>
-            </div>
-          </template> -->
+          <template slot="edit_type" slot-scope="props">
+             <b-button class="bg-primary"
+              >
+                 Edit
+              </b-button>
+          </template>
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -232,6 +224,14 @@ export default {
           callback(val){
             return statusA[Number(Boolean(!!Boolean(val)))];
           },
+        },
+        {
+          name: "__slot:edit_type",
+          sortField: "edit_type",
+          title: "Update",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
         },
       ]
     };

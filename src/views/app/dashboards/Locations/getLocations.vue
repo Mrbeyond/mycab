@@ -47,6 +47,12 @@
             </b-btn>
             </div>
           </template>
+          <template slot="_edit_" slot-scope="props">
+             <b-button class="bg-primary"
+              >
+                 Edit
+              </b-button>
+          </template>
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -216,6 +222,14 @@ export default {
           name: "__slot:garages",
           sortField: "garages",
           title: "Garages",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+        {
+          name: "__slot:_edit_",
+          sortField: "_edit_",
+          title: "Update",
           titleClass: "",
           dataClass: "",
           width: "10%"

@@ -53,6 +53,12 @@
                <span v-else>None</span>
             </b-button>
           </template>
+          <template slot="_edit_" slot-scope="props">
+             <b-button class="bg-primary"
+              >
+                 Edit
+              </b-button>
+          </template>
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -195,6 +201,15 @@ export default {
            callback(val){
             return statusA[Number(Boolean(!!Boolean(val)))];
           },
+        },
+
+        {
+          name: "__slot:_edit_",
+          sortField: "_edit_",
+          title: "Update",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
         },
 
       ]

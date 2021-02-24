@@ -25,23 +25,12 @@
           @vuetable:pagination-data="onPaginationData"
           @vuetable:cell-rightclicked="rightClicked"
         >
-          <!--
-              
-          @vuetable:cell-clicked="cellClicked
-               <template  slot="garages" slot-scope="props" >
-            <div v-if="props">
-            <router-link :to="`/dashboard/garages/${props.rowData.id}`" v-if="props.rowData.garages.length>=1">
-            <b-btn  title="View Vehicles" badge-variant="dark" v-if="props"  v-b-modal.modalbasic
-            >
-              View <b-badge variant="primary" rounded-conner>{{props.rowData.garages.length}}</b-badge>
-            </b-btn>
-            </router-link>
-            <b-btn v-else :disabled="props.rowData.garages.length==0"  title="View Vehicles" badge-variant="dark"  v-b-modal.modalbasic
-            >
-              View <b-badge variant="primary" rounded-conner>{{props.rowData.garages.length}}</b-badge>
-            </b-btn>
-            </div>
-          </template> -->
+          <template slot="_edit_" slot-scope="props">
+             <b-button class="bg-primary"
+              >
+                 Edit
+              </b-button>
+          </template>
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -207,22 +196,14 @@ export default {
             return statusA[Number(Boolean(!!Boolean(val)))];
           },
         },
-        //   {
-        //   name: "contact_person_phone",
-        //   sortField: "contact phone",
-        //   title: "Contact number",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        // {
-        //   name: "__slot:garages",
-        //   sortField: "garages",
-        //   title: "Garages",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
+        {
+          name: "__slot:_edit_",
+          sortField: "_edit_",
+          title: "Update",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
       ]
     };
   },

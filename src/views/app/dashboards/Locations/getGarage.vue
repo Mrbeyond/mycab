@@ -52,6 +52,12 @@
               <span v-else>None</span>
             </b-button>
           </template>
+          <template slot="_edit_" slot-scope="props">
+             <b-button class="bg-primary"
+              >
+                 Edit
+              </b-button>
+          </template>
         </vuetable>
         <vuetable-pagination-bootstrap
           class="mt-4"
@@ -180,39 +186,14 @@ export default {
             return statusA[Number(Boolean(val))]
           }
         },
-        //    {
-          //   name: "vehicle_identification_number",
-        //   sortField: "id",
-        //   title: "ID",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //  {
-          //   name: "vehicle_year",
-        //   sortField: "year",
-        //   title: "Year",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //  {
-          //   name: "__slot:Details",
-        //   sortField: "Details",
-        //   title: "Details",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-        //   {
-        //   name: "__slot:garages",
-        //   sortField: "garages",
-        //   title: "Garages",
-        //   titleClass: "",
-        //   dataClass: "",
-        //   width: "10%"
-        // },
-
+        {
+          name: "__slot:_edit_",
+          sortField: "_edit_",
+          title: "Update",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
       ]
     };
   },

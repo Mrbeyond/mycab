@@ -44,6 +44,17 @@
                 <i class="simple-icon-magnifier" />
               </b-button>
           </template>
+          <template slot="edit_vehicle" slot-scope="props">
+             <b-button class="bg-primary"
+              >
+                <!-- 
+                   v-b-modal.modalbasic
+              @click="modalinfo(props.rowData.account,props.rowData.garage,props.rowData.port,props.rowData.vehicle_type_details)"
+                  <i class="simple-icon-magnifier" />
+                 -->
+                 Edit
+              </b-button>
+          </template>
             <template slot="details" slot-scope="props">
               <router-link :to="`/dashboard/vehicles/${props.rowData.id}`">
             <b-button class="bg-primary"><i class="simple-icon-login" /></b-button>
@@ -259,7 +270,15 @@ export default {
           dataClass: "",
           width: "10%"
         },
-          {
+        {
+          name: "__slot:edit_vehicle",
+          sortField: "edit_vehicle",
+          title: "Update",
+          titleClass: "",
+          dataClass: "",
+          width: "10%"
+        },
+        {
           name: "__slot:details",
           sortField: "details",
           title: "Full details",

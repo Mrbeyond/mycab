@@ -52,6 +52,17 @@
               <!-- <i v-else class="simple-icon-exclamation" />  v-if="props.rowData.account_business_detail" -->
             </b-button>
           </template>
+          <template slot="edit_payer" slot-scope="props">
+            <b-button ref="vehic" id="vehic"
+              variant="primary"
+            >
+              <!--
+              @click="cellClick(props.rowData)"
+
+              -->
+              Edit
+            </b-button>
+          </template>
           <template slot="account_business_detail" slot-scope="props">
             <b-button
               ref="view" id="view" variant="primary"
@@ -191,9 +202,17 @@ export default {
           dataClass: "center aligned text-right",
           width: "10%"
         },
+
         {
           name: "__slot:account_business_detail",
           title: "Preview",
+          titleClass: "center aligned text-right",
+          dataClass: "center aligned text-right",
+          width: "10%"
+        },
+        {
+          name: "__slot:edit_payer", 
+          title: "Update",
           titleClass: "center aligned text-right",
           dataClass: "center aligned text-right",
           width: "10%"
