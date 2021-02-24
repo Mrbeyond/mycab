@@ -2,8 +2,12 @@
   <div>
     <b-button-group class="mb-2">
       <b-button disabled>Export</b-button>
-      <b-button variant="primary">PDF</b-button>
-      <b-button variant="primary" @click="omal">
+      <b-button  variant="primary"
+        @click="exPdf"
+      >
+        PDF
+      </b-button>
+      <b-button variant="primary" >
         <download-csv
           :data= "items"
           name="Agents_system_activities.csv"
@@ -40,7 +44,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable";
 import { hToken, LUX_ZONE } from '../../../../constants/formKey';
 import { PROXY } from '../../../../constants/config';
-
+import {jsPDF} from "jspdf";
 
 export default {
   components:{
@@ -60,6 +64,7 @@ export default {
     total: 0,
     lastPage: 0,
     items: [],
+    pdfHeader: [],
     fields: [
       {
         name: "agent.agent_no",
@@ -85,10 +90,31 @@ export default {
         console.log(data.data.data, 'agents system');
         if(data.data.data){
           this.items = data.data.data.map(data=>({
-            "Name": data.agent.agent_no,
-            "Description": data.description,
+            "Name": data.agent.agent_no?data.agent.agent_no:"Not provided",
+            "Description": data.description?data.description:"Not provided",
           }))
+           this.toHeader();
+
         }
+      },
+
+      toHeader(){
+        if(this.items.length < 1) return;
+        this.pdfHeader =  Object.keys(this.items[0]).map(key=>({
+          name: key,
+          prompt: key,
+          width: 65,
+          align: "center",
+          padding: 0,
+        }))
+      },
+
+      exPdf(){
+        if(this.items.length < 1) return;
+        const pdf = new jsPDF();
+        pdf.text(10, 10, "MECP Agents System Report");
+        pdf.table(5, 15, this.items, this.pdfHeader);
+        pdf.save("Agents-system-report.pdf");
       },
 
       omal(){

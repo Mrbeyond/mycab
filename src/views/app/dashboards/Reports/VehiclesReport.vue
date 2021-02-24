@@ -2,8 +2,12 @@
   <div>
     <b-button-group class="mb-2">
       <b-button disabled>Export</b-button>
-      <b-button variant="primary">PDF</b-button>
-      <b-button variant="primary" @click="omal">
+      <b-button  variant="primary"
+        @click="exPdf"
+      >
+        PDF
+      </b-button>
+      <b-button variant="primary" >
         <download-csv
           :data= "items"
           name="Vehicles.csv"
@@ -40,7 +44,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable";
 import { hToken, LUX_ZONE } from '../../../../constants/formKey';
 import { PROXY } from '../../../../constants/config';
-
+import {jsPDF} from "jspdf";
 
 export default {
   components:{
@@ -60,6 +64,7 @@ export default {
     total: 0,
     lastPage: 0,
     items: [],
+    pdfHeader: [],
     fields: [
       {
         name: "vehicle_model",
@@ -118,14 +123,35 @@ export default {
         console.log(data.data.data, 'vehicles');
         if(data.data.data){
           this.items = data.data.data.map(data=>({
-            "Model": data.vehicle_model,
-            "Brand":data.vehicle_brand,
-            "Color": data.vehicle_color,
-            "Number": data.plate_number,
-            "VIN": data.vehicle_identification_number,
-            "Year": data.vehicle_year,
+            "Model": data.vehicle_model?data.vehicle_model:"Not provided",
+            "Brand":data.vehicle_brand?ata.vehicle_brand:"Not provided",
+            "Color": data.vehicle_color?data.vehicle_color:"Not provided",
+            "Number": data.plate_number?data.plate_number:"Not provided",
+            "VIN": data.vehicle_identification_number?data.vehicle_identification_number:"Not provided",
+            "Year": data.vehicle_year?data.vehicle_year:"Not provided",
           }))
+           this.toHeader();
+
         }
+      },
+
+      toHeader(){
+        if(this.items.length < 1) return;
+        this.pdfHeader =  Object.keys(this.items[0]).map(key=>({
+          name: key,
+          prompt: key,
+          width: 65,
+          align: "center",
+          padding: 0,
+        }))
+      },
+
+      exPdf(){
+        if(this.items.length < 1) return;
+        const pdf = new jsPDF();
+        pdf.text(10, 10, "MECP Vehicles Report");
+        pdf.table(5, 15, this.items, this.pdfHeader);
+        pdf.save("Vehicles-report.pdf");
       },
 
       omal(){

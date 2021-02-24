@@ -2,8 +2,12 @@
   <div>
     <b-button-group class="mb-2">
       <b-button disabled>Export</b-button>
-      <b-button variant="primary">PDF</b-button>
-      <b-button variant="primary" @click="omal">
+      <b-button  variant="primary"
+        @click="exPdf"
+      >
+        PDF
+      </b-button>
+      <b-button variant="primary">
         <download-csv
           :data= "items"
           name="Agents.csv"
@@ -40,6 +44,7 @@
 import Vuetable from "vuetable-2/src/components/Vuetable";
 import { hToken, LUX_ZONE } from '../../../../constants/formKey';
 import { PROXY } from '../../../../constants/config';
+import {jsPDF} from "jspdf";
 
 
 export default {
@@ -60,6 +65,7 @@ export default {
     total: 0,
     lastPage: 0,
     items: [],
+    pdfHeader: [],
     fields: [
       {
         name: "first_name",
@@ -98,7 +104,28 @@ export default {
             "Last Name": data.last_name,
             "Phone": data.phone.toString(),
           }))
+          this.toHeader();
+
         }
+      },
+
+      toHeader(){
+        if(this.items.length < 1) return;
+        this.pdfHeader =  Object.keys(this.items[0]).map(key=>({
+          name: key,
+          prompt: key,
+          width: 65,
+          align: "center",
+          padding: 0,
+        }))
+      },
+
+      exPdf(){
+        if(this.items.length < 1) return;
+        const pdf = new jsPDF();
+        pdf.text(10, 10, "MECP Agents Report");
+        pdf.table(5, 15, this.items, this.pdfHeader);
+        pdf.save("Agents-report.pdf");
       },
 
       omal(){
